@@ -21,11 +21,47 @@
 // MARK: - Main SDK struct -
 /* ###################################################################################################################################### */
 /**
+ This is instantiated, in order to provide meeting search capabilities for one organization.
  */
 struct LGV_MeetingSDK {
+    /* ################################################################################################################################## */
+    // MARK: The Concrete Implementation of the Organization.
+    /* ################################################################################################################################## */
+    struct OrganizationStruct: LGV_MeetingSDK_Organization_Protocol {
+        /* ############################################################## */
+        /**
+         */
+        let organizationKey: String
+        
+        /* ############################################################## */
+        /**
+         */
+        let organizationName: String
+    }
+    
+    /* ################################################################################################################################## */
+    // MARK: Instance Properties
+    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      This is the transport layer for the TCP connection to the meeting list server.
      */
     var transport: LGV_MeetingSDK_Transport?
+    
+    /* ################################################################## */
+    /**
+     This is the transport layer for the TCP connection to the meeting list server.
+     */
+    private var _organization: OrganizationStruct
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Main SDK struct -
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
+    /* ################################################################## */
+    /**
+     REQUIRED - The search organization.
+     */
+    var organization: LGV_MeetingSDK_Organization_Protocol { _organization }
 }

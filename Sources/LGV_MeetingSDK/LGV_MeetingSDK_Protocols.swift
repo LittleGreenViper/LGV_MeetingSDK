@@ -26,7 +26,13 @@ import Contacts     // For the CLPlacemark class.
 /**
  Each meeting is either in-person (has a physical location), virtual-only (no physical location), or hybrid (both).
  */
-enum LGV_MeetingSDK_VenueType_Enum {
+enum LGV_MeetingSDK_VenueType_Enum: String {
+    /* ################################################################## */
+    /**
+     There is no valid venue (the meeting is not valid).
+     */
+    case invalid
+    
     /* ################################################################## */
     /**
      There is no physical location associated with this meeting.
@@ -334,7 +340,13 @@ protocol LGV_MeetingSDK_Meeting_Virtual_Venue_Protocol {
      REQUIRED - This describes the meeting venue (i.e. "Video," "Zoom," "Audio-Only," "Phone," etc.).
      */
     var description: String { get }
-    
+
+    /* ################################################################## */
+    /**
+     REQUIRED - The local timezone for the meeting.
+     */
+    var timeZone: TimeZone? { get }
+
     /* ################################################################## */
     /**
      OPTIONAL - If the meeting has a URI, that is available here.
@@ -423,15 +435,15 @@ extension LGV_MeetingSDK_Meeting_Virtual_Protocol {
 protocol LGV_MeetingSDK_Meeting_Protocol {
     /* ################################################################## */
     /**
-     REQUIRED - The meeting venue type.
-     */
-    var meetingType: LGV_MeetingSDK_VenueType_Enum { get }
-    
-    /* ################################################################## */
-    /**
      REQUIRED - The meeting organization.
      */
     var organization: LGV_MeetingSDK_Organization_Protocol { get }
+    
+    /* ################################################################## */
+    /**
+     OPTIONAL -, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The meeting venue type.
+     */
+    var meetingType: LGV_MeetingSDK_VenueType_Enum { get }
     
     /* ################################################################## */
     /**
@@ -482,6 +494,8 @@ protocol LGV_MeetingSDK_Meeting_Protocol {
     /* ################################################################## */
     /**
      OPTIONAL - The local timezone of the meeting.
+     
+     **NOTE:** It is important to implement this, if the meeting is held in a particular timezone, and does not have it specified in its location.
      */
     var meetingLocalTimezone: TimeZone { get }
 
@@ -509,7 +523,7 @@ protocol LGV_MeetingSDK_Meeting_Protocol {
      
      **NOTE:** If this is not provided, then `virtualMeetingInfo` should be provided.
      */
-    var physicalLocation: LGV_MeetingSDK_Meeting_Virtual_Protocol? { get }
+    var physicalLocation: LGV_MeetingSDK_Meeting_Physical_Protocol? { get }
 
     /* ################################################################## */
     /**
@@ -534,16 +548,33 @@ extension LGV_MeetingSDK_Meeting_Protocol {
     /**
      This is false, if the combination of meeting values does not represent a valid meeting.
      */
-    var isValid: Bool { nil != nextMeetingStartsOn && (nil != physicalLocation || nil != virtualMeetingInfo) }
+    var isValid: Bool { .invalid != meetingType && nil != nextMeetingStartsOn && (nil != physicalLocation || nil != virtualMeetingInfo) }
 
     /* ################################################################## */
     /**
-     By default, this calculates and returns the date of a repeating weekly meeting.
+     Default figures out the meeting type, based on what venues are available.
+     */
+    var meetingType: LGV_MeetingSDK_VenueType_Enum {
+        if nil != physicalLocation,
+           nil != virtualMeetingInfo {
+            return .hybrid
+        } else if nil != physicalLocation {
+            return .inPersonOnly
+        } else if nil != virtualMeetingInfo {
+            return .virtualOnly
+        }
+        
+        return .invalid
+    }
+    
+    /* ################################################################## */
+    /**
+     By default, this calculates and returns the date of a repeating weekly meeting, and returns the next time the meeting will gather, after now.
      
      If the meeting is not a recurring weekly meeting, this should be implemented by the conforming class.
      */
     var nextMeetingStartsOn: Date? {
-        nil
+        return nil
     }
 
     /* ################################################################## */
@@ -566,9 +597,9 @@ extension LGV_MeetingSDK_Meeting_Protocol {
     
     /* ################################################################## */
     /**
-     Default is the Device timezone
+     Default tries to get the timezone from the physical address first, then the virtual, and failing that, our local timezone.
      */
-    var meetingLocalTimezone: TimeZone { TimeZone.autoupdatingCurrent }
+    var meetingLocalTimezone: TimeZone { physicalLocation?.timeZone ?? virtualMeetingInfo?.videoMeeting?.timeZone ?? virtualMeetingInfo?.phoneMeeting?.timeZone ?? TimeZone.autoupdatingCurrent }
 
     /* ################################################################## */
     /**
@@ -605,4 +636,17 @@ extension LGV_MeetingSDK_Meeting_Protocol {
      Default is Nil
      */
     var meetingURI: URL? { nil }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - The Main Implementation Protocol -
+/* ###################################################################################################################################### */
+/**
+ */
+protocol LGV_MeetingSDK_Protocol {
+    /* ################################################################## */
+    /**
+     REQUIRED - The search organization.
+     */
+    var organization: LGV_MeetingSDK_Organization_Protocol { get }
 }
