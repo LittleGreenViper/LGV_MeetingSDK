@@ -18,14 +18,13 @@
  */
 
 /* ###################################################################################################################################### */
-// MARK: - Main SDK struct -
+// MARK: - The Session Transport for the Connector -
 /* ###################################################################################################################################### */
 /**
  */
-struct LGV_MeetingSDK {
+struct LGV_MeetingSDK_Transport {
     /* ################################################################## */
     /**
-     This is the transport layer for the TCP connection to the meeting list server.
      */
-    var transport: LGV_MeetingSDK_Transport?
+
 }

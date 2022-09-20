@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D47A4B5328D9F40A00B17823 /* LGV_MeetingSDK_Transport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A4B5228D9F40A00B17823 /* LGV_MeetingSDK_Transport.swift */; };
+		D47A4B5528D9F47D00B17823 /* LGV_MeetingSDK_Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A4B5428D9F47D00B17823 /* LGV_MeetingSDK_Protocols.swift */; };
 		D4A985B128D3C0AB007D75E4 /* LGV_MeetingSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = D412C80528D3BEC500BAFC16 /* LGV_MeetingSDK.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D412C80528D3BEC500BAFC16 /* LGV_MeetingSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK.swift; sourceTree = "<group>"; };
 		D46D476128D3BF9200D8785E /* LGV_MeetingSDK.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = LGV_MeetingSDK.docc; sourceTree = "<group>"; };
+		D47A4B5228D9F40A00B17823 /* LGV_MeetingSDK_Transport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Transport.swift; sourceTree = "<group>"; };
+		D47A4B5428D9F47D00B17823 /* LGV_MeetingSDK_Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Protocols.swift; sourceTree = "<group>"; };
 		D4A985A828D3C0A7007D75E4 /* libLGV_MeetingSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLGV_MeetingSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4F6ACBA28D3DE5E00F9CD3F /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -49,6 +53,8 @@
 			isa = PBXGroup;
 			children = (
 				D412C80528D3BEC500BAFC16 /* LGV_MeetingSDK.swift */,
+				D47A4B5428D9F47D00B17823 /* LGV_MeetingSDK_Protocols.swift */,
+				D47A4B5228D9F40A00B17823 /* LGV_MeetingSDK_Transport.swift */,
 				D46D476128D3BF9200D8785E /* LGV_MeetingSDK.docc */,
 			);
 			path = LGV_MeetingSDK;
@@ -132,6 +138,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D47A4B5328D9F40A00B17823 /* LGV_MeetingSDK_Transport.swift in Sources */,
+				D47A4B5528D9F47D00B17823 /* LGV_MeetingSDK_Protocols.swift in Sources */,
 				D4A985B128D3C0AB007D75E4 /* LGV_MeetingSDK.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
