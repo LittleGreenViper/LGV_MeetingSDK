@@ -30,13 +30,21 @@ struct LGV_MeetingSDK {
     struct OrganizationStruct: LGV_MeetingSDK_Organization_Protocol {
         /* ############################################################## */
         /**
+         The key for this organization.
          */
         let organizationKey: String
         
         /* ############################################################## */
         /**
+         The name for this organization (a short descriptive string).
          */
         let organizationName: String
+        
+        /* ################################################################## */
+        /**
+         The longer description for this organization. May be nil.
+         */
+        var organizationDescription: String?
     }
     
     /* ################################################################################################################################## */
@@ -61,7 +69,7 @@ struct LGV_MeetingSDK {
 extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
     /* ################################################################## */
     /**
-     REQUIRED - The search organization.
+     The search organization.
      */
     var organization: LGV_MeetingSDK_Organization_Protocol { _organization }
 }
