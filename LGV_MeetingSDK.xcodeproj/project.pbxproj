@@ -18,7 +18,6 @@
 		D47A4B5228D9F40A00B17823 /* LGV_MeetingSDK_Transport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Transport.swift; sourceTree = "<group>"; };
 		D47A4B5428D9F47D00B17823 /* LGV_MeetingSDK_Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Protocols.swift; sourceTree = "<group>"; };
 		D4A985A828D3C0A7007D75E4 /* libLGV_MeetingSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLGV_MeetingSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		D4F6ACBA28D3DE5E00F9CD3F /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,7 +34,6 @@
 		D412C7F928D3BEC500BAFC16 = {
 			isa = PBXGroup;
 			children = (
-				D4F6ACBA28D3DE5E00F9CD3F /* .swiftlint.yml */,
 				D46D476028D3BF6400D8785E /* Sources */,
 				D412C80328D3BEC500BAFC16 /* Products */,
 			);

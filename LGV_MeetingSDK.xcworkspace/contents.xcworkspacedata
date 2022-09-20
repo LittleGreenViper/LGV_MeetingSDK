@@ -22,6 +22,9 @@
       <FileRef
          location = "group:README.md">
       </FileRef>
+      <FileRef
+         location = "group:.swiftlint.yml">
+      </FileRef>
    </Group>
    <FileRef
       location = "group:LGV_MeetingSDK.xcodeproj">
