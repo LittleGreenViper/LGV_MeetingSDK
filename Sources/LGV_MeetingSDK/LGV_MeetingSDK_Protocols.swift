@@ -83,6 +83,12 @@ protocol LGV_MeetingSDK_Organization_Protocol {
      OPTIONAL - The URL for this organization. May be nil.
      */
     var organizationURL: URL? { get }
+    
+    /* ################################################################## */
+    /**
+     This allows us to generate an organization-specific transport.
+     */
+    func transportFactory() -> LGV_MeetingSDK_Transport_Protocol?
 }
 
 /* ###################################################################################################################################### */
@@ -100,6 +106,12 @@ extension LGV_MeetingSDK_Organization_Protocol {
      Default is nil.
      */
     var organizationURL: URL? { nil }
+    
+    /* ################################################################## */
+    /**
+     Default returns nil.
+     */
+    func transportFactory() -> LGV_MeetingSDK_Transport_Protocol? { nil }
 }
 
 /* ###################################################################################################################################### */
@@ -639,6 +651,15 @@ extension LGV_MeetingSDK_Meeting_Protocol {
 }
 
 /* ###################################################################################################################################### */
+// MARK: - The Transporter Protocol -
+/* ###################################################################################################################################### */
+/**
+ */
+protocol LGV_MeetingSDK_Transport_Protocol {
+    
+}
+
+/* ###################################################################################################################################### */
 // MARK: - The Main Implementation Protocol -
 /* ###################################################################################################################################### */
 /**
@@ -648,5 +669,11 @@ protocol LGV_MeetingSDK_Protocol {
     /**
      REQUIRED - The search organization.
      */
-    var organization: LGV_MeetingSDK_Organization_Protocol { get }
+    var organization: LGV_MeetingSDK_Organization_Protocol? { get }
+    
+    /* ################################################################## */
+    /**
+     REQUIRED - The transport instance.
+     */
+    var transport: LGV_MeetingSDK_Transport_Protocol? { get }
 }
