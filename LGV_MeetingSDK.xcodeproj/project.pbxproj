@@ -8,21 +8,36 @@
 
 /* Begin PBXBuildFile section */
 		D47A4B5528D9F47D00B17823 /* LGV_MeetingSDK_Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A4B5428D9F47D00B17823 /* LGV_MeetingSDK_Protocols.swift */; };
+		D4A6EC7B28DB4B3900B3E660 /* LGV_MeetingSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A6EC7A28DB4B3900B3E660 /* LGV_MeetingSDKTests.swift */; };
+		D4A6EC7C28DB4B3900B3E660 /* libLGV_MeetingSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A985A828D3C0A7007D75E4 /* libLGV_MeetingSDK.a */; };
 		D4A985B128D3C0AB007D75E4 /* LGV_MeetingSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = D412C80528D3BEC500BAFC16 /* LGV_MeetingSDK.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D4A6EC7D28DB4B3900B3E660 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D412C7FA28D3BEC500BAFC16 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D4A985A728D3C0A7007D75E4;
+			remoteInfo = LGV_MeetingSDK;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		D412C80528D3BEC500BAFC16 /* LGV_MeetingSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK.swift; sourceTree = "<group>"; };
 		D46D476128D3BF9200D8785E /* LGV_MeetingSDK.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = LGV_MeetingSDK.docc; sourceTree = "<group>"; };
 		D47A4B5428D9F47D00B17823 /* LGV_MeetingSDK_Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Protocols.swift; sourceTree = "<group>"; };
+		D4A6EC7828DB4B3900B3E660 /* LGV_MeetingSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LGV_MeetingSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4A6EC7A28DB4B3900B3E660 /* LGV_MeetingSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDKTests.swift; sourceTree = "<group>"; };
 		D4A985A828D3C0A7007D75E4 /* libLGV_MeetingSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLGV_MeetingSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		D4A985A628D3C0A7007D75E4 /* Frameworks */ = {
+		D4A6EC7528DB4B3900B3E660 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4A6EC7C28DB4B3900B3E660 /* libLGV_MeetingSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -33,6 +48,7 @@
 			isa = PBXGroup;
 			children = (
 				D46D476028D3BF6400D8785E /* Sources */,
+				D4A6EC8228DB4B4200B3E660 /* Tests */,
 				D412C80328D3BEC500BAFC16 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +57,7 @@
 			isa = PBXGroup;
 			children = (
 				D4A985A828D3C0A7007D75E4 /* libLGV_MeetingSDK.a */,
+				D4A6EC7828DB4B3900B3E660 /* LGV_MeetingSDKTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -63,26 +80,49 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
+		D4A6EC7928DB4B3900B3E660 /* LGV_MeetingSDKTests */ = {
+			isa = PBXGroup;
+			children = (
+				D4A6EC7A28DB4B3900B3E660 /* LGV_MeetingSDKTests.swift */,
+			);
+			path = LGV_MeetingSDKTests;
+			sourceTree = "<group>";
+		};
+		D4A6EC8228DB4B4200B3E660 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				D4A6EC7928DB4B3900B3E660 /* LGV_MeetingSDKTests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		D4A985A428D3C0A7007D75E4 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
+		D4A6EC7728DB4B3900B3E660 /* LGV_MeetingSDKTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4A6EC8128DB4B3900B3E660 /* Build configuration list for PBXNativeTarget "LGV_MeetingSDKTests" */;
+			buildPhases = (
+				D4A6EC8428DB4CD000B3E660 /* SwiftLint */,
+				D4A6EC7428DB4B3900B3E660 /* Sources */,
+				D4A6EC7528DB4B3900B3E660 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D4A6EC7E28DB4B3900B3E660 /* PBXTargetDependency */,
+			);
+			name = LGV_MeetingSDKTests;
+			productName = LGV_MeetingSDKTests;
+			productReference = D4A6EC7828DB4B3900B3E660 /* LGV_MeetingSDKTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		D4A985A728D3C0A7007D75E4 /* LGV_MeetingSDK */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4A985AE28D3C0A7007D75E4 /* Build configuration list for PBXNativeTarget "LGV_MeetingSDK" */;
 			buildPhases = (
-				D4A985A428D3C0A7007D75E4 /* Headers */,
+				D4A6EC8328DB4CBC00B3E660 /* SwiftLint */,
 				D4A985A528D3C0A7007D75E4 /* Sources */,
-				D4A985A628D3C0A7007D75E4 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -105,6 +145,9 @@
 				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = "Little Green Viper Software Development LLC";
 				TargetAttributes = {
+					D4A6EC7728DB4B3900B3E660 = {
+						CreatedOnToolsVersion = 14.0;
+					};
 					D4A985A728D3C0A7007D75E4 = {
 						CreatedOnToolsVersion = 14.0;
 					};
@@ -124,11 +167,61 @@
 			projectRoot = "";
 			targets = (
 				D4A985A728D3C0A7007D75E4 /* LGV_MeetingSDK */,
+				D4A6EC7728DB4B3900B3E660 /* LGV_MeetingSDKTests */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		D4A6EC8328DB4CBC00B3E660 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if command -v swiftlint\nthen\n    swiftlint\nfi\n";
+		};
+		D4A6EC8428DB4CD000B3E660 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if command -v swiftlint\nthen\n    swiftlint\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		D4A6EC7428DB4B3900B3E660 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4A6EC7B28DB4B3900B3E660 /* LGV_MeetingSDKTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4A985A528D3C0A7007D75E4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -139,6 +232,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D4A6EC7E28DB4B3900B3E660 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D4A985A728D3C0A7007D75E4 /* LGV_MeetingSDK */;
+			targetProxy = D4A6EC7D28DB4B3900B3E660 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		D412C80728D3BEC500BAFC16 /* Debug */ = {
@@ -255,6 +356,40 @@
 			};
 			name = Release;
 		};
+		D4A6EC7F28DB4B3900B3E660 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53V4JS928;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.LGV-MeetingSDKTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		D4A6EC8028DB4B3900B3E660 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53V4JS928;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.LGV-MeetingSDKTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		D4A985AF28D3C0A7007D75E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -291,6 +426,15 @@
 			buildConfigurations = (
 				D412C80728D3BEC500BAFC16 /* Debug */,
 				D412C80828D3BEC500BAFC16 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4A6EC8128DB4B3900B3E660 /* Build configuration list for PBXNativeTarget "LGV_MeetingSDKTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4A6EC7F28DB4B3900B3E660 /* Debug */,
+				D4A6EC8028DB4B3900B3E660 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

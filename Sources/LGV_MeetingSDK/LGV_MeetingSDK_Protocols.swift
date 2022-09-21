@@ -467,7 +467,7 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
     /**
      Default tries to get the timezone from the physical address first, then the virtual, and failing that, our local timezone.
      */
-    var meetingLocalTimezone: TimeZone { physicalLocation?.timeZone ?? virtualMeetingInfo?.videoMeeting?.timeZone ?? virtualMeetingInfo?.phoneMeeting?.timeZone ?? TimeZone.autoupdatingCurrent }
+    var meetingLocalTimezone: TimeZone { physicalLocation?.placemark.timeZone ?? virtualMeetingInfo?.videoMeeting?.timeZone ?? virtualMeetingInfo?.phoneMeeting?.timeZone ?? TimeZone.autoupdatingCurrent }
 
     /* ################################################################## */
     /**
