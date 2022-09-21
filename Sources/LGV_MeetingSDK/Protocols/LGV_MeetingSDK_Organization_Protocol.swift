@@ -20,16 +20,6 @@
 import Foundation
 
 /* ###################################################################################################################################### */
-// MARK: - The Transport Layer Protocol -
-/* ###################################################################################################################################### */
-/**
- This defines requirements for a loosely-coupled transport layer.
- */
-public protocol LGV_MeetingSDK_Transport_Protocol {
-    
-}
-
-/* ###################################################################################################################################### */
 // MARK: - The Structure of an Organization Object -
 /* ###################################################################################################################################### */
 /**
@@ -39,6 +29,7 @@ public protocol LGV_MeetingSDK_Organization_Protocol {
     /* ################################################################## */
     /**
      REQUIRED - The key for this organization.
+     
      This should be unique in the execution environment.
      */
     var organizationKey: String { get }

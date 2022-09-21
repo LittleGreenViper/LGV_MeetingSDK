@@ -12,6 +12,7 @@
 		D4A6EC7C28DB4B3900B3E660 /* libLGV_MeetingSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A985A828D3C0A7007D75E4 /* libLGV_MeetingSDK.a */; };
 		D4A6EC8628DB68BA00B3E660 /* LGV_MeetingSDK_Organization_Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A6EC8528DB68BA00B3E660 /* LGV_MeetingSDK_Organization_Protocol.swift */; };
 		D4A6EC8828DB693400B3E660 /* LGV_MeetingSDK_Meeting_Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A6EC8728DB693400B3E660 /* LGV_MeetingSDK_Meeting_Protocols.swift */; };
+		D4A6EC8B28DBA74B00B3E660 /* LGV_MeetingSDK_Transport_Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A6EC8A28DBA74B00B3E660 /* LGV_MeetingSDK_Transport_Protocol.swift */; };
 		D4A985B128D3C0AB007D75E4 /* LGV_MeetingSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = D412C80528D3BEC500BAFC16 /* LGV_MeetingSDK.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		D4A6EC7A28DB4B3900B3E660 /* LGV_MeetingSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDKTests.swift; sourceTree = "<group>"; };
 		D4A6EC8528DB68BA00B3E660 /* LGV_MeetingSDK_Organization_Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Organization_Protocol.swift; sourceTree = "<group>"; };
 		D4A6EC8728DB693400B3E660 /* LGV_MeetingSDK_Meeting_Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Meeting_Protocols.swift; sourceTree = "<group>"; };
+		D4A6EC8A28DBA74B00B3E660 /* LGV_MeetingSDK_Transport_Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Transport_Protocol.swift; sourceTree = "<group>"; };
 		D4A985A828D3C0A7007D75E4 /* libLGV_MeetingSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLGV_MeetingSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -104,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				D47A4B5428D9F47D00B17823 /* LGV_MeetingSDK_Protocols.swift */,
+				D4A6EC8A28DBA74B00B3E660 /* LGV_MeetingSDK_Transport_Protocol.swift */,
 				D4A6EC8528DB68BA00B3E660 /* LGV_MeetingSDK_Organization_Protocol.swift */,
 				D4A6EC8728DB693400B3E660 /* LGV_MeetingSDK_Meeting_Protocols.swift */,
 			);
@@ -243,6 +246,7 @@
 				D4A6EC8828DB693400B3E660 /* LGV_MeetingSDK_Meeting_Protocols.swift in Sources */,
 				D4A6EC8628DB68BA00B3E660 /* LGV_MeetingSDK_Organization_Protocol.swift in Sources */,
 				D47A4B5528D9F47D00B17823 /* LGV_MeetingSDK_Protocols.swift in Sources */,
+				D4A6EC8B28DBA74B00B3E660 /* LGV_MeetingSDK_Transport_Protocol.swift in Sources */,
 				D4A985B128D3C0AB007D75E4 /* LGV_MeetingSDK.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
