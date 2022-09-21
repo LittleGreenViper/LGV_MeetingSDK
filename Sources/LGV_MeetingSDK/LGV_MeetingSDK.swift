@@ -38,7 +38,7 @@ struct LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
     
     /* ################################################################## */
     /**
-     This is the transport layer for the TCP connection to the meeting list server.
+     This is the organization that applies to this search instance.
      */
     var organization: LGV_MeetingSDK_Organization_Protocol?
     

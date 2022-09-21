@@ -654,6 +654,7 @@ extension LGV_MeetingSDK_Meeting_Protocol {
 // MARK: - The Transporter Protocol -
 /* ###################################################################################################################################### */
 /**
+ This defines requirements for a loosely-coupled transport layer.
  */
 protocol LGV_MeetingSDK_Transport_Protocol {
     
@@ -663,6 +664,7 @@ protocol LGV_MeetingSDK_Transport_Protocol {
 // MARK: - The Main Implementation Protocol -
 /* ###################################################################################################################################### */
 /**
+ This defines the requirements for the main SDK instance.
  */
 protocol LGV_MeetingSDK_Protocol {
     /* ################################################################## */
