@@ -42,7 +42,7 @@ public protocol LGV_MeetingSDK_Organization_Protocol {
     
     /* ################################################################## */
     /**
-     OPTIONAL - The longer description for this organization. May be nil.
+     REQUIRED - The longer description for this organization. May be nil.
      */
     var organizationDescription: String? { get }
     

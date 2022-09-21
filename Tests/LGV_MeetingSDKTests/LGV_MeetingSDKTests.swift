@@ -21,79 +21,6 @@ import XCTest
 import LGV_MeetingSDK
 
 /* ###################################################################################################################################### */
-// MARK: - Parser Mock -
-/* ###################################################################################################################################### */
-/**
- */
-struct LGV_MeetingSDKTests_Parser: LGV_MeetingSDK_Parser_Protocol {
-    /* ################################################################## */
-    /**
-     This parses data, and returns meetings and formats.
-     
-     - parameter data: The unparsed data, from the transport. It should consist of a meeting data set, and a formats set (either set can be empty).
-     
-     - returns: The parsed meeting information
-     */
-    func parseThis(data: Data) -> LGV_MeetingSDK_Meeting_Data_Set {
-        LGV_MeetingSDK_Meeting_Data_Set()
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - Transport Mock -
-/* ###################################################################################################################################### */
-/**
- */
-struct LGV_MeetingSDKTests_Transport: LGV_MeetingSDK_Transport_Protocol {
-    /* ################################################################## */
-    /**
-     */
-    var parser: LGV_MeetingSDK_Parser_Protocol
-    
-    /* ################################################################## */
-    /**
-     */
-    var lastSearch: LGV_MeetingSDK_Meeting_Data_Set?
-}
-
-/* ###################################################################################################################################### */
-// MARK: - Organization Mock -
-/* ###################################################################################################################################### */
-/**
- */
-class LGV_MeetingSDKTests_Organization: LGV_MeetingSDK_Organization_Transport_Protocol {
-    /* ################################################################## */
-    /**
-     */
-    var transport: LGV_MeetingSDK_Transport_Protocol?
-    
-    /* ################################################################## */
-    /**
-     */
-    var organizationKey: String
-    
-    /* ################################################################## */
-    /**
-     */
-    var organizationName: String
-    
-    /* ################################################################## */
-    /**
-     */
-    var organizationDescription: String
-
-    /* ################################################################## */
-    /**
-     */
-    init() {
-        transport = LGV_MeetingSDKTests_Transport(parser: LGV_MeetingSDKTests_Parser())
-        organizationKey = "MockNA"
-        organizationName = "Mocked NA"
-        organizationDescription = "Not Real NA"
-    }
-}
-
-/* ###################################################################################################################################### */
 // MARK: - Basic Setup Tests -
 /* ###################################################################################################################################### */
 /**
@@ -101,9 +28,136 @@ class LGV_MeetingSDKTests_Organization: LGV_MeetingSDK_Organization_Transport_Pr
 final class LGV_MeetingSDKTests_Setup: XCTestCase {
     /* ################################################################## */
     /**
+     We set the system up with dummy structs and classes, and make sure that they are stored properly.
      */
     func testInstantiation() throws {
-        let testSDK = LGV_MeetingSDK(organization: LGV_MeetingSDKTests_Organization())
-        XCTAssert(testSDK.transport is LGV_MeetingSDKTests_Transport)
+        /* ############################################################################################################################## */
+        // MARK: - Parser Mock -
+        /* ############################################################################################################################## */
+        /**
+         This is an empty placeholder parser. It does nothing.
+         */
+        struct Empty_Parser: LGV_MeetingSDK_Parser_Protocol {
+            /* ########################################################## */
+            /**
+             This is a "dummy parser" for testing instantiation.
+             
+             - parameter data: Ignored.
+             
+             - returns: An empty parse set.
+             */
+            func parseThis(data: Data) -> LGV_MeetingSDK_Meeting_Data_Set {
+                LGV_MeetingSDK_Meeting_Data_Set()
+            }
+        }
+
+        /* ############################################################################################################################## */
+        // MARK: - Transport Mock -
+        /* ############################################################################################################################## */
+        /**
+         This is an empty "placeholder" transport.
+         */
+        struct Dummy_Transport: LGV_MeetingSDK_Transport_Protocol {
+            /* ########################################################## */
+            /**
+             The dummy parser goes here.
+             */
+            var parser: LGV_MeetingSDK_Parser_Protocol
+            
+            /* ########################################################## */
+            /**
+             This will remain nil.
+             */
+            var lastSearch: LGV_MeetingSDK_Meeting_Data_Set?
+        }
+
+        /* ############################################################################################################################## */
+        // MARK: - Organization Mock -
+        /* ############################################################################################################################## */
+        /**
+         This is a dummy "NA" organization.
+         */
+        class Dummy_Organization: LGV_MeetingSDK_Organization_Transport_Protocol {
+            /* ########################################################## */
+            /**
+             The testing string.
+             */
+            static let organizationKey: String = "MockNA"
+            
+            /* ########################################################## */
+            /**
+             The testing string.
+             */
+            static let organizationName: String = "Mocked NA"
+            
+            /* ########################################################## */
+            /**
+             The testing string.
+             */
+            static let organizationDescription = "Not Real NA"
+            
+            /* ########################################################## */
+            /**
+             The testing URL.
+             */
+            static let organizationURL = URL(string: "http://example.com")
+            
+            /* ########################################################## */
+            /**
+             We need to keep this in a private stored property, so we can access it, via a computed property. This is because of protocol default.
+             */
+            private var _organizationDescription: String? = Dummy_Organization.organizationDescription
+
+            /* ########################################################## */
+            /**
+             We need to keep this in a private stored property, so we can access it, via a computed property. This is because of protocol default.
+             */
+            private var _organizationURL: URL? = Dummy_Organization.organizationURL
+
+            /* ########################################################## */
+            /**
+             The dummy transport.
+             */
+            var transport: LGV_MeetingSDK_Transport_Protocol? = Dummy_Transport(parser: Empty_Parser())
+            
+            /* ########################################################## */
+            /**
+             The dummy key.
+             */
+            var organizationKey: String = Dummy_Organization.organizationKey
+            
+            /* ########################################################## */
+            /**
+             The dummy name.
+             */
+            var organizationName: String = Dummy_Organization.organizationName
+            
+            /* ########################################################## */
+            /**
+             The dummy description (computed property)
+             */
+            var organizationDescription: String? { _organizationDescription }
+
+            /* ########################################################## */
+            /**
+             The dummy URL (computed property)
+             */
+            var organizationURL: URL? { _organizationURL }
+        }
+        
+        // We simply test that the organization and parser are assigned to the correct place, upon instantiation of the main struct.
+        let testSDK = LGV_MeetingSDK(organization: Dummy_Organization())
+
+        XCTAssert(testSDK.organization is Dummy_Organization)
+        XCTAssert(testSDK.transport is Dummy_Transport)
+        XCTAssert(testSDK.transport?.parser is Empty_Parser)
+
+        XCTAssert(testSDK.organization?.transport is Dummy_Transport)
+        XCTAssert(testSDK.organization?.transport?.parser is Empty_Parser)
+        
+        XCTAssertEqual(testSDK.organization?.organizationKey, Dummy_Organization.organizationKey)
+        XCTAssertEqual(testSDK.organization?.organizationName, Dummy_Organization.organizationName)
+        XCTAssertEqual(testSDK.organization?.organizationDescription, Dummy_Organization.organizationDescription)
+        XCTAssertEqual(testSDK.organization?.organizationURL, Dummy_Organization.organizationURL)
     }
 }
