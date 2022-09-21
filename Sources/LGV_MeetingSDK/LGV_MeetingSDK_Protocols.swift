@@ -26,7 +26,7 @@ import Contacts     // For the CLPlacemark class.
 /**
  Each meeting is either in-person (has a physical location), virtual-only (no physical location), or hybrid (both).
  */
-enum LGV_MeetingSDK_VenueType_Enum: String {
+public enum LGV_MeetingSDK_VenueType_Enum: String {
     /* ################################################################## */
     /**
      There is no valid venue (the meeting is not valid).
@@ -53,12 +53,22 @@ enum LGV_MeetingSDK_VenueType_Enum: String {
 }
 
 /* ###################################################################################################################################### */
+// MARK: - The Transport Layer Protocol -
+/* ###################################################################################################################################### */
+/**
+ This defines requirements for a loosely-coupled transport layer.
+ */
+public protocol LGV_MeetingSDK_Transport_Protocol {
+    
+}
+
+/* ###################################################################################################################################### */
 // MARK: - The Structure of an Organization Object -
 /* ###################################################################################################################################### */
 /**
  Each meeting is given/managed by an organization (AA, NA, etc.). This defines the associated organization.
  */
-protocol LGV_MeetingSDK_Organization_Protocol {
+public protocol LGV_MeetingSDK_Organization_Protocol {
     /* ################################################################## */
     /**
      REQUIRED - The key for this organization.
@@ -83,18 +93,12 @@ protocol LGV_MeetingSDK_Organization_Protocol {
      OPTIONAL - The URL for this organization. May be nil.
      */
     var organizationURL: URL? { get }
-    
-    /* ################################################################## */
-    /**
-     This allows us to generate an organization-specific transport.
-     */
-    func transportFactory() -> LGV_MeetingSDK_Transport_Protocol?
 }
 
 /* ###################################################################################################################################### */
 // MARK: Protocol Defaults
 /* ###################################################################################################################################### */
-extension LGV_MeetingSDK_Organization_Protocol {
+public extension LGV_MeetingSDK_Organization_Protocol {
     /* ################################################################## */
     /**
      Default is nil.
@@ -106,12 +110,20 @@ extension LGV_MeetingSDK_Organization_Protocol {
      Default is nil.
      */
     var organizationURL: URL? { nil }
-    
+}
+
+/* ###################################################################################################################################### */
+// MARK: - The Structure of an Organization With Associated Transport -
+/* ###################################################################################################################################### */
+/**
+ We define this as applied to classes, so it can be overloaded/ridden. The idea is to define a specific organization, with a custom transport, for each server.
+ */
+public protocol LGV_MeetingSDK_Organization_Transport_Protocol: LGV_MeetingSDK_Organization_Protocol, AnyObject {
     /* ################################################################## */
     /**
-     Default returns nil.
+     REQUIRED - This allows us to have an organization-specific transport.
      */
-    func transportFactory() -> LGV_MeetingSDK_Transport_Protocol? { nil }
+    var transport: LGV_MeetingSDK_Transport_Protocol? { get }
 }
 
 /* ###################################################################################################################################### */
@@ -120,7 +132,7 @@ extension LGV_MeetingSDK_Organization_Protocol {
 /**
  Each meeting may have a list of associated formats, describing details about the meeting.
  */
-protocol LGV_MeetingSDK_Format_Protocol {
+public protocol LGV_MeetingSDK_Format_Protocol {
     /* ################################################################## */
     /**
      REQUIRED - The key for this format.
@@ -147,90 +159,12 @@ protocol LGV_MeetingSDK_Format_Protocol {
 /**
  This defines the meeting's physical location component.
  */
-protocol LGV_MeetingSDK_Meeting_Physical_Protocol {
+public protocol LGV_MeetingSDK_Meeting_Physical_Protocol {
     /* ################################################################## */
     /**
      REQUIRED - The location is stored as a standard placemark.
      */
     var placemark: CLPlacemark { get }
-    
-    /* ################################################################## */
-    /**
-     OPTIONAL - This is a direct accessor for the name. May be nil.
-     */
-    var name: String? { get }
-
-    /* ################################################################## */
-    /**
-     OPTIONAL - This is a direct accessor for the [ISO Country Code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes). May be nil.
-     */
-    var isoCountryCode: String? { get }
-
-    /* ################################################################## */
-    /**
-     OPTIONAL - This is a direct accessor for the country name. May be nil.
-     */
-    var country: String? { get }
-
-    /* ################################################################## */
-    /**
-     OPTIONAL - This is a direct accessor for the postal/ZIP code. May be nil.
-     */
-    var postalCode: String? { get }
-
-    /* ################################################################## */
-    /**
-     OPTIONAL - This is a direct accessor for the state/province. May be nil.
-     */
-    var administrativeArea: String? { get }
-
-    /* ################################################################## */
-    /**
-     OPTIONAL - This is a direct accessor for additional administrative area information (example: county). May be nil.
-     */
-    var subAdministrativeArea: String? { get }
-
-    /* ################################################################## */
-    /**
-     OPTIONAL - This is a direct accessor for the city/town/municipality name. May be nil.
-     */
-    var locality: String? { get }
-
-    /* ################################################################## */
-    /**
-     OPTIONAL - This is a direct accessor for any sub-locality stuff (borough, neighborhood, etc.). May be nil.
-     */
-    var subLocality: String? { get }
-
-    /* ################################################################## */
-    /**
-     OPTIONAL - This is a direct accessor for the street address. May be nil.
-     */
-    var thoroughfare: String? { get }
-
-    /* ################################################################## */
-    /**
-     OPTIONAL - This is a direct accessor for things like a suite or apartment. May be nil.
-     */
-    var subThoroughfare: String? { get }
-
-    /* ################################################################## */
-    /**
-     OPTIONAL - This is a direct accessor for things like a suite or apartment. May be nil.
-     */
-    var region: CLRegion? { get }
-
-    /* ################################################################## */
-    /**
-     OPTIONAL - This is a direct accessor for the locality timezone. May be nil.
-     */
-    var timeZone: TimeZone? { get }
-    
-    /* ################################################################## */
-    /**
-     OPTIONAL - This is a direct accessor for a formatted postal address (for contacts). May be nil.
-     */
-    var postalAddress: CNPostalAddress? { get }
 
     /* ################################################################## */
     /**
@@ -248,85 +182,7 @@ protocol LGV_MeetingSDK_Meeting_Physical_Protocol {
 /* ###################################################################################################################################### */
 // MARK: Protocol Defaults
 /* ###################################################################################################################################### */
-extension LGV_MeetingSDK_Meeting_Physical_Protocol {
-    /* ################################################################## */
-    /**
-     The default returns the value directly from the placemark.
-     */
-    var name: String? { placemark.name }
-
-    /* ################################################################## */
-    /**
-     The default returns the value directly from the placemark.
-     */
-    var isoCountryCode: String? { placemark.isoCountryCode }
-
-    /* ################################################################## */
-    /**
-     The default returns the value directly from the placemark.
-     */
-    var country: String? { placemark.country }
-
-    /* ################################################################## */
-    /**
-     The default returns the value directly from the placemark.
-     */
-    var postalCode: String? { placemark.postalCode }
-
-    /* ################################################################## */
-    /**
-     The default returns the value directly from the placemark.
-     */
-    var administrativeArea: String? { placemark.administrativeArea }
-
-    /* ################################################################## */
-    /**
-     The default returns the value directly from the placemark.
-     */
-    var subAdministrativeArea: String? { placemark.subAdministrativeArea }
-
-    /* ################################################################## */
-    /**
-     The default returns the value directly from the placemark.
-     */
-    var locality: String? { placemark.locality }
-
-    /* ################################################################## */
-    /**
-     The default returns the value directly from the placemark.
-     */
-    var subLocality: String? { placemark.subLocality }
-
-    /* ################################################################## */
-    /**
-     The default returns the value directly from the placemark.
-     */
-    var thoroughfare: String? { placemark.thoroughfare }
-
-    /* ################################################################## */
-    /**
-     The default returns the value directly from the placemark.
-     */
-    var subThoroughfare: String? { placemark.subThoroughfare }
-
-    /* ################################################################## */
-    /**
-     The default returns the value directly from the placemark.
-     */
-    var region: CLRegion? { placemark.region }
-
-    /* ################################################################## */
-    /**
-     The default returns the value directly from the placemark.
-     */
-    var timeZone: TimeZone? { placemark.timeZone }
-    
-    /* ################################################################## */
-    /**
-     The default returns the value directly from the placemark.
-     */
-    var postalAddress: CNPostalAddress? { placemark.postalAddress }
-
+public extension LGV_MeetingSDK_Meeting_Physical_Protocol {
     /* ################################################################## */
     /**
      The default returns the location directly from the placemark.
@@ -346,7 +202,7 @@ extension LGV_MeetingSDK_Meeting_Physical_Protocol {
 /**
  This is one of the venues in a virtual meeting specifier.
  */
-protocol LGV_MeetingSDK_Meeting_Virtual_Venue_Protocol {
+public protocol LGV_MeetingSDK_Meeting_Virtual_Venue_Protocol {
     /* ################################################################## */
     /**
      REQUIRED - This describes the meeting venue (i.e. "Video," "Zoom," "Audio-Only," "Phone," etc.).
@@ -381,7 +237,7 @@ protocol LGV_MeetingSDK_Meeting_Virtual_Venue_Protocol {
 /* ###################################################################################################################################### */
 // MARK: Protocol Defaults
 /* ###################################################################################################################################### */
-extension LGV_MeetingSDK_Meeting_Virtual_Venue_Protocol {
+public extension LGV_MeetingSDK_Meeting_Virtual_Venue_Protocol {
     /* ################################################################## */
     /**
      Default is nil.
@@ -407,7 +263,7 @@ extension LGV_MeetingSDK_Meeting_Virtual_Venue_Protocol {
 /**
  This defines the meeting's virtual component (if any).
  */
-protocol LGV_MeetingSDK_Meeting_Virtual_Protocol {
+public protocol LGV_MeetingSDK_Meeting_Virtual_Protocol {
     /* ################################################################## */
     /**
      OPTIONAL - If there is a video meeting associated, it is defined here. May be nil.
@@ -424,7 +280,7 @@ protocol LGV_MeetingSDK_Meeting_Virtual_Protocol {
 /* ###################################################################################################################################### */
 // MARK: Protocol Defaults
 /* ###################################################################################################################################### */
-extension LGV_MeetingSDK_Meeting_Virtual_Protocol {
+public extension LGV_MeetingSDK_Meeting_Virtual_Protocol {
     /* ################################################################## */
     /**
      Default is nil.
@@ -444,7 +300,7 @@ extension LGV_MeetingSDK_Meeting_Virtual_Protocol {
 /**
  Each meeting instance will present itself as conforming to this protocol.
  */
-protocol LGV_MeetingSDK_Meeting_Protocol {
+public protocol LGV_MeetingSDK_Meeting_Protocol {
     /* ################################################################## */
     /**
      REQUIRED - The meeting organization.
@@ -555,7 +411,7 @@ protocol LGV_MeetingSDK_Meeting_Protocol {
 /* ###################################################################################################################################### */
 // MARK: Protocol Defaults
 /* ###################################################################################################################################### */
-extension LGV_MeetingSDK_Meeting_Protocol {
+public extension LGV_MeetingSDK_Meeting_Protocol {
     /* ################################################################## */
     /**
      This is false, if the combination of meeting values does not represent a valid meeting.
@@ -651,27 +507,17 @@ extension LGV_MeetingSDK_Meeting_Protocol {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - The Transporter Protocol -
-/* ###################################################################################################################################### */
-/**
- This defines requirements for a loosely-coupled transport layer.
- */
-protocol LGV_MeetingSDK_Transport_Protocol {
-    
-}
-
-/* ###################################################################################################################################### */
 // MARK: - The Main Implementation Protocol -
 /* ###################################################################################################################################### */
 /**
  This defines the requirements for the main SDK instance.
  */
-protocol LGV_MeetingSDK_Protocol {
+public protocol LGV_MeetingSDK_Protocol {
     /* ################################################################## */
     /**
      REQUIRED - The search organization.
      */
-    var organization: LGV_MeetingSDK_Organization_Protocol? { get }
+    var organization: LGV_MeetingSDK_Organization_Transport_Protocol? { get }
     
     /* ################################################################## */
     /**

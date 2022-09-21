@@ -23,7 +23,7 @@
 /**
  This is instantiated, in order to provide meeting search capabilities for one organization.
  */
-struct LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
+public struct LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
     /* ################################################################################################################################## */
     // MARK: The Concrete Implementation of the Organization.
     /* ################################################################################################################################## */
@@ -32,20 +32,20 @@ struct LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
-     This is the transport layer for the TCP connection to the meeting list server.
-     */
-    var transport: LGV_MeetingSDK_Transport_Protocol?
-    
-    /* ################################################################## */
-    /**
      This is the organization that applies to this search instance.
      */
-    var organization: LGV_MeetingSDK_Organization_Protocol?
-    
+    public var organization: LGV_MeetingSDK_Organization_Transport_Protocol?
+
+    /* ################################################################## */
+    /**
+     This is the transport layer for the TCP connection to the meeting list server.
+     */
+    public var transport: LGV_MeetingSDK_Transport_Protocol? { organization?.transport }
+
     /* ################################################################################################################################## */
     // MARK: Instance Properties
     /* ################################################################################################################################## */
-
+    
     /* ################################################################################################################################## */
     // MARK: Main Initializer
     /* ################################################################################################################################## */
@@ -53,8 +53,7 @@ struct LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
     /**
      This is the default initializer for the search SDK.
      */
-    init(organization inOrganization: LGV_MeetingSDK_Organization_Protocol) {
+    public init(organization inOrganization: LGV_MeetingSDK_Organization_Transport_Protocol) {
         organization = inOrganization
-        transport = inOrganization.transportFactory()
     }
 }
