@@ -14,6 +14,8 @@
 		D4A6EC8828DB693400B3E660 /* LGV_MeetingSDK_Meeting_Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A6EC8728DB693400B3E660 /* LGV_MeetingSDK_Meeting_Protocols.swift */; };
 		D4A6EC8B28DBA74B00B3E660 /* LGV_MeetingSDK_Transport_Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A6EC8A28DBA74B00B3E660 /* LGV_MeetingSDK_Transport_Protocol.swift */; };
 		D4A985B128D3C0AB007D75E4 /* LGV_MeetingSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = D412C80528D3BEC500BAFC16 /* LGV_MeetingSDK.swift */; };
+		D4AE9FA628DBAF1000A99630 /* BMLTList-0.json in Resources */ = {isa = PBXBuildFile; fileRef = D4AE9FA328DBAEEA00A99630 /* BMLTList-0.json */; };
+		D4AE9FA728DBAF1000A99630 /* BMLTList-1.json in Resources */ = {isa = PBXBuildFile; fileRef = D4AE9FA428DBAEEA00A99630 /* BMLTList-1.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		D4A6EC8728DB693400B3E660 /* LGV_MeetingSDK_Meeting_Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Meeting_Protocols.swift; sourceTree = "<group>"; };
 		D4A6EC8A28DBA74B00B3E660 /* LGV_MeetingSDK_Transport_Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Transport_Protocol.swift; sourceTree = "<group>"; };
 		D4A985A828D3C0A7007D75E4 /* libLGV_MeetingSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLGV_MeetingSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4AE9FA328DBAEEA00A99630 /* BMLTList-0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "BMLTList-0.json"; sourceTree = "<group>"; };
+		D4AE9FA428DBAEEA00A99630 /* BMLTList-1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "BMLTList-1.json"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +93,7 @@
 		D4A6EC7928DB4B3900B3E660 /* LGV_MeetingSDKTests */ = {
 			isa = PBXGroup;
 			children = (
+				D4AE9FA228DBAEEA00A99630 /* BMLTList */,
 				D4A6EC7A28DB4B3900B3E660 /* LGV_MeetingSDKTests.swift */,
 			);
 			path = LGV_MeetingSDKTests;
@@ -113,6 +118,15 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		D4AE9FA228DBAEEA00A99630 /* BMLTList */ = {
+			isa = PBXGroup;
+			children = (
+				D4AE9FA328DBAEEA00A99630 /* BMLTList-0.json */,
+				D4AE9FA428DBAEEA00A99630 /* BMLTList-1.json */,
+			);
+			path = BMLTList;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -123,6 +137,7 @@
 				D4A6EC8428DB4CD000B3E660 /* SwiftLint */,
 				D4A6EC7428DB4B3900B3E660 /* Sources */,
 				D4A6EC7528DB4B3900B3E660 /* Frameworks */,
+				D4AE9FA528DBAF0600A99630 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -188,6 +203,18 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D4AE9FA528DBAF0600A99630 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4AE9FA628DBAF1000A99630 /* BMLTList-0.json in Resources */,
+				D4AE9FA728DBAF1000A99630 /* BMLTList-1.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		D4A6EC8328DB4CBC00B3E660 /* SwiftLint */ = {
