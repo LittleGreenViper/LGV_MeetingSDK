@@ -18,7 +18,6 @@
  */
 
 import CoreLocation // For physical venues.
-import Contacts     // For the CLPlacemark class.
 
 /* ###################################################################################################################################### */
 // MARK: - Enum for the Meeting Venue -
@@ -53,80 +52,6 @@ public enum LGV_MeetingSDK_VenueType_Enum: String {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - The Transport Layer Protocol -
-/* ###################################################################################################################################### */
-/**
- This defines requirements for a loosely-coupled transport layer.
- */
-public protocol LGV_MeetingSDK_Transport_Protocol {
-    
-}
-
-/* ###################################################################################################################################### */
-// MARK: - The Structure of an Organization Object -
-/* ###################################################################################################################################### */
-/**
- Each meeting is given/managed by an organization (AA, NA, etc.). This defines the associated organization.
- */
-public protocol LGV_MeetingSDK_Organization_Protocol {
-    /* ################################################################## */
-    /**
-     REQUIRED - The key for this organization.
-     This should be unique in the execution environment.
-     */
-    var organizationKey: String { get }
-    
-    /* ################################################################## */
-    /**
-     REQUIRED - The name for this organization (a short descriptive string).
-     */
-    var organizationName: String { get }
-    
-    /* ################################################################## */
-    /**
-     OPTIONAL - The longer description for this organization. May be nil.
-     */
-    var organizationDescription: String? { get }
-    
-    /* ################################################################## */
-    /**
-     OPTIONAL - The URL for this organization. May be nil.
-     */
-    var organizationURL: URL? { get }
-}
-
-/* ###################################################################################################################################### */
-// MARK: Protocol Defaults
-/* ###################################################################################################################################### */
-public extension LGV_MeetingSDK_Organization_Protocol {
-    /* ################################################################## */
-    /**
-     Default is nil.
-     */
-    var organizationDescription: String? { nil }
-    
-    /* ################################################################## */
-    /**
-     Default is nil.
-     */
-    var organizationURL: URL? { nil }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - The Structure of an Organization With Associated Transport -
-/* ###################################################################################################################################### */
-/**
- We define this as applied to classes, so it can be overloaded/ridden. The idea is to define a specific organization, with a custom transport, for each server.
- */
-public protocol LGV_MeetingSDK_Organization_Transport_Protocol: LGV_MeetingSDK_Organization_Protocol, AnyObject {
-    /* ################################################################## */
-    /**
-     REQUIRED - This allows us to have an organization-specific transport.
-     */
-    var transport: LGV_MeetingSDK_Transport_Protocol? { get }
-}
-
-/* ###################################################################################################################################### */
 // MARK: - The Structure of a Format Object -
 /* ###################################################################################################################################### */
 /**
@@ -154,7 +79,7 @@ public protocol LGV_MeetingSDK_Format_Protocol {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - The Structure of a Meeting's Phyisical Component -
+// MARK: - The Structure of a Meeting's Physical Component -
 /* ###################################################################################################################################### */
 /**
  This defines the meeting's physical location component.
@@ -266,7 +191,7 @@ public extension LGV_MeetingSDK_Meeting_Virtual_Venue_Protocol {
 public protocol LGV_MeetingSDK_Meeting_Virtual_Protocol {
     /* ################################################################## */
     /**
-     OPTIONAL - If there is a video meeting associated, it is defined here. May be nil.
+     OPTIONAL - If there is a video meeting associated, it is defined here. May be nil. This also applies to audio-only (not phone) meetings.
      */
     var videoMeeting: LGV_MeetingSDK_Meeting_Virtual_Venue_Protocol? { get }
     
@@ -309,15 +234,21 @@ public protocol LGV_MeetingSDK_Meeting_Protocol {
     
     /* ################################################################## */
     /**
-     OPTIONAL -, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The meeting venue type.
+     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The meeting venue type.
      */
     var meetingType: LGV_MeetingSDK_VenueType_Enum { get }
+
+    /* ################################################################## */
+    /**
+     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - This is false, if the combination of meeting values does not represent a valid meeting.
+     */
+    var isValid: Bool { get }
     
     /* ################################################################## */
     /**
-     OPTIONAL -, AND SHOULD GENERALLY NOT BE IMPLEMENTED - This is false, if the combination of meeting values does not represent a valid meeting.
+     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - Returns an optional DateComponents object, with the weekday and time of the meeting. Nil, if one-time event.
      */
-    var isValid: Bool { get }
+    var startTimeAndDay: DateComponents? { get }
 
     /* ################################################################## */
     /**
@@ -358,7 +289,7 @@ public protocol LGV_MeetingSDK_Meeting_Protocol {
      The `nextMeetingStartsOn` property will have the absolute time, in any case.
      */
     var meetingStartTime: Int { get }
-    
+
     /* ################################################################## */
     /**
      OPTIONAL - The local timezone of the meeting.
@@ -414,12 +345,6 @@ public protocol LGV_MeetingSDK_Meeting_Protocol {
 public extension LGV_MeetingSDK_Meeting_Protocol {
     /* ################################################################## */
     /**
-     This is false, if the combination of meeting values does not represent a valid meeting.
-     */
-    var isValid: Bool { .invalid != meetingType && nil != nextMeetingStartsOn && (nil != physicalLocation || nil != virtualMeetingInfo) }
-
-    /* ################################################################## */
-    /**
      Default figures out the meeting type, based on what venues are available.
      */
     var meetingType: LGV_MeetingSDK_VenueType_Enum {
@@ -437,12 +362,45 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
     
     /* ################################################################## */
     /**
+     This is false, if the combination of meeting values does not represent a valid meeting.
+     */
+    var isValid: Bool { .invalid != meetingType && nil != nextMeetingStartsOn && (nil != physicalLocation || nil != virtualMeetingInfo) }
+
+    /* ################################################################## */
+    /**
+     Default returns an optional DateComponents object, with the weekday and time of the meeting. Returns nil, if the meeting weekday and/or start time is invalid.
+     */
+    var startTimeAndDay: DateComponents? {
+        guard (1...7).contains(weekday),
+              (0...2400).contains(meetingStartTime)
+        else { return nil }
+        
+        var hour = Int(meetingStartTime / 1000)
+        let minute = Int(meetingStartTime - (hour * 1000))
+        var weekdayIndex = weekday
+
+        // Special case for "tonight midnight."
+        if (24 == hour) && (0 == minute) {
+            weekdayIndex = 7 == weekdayIndex ? 1 : weekdayIndex + 1
+            hour = 0
+        }
+
+       return DateComponents(hour: hour, minute: minute, second: 0, weekday: weekdayIndex)
+    }
+
+    /* ################################################################## */
+    /**
      By default, this calculates and returns the date of a repeating weekly meeting, and returns the next time the meeting will gather, after now.
      
      If the meeting is not a recurring weekly meeting, this should be implemented by the conforming class.
      */
     var nextMeetingStartsOn: Date? {
-        return nil
+        // Make sure that we are legit, first.
+        guard let startTimeAndDay = startTimeAndDay,
+              let nextMeeting = Calendar.current.nextDate(after: Date(), matching: startTimeAndDay, matchingPolicy: .nextTimePreservingSmallerComponents)
+        else { return nil }
+
+        return nextMeeting
     }
 
     /* ################################################################## */
@@ -504,24 +462,4 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
      Default is Nil
      */
     var meetingURI: URL? { nil }
-}
-
-/* ###################################################################################################################################### */
-// MARK: - The Main Implementation Protocol -
-/* ###################################################################################################################################### */
-/**
- This defines the requirements for the main SDK instance.
- */
-public protocol LGV_MeetingSDK_Protocol {
-    /* ################################################################## */
-    /**
-     REQUIRED - The search organization.
-     */
-    var organization: LGV_MeetingSDK_Organization_Transport_Protocol? { get }
-    
-    /* ################################################################## */
-    /**
-     REQUIRED - The transport instance.
-     */
-    var transport: LGV_MeetingSDK_Transport_Protocol? { get }
 }
