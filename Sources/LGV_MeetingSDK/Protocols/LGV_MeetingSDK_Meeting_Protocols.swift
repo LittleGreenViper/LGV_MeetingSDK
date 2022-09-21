@@ -88,6 +88,8 @@ public protocol LGV_MeetingSDK_Meeting_Physical_Protocol {
     /* ################################################################## */
     /**
      REQUIRED - The location is stored as a standard placemark.
+     
+     **NOTE:** This should specify the [`timeZone`](https://developer.apple.com/documentation/corelocation/clplacemark/1423707-timezone) property!.
      */
     var placemark: CLPlacemark { get }
 
@@ -137,6 +139,8 @@ public protocol LGV_MeetingSDK_Meeting_Virtual_Venue_Protocol {
     /* ################################################################## */
     /**
      REQUIRED - The local timezone for the meeting.
+     
+     **NOTE:** It is important to implement this, if the meeting is held in a particular timezone, and does not have a physical placemark!
      */
     var timeZone: TimeZone? { get }
 
@@ -240,15 +244,21 @@ public protocol LGV_MeetingSDK_Meeting_Protocol {
 
     /* ################################################################## */
     /**
+     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - Returns an optional DateComponents object, with the weekday and time of the meeting. Nil, if one-time event.
+     */
+    var startTimeAndDay: DateComponents? { get }
+
+    /* ################################################################## */
+    /**
      OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - This is false, if the combination of meeting values does not represent a valid meeting.
      */
     var isValid: Bool { get }
     
     /* ################################################################## */
     /**
-     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - Returns an optional DateComponents object, with the weekday and time of the meeting. Nil, if one-time event.
+     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The local timezone of the meeting.
      */
-    var startTimeAndDay: DateComponents? { get }
+    var meetingLocalTimezone: TimeZone { get }
 
     /* ################################################################## */
     /**
@@ -289,14 +299,6 @@ public protocol LGV_MeetingSDK_Meeting_Protocol {
      The `nextMeetingStartsOn` property will have the absolute time, in any case.
      */
     var meetingStartTime: Int { get }
-
-    /* ################################################################## */
-    /**
-     OPTIONAL - The local timezone of the meeting.
-     
-     **NOTE:** It is important to implement this, if the meeting is held in a particular timezone, and does not have it specified in its location.
-     */
-    var meetingLocalTimezone: TimeZone { get }
 
     /* ################################################################## */
     /**
@@ -362,12 +364,6 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
     
     /* ################################################################## */
     /**
-     This is false, if the combination of meeting values does not represent a valid meeting.
-     */
-    var isValid: Bool { .invalid != meetingType && nil != nextMeetingStartsOn && (nil != physicalLocation || nil != virtualMeetingInfo) }
-
-    /* ################################################################## */
-    /**
      Default returns an optional DateComponents object, with the weekday and time of the meeting. Returns nil, if the meeting weekday and/or start time is invalid.
      */
     var startTimeAndDay: DateComponents? {
@@ -395,13 +391,22 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
      If the meeting is not a recurring weekly meeting, this should be implemented by the conforming class.
      */
     var nextMeetingStartsOn: Date? {
-        // Make sure that we are legit, first.
-        guard let startTimeAndDay = startTimeAndDay,
-              let nextMeeting = Calendar.current.nextDate(after: Date(), matching: startTimeAndDay, matchingPolicy: .nextTimePreservingSmallerComponents)
-        else { return nil }
+        guard let startTimeAndDay = startTimeAndDay else { return nil }
 
-        return nextMeeting
+        return Calendar.current.nextDate(after: Date(), matching: startTimeAndDay, matchingPolicy: .nextTimePreservingSmallerComponents)
     }
+
+    /* ################################################################## */
+    /**
+     This is false, if the combination of meeting values does not represent a valid meeting.
+     */
+    var isValid: Bool { .invalid != meetingType && nil != nextMeetingStartsOn && (nil != physicalLocation || nil != virtualMeetingInfo) }
+
+    /* ################################################################## */
+    /**
+     Default tries to get the timezone from the physical address first, then the virtual, and failing that, our local timezone.
+     */
+    var meetingLocalTimezone: TimeZone { physicalLocation?.placemark.timeZone ?? virtualMeetingInfo?.videoMeeting?.timeZone ?? virtualMeetingInfo?.phoneMeeting?.timeZone ?? TimeZone.autoupdatingCurrent }
 
     /* ################################################################## */
     /**
@@ -421,12 +426,6 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
      */
     var meetingStartTime: Int { 0 }
     
-    /* ################################################################## */
-    /**
-     Default tries to get the timezone from the physical address first, then the virtual, and failing that, our local timezone.
-     */
-    var meetingLocalTimezone: TimeZone { physicalLocation?.placemark.timeZone ?? virtualMeetingInfo?.videoMeeting?.timeZone ?? virtualMeetingInfo?.phoneMeeting?.timeZone ?? TimeZone.autoupdatingCurrent }
-
     /* ################################################################## */
     /**
      Default is 0
