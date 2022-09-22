@@ -29,6 +29,7 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
     /* ################################################################## */
     /**
      We set the system up with dummy structs and classes, and make sure that they are stored properly.
+     This also tests the basic setup of the generic organization.
      */
     func testInstantiation() throws {
         /* ############################################################################################################################## */
@@ -64,6 +65,12 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
              */
             var parser: LGV_MeetingSDK_Parser_Protocol
             
+            /* ################################################################## */
+            /**
+             The transport organization to which this instance is assigned.
+             */
+            weak var organization: LGV_MeetingSDK_Organization_Transport_Protocol?
+            
             /* ########################################################## */
             /**
              This will remain nil.
@@ -75,23 +82,23 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
         let organizationName: String = "Mocked NA"
         let organizationDescription = "Not Real NA"
         let organizationURL = URL(string: "http://example.com")
-        
+        let parser = Empty_Parser()
+        let transport = Dummy_Transport(parser: parser)
+        let organization = LGV_MeetingSDK_Generic_Organization(transport: transport,
+                                                               organizationKey: organizationKey,
+                                                               organizationName: organizationName,
+                                                               organizationDescription: organizationDescription,
+                                                               organizationURL: organizationURL
+                                                              )
         // We simply test that the organization and parser are assigned to the correct place, upon instantiation of the main struct.
-        let testSDK = LGV_MeetingSDK(organization: LGV_MeetingSDK_Generic_Organization(transport: Dummy_Transport(parser: Empty_Parser()),
-                                                                                       organizationKey: organizationKey,
-                                                                                       organizationName: organizationName,
-                                                                                       organizationDescription: organizationDescription,
-                                                                                       organizationURL: organizationURL
-                                                                                      )
-        )
+        let testSDK = LGV_MeetingSDK(organization: organization)
 
-        XCTAssert(testSDK.organization is LGV_MeetingSDK_Generic_Organization)
-        XCTAssert(testSDK.transport is Dummy_Transport)
-        XCTAssert(testSDK.transport?.parser is Empty_Parser)
-
+        XCTAssert(testSDK.organization === organization)
+        XCTAssert(testSDK.organization?.sdkInstance === testSDK)
+        XCTAssert(testSDK.organization?.transport?.organization === organization)
+        XCTAssert(testSDK.organization?.transport?.sdkInstance === testSDK)
         XCTAssert(testSDK.organization?.transport is Dummy_Transport)
         XCTAssert(testSDK.organization?.transport?.parser is Empty_Parser)
-        
         XCTAssertEqual(testSDK.organization?.organizationKey, organizationKey)
         XCTAssertEqual(testSDK.organization?.organizationName, organizationName)
         XCTAssertEqual(testSDK.organization?.organizationDescription, organizationDescription)

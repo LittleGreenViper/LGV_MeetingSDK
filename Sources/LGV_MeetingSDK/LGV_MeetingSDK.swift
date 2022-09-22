@@ -28,18 +28,21 @@ import Foundation
  */
 public class LGV_MeetingSDK {
     /* ################################################################################################################################## */
-    // MARK: LGV_MeetingSDK_Protocol Conformance (Main Instance Stored Properties)
+    // MARK: Private Instance Properties
     /* ################################################################################################################################## */
+    
     /* ################################################################## */
     /**
      This is the organization that applies to this search instance.
      */
     private var _organization: LGV_MeetingSDK_Organization_Transport_Protocol?
 
-    /* ################################################################################################################################## */
-    // MARK: Instance Properties
-    /* ################################################################################################################################## */
-    
+    /* ################################################################## */
+    /**
+     The "cached" last search. It may be nil (no last search cached).
+     */
+    private var _lastSearch: LGV_MeetingSDK_Meeting_Data_Set?
+
     /* ################################################################################################################################## */
     // MARK: Main Initializer
     /* ################################################################################################################################## */
@@ -49,6 +52,7 @@ public class LGV_MeetingSDK {
      */
     public init(organization inOrganization: LGV_MeetingSDK_Organization_Transport_Protocol) {
         _organization = inOrganization
+        _organization?.sdkInstance = self
     }
 }
 
@@ -61,12 +65,12 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
      This is the organization that applies to this search instance.
      */
     public var organization: LGV_MeetingSDK_Organization_Transport_Protocol? { _organization }
-
+    
     /* ################################################################## */
     /**
-     This is the transport layer for the TCP connection to the meeting list server.
+     The "cached" last search. It may be nil (no last search cached).
      */
-    public var transport: LGV_MeetingSDK_Transport_Protocol? { organization?.transport }
+    public var lastSearch: LGV_MeetingSDK_Meeting_Data_Set? { _lastSearch }
 }
 
 /* ###################################################################################################################################### */
@@ -94,6 +98,12 @@ public class LGV_MeetingSDK_Generic_Organization: LGV_MeetingSDK_Organization_Tr
      */
     private var _organizationURL: URL?
 
+    /* ################################################################## */
+    /**
+     The SDK instance to which this organization is assigned.
+     */
+    public weak var sdkInstance: LGV_MeetingSDK?
+    
     /* ################################################################## */
     /**
      This is the unique key for the organization. This should be unique in the SDK execution environment.
@@ -146,5 +156,6 @@ public class LGV_MeetingSDK_Generic_Organization: LGV_MeetingSDK_Organization_Tr
         organizationName = inOrganizationName
         _organizationDescription = inOrganizationDescription
         _organizationURL = inOrganizationURL
+        _transport?.organization = self
     }
 }

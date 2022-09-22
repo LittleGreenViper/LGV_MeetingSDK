@@ -53,9 +53,9 @@ open class LGV_MeetingSDK_Meeting_Data_Set {
 public protocol LGV_MeetingSDK_Parser_Protocol {
     /* ################################################################## */
     /**
-     REQUIRED - This parses data, and returns meetings and formats.
+     REQUIRED - This parses data, and returns meetings.
      
-     - parameter data: The unparsed data, from the transport. It should consist of a meeting data set, and a formats set (either set can be empty).
+     - parameter data: The unparsed data, from the transport. It should consist of a meeting data set.
      
      - returns: The parsed meeting information
      */
@@ -77,9 +77,15 @@ public protocol LGV_MeetingSDK_Transport_Protocol {
     
     /* ################################################################## */
     /**
-     REQUIRED - The "cached" last search. It may be nil (no last search cached).
+     REQUIRED - The transport organization to which this instance is assigned. It should generally be declared weak.
      */
-    var lastSearch: LGV_MeetingSDK_Meeting_Data_Set? { get }
+    var organization: LGV_MeetingSDK_Organization_Transport_Protocol? { get set }
+    
+    /* ################################################################## */
+    /**
+     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The SDK instance to which this transport's organization is assigned.
+     */
+    var sdkInstance: LGV_MeetingSDK? { get }
 
     /* ################################################################## */
     /**
@@ -100,4 +106,10 @@ public extension LGV_MeetingSDK_Transport_Protocol {
      Default is nil.
      */
     var baseURL: URL? { nil }
+    
+    /* ################################################################## */
+    /**
+     The default simply returns the organization's SDK instance.
+     */
+    var sdkInstance: LGV_MeetingSDK? { organization?.sdkInstance }
 }

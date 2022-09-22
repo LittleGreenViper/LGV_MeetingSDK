@@ -26,13 +26,13 @@
 public protocol LGV_MeetingSDK_Protocol {
     /* ################################################################## */
     /**
-     REQUIRED - The search organization.
+     REQUIRED - The search organization. This needs to be the "transport" version of the organization.
      */
     var organization: LGV_MeetingSDK_Organization_Transport_Protocol? { get }
     
     /* ################################################################## */
     /**
-     REQUIRED - The transport instance.
+     REQUIRED - The "cached" last search. It may be nil (no last search cached).
      */
-    var transport: LGV_MeetingSDK_Transport_Protocol? { get }
+    var lastSearch: LGV_MeetingSDK_Meeting_Data_Set? { get }
 }

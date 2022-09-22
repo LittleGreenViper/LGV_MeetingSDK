@@ -36,6 +36,12 @@ public protocol LGV_MeetingSDK_Organization_Protocol {
     
     /* ################################################################## */
     /**
+     REQUIRED - The SDK instance to which this organization is assigned. This should generally be declared weak.
+     */
+    var sdkInstance: LGV_MeetingSDK? { get set }
+
+    /* ################################################################## */
+    /**
      REQUIRED - The name for this organization (a short descriptive string).
      */
     var organizationName: String { get }
