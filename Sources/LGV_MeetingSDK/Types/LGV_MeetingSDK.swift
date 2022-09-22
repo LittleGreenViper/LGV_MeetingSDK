@@ -29,6 +29,18 @@ import Foundation
 open class LGV_MeetingSDK_Meeting_Data_Set {
     /* ################################################################## */
     /**
+     This is the search specification main search type.
+     */
+    public let searchType: LGV_MeetingSDK_SearchInitiator_SearchType
+    
+    /* ################################################################## */
+    /**
+     This is the search specification additional filters.
+     */
+    public let searchModifiers: LGV_MeetingSDK_SearchInitiator_Search_Modifiers
+    
+    /* ################################################################## */
+    /**
      This contains any found meetings. It may be empty (no meetings found).
      */
     public let meetings: [LGV_MeetingSDK_Meeting_Protocol]
@@ -37,9 +49,15 @@ open class LGV_MeetingSDK_Meeting_Data_Set {
     /**
      Default initializer.
      
+     - parameter searchType: OPTIONAL This is the search specification main search type. Default is .none.
+     - parameter searchModifiers: OPTIONAL This is the search specification additional filters. Default is .none.
      - parameter meetings: OPTIONAL This contains any found meetings. It may be empty or omitted (no meetings found).
      */
-    public init(meetings inMeetings: [LGV_MeetingSDK_Meeting_Protocol] = []) {
+    public init(searchType inSearchType: LGV_MeetingSDK_SearchInitiator_SearchType = .none,
+                searchModifiers inSearchModifiers: LGV_MeetingSDK_SearchInitiator_Search_Modifiers = .none,
+                meetings inMeetings: [LGV_MeetingSDK_Meeting_Protocol] = []) {
+        searchType = inSearchType
+        searchModifiers = inSearchModifiers
         meetings = inMeetings
     }
 }

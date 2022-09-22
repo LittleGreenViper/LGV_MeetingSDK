@@ -47,9 +47,7 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
              
              - returns: An empty parse set.
              */
-            func parseThis(data: Data) -> LGV_MeetingSDK_Meeting_Data_Set {
-                LGV_MeetingSDK_Meeting_Data_Set()
-            }
+            func parseThis(data: Data) -> LGV_MeetingSDK_Meeting_Data_Set { LGV_MeetingSDK_Meeting_Data_Set() }
         }
 
         /* ############################################################################################################################## */
@@ -59,6 +57,17 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
          This is an empty placeholder initiator. It does nothing.
          */
         struct Empty_Initiator: LGV_MeetingSDK_SearchInitiator_Protocol {
+            /* ########################################################## */
+            /**
+             The dummy parser goes here.
+             */
+            var parser: LGV_MeetingSDK_Parser_Protocol = Empty_Parser()
+
+            /* ################################################################## */
+            /**
+             This pretends to execute a meeting search.
+             */
+            func meetingSearch(type: LGV_MeetingSDK_SearchInitiator_SearchType, modifiers: Set<LGV_MeetingSDK_SearchInitiator_Search_Modifiers>, completion inCompletion: MeetingSearchCallbackClosure) { inCompletion(nil, nil) }
         }
         
         /* ############################################################################################################################## */
@@ -70,15 +79,9 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
         struct Dummy_Transport: LGV_MeetingSDK_Transport_Protocol {
             /* ########################################################## */
             /**
-             The dummy parser goes here.
-             */
-            var parser: LGV_MeetingSDK_Parser_Protocol
-            
-            /* ########################################################## */
-            /**
              The dummy initiator goes here.
              */
-            var initiator: LGV_MeetingSDK_SearchInitiator_Protocol
+            var initiator: LGV_MeetingSDK_SearchInitiator_Protocol = Empty_Initiator()
             
             /* ################################################################## */
             /**
@@ -91,15 +94,6 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
              This will remain nil.
              */
             var lastSearch: LGV_MeetingSDK_Meeting_Data_Set?
-            
-            /* ########################################################## */
-            /**
-             We populate with empties.
-             */
-            init() {
-                parser = Empty_Parser()
-                initiator = Empty_Initiator()
-            }
         }
 
         let organizationKey: String = "MockNA"
@@ -118,8 +112,8 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
         XCTAssert(testSDK.organization === organization)
         XCTAssert(testSDK.organization?.sdkInstance === testSDK)
         XCTAssert(testSDK.organization?.transport is Dummy_Transport)
-        XCTAssert(testSDK.organization?.transport?.parser is Empty_Parser)
         XCTAssert(testSDK.organization?.transport?.initiator is Empty_Initiator)
+        XCTAssert(testSDK.organization?.transport?.initiator.parser is Empty_Parser)
         XCTAssert(testSDK.organization?.transport?.organization === organization)
         XCTAssert(testSDK.organization?.transport?.sdkInstance === testSDK)
         XCTAssertEqual(testSDK.organization?.organizationKey, organizationKey)

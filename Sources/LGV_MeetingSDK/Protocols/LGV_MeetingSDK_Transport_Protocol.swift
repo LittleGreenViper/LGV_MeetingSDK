@@ -20,28 +20,90 @@
 import CoreLocation
 
 /* ###################################################################################################################################### */
+// MARK: - Search Initiator Additional Modifiers Weekdays Enum -
+/* ###################################################################################################################################### */
+/**
+ This integer-based enum is a 1-based weekday specifier for the `LGV_MeetingSDK_SearchInitiator_Search_Modifiers.weekdays` specialization.
+ */
+public enum LGV_MeetingSDK_SearchInitiator_Search_Modifiers_Weekdays: Int, CaseIterable {
+    /* ################################################################## */
+    /**
+     Sunday is always 1. The start of week is not taken into account, and should be handled at a level above this connector.
+     */
+    case sunday = 1
+    
+    /* ################################################################## */
+    /**
+     Monday
+     */
+    case monday
+    
+    /* ################################################################## */
+    /**
+     Tuesday
+     */
+    case tuesday
+    
+    /* ################################################################## */
+    /**
+     Wednesday
+     */
+    case wednesday
+    
+    /* ################################################################## */
+    /**
+     Thursday
+     */
+    case thursday
+    
+    /* ################################################################## */
+    /**
+     Friday
+     */
+    case friday
+    
+    /* ################################################################## */
+    /**
+     Saturday (Maximum value of 7).
+     */
+    case saturday
+}
+
+/* ###################################################################################################################################### */
 // MARK: - Search Initiator Search Types Enum -
 /* ###################################################################################################################################### */
 /**
+ These are enums that describe the "main" search parameters.
  */
-enum LGV_MeetingSDK_SearchInitiator_SearchType {
+public enum LGV_MeetingSDK_SearchInitiator_SearchType {
     /* ################################################################## */
     /**
+     No search made.
+     */
+    case none
+    
+    /* ################################################################## */
+    /**
+     This means that the search will sweep up every meeting within `radiusInMeters` meters of `centerLongLat`.
      */
     case fixedRadius(centerLongLat: CLLocationCoordinate2D, radiusInMeters: CLLocationDistance)
     
     /* ################################################################## */
     /**
+     This means that the search will start at `centerLongLat`, and move outward, in "rings," until it gets at least the `minimumNumberOfResults` number of meetings, and will stop there.
+     We deliberately do not specify the "width" of these "rings," because the server may have its own ideas. A conformant implementation of the initiator could be used to allow the width to be specified.
      */
     case autoRadius(centerLongLat: CLLocationCoordinate2D, minimumNumberOfResults: UInt, maxRadiusInMeters: CLLocationDistance)
     
     /* ################################################################## */
     /**
+     This is a very basic Array of individual meeting IDs.
      */
     case meetingID(ids: [UInt64])
     
     /* ################################################################## */
     /**
+     This allows a string to be submitted for a search.
      */
     case string(searchString: String)
 }
@@ -50,78 +112,34 @@ enum LGV_MeetingSDK_SearchInitiator_SearchType {
 // MARK: - Search Initiator Additional Modifiers Enum -
 /* ###################################################################################################################################### */
 /**
+ The main search can have "modifiers" applied, that filter the response further.
  */
-enum LGV_MeetingSDK_SearchInitiator_Search_Modifiers_Weekdays: Int {
+public enum LGV_MeetingSDK_SearchInitiator_Search_Modifiers: Hashable {
     /* ################################################################## */
     /**
-     */
-    case sunday = 1
-    
-    /* ################################################################## */
-    /**
-     */
-    case monday
-    
-    /* ################################################################## */
-    /**
-     */
-    case tuesday
-    
-    /* ################################################################## */
-    /**
-     */
-    case wednesday
-    
-    /* ################################################################## */
-    /**
-     */
-    case thursday
-    
-    /* ################################################################## */
-    /**
-     */
-    case friday
-    
-    /* ################################################################## */
-    /**
-     */
-    case saturday
-}
-
-/* ###################################################################################################################################### */
-// MARK: - Search Initiator Additional Modifiers Enum -
-/* ###################################################################################################################################### */
-/**
- */
-enum LGV_MeetingSDK_SearchInitiator_Search_Modifiers {
-    /* ################################################################## */
-    /**
+     This means don't apply any modifiers to the main search.
      */
     case none
     
     /* ################################################################## */
     /**
+     This allows us to provide a filter for the venue type, in our search.
      */
-    case venueType(venueTypes: Set<LGV_MeetingSDK_VenueType_Enum>)
+    case venueTypes(Set<LGV_MeetingSDK_VenueType_Enum>)
     
     /* ################################################################## */
     /**
+     This allows us to specify certain weekdays to be returned.
      */
-    case weekday(weekdays: Set<LGV_MeetingSDK_SearchInitiator_Search_Modifiers_Weekdays>)
+    case weekdays(Set<LGV_MeetingSDK_SearchInitiator_Search_Modifiers_Weekdays>)
     
     /* ################################################################## */
     /**
+     This allows us to specify a range of times, from 0000 (midnight this morning), to 2400 (midnight tonight), inclusive.
+     The times are specified in seconds (0...86400).
+     Meetings that start within this range will be returned.
      */
-    case timeRange(Range<TimeInterval>)
-}
-
-/* ###################################################################################################################################### */
-// MARK: - Search Initiator Protocol -
-/* ###################################################################################################################################### */
-/**
- This is supplied to a transport instance, and is used to form the searh "stimulus" commands, to be sent to the server.
- */
-public protocol LGV_MeetingSDK_SearchInitiator_Protocol {
+    case startTimeRange(ClosedRange<TimeInterval>)
 }
 
 /* ###################################################################################################################################### */
@@ -143,18 +161,47 @@ public protocol LGV_MeetingSDK_Parser_Protocol {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - The Transport Layer Protocol -
+// MARK: - Search Initiator Protocol -
 /* ###################################################################################################################################### */
 /**
- This defines requirements for a loosely-coupled transport layer.
+ This is supplied to a transport instance, and is used to form the searh "stimulus" commands, to be sent to the server.
  */
-public protocol LGV_MeetingSDK_Transport_Protocol {
+public protocol LGV_MeetingSDK_SearchInitiator_Protocol {
+    /* ################################################################## */
+    /**
+     This is the callback made, when the search is complete.
+     **NOTE:** This may not be called in the main thread.
+     - parameter: Meeting Data, this is an optional (may be nil) of any returned (parsed) data. It will contain the original search specification parameters.
+     - parameter: Error This is optional and will usually be nil. If an error was encountered during the search, it is returned here.
+     */
+    typealias MeetingSearchCallbackClosure = (_: LGV_MeetingSDK_Meeting_Data_Set?, _: Error?) -> Void
+    
     /* ################################################################## */
     /**
      REQUIRED - The parser for meeting data.
      */
     var parser: LGV_MeetingSDK_Parser_Protocol { get }
     
+    /* ################################################################## */
+    /**
+     REQUIRED - This executes a meeting search.
+     - Parameters:
+        - type: The main search type.
+        - modifiers: a set of search filter modifiers.
+        - completion: The completion closure.
+     */
+    func meetingSearch(type: LGV_MeetingSDK_SearchInitiator_SearchType,
+                       modifiers: Set<LGV_MeetingSDK_SearchInitiator_Search_Modifiers>,
+                       completion: MeetingSearchCallbackClosure)
+}
+
+/* ###################################################################################################################################### */
+// MARK: - The Transport Layer Protocol -
+/* ###################################################################################################################################### */
+/**
+ This defines requirements for a loosely-coupled transport layer.
+ */
+public protocol LGV_MeetingSDK_Transport_Protocol {
     /* ################################################################## */
     /**
      REQUIRED - The initiator, for creating search commands.
