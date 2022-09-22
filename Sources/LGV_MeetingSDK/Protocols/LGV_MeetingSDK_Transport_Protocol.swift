@@ -23,7 +23,7 @@ import Foundation
 // MARK: - The Parsed Meeting Search Information Class -
 /* ###################################################################################################################################### */
 /**
- This defines a class, containing a "found set" of meeting and/or format data.
+ This defines a class, containing a "found set" of meeting data.
  It is defined as a class, so it can be referenced (possibly weakly), in order to avoid data duplication.
  */
 open class LGV_MeetingSDK_Meeting_Data_Set {
@@ -32,23 +32,15 @@ open class LGV_MeetingSDK_Meeting_Data_Set {
      This contains any found meetings. It may be empty (no meetings found).
      */
     public let meetings: [LGV_MeetingSDK_Meeting_Protocol]
-    
-    /* ################################################################## */
-    /**
-     This contains any found formats. It may be empty (no meetings found). If provided with meetings, it should contain at least all the formats used in those meetings.
-     */
-    public let formats: [LGV_MeetingSDK_Format_Protocol]
-    
+
     /* ################################################################## */
     /**
      Default initializer.
      
      - parameter meetings: OPTIONAL This contains any found meetings. It may be empty or omitted (no meetings found).
-     - parameter formats: OPTIONAL This contains any found formats. It may be empty or omitted (no formats found). If provided with meetings, it should contain at least all the formats used in those meetings.
      */
-    public init(meetings inMeetings: [LGV_MeetingSDK_Meeting_Protocol] = [], formats inFormats: [LGV_MeetingSDK_Format_Protocol] = []) {
+    public init(meetings inMeetings: [LGV_MeetingSDK_Meeting_Protocol] = []) {
         meetings = inMeetings
-        formats = inFormats
     }
 }
 
