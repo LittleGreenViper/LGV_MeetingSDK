@@ -111,9 +111,15 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
             var lastSearch: LGV_MeetingSDK_Meeting_Data_Set?
         }
         
-        let expectation = XCTestExpectation()
+        let expectation = XCTestExpectation(description: "Data Was Not Properly Set")
 
-        func dummyCompletion(_: LGV_MeetingSDK_Meeting_Data_Set_Protocol?, _: Error?) { expectation.fulfill() }
+        // This just fulfills the expectation, so we know the callback was made.
+        func dummyCompletion(_ inDataSet: LGV_MeetingSDK_Meeting_Data_Set_Protocol?, _: Error?) {
+            guard case .none? = inDataSet?.searchType,
+                  [] == inDataSet?.searchModifiers
+            else { return }
+            expectation.fulfill()
+        }
 
         let organizationKey: String = "MockNA"
         let organizationName: String = "Mocked NA"
@@ -128,6 +134,7 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
         // We simply test that the organization and parser are assigned to the correct place, upon instantiation of the main struct.
         let testSDK = LGV_MeetingSDK(organization: organization)
 
+        // We make sure that everything is where it's supposed to be.
         XCTAssert(testSDK.organization === organization)
         XCTAssert(testSDK.organization?.sdkInstance === testSDK)
         XCTAssert(testSDK.organization?.transport is Dummy_Transport)
@@ -140,7 +147,8 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
         XCTAssertEqual(testSDK.organization?.organizationDescription, organizationDescription)
         XCTAssertEqual(testSDK.organization?.organizationURL, organizationURL)
         
+        // Make sure that our callback is made.
         testSDK.meetingSearch(type: .none, modifiers: [], completion: dummyCompletion)
-        wait(for: [expectation], timeout: 0.5)
+        wait(for: [expectation], timeout: 0.25)
     }
 }
