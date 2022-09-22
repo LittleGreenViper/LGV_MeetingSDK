@@ -141,6 +141,6 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
         XCTAssertEqual(testSDK.organization?.organizationURL, organizationURL)
         
         testSDK.meetingSearch(type: .none, modifiers: [], completion: dummyCompletion)
-        wait(for: [expectation], timeout: 10)
+        wait(for: [expectation], timeout: 0.5)
     }
 }
