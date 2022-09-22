@@ -18,6 +18,7 @@
  */
 
 import Foundation
+
 /* ###################################################################################################################################### */
 // MARK: - Search Initiator Protocol -
 /* ###################################################################################################################################### */
@@ -25,7 +26,6 @@ import Foundation
  This is supplied to a transport instance, and is used to form the searh "stimulus" commands, to be sent to the server.
  */
 public protocol LGV_MeetingSDK_SearchInitiator_Protocol {
-    
 }
 
 /* ###################################################################################################################################### */
@@ -85,11 +85,8 @@ public protocol LGV_MeetingSDK_Transport_Protocol {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - The Transport Layer Protocol -
+// MARK: Protocol Defaults
 /* ###################################################################################################################################### */
-/**
- This defines requirements for a loosely-coupled transport layer.
- */
 public extension LGV_MeetingSDK_Transport_Protocol {
     /* ################################################################## */
     /**

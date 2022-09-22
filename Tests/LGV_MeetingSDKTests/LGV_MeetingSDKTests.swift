@@ -59,7 +59,6 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
          This is an empty placeholder initiator. It does nothing.
          */
         struct Empty_Initiator: LGV_MeetingSDK_SearchInitiator_Protocol {
-            
         }
         
         /* ############################################################################################################################## */
@@ -118,11 +117,11 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
 
         XCTAssert(testSDK.organization === organization)
         XCTAssert(testSDK.organization?.sdkInstance === testSDK)
+        XCTAssert(testSDK.organization?.transport is Dummy_Transport)
+        XCTAssert(testSDK.organization?.transport?.parser is Empty_Parser)
+        XCTAssert(testSDK.organization?.transport?.initiator is Empty_Initiator)
         XCTAssert(testSDK.organization?.transport?.organization === organization)
         XCTAssert(testSDK.organization?.transport?.sdkInstance === testSDK)
-        XCTAssert(testSDK.organization?.transport is Dummy_Transport)
-        XCTAssert(testSDK.organization?.transport?.initiator is Empty_Initiator)
-        XCTAssert(testSDK.organization?.transport?.parser is Empty_Parser)
         XCTAssertEqual(testSDK.organization?.organizationKey, organizationKey)
         XCTAssertEqual(testSDK.organization?.organizationName, organizationName)
         XCTAssertEqual(testSDK.organization?.organizationDescription, organizationDescription)
