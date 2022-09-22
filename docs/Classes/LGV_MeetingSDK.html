@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>LGV_MeetingSDK_Meeting_Physical_Protocol Protocol Reference</title>
+    <title>LGV_MeetingSDK Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Protocol/LGV_MeetingSDK_Meeting_Physical_Protocol" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Class/LGV_MeetingSDK" class="dashAnchor"></a>
 
-    <a title="LGV_MeetingSDK_Meeting_Physical_Protocol Protocol Reference"></a>
+    <a title="LGV_MeetingSDK Class Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html"> Reference</a>
       <img class="carat" src="../img/carat.png" alt=""/>
-      LGV_MeetingSDK_Meeting_Physical_Protocol Protocol Reference
+      LGV_MeetingSDK Class Reference
     </p>
 
     <div class="content-wrapper">
@@ -125,8 +125,15 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>LGV_MeetingSDK_Meeting_Physical_Protocol</h1>
-            <p>This defines the meeting&rsquo;s physical location component.</p>
+            <h1>LGV_MeetingSDK</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  
+                </div>
+              </div>
+            <p>This is instantiated, in order to provide meeting search capabilities for one organization.
+This is a class, so it can be specialized, and referenced.</p>
 
           </div>
         </section>
@@ -134,13 +141,22 @@
         <section class="section">
           <div class="section-content">
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Private%20Instance%20Properties"></a>
+                <a name="//apple_ref/swift/Section/Private Instance Properties" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Private%20Instance%20Properties"></a>
+                  <h3 class="section-name"><span>Private Instance Properties</span>
+</h3>
+                </div>
+              </div>
               <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/placemark" class="dashAnchor"></a>
-                    <a class="token" href="#/">placemark</a>
+                    <a name="//apple_ref/swift/Property/_organization" class="dashAnchor"></a>
+                    <a class="token" href="#/">_organization</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -148,9 +164,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>REQUIRED - The location is stored as a standard placemark.</p>
-
-<p><strong>NOTE:</strong> This should specify the <a href="https://developer.apple.com/documentation/corelocation/clplacemark/1423707-timezone"><code>timeZone</code></a> property!.</p>
+                        <p>This is the organization that applies to this search instance. This is a strong reference.</p>
 
                       </div>
                     </section>
@@ -160,24 +174,80 @@
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/location" class="dashAnchor"></a>
-                    <a class="token" href="#/">location</a>
+                    <a name="//apple_ref/swift/Property/_lastSearch" class="dashAnchor"></a>
+                    <a class="token" href="#/">_lastSearch</a>
                     </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>OPTIONAL - This is a direct accessor for the location (degrees Long/Lat, altitude, etc.). May be nil.</p>
+                        <p>The &ldquo;cached&rdquo; last search. It may be nil (no last search cached).</p>
 
                       </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        <p>The default returns the location directly from the placemark.</p>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Main%20Initializer"></a>
+                <a name="//apple_ref/swift/Section/Main Initializer" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Main%20Initializer"></a>
+                  <h3 class="section-name"><span>Main Initializer</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/init(organization:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">init(organization:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the default initializer for the search SDK.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/LGV_MeetingSDK_Protocol%20Conformance"></a>
+                <a name="//apple_ref/swift/Section/LGV_MeetingSDK_Protocol Conformance" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/LGV_MeetingSDK_Protocol%20Conformance"></a>
+                  <h3 class="section-name"><span>LGV_MeetingSDK_Protocol Conformance</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/organization" class="dashAnchor"></a>
+                    <a class="token" href="#/">organization</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the organization that applies to this search instance.</p>
 
                       </div>
                     </section>
@@ -187,24 +257,16 @@
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/coordinate" class="dashAnchor"></a>
-                    <a class="token" href="#/">coordinate</a>
+                    <a name="//apple_ref/swift/Property/lastSearch" class="dashAnchor"></a>
+                    <a class="token" href="#/">lastSearch</a>
                     </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>OPTIONAL - This is a direct accessor for the coordinates (degrees Long/Lat). Nil, if no coordinates (address only).</p>
-
-                      </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        <p>The default returns the coordinates directly from the placemark location.</p>
+                        <p>The &ldquo;cached&rdquo; last search. It may be nil (no last search cached).</p>
 
                       </div>
                     </section>

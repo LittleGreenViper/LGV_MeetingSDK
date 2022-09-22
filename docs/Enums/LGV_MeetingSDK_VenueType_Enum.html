@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>LGV_MeetingSDK_Meeting_Physical_Protocol Protocol Reference</title>
+    <title>LGV_MeetingSDK_VenueType_Enum Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Protocol/LGV_MeetingSDK_Meeting_Physical_Protocol" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Enum/LGV_MeetingSDK_VenueType_Enum" class="dashAnchor"></a>
 
-    <a title="LGV_MeetingSDK_Meeting_Physical_Protocol Protocol Reference"></a>
+    <a title="LGV_MeetingSDK_VenueType_Enum Enumeration Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html"> Reference</a>
       <img class="carat" src="../img/carat.png" alt=""/>
-      LGV_MeetingSDK_Meeting_Physical_Protocol Protocol Reference
+      LGV_MeetingSDK_VenueType_Enum Enumeration Reference
     </p>
 
     <div class="content-wrapper">
@@ -125,8 +125,8 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>LGV_MeetingSDK_Meeting_Physical_Protocol</h1>
-            <p>This defines the meeting&rsquo;s physical location component.</p>
+            <h1>LGV_MeetingSDK_VenueType_Enum</h1>
+            <p>Each meeting is either in-person (has a physical location), virtual-only (no physical location), or hybrid (both).</p>
 
           </div>
         </section>
@@ -139,8 +139,8 @@
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/placemark" class="dashAnchor"></a>
-                    <a class="token" href="#/">placemark</a>
+                    <a name="//apple_ref/swift/Element/invalid" class="dashAnchor"></a>
+                    <a class="token" href="#/">invalid</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -148,9 +148,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>REQUIRED - The location is stored as a standard placemark.</p>
-
-<p><strong>NOTE:</strong> This should specify the <a href="https://developer.apple.com/documentation/corelocation/clplacemark/1423707-timezone"><code>timeZone</code></a> property!.</p>
+                        <p>There is no valid venue (the meeting is not valid).</p>
 
                       </div>
                     </section>
@@ -160,24 +158,16 @@
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/location" class="dashAnchor"></a>
-                    <a class="token" href="#/">location</a>
+                    <a name="//apple_ref/swift/Element/virtualOnly" class="dashAnchor"></a>
+                    <a class="token" href="#/">virtualOnly</a>
                     </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>OPTIONAL - This is a direct accessor for the location (degrees Long/Lat, altitude, etc.). May be nil.</p>
-
-                      </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        <p>The default returns the location directly from the placemark.</p>
+                        <p>There is no physical location associated with this meeting.</p>
 
                       </div>
                     </section>
@@ -187,24 +177,35 @@
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/coordinate" class="dashAnchor"></a>
-                    <a class="token" href="#/">coordinate</a>
+                    <a name="//apple_ref/swift/Element/inPersonOnly" class="dashAnchor"></a>
+                    <a class="token" href="#/">inPersonOnly</a>
                     </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>OPTIONAL - This is a direct accessor for the coordinates (degrees Long/Lat). Nil, if no coordinates (address only).</p>
+                        <p>There is only a physical location associated with this meeting.</p>
 
                       </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        <p>The default returns the coordinates directly from the placemark location.</p>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Element/hybrid" class="dashAnchor"></a>
+                    <a class="token" href="#/">hybrid</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>There are both a physical location, and a virtual venue, associated with this meeting.</p>
 
                       </div>
                     </section>

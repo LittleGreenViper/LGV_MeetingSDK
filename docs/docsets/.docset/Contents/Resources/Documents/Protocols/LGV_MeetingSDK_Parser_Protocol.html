@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>LGV_MeetingSDK_Meeting_Physical_Protocol Protocol Reference</title>
+    <title>LGV_MeetingSDK_Parser_Protocol Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Protocol/LGV_MeetingSDK_Meeting_Physical_Protocol" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Protocol/LGV_MeetingSDK_Parser_Protocol" class="dashAnchor"></a>
 
-    <a title="LGV_MeetingSDK_Meeting_Physical_Protocol Protocol Reference"></a>
+    <a title="LGV_MeetingSDK_Parser_Protocol Protocol Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html"> Reference</a>
       <img class="carat" src="../img/carat.png" alt=""/>
-      LGV_MeetingSDK_Meeting_Physical_Protocol Protocol Reference
+      LGV_MeetingSDK_Parser_Protocol Protocol Reference
     </p>
 
     <div class="content-wrapper">
@@ -125,8 +125,8 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>LGV_MeetingSDK_Meeting_Physical_Protocol</h1>
-            <p>This defines the meeting&rsquo;s physical location component.</p>
+            <h1>LGV_MeetingSDK_Parser_Protocol</h1>
+            <p>This defines the requirements for an instance of a data parser for the transport.</p>
 
           </div>
         </section>
@@ -139,8 +139,8 @@
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/placemark" class="dashAnchor"></a>
-                    <a class="token" href="#/">placemark</a>
+                    <a name="//apple_ref/swift/Method/parseThis(searchType:searchModifiers:data:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">parseThis(searchType:<wbr>searchModifiers:<wbr>data:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -148,63 +148,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>REQUIRED - The location is stored as a standard placemark.</p>
-
-<p><strong>NOTE:</strong> This should specify the <a href="https://developer.apple.com/documentation/corelocation/clplacemark/1423707-timezone"><code>timeZone</code></a> property!.</p>
-
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/location" class="dashAnchor"></a>
-                    <a class="token" href="#/">location</a>
-                    </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>OPTIONAL - This is a direct accessor for the location (degrees Long/Lat, altitude, etc.). May be nil.</p>
-
-                      </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        <p>The default returns the location directly from the placemark.</p>
-
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/coordinate" class="dashAnchor"></a>
-                    <a class="token" href="#/">coordinate</a>
-                    </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>OPTIONAL - This is a direct accessor for the coordinates (degrees Long/Lat). Nil, if no coordinates (address only).</p>
-
-                      </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        <p>The default returns the coordinates directly from the placemark location.</p>
+                        <p>REQUIRED - This parses data, and returns meetings.</p>
 
                       </div>
                     </section>

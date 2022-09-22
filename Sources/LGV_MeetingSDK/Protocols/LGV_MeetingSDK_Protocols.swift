@@ -29,10 +29,37 @@ public protocol LGV_MeetingSDK_Protocol {
      REQUIRED - The search organization. This needs to be the "transport" version of the organization.
      */
     var organization: LGV_MeetingSDK_Organization_Transport_Protocol? { get }
-    
+
     /* ################################################################## */
     /**
      REQUIRED - The "cached" last search. It may be nil (no last search cached).
      */
     var lastSearch: LGV_MeetingSDK_Meeting_Data_Set? { get }
+    
+    /* ################################################################## */
+    /**
+     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - This executes a meeting search.
+     - Parameters:
+        - type: The main search type.
+        - modifiers: a set of search filter modifiers.
+        - completion: The completion closure.
+     */
+    func meetingSearch(type: LGV_MeetingSDK_Meeting_Data_Set.SearchType,
+                       modifiers: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Modifiers>,
+                       completion: LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure)
+}
+
+/* ###################################################################################################################################### */
+// MARK: Protocol Defaults
+/* ###################################################################################################################################### */
+public extension LGV_MeetingSDK_Protocol {
+    /* ################################################################## */
+    /**
+     Default runs, using the built-in organization->transport->initiator method.
+     */
+    func meetingSearch(type inType: LGV_MeetingSDK_Meeting_Data_Set.SearchType,
+                       modifiers inModifiers: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Modifiers>,
+                       completion inCompletion: LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
+        organization?.transport?.initiator.meetingSearch(type: inType, modifiers: inModifiers, completion: inCompletion)
+    }
 }

@@ -49,8 +49,8 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
 
              - returns: An empty parse set
              */
-            func parseThis(searchType inSearchType: LGV_MeetingSDK_SearchInitiator_SearchType,
-                           searchModifiers inSearchModifiers: Set<LGV_MeetingSDK_SearchInitiator_Search_Modifiers>,
+            func parseThis(searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchType,
+                           searchModifiers inSearchModifiers: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Modifiers>,
                            data inData: Data) -> LGV_MeetingSDK_Meeting_Data_Set {
                 LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchModifiers: inSearchModifiers, meetings: [])
             }
@@ -78,7 +78,11 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
                 - modifiers: Any search modifiers.
                 - completion: A completion function.
              */
-            func meetingSearch(type: LGV_MeetingSDK_SearchInitiator_SearchType, modifiers: Set<LGV_MeetingSDK_SearchInitiator_Search_Modifiers>, completion inCompletion: MeetingSearchCallbackClosure) { inCompletion(nil, nil) }
+            func meetingSearch(type inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchType,
+                               modifiers inSearchModifiers: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Modifiers>,
+                               completion inCompletion: MeetingSearchCallbackClosure) {
+                inCompletion(parser.parseThis(searchType: inSearchType, searchModifiers: inSearchModifiers, data: Data()), nil)
+            }
         }
         
         /* ############################################################################################################################## */
@@ -106,6 +110,13 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
              */
             var lastSearch: LGV_MeetingSDK_Meeting_Data_Set?
         }
+        
+        let expectation = XCTestExpectation()
+        expectation.expectedFulfillmentCount = 1
+
+        func dummyCompletion(_ inResults: LGV_MeetingSDK_Meeting_Data_Set?, _inError: Error?) {
+            expectation.fulfill()
+        }
 
         let organizationKey: String = "MockNA"
         let organizationName: String = "Mocked NA"
@@ -131,5 +142,8 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
         XCTAssertEqual(testSDK.organization?.organizationName, organizationName)
         XCTAssertEqual(testSDK.organization?.organizationDescription, organizationDescription)
         XCTAssertEqual(testSDK.organization?.organizationURL, organizationURL)
+        
+        testSDK.meetingSearch(type: .none, modifiers: [], completion: dummyCompletion)
+        wait(for: [expectation], timeout: 10)
     }
 }

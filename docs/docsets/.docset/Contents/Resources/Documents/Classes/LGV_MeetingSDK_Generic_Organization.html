@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>LGV_MeetingSDK_Meeting_Physical_Protocol Protocol Reference</title>
+    <title>LGV_MeetingSDK_Generic_Organization Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Protocol/LGV_MeetingSDK_Meeting_Physical_Protocol" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Class/LGV_MeetingSDK_Generic_Organization" class="dashAnchor"></a>
 
-    <a title="LGV_MeetingSDK_Meeting_Physical_Protocol Protocol Reference"></a>
+    <a title="LGV_MeetingSDK_Generic_Organization Class Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html"> Reference</a>
       <img class="carat" src="../img/carat.png" alt=""/>
-      LGV_MeetingSDK_Meeting_Physical_Protocol Protocol Reference
+      LGV_MeetingSDK_Generic_Organization Class Reference
     </p>
 
     <div class="content-wrapper">
@@ -125,8 +125,8 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>LGV_MeetingSDK_Meeting_Physical_Protocol</h1>
-            <p>This defines the meeting&rsquo;s physical location component.</p>
+            <h1>LGV_MeetingSDK_Generic_Organization</h1>
+            <p>This is a &ldquo;general-purpose&rdquo; organization class that should work for most requirements.</p>
 
           </div>
         </section>
@@ -139,8 +139,8 @@
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/placemark" class="dashAnchor"></a>
-                    <a class="token" href="#/">placemark</a>
+                    <a name="//apple_ref/swift/Property/_transport" class="dashAnchor"></a>
+                    <a class="token" href="#/">_transport</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -148,9 +148,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>REQUIRED - The location is stored as a standard placemark.</p>
-
-<p><strong>NOTE:</strong> This should specify the <a href="https://developer.apple.com/documentation/corelocation/clplacemark/1423707-timezone"><code>timeZone</code></a> property!.</p>
+                        <p>We store the transport in a private property, and access it, via a computed one. This is a strong reference.</p>
 
                       </div>
                     </section>
@@ -160,24 +158,16 @@
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/location" class="dashAnchor"></a>
-                    <a class="token" href="#/">location</a>
+                    <a name="//apple_ref/swift/Property/_organizationDescription" class="dashAnchor"></a>
+                    <a class="token" href="#/">_organizationDescription</a>
                     </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>OPTIONAL - This is a direct accessor for the location (degrees Long/Lat, altitude, etc.). May be nil.</p>
-
-                      </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        <p>The default returns the location directly from the placemark.</p>
+                        <p>We store the description in a private property, and access it, via a computed one.</p>
 
                       </div>
                     </section>
@@ -187,24 +177,149 @@
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/coordinate" class="dashAnchor"></a>
-                    <a class="token" href="#/">coordinate</a>
+                    <a name="//apple_ref/swift/Property/_organizationURL" class="dashAnchor"></a>
+                    <a class="token" href="#/">_organizationURL</a>
                     </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>OPTIONAL - This is a direct accessor for the coordinates (degrees Long/Lat). Nil, if no coordinates (address only).</p>
+                        <p>We store the URL in a private property, and access it, via a computed one.</p>
 
                       </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        <p>The default returns the coordinates directly from the placemark location.</p>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/sdkInstance" class="dashAnchor"></a>
+                    <a class="token" href="#/">sdkInstance</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The SDK instance to which this organization is assigned. This is a weak reference.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/organizationKey" class="dashAnchor"></a>
+                    <a class="token" href="#/">organizationKey</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the unique key for the organization. This should be unique in the SDK execution environment.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/organizationName" class="dashAnchor"></a>
+                    <a class="token" href="#/">organizationName</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is a short name for the organization.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/transport" class="dashAnchor"></a>
+                    <a class="token" href="#/">transport</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the accessor for the transport private property.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/organizationDescription" class="dashAnchor"></a>
+                    <a class="token" href="#/">organizationDescription</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the accessor for the description private property.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/organizationURL" class="dashAnchor"></a>
+                    <a class="token" href="#/">organizationURL</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the accessor for the URL private property.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/init(transport:organizationKey:organizationName:organizationDescription:organizationURL:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">init(transport:<wbr>organizationKey:<wbr>organizationName:<wbr>organizationDescription:<wbr>organizationURL:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The default initializer.</p>
 
                       </div>
                     </section>

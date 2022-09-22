@@ -51,6 +51,37 @@
       <nav class="navigation">
         <ul class="nav-groups">
           <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK.html">LGV_MeetingSDK</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_Generic_Organization.html">LGV_MeetingSDK_Generic_Organization</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_Meeting_Data_Set.html">LGV_MeetingSDK_Meeting_Data_Set</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_Meeting_Data_Set/Weekdays.html">– Weekdays</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_Meeting_Data_Set/SearchType.html">– SearchType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_Meeting_Data_Set/Search_Modifiers.html">– Search_Modifiers</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/LGV_MeetingSDK_VenueType_Enum.html">LGV_MeetingSDK_VenueType_Enum</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -69,18 +100,22 @@
                 <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_Meeting_Virtual_Venue_Protocol.html">LGV_MeetingSDK_Meeting_Virtual_Venue_Protocol</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Protocols.html#/LGV_MeetingSDK_Observer_Protocol">LGV_MeetingSDK_Observer_Protocol</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/LGV_MeetingSDK.html">LGV_MeetingSDK</a>
+                <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_Organization_Protocol.html">LGV_MeetingSDK_Organization_Protocol</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs.html#/LGV_MeetingSDK_Transport">LGV_MeetingSDK_Transport</a>
+                <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_Organization_Transport_Protocol.html">LGV_MeetingSDK_Organization_Transport_Protocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_Parser_Protocol.html">LGV_MeetingSDK_Parser_Protocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_Protocol.html">LGV_MeetingSDK_Protocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_SearchInitiator_Protocol.html">LGV_MeetingSDK_SearchInitiator_Protocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_Transport_Protocol.html">LGV_MeetingSDK_Transport_Protocol</a>
               </li>
             </ul>
           </li>
@@ -91,7 +126,8 @@
         <section class="section">
           <div class="section-content top-matter">
             <h1>LGV_MeetingSDK_Format_Protocol</h1>
-            
+            <p>Each meeting may have a list of associated formats, describing details about the meeting.</p>
+
           </div>
         </section>
 
@@ -99,26 +135,6 @@
           <div class="section-content">
             <div class="task-group">
               <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/formatUUIDString" class="dashAnchor"></a>
-                    <a class="token" href="#/">formatUUIDString</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The unique UUID for this format.
-This must be unique within the context of the SDK instance.</p>
-
-                      </div>
-                    </section>
-                  </div>
-                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -132,7 +148,7 @@ This must be unique within the context of the SDK instance.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The key for this format.
+                        <p>REQUIRED - The key for this format.
 This must be unique within the context of the Meeting Instance.</p>
 
                       </div>
@@ -152,7 +168,7 @@ This must be unique within the context of the Meeting Instance.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The name for this format (a short descriptive string).</p>
+                        <p>REQUIRED - The name for this format (a short descriptive string).</p>
 
                       </div>
                     </section>
@@ -171,7 +187,7 @@ This must be unique within the context of the Meeting Instance.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The longer description for this format.</p>
+                        <p>REQUIRED - The longer description for this format.</p>
 
                       </div>
                     </section>
@@ -185,7 +201,7 @@ This must be unique within the context of the Meeting Instance.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-09-20)</p>
+      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-09-22)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

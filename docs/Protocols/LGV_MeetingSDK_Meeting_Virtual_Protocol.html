@@ -51,6 +51,37 @@
       <nav class="navigation">
         <ul class="nav-groups">
           <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK.html">LGV_MeetingSDK</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_Generic_Organization.html">LGV_MeetingSDK_Generic_Organization</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_Meeting_Data_Set.html">LGV_MeetingSDK_Meeting_Data_Set</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_Meeting_Data_Set/Weekdays.html">– Weekdays</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_Meeting_Data_Set/SearchType.html">– SearchType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_Meeting_Data_Set/Search_Modifiers.html">– Search_Modifiers</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/LGV_MeetingSDK_VenueType_Enum.html">LGV_MeetingSDK_VenueType_Enum</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -69,18 +100,22 @@
                 <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_Meeting_Virtual_Venue_Protocol.html">LGV_MeetingSDK_Meeting_Virtual_Venue_Protocol</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Protocols.html#/LGV_MeetingSDK_Observer_Protocol">LGV_MeetingSDK_Observer_Protocol</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/LGV_MeetingSDK.html">LGV_MeetingSDK</a>
+                <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_Organization_Protocol.html">LGV_MeetingSDK_Organization_Protocol</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs.html#/LGV_MeetingSDK_Transport">LGV_MeetingSDK_Transport</a>
+                <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_Organization_Transport_Protocol.html">LGV_MeetingSDK_Organization_Transport_Protocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_Parser_Protocol.html">LGV_MeetingSDK_Parser_Protocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_Protocol.html">LGV_MeetingSDK_Protocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_SearchInitiator_Protocol.html">LGV_MeetingSDK_SearchInitiator_Protocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_Transport_Protocol.html">LGV_MeetingSDK_Transport_Protocol</a>
               </li>
             </ul>
           </li>
@@ -107,13 +142,22 @@
                     <a name="//apple_ref/swift/Property/videoMeeting" class="dashAnchor"></a>
                     <a class="token" href="#/">videoMeeting</a>
                     </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>OPTIONAL - If there is a video meeting associated, it is defined here. May be nil. This also applies to audio-only (not phone) meetings.</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Default is nil.</p>
+
                       </div>
                     </section>
                   </div>
@@ -125,13 +169,22 @@
                     <a name="//apple_ref/swift/Property/phoneMeeting" class="dashAnchor"></a>
                     <a class="token" href="#/">phoneMeeting</a>
                     </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>OPTIONAL - If there is a phone meeting associated, it is defined here. May be nil.</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Default is nil.</p>
+
                       </div>
                     </section>
                   </div>
@@ -144,7 +197,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-09-20)</p>
+      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-09-22)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

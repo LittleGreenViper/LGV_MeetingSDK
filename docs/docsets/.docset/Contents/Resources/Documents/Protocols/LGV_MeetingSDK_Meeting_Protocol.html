@@ -51,6 +51,37 @@
       <nav class="navigation">
         <ul class="nav-groups">
           <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK.html">LGV_MeetingSDK</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_Generic_Organization.html">LGV_MeetingSDK_Generic_Organization</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_Meeting_Data_Set.html">LGV_MeetingSDK_Meeting_Data_Set</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_Meeting_Data_Set/Weekdays.html">– Weekdays</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_Meeting_Data_Set/SearchType.html">– SearchType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_Meeting_Data_Set/Search_Modifiers.html">– Search_Modifiers</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/LGV_MeetingSDK_VenueType_Enum.html">LGV_MeetingSDK_VenueType_Enum</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -69,18 +100,22 @@
                 <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_Meeting_Virtual_Venue_Protocol.html">LGV_MeetingSDK_Meeting_Virtual_Venue_Protocol</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Protocols.html#/LGV_MeetingSDK_Observer_Protocol">LGV_MeetingSDK_Observer_Protocol</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/LGV_MeetingSDK.html">LGV_MeetingSDK</a>
+                <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_Organization_Protocol.html">LGV_MeetingSDK_Organization_Protocol</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs.html#/LGV_MeetingSDK_Transport">LGV_MeetingSDK_Transport</a>
+                <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_Organization_Transport_Protocol.html">LGV_MeetingSDK_Organization_Transport_Protocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_Parser_Protocol.html">LGV_MeetingSDK_Parser_Protocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_Protocol.html">LGV_MeetingSDK_Protocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_SearchInitiator_Protocol.html">LGV_MeetingSDK_SearchInitiator_Protocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_Transport_Protocol.html">LGV_MeetingSDK_Transport_Protocol</a>
               </li>
             </ul>
           </li>
@@ -104,6 +139,100 @@
                   <div>
                     <code>
                     <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/organization" class="dashAnchor"></a>
+                    <a class="token" href="#/">organization</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>REQUIRED - The meeting organization.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/meetingID" class="dashAnchor"></a>
+                    <a class="token" href="#/">meetingID</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>REQUIRED - Each meeting should have a unique (in the search domain) integer ID.</p>
+
+<p><strong>NOTE:</strong> This is positive, and 1-based. 0 is an error.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/meetingType" class="dashAnchor"></a>
+                    <a class="token" href="#/">meetingType</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The meeting venue type.</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Default figures out the meeting type, based on what venues are available.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/startTimeAndDay" class="dashAnchor"></a>
+                    <a class="token" href="#/">startTimeAndDay</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - Returns an optional DateComponents object, with the weekday and time of the meeting. Nil, if one-time event.</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Default returns an optional DateComponents object, with the weekday and time of the meeting. Returns nil, if the meeting weekday and/or start time is invalid.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
                     <a name="//apple_ref/swift/Property/isValid" class="dashAnchor"></a>
                     <a class="token" href="#/">isValid</a>
                     </code>
@@ -116,12 +245,39 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED** This is false, if the combination of meeting values does not represent a valid meeting.</p>
+                        <p>OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - This is false, if the combination of meeting values does not represent a valid meeting.</p>
 
                       </div>
                       <h4>Default Implementation</h4>
                       <div class="default_impl abstract">
                         <p>This is false, if the combination of meeting values does not represent a valid meeting.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/meetingLocalTimezone" class="dashAnchor"></a>
+                    <a class="token" href="#/">meetingLocalTimezone</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The local timezone of the meeting.</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Default tries to get the timezone from the physical address first, then the virtual, and failing that, our local timezone.</p>
 
                       </div>
                     </section>
@@ -143,14 +299,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p><strong>OPTIONAL</strong>. The next meeting (from now) will start on this date (time).</p>
+                        <p>OPTIONAL -. The next meeting (from now) will start on this date (time).</p>
 
 <p>If this is a one-time event, then this will be the only indicator of the meeting start time/date.</p>
+
+<p>In normal weekly meetings, this should not need to be implemented.</p>
 
                       </div>
                       <h4>Default Implementation</h4>
                       <div class="default_impl abstract">
-                        <p>By default, this calculates and returns the date of a repeating weekly meeting.</p>
+                        <p>By default, this calculates and returns the date of a repeating weekly meeting, and returns the next time the meeting will gather, after now.</p>
 
 <p>If the meeting is not a recurring weekly meeting, this should be implemented by the conforming class.</p>
 
@@ -174,12 +332,12 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>OPTIONAL** The name for this meeting.</p>
+                        <p>OPTIONAL - The name for this meeting.</p>
 
                       </div>
                       <h4>Default Implementation</h4>
                       <div class="default_impl abstract">
-                        <p>Default is empty String.</p>
+                        <p>Default is an empty String.</p>
 
                       </div>
                     </section>
@@ -201,7 +359,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p><strong>OPTIONAL</strong> The repeating weekday for the meeting (1-based, with 1 being Sunday, and 7 being Saturday).</p>
+                        <p>OPTIONAL - The repeating weekday for the meeting (1-based, with 1 being Sunday, and 7 being Saturday).</p>
 
 <p>If this is 0, then the meeting is considered to be a one-time event, and the <code><a href="../Protocols/LGV_MeetingSDK_Meeting_Protocol.html#/meetingStartTime">meetingStartTime</a></code> property should be ignored (<code><a href="../Protocols/LGV_MeetingSDK_Meeting_Protocol.html#/nextMeetingStartsOn">nextMeetingStartsOn</a></code> will have the start time and day).</p>
 
@@ -232,7 +390,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p><strong>OPTIONAL</strong> The start time of the meeting, as military time (HHMM). This only applies, if <code>(1...7).contains(weekday)</code>.</p>
+                        <p>OPTIONAL - The start time of the meeting, as military time (HHMM). This only applies, if <code>(1...7).contains(weekday)</code>.</p>
 
 <p><strong>NOTE:</strong> 0 is midnight (this morning), and 2400 is midnight (tonight).</p>
 
@@ -257,33 +415,6 @@
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/meetingLocalTimezone" class="dashAnchor"></a>
-                    <a class="token" href="#/">meetingLocalTimezone</a>
-                    </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>OPTIONAL** The local timezone of the meeting.</p>
-
-                      </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        <p>Default is the Device timezone</p>
-
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/"></a>
                     <a name="//apple_ref/swift/Property/meetingDuration" class="dashAnchor"></a>
                     <a class="token" href="#/">meetingDuration</a>
                     </code>
@@ -296,7 +427,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>OPTIONAL** The duration of the meeting, in seconds.</p>
+                        <p>OPTIONAL - The duration of the meeting, in seconds.</p>
 
                       </div>
                       <h4>Default Implementation</h4>
@@ -323,12 +454,12 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>OPTIONAL** If the meeting has formats, then this contains a list of them. Empty, if no formats.</p>
+                        <p>OPTIONAL - If the meeting has formats, then this contains a list of them. Empty, if no formats.</p>
 
                       </div>
                       <h4>Default Implementation</h4>
                       <div class="default_impl abstract">
-                        <p>Default is Empty Array</p>
+                        <p>Default is an Empty Array</p>
 
                       </div>
                     </section>
@@ -350,41 +481,12 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>OPTIONAL** If the meeting has comments associated, they will be here, as a String. Empty, if no comments.</p>
+                        <p>OPTIONAL - If the meeting has comments associated, they will be here, as a String. Empty, if no comments.</p>
 
                       </div>
                       <h4>Default Implementation</h4>
                       <div class="default_impl abstract">
-                        <p>Default is Empty String</p>
-
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/virtualMeetingInfo" class="dashAnchor"></a>
-                    <a class="token" href="#/">virtualMeetingInfo</a>
-                    </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>OPTIONAL** If the meeting has a virtual presence, this will have that information. Nil, if no virtual meeting.</p>
-
-<p>NOTE:** If this is not provided, then <code><a href="../Protocols/LGV_MeetingSDK_Meeting_Protocol.html#/physicalLocation">physicalLocation</a></code> should be provided.</p>
-
-                      </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        <p>Default is Nil</p>
+                        <p>Default is an Empty String</p>
 
                       </div>
                     </section>
@@ -406,9 +508,38 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>OPTIONAL** If the meeting has a physical presence, this will have the location. Nil, if no physical location.</p>
+                        <p>OPTIONAL - If the meeting has a physical presence, this will have the location. Nil, if no physical location.</p>
 
-<p>NOTE:** If this is not provided, then <code><a href="../Protocols/LGV_MeetingSDK_Meeting_Protocol.html#/virtualMeetingInfo">virtualMeetingInfo</a></code> should be provided.</p>
+<p><strong>NOTE:</strong> If this is not provided, then <code><a href="../Protocols/LGV_MeetingSDK_Meeting_Protocol.html#/virtualMeetingInfo">virtualMeetingInfo</a></code> should be provided.</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Default is Nil</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/virtualMeetingInfo" class="dashAnchor"></a>
+                    <a class="token" href="#/">virtualMeetingInfo</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>OPTIONAL - If the meeting has a virtual presence, this will have that information. Nil, if no virtual meeting.</p>
+
+<p><strong>NOTE:</strong> If this is not provided, then <code><a href="../Protocols/LGV_MeetingSDK_Meeting_Protocol.html#/physicalLocation">physicalLocation</a></code> should be provided.</p>
 
                       </div>
                       <h4>Default Implementation</h4>
@@ -435,7 +566,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>OPTIONAL** If the meeting has a URI (not a virtual meeting URI -for example, a Group Web site), that is available here.</p>
+                        <p>OPTIONAL - If the meeting has a URI (not a virtual meeting URI -for example, a Group Web site), that is available here.</p>
 
                       </div>
                       <h4>Default Implementation</h4>
@@ -454,7 +585,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-09-20)</p>
+      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-09-22)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
