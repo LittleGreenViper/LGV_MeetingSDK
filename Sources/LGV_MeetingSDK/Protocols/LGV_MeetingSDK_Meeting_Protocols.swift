@@ -238,6 +238,14 @@ public protocol LGV_MeetingSDK_Meeting_Protocol {
     
     /* ################################################################## */
     /**
+     REQUIRED - Each meeting should have a unique (in the search domain) integer ID.
+     
+     **NOTE:** This is positive, and 1-based. 0 is an error.
+     */
+    var meetingID: UInt64 { get }
+    
+    /* ################################################################## */
+    /**
      OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The meeting venue type.
      */
     var meetingType: LGV_MeetingSDK_VenueType_Enum { get }
@@ -265,6 +273,8 @@ public protocol LGV_MeetingSDK_Meeting_Protocol {
      OPTIONAL -. The next meeting (from now) will start on this date (time).
      
      If this is a one-time event, then this will be the only indicator of the meeting start time/date.
+     
+     In normal weekly meetings, this should not need to be implemented.
      */
     var nextMeetingStartsOn: Date? { get }
     
@@ -273,7 +283,7 @@ public protocol LGV_MeetingSDK_Meeting_Protocol {
      OPTIONAL - The name for this meeting.
      */
     var meetingName: String { get }
-    
+
     /* ################################################################## */
     /**
      OPTIONAL - The repeating weekday for the meeting (1-based, with 1 being Sunday, and 7 being Saturday).
@@ -400,7 +410,7 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
     /**
      This is false, if the combination of meeting values does not represent a valid meeting.
      */
-    var isValid: Bool { .invalid != meetingType && nil != nextMeetingStartsOn && (nil != physicalLocation || nil != virtualMeetingInfo) }
+    var isValid: Bool { .invalid != meetingType && 0 < meetingID && nil != nextMeetingStartsOn && (nil != physicalLocation || nil != virtualMeetingInfo) }
 
     /* ################################################################## */
     /**
