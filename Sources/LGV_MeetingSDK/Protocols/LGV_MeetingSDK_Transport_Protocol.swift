@@ -38,7 +38,7 @@ public protocol LGV_MeetingSDK_Parser_Protocol {
      */
     func parseThis(searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchType,
                    searchModifiers inSearchModifiers: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Modifiers>,
-                   data: Data) -> LGV_MeetingSDK_Meeting_Data_Set
+                   data: Data) -> LGV_MeetingSDK_Meeting_Data_Set_Protocol
 }
 
 /* ###################################################################################################################################### */
@@ -55,7 +55,7 @@ public protocol LGV_MeetingSDK_SearchInitiator_Protocol {
      - parameter: Meeting Data, this is an optional (may be nil) of any returned (parsed) data. It will contain the original search specification parameters.
      - parameter: Error This is optional and will usually be nil. If an error was encountered during the search, it is returned here.
      */
-    typealias MeetingSearchCallbackClosure = (_: LGV_MeetingSDK_Meeting_Data_Set?, _: Error?) -> Void
+    typealias MeetingSearchCallbackClosure = (_: LGV_MeetingSDK_Meeting_Data_Set_Protocol?, _: Error?) -> Void
     
     /* ################################################################## */
     /**

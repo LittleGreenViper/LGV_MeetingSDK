@@ -26,7 +26,7 @@ import CoreLocation
  This defines a class, containing a "found set" of meeting data.
  It is defined as a class, so it can be referenced (possibly weakly), in order to avoid data duplication.
  */
-open class LGV_MeetingSDK_Meeting_Data_Set {
+open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Protocol {
     /* ################################################################################################################################## */
     // MARK: - Search Initiator Additional Modifiers Weekdays Enum -
     /* ################################################################################################################################## */

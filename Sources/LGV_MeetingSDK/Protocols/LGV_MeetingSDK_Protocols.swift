@@ -18,6 +18,33 @@
  */
 
 /* ###################################################################################################################################### */
+// MARK: - The Parsed Meeting Search Information Protocol -
+/* ###################################################################################################################################### */
+/**
+ This defines a protocol, containing a "found set" of meeting data.
+ It is defined for a class, so it can be referenced (possibly weakly), in order to avoid data duplication.
+ */
+public protocol LGV_MeetingSDK_Meeting_Data_Set_Protocol: AnyObject {
+    /* ############################################################## */
+    /**
+     REQUIRED - This is the search specification main search type.
+     */
+    var searchType: LGV_MeetingSDK_Meeting_Data_Set.SearchType { get }
+    
+    /* ############################################################## */
+    /**
+     REQUIRED - This is the search specification additional filters.
+     */
+    var searchModifiers: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Modifiers> { get }
+    
+    /* ############################################################## */
+    /**
+     REQUIRED - This contains any found meetings. It may be empty (no meetings found).
+     */
+    var meetings: [LGV_MeetingSDK_Meeting_Protocol] { get }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - The Main Implementation Protocol -
 /* ###################################################################################################################################### */
 /**

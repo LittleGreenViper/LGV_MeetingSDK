@@ -51,7 +51,7 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
              */
             func parseThis(searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchType,
                            searchModifiers inSearchModifiers: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Modifiers>,
-                           data inData: Data) -> LGV_MeetingSDK_Meeting_Data_Set {
+                           data inData: Data) -> LGV_MeetingSDK_Meeting_Data_Set_Protocol {
                 LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchModifiers: inSearchModifiers, meetings: [])
             }
         }
@@ -112,11 +112,8 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
         }
         
         let expectation = XCTestExpectation()
-        expectation.expectedFulfillmentCount = 1
 
-        func dummyCompletion(_ inResults: LGV_MeetingSDK_Meeting_Data_Set?, _inError: Error?) {
-            expectation.fulfill()
-        }
+        func dummyCompletion(_: LGV_MeetingSDK_Meeting_Data_Set_Protocol?, _: Error?) { expectation.fulfill() }
 
         let organizationKey: String = "MockNA"
         let organizationName: String = "Mocked NA"
