@@ -24,8 +24,9 @@ import Foundation
 /* ###################################################################################################################################### */
 /**
  This is instantiated, in order to provide meeting search capabilities for one organization.
+ This is a class, so it can be specialized, and referenced.
  */
-public struct LGV_MeetingSDK {
+public class LGV_MeetingSDK {
     /* ################################################################################################################################## */
     // MARK: LGV_MeetingSDK_Protocol Conformance (Main Instance Stored Properties)
     /* ################################################################################################################################## */
@@ -72,9 +73,9 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
 // MARK: - Generic Organization struct -
 /* ###################################################################################################################################### */
 /**
- This is a "general-purpose" organization struct that should work for most requirements.
+ This is a "general-purpose" organization class that should work for most requirements.
  */
-public struct LGV_MeetingSDK_Generic_Organization: LGV_MeetingSDK_Organization_Protocol {
+public class LGV_MeetingSDK_Generic_Organization: LGV_MeetingSDK_Organization_Transport_Protocol {
     /* ########################################################## */
     /**
      We store the transport in a private property, and access it, via a computed one.
@@ -109,7 +110,7 @@ public struct LGV_MeetingSDK_Generic_Organization: LGV_MeetingSDK_Organization_P
     /**
      This is the accessor for the transport private property.
      */
-    var transport: LGV_MeetingSDK_Transport_Protocol? { _transport }
+    public var transport: LGV_MeetingSDK_Transport_Protocol? { _transport }
     
     /* ################################################################## */
     /**

@@ -71,93 +71,30 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
             var lastSearch: LGV_MeetingSDK_Meeting_Data_Set?
         }
 
-        /* ############################################################################################################################## */
-        // MARK: - Organization Mock -
-        /* ############################################################################################################################## */
-        /**
-         This is a dummy "NA" organization.
-         */
-        class Dummy_Organization: LGV_MeetingSDK_Organization_Transport_Protocol {
-            /* ########################################################## */
-            /**
-             The testing string.
-             */
-            static let organizationKey: String = "MockNA"
-            
-            /* ########################################################## */
-            /**
-             The testing string.
-             */
-            static let organizationName: String = "Mocked NA"
-            
-            /* ########################################################## */
-            /**
-             The testing string.
-             */
-            static let organizationDescription = "Not Real NA"
-            
-            /* ########################################################## */
-            /**
-             The testing URL.
-             */
-            static let organizationURL = URL(string: "http://example.com")
-            
-            /* ########################################################## */
-            /**
-             We need to keep this in a private stored property, so we can access it, via a computed property. This is because of protocol default.
-             */
-            private var _organizationDescription: String? = Dummy_Organization.organizationDescription
-
-            /* ########################################################## */
-            /**
-             We need to keep this in a private stored property, so we can access it, via a computed property. This is because of protocol default.
-             */
-            private var _organizationURL: URL? = Dummy_Organization.organizationURL
-
-            /* ########################################################## */
-            /**
-             The dummy transport.
-             */
-            var transport: LGV_MeetingSDK_Transport_Protocol? = Dummy_Transport(parser: Empty_Parser())
-            
-            /* ########################################################## */
-            /**
-             The dummy key.
-             */
-            var organizationKey: String = Dummy_Organization.organizationKey
-            
-            /* ########################################################## */
-            /**
-             The dummy name.
-             */
-            var organizationName: String = Dummy_Organization.organizationName
-            
-            /* ########################################################## */
-            /**
-             The dummy description (computed property)
-             */
-            var organizationDescription: String? { _organizationDescription }
-
-            /* ########################################################## */
-            /**
-             The dummy URL (computed property)
-             */
-            var organizationURL: URL? { _organizationURL }
-        }
+        let organizationKey: String = "MockNA"
+        let organizationName: String = "Mocked NA"
+        let organizationDescription = "Not Real NA"
+        let organizationURL = URL(string: "http://example.com")
         
         // We simply test that the organization and parser are assigned to the correct place, upon instantiation of the main struct.
-        let testSDK = LGV_MeetingSDK(organization: Dummy_Organization())
+        let testSDK = LGV_MeetingSDK(organization: LGV_MeetingSDK_Generic_Organization(transport: Dummy_Transport(parser: Empty_Parser()),
+                                                                                       organizationKey: organizationKey,
+                                                                                       organizationName: organizationName,
+                                                                                       organizationDescription: organizationDescription,
+                                                                                       organizationURL: organizationURL
+                                                                                      )
+        )
 
-        XCTAssert(testSDK.organization is Dummy_Organization)
+        XCTAssert(testSDK.organization is LGV_MeetingSDK_Generic_Organization)
         XCTAssert(testSDK.transport is Dummy_Transport)
         XCTAssert(testSDK.transport?.parser is Empty_Parser)
 
         XCTAssert(testSDK.organization?.transport is Dummy_Transport)
         XCTAssert(testSDK.organization?.transport?.parser is Empty_Parser)
         
-        XCTAssertEqual(testSDK.organization?.organizationKey, Dummy_Organization.organizationKey)
-        XCTAssertEqual(testSDK.organization?.organizationName, Dummy_Organization.organizationName)
-        XCTAssertEqual(testSDK.organization?.organizationDescription, Dummy_Organization.organizationDescription)
-        XCTAssertEqual(testSDK.organization?.organizationURL, Dummy_Organization.organizationURL)
+        XCTAssertEqual(testSDK.organization?.organizationKey, organizationKey)
+        XCTAssertEqual(testSDK.organization?.organizationName, organizationName)
+        XCTAssertEqual(testSDK.organization?.organizationDescription, organizationDescription)
+        XCTAssertEqual(testSDK.organization?.organizationURL, organizationURL)
     }
 }
