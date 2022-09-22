@@ -53,6 +53,16 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
         }
 
         /* ############################################################################################################################## */
+        // MARK: - Initiator Mock -
+        /* ############################################################################################################################## */
+        /**
+         This is an empty placeholder initiator. It does nothing.
+         */
+        struct Empty_Initiator: LGV_MeetingSDK_SearchInitiator_Protocol {
+            
+        }
+        
+        /* ############################################################################################################################## */
         // MARK: - Transport Mock -
         /* ############################################################################################################################## */
         /**
@@ -65,6 +75,12 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
              */
             var parser: LGV_MeetingSDK_Parser_Protocol
             
+            /* ########################################################## */
+            /**
+             The dummy initiator goes here.
+             */
+            var initiator: LGV_MeetingSDK_SearchInitiator_Protocol
+            
             /* ################################################################## */
             /**
              The transport organization to which this instance is assigned.
@@ -76,15 +92,22 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
              This will remain nil.
              */
             var lastSearch: LGV_MeetingSDK_Meeting_Data_Set?
+            
+            /* ########################################################## */
+            /**
+             We populate with empties.
+             */
+            init() {
+                parser = Empty_Parser()
+                initiator = Empty_Initiator()
+            }
         }
 
         let organizationKey: String = "MockNA"
         let organizationName: String = "Mocked NA"
         let organizationDescription = "Not Real NA"
         let organizationURL = URL(string: "http://example.com")
-        let parser = Empty_Parser()
-        let transport = Dummy_Transport(parser: parser)
-        let organization = LGV_MeetingSDK_Generic_Organization(transport: transport,
+        let organization = LGV_MeetingSDK_Generic_Organization(transport: Dummy_Transport(),
                                                                organizationKey: organizationKey,
                                                                organizationName: organizationName,
                                                                organizationDescription: organizationDescription,
@@ -98,6 +121,7 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
         XCTAssert(testSDK.organization?.transport?.organization === organization)
         XCTAssert(testSDK.organization?.transport?.sdkInstance === testSDK)
         XCTAssert(testSDK.organization?.transport is Dummy_Transport)
+        XCTAssert(testSDK.organization?.transport?.initiator is Empty_Initiator)
         XCTAssert(testSDK.organization?.transport?.parser is Empty_Parser)
         XCTAssertEqual(testSDK.organization?.organizationKey, organizationKey)
         XCTAssertEqual(testSDK.organization?.organizationName, organizationName)

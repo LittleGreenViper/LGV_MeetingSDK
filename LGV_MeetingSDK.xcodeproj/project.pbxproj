@@ -75,7 +75,7 @@
 		D412C80428D3BEC500BAFC16 /* LGV_MeetingSDK */ = {
 			isa = PBXGroup;
 			children = (
-				D412C80528D3BEC500BAFC16 /* LGV_MeetingSDK.swift */,
+				D478AD6828DCC43E006D1B4D /* Types */,
 				D4A6EC8928DB698500B3E660 /* Protocols */,
 				D46D476128D3BF9200D8785E /* LGV_MeetingSDK.docc */,
 			);
@@ -88,6 +88,14 @@
 				D412C80428D3BEC500BAFC16 /* LGV_MeetingSDK */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		D478AD6828DCC43E006D1B4D /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				D412C80528D3BEC500BAFC16 /* LGV_MeetingSDK.swift */,
+			);
+			path = Types;
 			sourceTree = "<group>";
 		};
 		D4A6EC7928DB4B3900B3E660 /* LGV_MeetingSDKTests */ = {

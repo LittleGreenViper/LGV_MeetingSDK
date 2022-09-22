@@ -18,30 +18,14 @@
  */
 
 import Foundation
-
 /* ###################################################################################################################################### */
-// MARK: - The Parsed Meeting Search Information Class -
+// MARK: - Search Initiator Protocol -
 /* ###################################################################################################################################### */
 /**
- This defines a class, containing a "found set" of meeting data.
- It is defined as a class, so it can be referenced (possibly weakly), in order to avoid data duplication.
+ This is supplied to a transport instance, and is used to form the searh "stimulus" commands, to be sent to the server.
  */
-open class LGV_MeetingSDK_Meeting_Data_Set {
-    /* ################################################################## */
-    /**
-     This contains any found meetings. It may be empty (no meetings found).
-     */
-    public let meetings: [LGV_MeetingSDK_Meeting_Protocol]
-
-    /* ################################################################## */
-    /**
-     Default initializer.
-     
-     - parameter meetings: OPTIONAL This contains any found meetings. It may be empty or omitted (no meetings found).
-     */
-    public init(meetings inMeetings: [LGV_MeetingSDK_Meeting_Protocol] = []) {
-        meetings = inMeetings
-    }
+public protocol LGV_MeetingSDK_SearchInitiator_Protocol {
+    
 }
 
 /* ###################################################################################################################################### */
@@ -74,6 +58,12 @@ public protocol LGV_MeetingSDK_Transport_Protocol {
      REQUIRED - The parser for meeting data.
      */
     var parser: LGV_MeetingSDK_Parser_Protocol { get }
+    
+    /* ################################################################## */
+    /**
+     REQUIRED - The initiator, for creating search commands.
+     */
+    var initiator: LGV_MeetingSDK_SearchInitiator_Protocol { get }
     
     /* ################################################################## */
     /**

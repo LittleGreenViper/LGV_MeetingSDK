@@ -20,6 +20,31 @@
 import Foundation
 
 /* ###################################################################################################################################### */
+// MARK: - The Parsed Meeting Search Information Class -
+/* ###################################################################################################################################### */
+/**
+ This defines a class, containing a "found set" of meeting data.
+ It is defined as a class, so it can be referenced (possibly weakly), in order to avoid data duplication.
+ */
+open class LGV_MeetingSDK_Meeting_Data_Set {
+    /* ################################################################## */
+    /**
+     This contains any found meetings. It may be empty (no meetings found).
+     */
+    public let meetings: [LGV_MeetingSDK_Meeting_Protocol]
+
+    /* ################################################################## */
+    /**
+     Default initializer.
+     
+     - parameter meetings: OPTIONAL This contains any found meetings. It may be empty or omitted (no meetings found).
+     */
+    public init(meetings inMeetings: [LGV_MeetingSDK_Meeting_Protocol] = []) {
+        meetings = inMeetings
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - Main SDK struct -
 /* ###################################################################################################################################### */
 /**
@@ -30,10 +55,9 @@ public class LGV_MeetingSDK {
     /* ################################################################################################################################## */
     // MARK: Private Instance Properties
     /* ################################################################################################################################## */
-    
     /* ################################################################## */
     /**
-     This is the organization that applies to this search instance.
+     This is the organization that applies to this search instance. This is a strong reference.
      */
     private var _organization: LGV_MeetingSDK_Organization_Transport_Protocol?
 
@@ -82,7 +106,7 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
 public class LGV_MeetingSDK_Generic_Organization: LGV_MeetingSDK_Organization_Transport_Protocol {
     /* ########################################################## */
     /**
-     We store the transport in a private property, and access it, via a computed one.
+     We store the transport in a private property, and access it, via a computed one. This is a strong reference.
      */
     private var _transport: LGV_MeetingSDK_Transport_Protocol?
     
@@ -100,7 +124,7 @@ public class LGV_MeetingSDK_Generic_Organization: LGV_MeetingSDK_Organization_Tr
 
     /* ################################################################## */
     /**
-     The SDK instance to which this organization is assigned.
+     The SDK instance to which this organization is assigned. This is a weak reference.
      */
     public weak var sdkInstance: LGV_MeetingSDK?
     
@@ -151,11 +175,11 @@ public class LGV_MeetingSDK_Generic_Organization: LGV_MeetingSDK_Organization_Tr
                 organizationDescription inOrganizationDescription: String? = nil,
                 organizationURL inOrganizationURL: URL? = nil
         ) {
-        _transport = inTransport
         organizationKey = inOrganizationKey
         organizationName = inOrganizationName
         _organizationDescription = inOrganizationDescription
         _organizationURL = inOrganizationURL
+        _transport = inTransport
         _transport?.organization = self
     }
 }
