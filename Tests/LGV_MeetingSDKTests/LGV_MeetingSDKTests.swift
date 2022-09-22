@@ -39,15 +39,21 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
          This is an empty placeholder parser. It does nothing.
          */
         struct Empty_Parser: LGV_MeetingSDK_Parser_Protocol {
-            /* ########################################################## */
+            /* ################################################################## */
             /**
-             This is a "dummy parser" for testing instantiation.
+             REQUIRED - This parses data, and returns meetings.
              
-             - parameter data: Ignored.
-             
-             - returns: An empty parse set.
+             - parameter searchType: OPTIONAL This is the search specification main search type. Default is .none.
+             - parameter searchModifiers: OPTIONAL This is the search specification additional filters. Default is .none.
+             - parameter data: The unparsed data, from the transport. It should consist of a meeting data set.
+
+             - returns: An empty parse set
              */
-            func parseThis(data: Data) -> LGV_MeetingSDK_Meeting_Data_Set { LGV_MeetingSDK_Meeting_Data_Set() }
+            func parseThis(searchType inSearchType: LGV_MeetingSDK_SearchInitiator_SearchType,
+                           searchModifiers inSearchModifiers: Set<LGV_MeetingSDK_SearchInitiator_Search_Modifiers>,
+                           data inData: Data) -> LGV_MeetingSDK_Meeting_Data_Set {
+                LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchModifiers: inSearchModifiers, meetings: [])
+            }
         }
 
         /* ############################################################################################################################## */
@@ -66,6 +72,11 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
             /* ################################################################## */
             /**
              This pretends to execute a meeting search.
+             
+             - Parameters:
+                - type: Any search type that was specified.
+                - modifiers: Any search modifiers.
+                - completion: A completion function.
              */
             func meetingSearch(type: LGV_MeetingSDK_SearchInitiator_SearchType, modifiers: Set<LGV_MeetingSDK_SearchInitiator_Search_Modifiers>, completion inCompletion: MeetingSearchCallbackClosure) { inCompletion(nil, nil) }
         }
