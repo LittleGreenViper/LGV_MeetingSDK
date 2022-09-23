@@ -26,4 +26,39 @@ import Foundation
  This adds methods to the transport class.
  */
 public extension LGV_MeetingSDK_BMLT.Transport {
+    /* ################################################################## */
+    /**
+     Creates a URL Request, for the given search parameters.
+     - Parameters:
+        - type: Any search type that was specified.
+        - modifiers: Any search modifiers.
+     
+     - returns: A new URL Request object, ready for a task.
+     */
+    func ceateURLRequest(type inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchType,
+                         modifiers inSearchModifiers: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Modifiers>
+    ) -> URLRequest? {
+        var urlString = rootServerURL.absoluteString + "/client_interface/json?switcher=GetSearchResults&get_used_formats=1&lang_enum=\(String(Locale.preferredLanguages[0].prefix(2)))"
+    
+        switch inSearchType {
+        case .fixedRadius(let centerLongLat, let radiusInMeters):
+            urlString += "&geo_width_km=\(radiusInMeters / 1000)&long_val=\(centerLongLat.longitude)&lat_val=\(centerLongLat.latitude)"
+            
+        case .autoRadius(let centerLongLat, let minimumNumberOfResults, _):
+            urlString += "&geo_width=\(-Int(minimumNumberOfResults))&long_val=\(centerLongLat.longitude)&lat_val=\(centerLongLat.latitude)"
+
+        default:
+            return nil
+        }
+        
+        guard let url = URL(string: urlString) else { return nil }
+        
+        #if DEBUG
+            print("URL Request Created for: \(url.absoluteString)")
+        #endif
+        
+        let urlRequest = URLRequest(url: url)
+        
+        return urlRequest
+    }
 }

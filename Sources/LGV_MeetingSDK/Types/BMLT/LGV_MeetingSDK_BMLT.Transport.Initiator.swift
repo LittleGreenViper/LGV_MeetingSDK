@@ -31,13 +31,17 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
      This executes a meeting search.
      
      - Parameters:
-     - type: Any search type that was specified.
-     - modifiers: Any search modifiers.
-     - completion: A completion function.
+        - type: Any search type that was specified.
+        - modifiers: Any search modifiers.
+        - completion: A completion function.
      */
     public func meetingSearch(type inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchType,
                               modifiers inSearchModifiers: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Modifiers>,
                               completion inCompletion: MeetingSearchCallbackClosure) {
+        let urlRequest = (transport as? LGV_MeetingSDK_BMLT.Transport)?.ceateURLRequest(type: inSearchType, modifiers: inSearchModifiers)
+        #if DEBUG
+            print("URL Request: \(urlRequest.debugDescription)")
+        #endif
         inCompletion(parser.parseThis(searchType: inSearchType, searchModifiers: inSearchModifiers, data: Data()), nil)
     }
 }

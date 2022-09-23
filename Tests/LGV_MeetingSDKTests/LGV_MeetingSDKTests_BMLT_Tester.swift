@@ -19,6 +19,7 @@
 
 import XCTest
 import LGV_MeetingSDK
+import CoreLocation
 
 /* ###################################################################################################################################### */
 // MARK: - BMLT Tests -
@@ -65,7 +66,8 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
      This tests the basic setup of the BMLT SDK class.
      */
     func setup() {
-        guard let rootServerURL = LGV_MeetingSDK_BMLT.Transport.testingRootServerURL
+        // This is a real URL for the TOMATO worldwide server. It's just here, for reference, if we need a real server, while developing: https://tomato.bmltenabled.org/main_server
+        guard let rootServerURL = URL(string: "https://tomato.bmltenabled.org/main_server") // LGV_MeetingSDK_BMLT.Transport.testingRootServerURL
         else {
             XCTFail("This should not happen.")
             return
@@ -102,5 +104,15 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
         XCTAssertEqual(testSDK?.organization?.organizationDescription, organizationDescription)
         XCTAssertEqual(testSDK?.organization?.organizationURL, organizationURL)
         XCTAssertEqual((testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.rootServerURL, LGV_MeetingSDK_BMLT.Transport.testingRootServerURL)
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func testRadiusSearch() {
+        setup()
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: CLLocationCoordinate2D(latitude: 34.23568825049199, longitude: -118.56374567190156), radiusInMeters: 1000), modifiers: []) { inData, inError in
+            print("\(inData.debugDescription), \(inError?.localizedDescription ?? "ERROR")")
+        }
     }
 }
