@@ -27,6 +27,9 @@ import LGV_MeetingSDK
  This tests the BMLT SDK.
  */
 final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
+    /* ################################################################################################################################## */
+    // MARK: Class Setup
+    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      The organization key to use for the test organization.
@@ -75,24 +78,29 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
                                                                       organizationURL: organizationURL
         )
         testSDK = LGV_MeetingSDK_BMLT(organization: testingOrganization)
+        
         XCTAssert(testSDK?.organization === testingOrganization)
-        XCTAssert(testSDK?.organization?.sdkInstance === testSDK)
         XCTAssert(testSDK?.organization?.transport?.organization === testingOrganization)
     }
 
+    /* ################################################################################################################################## */
+    // MARK: Test Functions
+    /* ################################################################################################################################## */
     /* ################################################################## */
     /**
      This tests the basic setup of the BMLT SDK class.
      */
     func testSetup() {
         setup()
+        XCTAssert(testSDK?.organization?.sdkInstance === testSDK)
+        XCTAssert(testSDK?.organization?.transport?.sdkInstance === testSDK)
         XCTAssert(testSDK?.organization?.transport is LGV_MeetingSDK_BMLT.Transport)
         XCTAssert(testSDK?.organization?.transport?.initiator is LGV_MeetingSDK_BMLT.Transport.Initiator)
         XCTAssert(testSDK?.organization?.transport?.initiator.parser is LGV_MeetingSDK_BMLT.Transport.Parser)
-        XCTAssert(testSDK?.organization?.transport?.sdkInstance === testSDK)
         XCTAssertEqual(testSDK?.organization?.organizationKey, organizationKey)
         XCTAssertEqual(testSDK?.organization?.organizationName, organizationName)
         XCTAssertEqual(testSDK?.organization?.organizationDescription, organizationDescription)
         XCTAssertEqual(testSDK?.organization?.organizationURL, organizationURL)
+        XCTAssertEqual((testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.rootServerURL, LGV_MeetingSDK_BMLT.Transport.testingRootServerURL)
     }
 }

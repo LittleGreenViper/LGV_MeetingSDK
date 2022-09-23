@@ -85,7 +85,7 @@ public extension LGV_MeetingSDK_Organization_Protocol {
 public protocol LGV_MeetingSDK_Organization_Transport_Protocol: LGV_MeetingSDK_Organization_Protocol, AnyObject {
     /* ################################################################## */
     /**
-     REQUIRED - This allows us to have an organization-specific transport.
+     REQUIRED - This allows us to have an organization-specific transport. This should be a strong reference (if the transport is a class).
      */
     var transport: LGV_MeetingSDK_Transport_Protocol? { get }
 }

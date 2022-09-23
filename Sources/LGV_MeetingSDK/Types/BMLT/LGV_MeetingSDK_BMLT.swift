@@ -27,7 +27,7 @@ import Foundation
  */
 open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
     /* ################################################################################################################################## */
-    // MARK: - BMLT-Specific Transport Struct -
+    // MARK: BMLT-Specific Transport Struct
     /* ################################################################################################################################## */
     /**
      This transport is dedicated to the BMLT.
@@ -41,35 +41,20 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
         public static let testingRootServerURL = URL(string: "https://bmlt.app.example.com/littlegreenviper")
         
         /* ############################################################################################################################## */
-        // MARK: - Parser -
+        // MARK: Parser
         /* ############################################################################################################################## */
         /**
+         This is the parser. Most functionality will be in the extension.
          */
-        public struct Parser: LGV_MeetingSDK_Parser_Protocol {
-            /* ################################################################## */
-            /**
-             REQUIRED - This parses data, and returns meetings.
-             
-             - parameter searchType: OPTIONAL This is the search specification main search type. Default is .none.
-             - parameter searchModifiers: OPTIONAL This is the search specification additional filters. Default is .none.
-             - parameter data: The unparsed data, from the transport. It should consist of a meeting data set.
-             
-             - returns: An empty parse set
-             */
-            public func parseThis(searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchType = .none,
-                                  searchModifiers inSearchModifiers: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Modifiers> = [],
-                                  data inData: Data) -> LGV_MeetingSDK_Meeting_Data_Set_Protocol {
-                LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchModifiers: inSearchModifiers, meetings: [])
-            }
-        }
+        public struct Parser { }
         
         /* ############################################################################################################################## */
-        // MARK: - Initiator -
+        // MARK: Initiator
         /* ############################################################################################################################## */
         /**
-         This is an initiator. It forms queries to the BMLT Root Server.
+         This is an initiator. It forms queries to the BMLT Root Server. Most functionality will be in the extension.
          */
-        public struct Initiator: LGV_MeetingSDK_SearchInitiator_Protocol {
+        public struct Initiator {
             /* ########################################################## */
             /**
              The transport to be used for this initiator.
@@ -91,23 +76,11 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
                 get { _transport }
                 set { _transport = newValue as? Transport }
             }
-
-            /* ########################################################## */
-            /**
-             This executes a meeting search.
-             
-             - Parameters:
-             - type: Any search type that was specified.
-             - modifiers: Any search modifiers.
-             - completion: A completion function.
-             */
-            public func meetingSearch(type inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchType,
-                                      modifiers inSearchModifiers: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Modifiers>,
-                                      completion inCompletion: MeetingSearchCallbackClosure) {
-                inCompletion(parser.parseThis(searchType: inSearchType, searchModifiers: inSearchModifiers, data: Data()), nil)
-            }
         }
         
+        /* ################################################################################################################################## */
+        // MARK: Instance Properties
+        /* ################################################################################################################################## */
         /* ########################################################## */
         /**
          The initiator goes here.
@@ -132,6 +105,9 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
          */
         public var rootServerURL: URL
         
+        /* ################################################################################################################################## */
+        // MARK: Initializer
+        /* ################################################################################################################################## */
         /* ########################################################## */
         /**
          Default initializer.
