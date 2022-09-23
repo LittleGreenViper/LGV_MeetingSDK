@@ -38,7 +38,7 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
         /**
          This is a special dummy URL that we use to allow mocking.
          */
-        public static let testingRootServerURL = URL(string: "https://example.com")
+        public static let testingRootServerURL = URL(string: "https://bmlt.app.example.com/littlegreenviper")
         
         /* ############################################################################################################################## */
         // MARK: - Parser -

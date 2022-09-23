@@ -175,26 +175,31 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
 final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
     /* ################################################################## */
     /**
+     The organization key to use for the test organization.
      */
     let organizationKey: String = "BMLT"
     
     /* ################################################################## */
     /**
+     The name to use for the test organization.
      */
     let organizationName: String = "BMLT-Enabled"
     
     /* ################################################################## */
     /**
+     The description to use for the test organization.
      */
     let organizationDescription = "BMLT-Enabled is an independent, non-profit management entity for the Basic Meeting List Toolbox Initiative."
     
     /* ################################################################## */
     /**
+     The URL to use for the test organization.
      */
     let organizationURL = URL(string: "https://bmlt.app")
     
     /* ################################################################## */
     /**
+     This is the BMLT-specific instance.
      */
     var testSDK: LGV_MeetingSDK_BMLT?
 
@@ -209,8 +214,7 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
             return
         }
         
-        let testTransport = LGV_MeetingSDK_BMLT.Transport(rootServerURL: rootServerURL)
-        let testingOrganization = LGV_MeetingSDK_Generic_Organization(transport: testTransport,
+        let testingOrganization = LGV_MeetingSDK_Generic_Organization(transport: LGV_MeetingSDK_BMLT.Transport(rootServerURL: rootServerURL),
                                                                       organizationKey: organizationKey,
                                                                       organizationName: organizationName,
                                                                       organizationDescription: organizationDescription,
