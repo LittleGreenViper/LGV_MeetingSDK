@@ -192,7 +192,7 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
  This is instantiated, in order to provide meeting search capabilities for one organization.
  This is a class, so it can be specialized, and referenced.
  */
-public class LGV_MeetingSDK {
+open class LGV_MeetingSDK {
     /* ################################################################################################################################## */
     // MARK: Private Instance Properties
     /* ################################################################################################################################## */

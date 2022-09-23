@@ -65,6 +65,12 @@ public protocol LGV_MeetingSDK_SearchInitiator_Protocol {
     
     /* ################################################################## */
     /**
+     OPTIONAL (BUT ACTUALLY REQUIRED) - The transport to be used for this initiator.
+     */
+    var transport: LGV_MeetingSDK_Transport_Protocol? { get set }
+
+    /* ################################################################## */
+    /**
      REQUIRED - This executes a meeting search.
      - Parameters:
         - type: The main search type.
@@ -74,6 +80,20 @@ public protocol LGV_MeetingSDK_SearchInitiator_Protocol {
     func meetingSearch(type: LGV_MeetingSDK_Meeting_Data_Set.SearchType,
                        modifiers: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Modifiers>,
                        completion: MeetingSearchCallbackClosure)
+}
+
+/* ###################################################################################################################################### */
+// MARK: Protocol Defaults.
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_SearchInitiator_Protocol {
+    /* ################################################################## */
+    /**
+     The default is nils, all the way down.
+     */
+    var transport: LGV_MeetingSDK_Transport_Protocol? {
+        get { nil }
+        set { _ = newValue }
+    }
 }
 
 /* ###################################################################################################################################### */

@@ -4,6 +4,7 @@ disabled_rules:
 - trailing_whitespace
 - type_name
 - file_length
+- nesting
 
 opt_in_rules:
 - control_statement

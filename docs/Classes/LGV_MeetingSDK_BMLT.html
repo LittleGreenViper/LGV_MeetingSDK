@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>LGV_MeetingSDK_Transport_Protocol Protocol Reference</title>
+    <title>LGV_MeetingSDK_BMLT Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Protocol/LGV_MeetingSDK_Transport_Protocol" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Class/LGV_MeetingSDK_BMLT" class="dashAnchor"></a>
 
-    <a title="LGV_MeetingSDK_Transport_Protocol Protocol Reference"></a>
+    <a title="LGV_MeetingSDK_BMLT Class Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html"> Reference</a>
       <img class="carat" src="../img/carat.png" alt=""/>
-      LGV_MeetingSDK_Transport_Protocol Protocol Reference
+      LGV_MeetingSDK_BMLT Class Reference
     </p>
 
     <div class="content-wrapper">
@@ -134,8 +134,8 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>LGV_MeetingSDK_Transport_Protocol</h1>
-            <p>This defines requirements for a loosely-coupled transport layer.</p>
+            <h1>LGV_MeetingSDK_BMLT</h1>
+            <p>This is a subclass of the main SDK class, that is &ldquo;tuned&rdquo; for <a href="https://bmlt.app">the BMLT</a></p>
 
           </div>
         </section>
@@ -143,13 +143,22 @@
         <section class="section">
           <div class="section-content">
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/BMLT-Specific%20Transport%20Struct"></a>
+                <a name="//apple_ref/swift/Section/BMLT-Specific Transport Struct" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/BMLT-Specific%20Transport%20Struct"></a>
+                  <h3 class="section-name"><span>BMLT-Specific Transport Struct</span>
+</h3>
+                </div>
+              </div>
               <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/initiator" class="dashAnchor"></a>
-                    <a class="token" href="#/">initiator</a>
+                    <a name="//apple_ref/swift/Class/Transport" class="dashAnchor"></a>
+                    <a class="token" href="#/">Transport</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -157,81 +166,10 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>REQUIRED - The initiator, for creating search commands.</p>
+                        <p>This transport is dedicated to the BMLT.
+We make this a class, so we can be weakly referenced.</p>
 
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/organization" class="dashAnchor"></a>
-                    <a class="token" href="#/">organization</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>REQUIRED - The transport organization to which this instance is assigned. It should generally be declared weak.</p>
-
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/sdkInstance" class="dashAnchor"></a>
-                    <a class="token" href="#/">sdkInstance</a>
-                    </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The SDK instance to which this transport&rsquo;s organization is assigned.</p>
-
-                      </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        <p>The default simply returns the organization&rsquo;s SDK instance.</p>
-
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/baseURL" class="dashAnchor"></a>
-                    <a class="token" href="#/">baseURL</a>
-                    </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>OPTIONAL - The &ldquo;base&rdquo; URL for the transport target.</p>
-
-                      </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        <p>Default is nil.</p>
-
+                        <a href="../Classes/LGV_MeetingSDK_BMLT/Transport.html" class="slightly-smaller">See more</a>
                       </div>
                     </section>
                   </div>

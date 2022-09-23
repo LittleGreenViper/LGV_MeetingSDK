@@ -24,6 +24,7 @@ import LGV_MeetingSDK
 // MARK: - Basic Setup Tests -
 /* ###################################################################################################################################### */
 /**
+ This just sets up the default SDK, with a dummy initiator.
  */
 final class LGV_MeetingSDKTests_Setup: XCTestCase {
     /* ################################################################## */
@@ -71,6 +72,12 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
 
             /* ################################################################## */
             /**
+             The transport to be used for this initiator.
+             */
+            var transport: LGV_MeetingSDK_Transport_Protocol?
+
+            /* ################################################################## */
+            /**
              This pretends to execute a meeting search.
              
              - Parameters:
@@ -109,6 +116,12 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
              This will remain nil.
              */
             var lastSearch: LGV_MeetingSDK_Meeting_Data_Set?
+            
+            /* ########################################################## */
+            /**
+             The initiator uses us.
+             */
+            init() { initiator.transport = self }
         }
         
         let expectation = XCTestExpectation(description: "Data Was Not Properly Set")
@@ -150,5 +163,32 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
         // Make sure that our callback is made.
         testSDK.meetingSearch(type: .none, modifiers: [], completion: dummyCompletion)
         wait(for: [expectation], timeout: 0.25)
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - BMLT Tests -
+/* ###################################################################################################################################### */
+/**
+ This tests the BMLT SDK.
+ */
+final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
+    /* ################################################################## */
+    /**
+     This tests the basic setup of the BMLT SDK class.
+     */
+    func testSetup() {
+        guard let rootServerURL = LGV_MeetingSDK_BMLT.Transport.testingRootServerURL
+        else {
+            XCTFail("This should not happen.")
+            return
+        }
+        let testingOrganization = LGV_MeetingSDK_Generic_Organization(transport: LGV_MeetingSDK_BMLT.Transport(rootServerURL: rootServerURL),
+                                                                      organizationKey: "BMLT",
+                                                                      organizationName: "BMLT-Enabled",
+                                                                      organizationDescription: "BMLT-Enabled is an independent, non-profit management entity for the Basic Meeting List Toolbox Initiative.",
+                                                                      organizationURL: URL(string: "https://bmlt.app")
+        )
+        let testTargetSDK = LGV_MeetingSDK_BMLT(organization: testingOrganization)
     }
 }

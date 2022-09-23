@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Weekdays Enumeration Reference</title>
+    <title>Transport Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Enum/Weekdays" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Class/Transport" class="dashAnchor"></a>
 
-    <a title="Weekdays Enumeration Reference"></a>
+    <a title="Transport Class Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../../index.html"> Reference</a>
       <img class="carat" src="../../img/carat.png" alt=""/>
-      Weekdays Enumeration Reference
+      Transport Class Reference
     </p>
 
     <div class="content-wrapper">
@@ -134,8 +134,9 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>Weekdays</h1>
-            <p>This integer-based enum is a 1-based weekday specifier for the <code>LGV_MeetingSDK_SearchInitiator_Search_Modifiers.weekdays</code> specialization.</p>
+            <h1>Transport</h1>
+            <p>This transport is dedicated to the BMLT.
+We make this a class, so we can be weakly referenced.</p>
 
           </div>
         </section>
@@ -148,8 +149,8 @@
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Element/sunday" class="dashAnchor"></a>
-                    <a class="token" href="#/">sunday</a>
+                    <a name="//apple_ref/swift/Variable/testingRootServerURL" class="dashAnchor"></a>
+                    <a class="token" href="#/">testingRootServerURL</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -157,7 +158,91 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Sunday is always 1. The start of week is not taken into account, and should be handled at a level above this connector.</p>
+                        <p>This is a special dummy URL that we use to allow mocking.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Parser"></a>
+                <a name="//apple_ref/swift/Section/Parser" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Parser"></a>
+                  <h3 class="section-name"><span>Parser</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Struct/Parser" class="dashAnchor"></a>
+                    <a class="token" href="#/">Parser</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                        <a href="../../Classes/LGV_MeetingSDK_BMLT/Transport/Parser.html" class="slightly-smaller">See more</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Initiator"></a>
+                <a name="//apple_ref/swift/Section/Initiator" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Initiator"></a>
+                  <h3 class="section-name"><span>Initiator</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Struct/Initiator" class="dashAnchor"></a>
+                    <a class="token" href="#/">Initiator</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is an initiator. It forms queries to the BMLT Root Server.</p>
+
+                        <a href="../../Classes/LGV_MeetingSDK_BMLT/Transport/Initiator.html" class="slightly-smaller">See more</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/initiator" class="dashAnchor"></a>
+                    <a class="token" href="#/">initiator</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The initiator goes here.</p>
 
                       </div>
                     </section>
@@ -167,8 +252,8 @@
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Element/monday" class="dashAnchor"></a>
-                    <a class="token" href="#/">monday</a>
+                    <a name="//apple_ref/swift/Property/organization" class="dashAnchor"></a>
+                    <a class="token" href="#/">organization</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -176,7 +261,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Monday</p>
+                        <p>The transport organization to which this instance is assigned.</p>
 
                       </div>
                     </section>
@@ -186,8 +271,8 @@
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Element/tuesday" class="dashAnchor"></a>
-                    <a class="token" href="#/">tuesday</a>
+                    <a name="//apple_ref/swift/Property/lastSearch" class="dashAnchor"></a>
+                    <a class="token" href="#/">lastSearch</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -195,7 +280,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Tuesday</p>
+                        <p>This contains the last search result set.</p>
 
                       </div>
                     </section>
@@ -205,8 +290,8 @@
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Element/wednesday" class="dashAnchor"></a>
-                    <a class="token" href="#/">wednesday</a>
+                    <a name="//apple_ref/swift/Property/rootServerURL" class="dashAnchor"></a>
+                    <a class="token" href="#/">rootServerURL</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -214,7 +299,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Wednesday</p>
+                        <p>This will contain the URL to the Root Server that is being accessed by this transport instance.</p>
 
                       </div>
                     </section>
@@ -224,8 +309,8 @@
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Element/thursday" class="dashAnchor"></a>
-                    <a class="token" href="#/">thursday</a>
+                    <a name="//apple_ref/swift/Method/init(rootServerURL:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">init(rootServerURL:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -233,45 +318,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Thursday</p>
-
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/"></a>
-                    <a name="//apple_ref/swift/Element/friday" class="dashAnchor"></a>
-                    <a class="token" href="#/">friday</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Friday</p>
-
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/"></a>
-                    <a name="//apple_ref/swift/Element/saturday" class="dashAnchor"></a>
-                    <a class="token" href="#/">saturday</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Saturday (Maximum value of 7).</p>
+                        <p>Default initializer.</p>
 
                       </div>
                     </section>
