@@ -175,20 +175,66 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
 final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
     /* ################################################################## */
     /**
+     */
+    let organizationKey: String = "BMLT"
+    
+    /* ################################################################## */
+    /**
+     */
+    let organizationName: String = "BMLT-Enabled"
+    
+    /* ################################################################## */
+    /**
+     */
+    let organizationDescription = "BMLT-Enabled is an independent, non-profit management entity for the Basic Meeting List Toolbox Initiative."
+    
+    /* ################################################################## */
+    /**
+     */
+    let organizationURL = URL(string: "https://bmlt.app")
+    
+    /* ################################################################## */
+    /**
+     */
+    var testSDK: LGV_MeetingSDK_BMLT?
+
+    /* ################################################################## */
+    /**
      This tests the basic setup of the BMLT SDK class.
      */
-    func testSetup() {
+    func setup() {
         guard let rootServerURL = LGV_MeetingSDK_BMLT.Transport.testingRootServerURL
         else {
             XCTFail("This should not happen.")
             return
         }
-        let testingOrganization = LGV_MeetingSDK_Generic_Organization(transport: LGV_MeetingSDK_BMLT.Transport(rootServerURL: rootServerURL),
-                                                                      organizationKey: "BMLT",
-                                                                      organizationName: "BMLT-Enabled",
-                                                                      organizationDescription: "BMLT-Enabled is an independent, non-profit management entity for the Basic Meeting List Toolbox Initiative.",
-                                                                      organizationURL: URL(string: "https://bmlt.app")
+        
+        let testTransport = LGV_MeetingSDK_BMLT.Transport(rootServerURL: rootServerURL)
+        let testingOrganization = LGV_MeetingSDK_Generic_Organization(transport: testTransport,
+                                                                      organizationKey: organizationKey,
+                                                                      organizationName: organizationName,
+                                                                      organizationDescription: organizationDescription,
+                                                                      organizationURL: organizationURL
         )
-        let testTargetSDK = LGV_MeetingSDK_BMLT(organization: testingOrganization)
+        testSDK = LGV_MeetingSDK_BMLT(organization: testingOrganization)
+        XCTAssert(testSDK?.organization === testingOrganization)
+        XCTAssert(testSDK?.organization?.sdkInstance === testSDK)
+        XCTAssert(testSDK?.organization?.transport?.organization === testingOrganization)
+    }
+
+    /* ################################################################## */
+    /**
+     This tests the basic setup of the BMLT SDK class.
+     */
+    func testSetup() {
+        setup()
+        XCTAssert(testSDK?.organization?.transport is LGV_MeetingSDK_BMLT.Transport)
+        XCTAssert(testSDK?.organization?.transport?.initiator is LGV_MeetingSDK_BMLT.Transport.Initiator)
+        XCTAssert(testSDK?.organization?.transport?.initiator.parser is LGV_MeetingSDK_BMLT.Transport.Parser)
+        XCTAssert(testSDK?.organization?.transport?.sdkInstance === testSDK)
+        XCTAssertEqual(testSDK?.organization?.organizationKey, organizationKey)
+        XCTAssertEqual(testSDK?.organization?.organizationName, organizationName)
+        XCTAssertEqual(testSDK?.organization?.organizationDescription, organizationDescription)
+        XCTAssertEqual(testSDK?.organization?.organizationURL, organizationURL)
     }
 }
