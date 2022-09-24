@@ -68,17 +68,20 @@ public extension LGV_MeetingSDK_BMLT.Transport {
                           "service_body_bigint"
         ]
 
-        urlString += "/client_interface/json?switcher=GetSearchResults&get_used_formats=1&lang_enum=\(String(Locale.preferredLanguages[0].prefix(2)))&data_field_key=\(dataFields.joined(separator: ","))"
+        urlString += "/client_interface/json?callingApp=LGV_MeetingSDK_BMLT&switcher=GetSearchResults&get_used_formats=1&lang_enum=\(String(Locale.preferredLanguages[0].prefix(2)))&data_field_key=\(dataFields.joined(separator: ","))"
         
         switch inSearchType {
+        case .none:
+            break
+            
         case .fixedRadius(let centerLongLat, let radiusInMeters):
             urlString += "&geo_width_km=\(radiusInMeters / 1000)&long_val=\(centerLongLat.longitude)&lat_val=\(centerLongLat.latitude)"
             
         case .autoRadius(let centerLongLat, let minimumNumberOfResults, _):
             urlString += "&geo_width=\(-Int(minimumNumberOfResults))&long_val=\(centerLongLat.longitude)&lat_val=\(centerLongLat.latitude)"
 
-        default:
-            return nil
+        case .meetingID(let idArray):
+            urlString += "&search_string=\(idArray.compactMap({String($0)}).joined(separator: ","))"
         }
         
         guard let url = URL(string: urlString) else { return nil }

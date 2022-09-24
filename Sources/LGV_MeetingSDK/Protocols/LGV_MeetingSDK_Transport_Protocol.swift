@@ -30,8 +30,8 @@ public protocol LGV_MeetingSDK_Parser_Protocol {
     /**
      REQUIRED - This parses data, and returns meetings.
      
-     - parameter searchType: OPTIONAL This is the search specification main search type.
-     - parameter searchRefinements: OPTIONAL This is the search specification additional filters.
+     - parameter searchType (OPTIONAL): This is the search specification main search type.
+     - parameter searchRefinements (OPTIONAL): This is the search specification additional filters.
      - parameter data: The unparsed data, from the transport. It should consist of a meeting data set.
 
      - returns: The parsed meeting information

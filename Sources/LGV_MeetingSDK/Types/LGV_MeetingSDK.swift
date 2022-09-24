@@ -193,16 +193,22 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
     /**
      Default initializer.
      
-     - parameter searchType: OPTIONAL This is the search specification main search type. Default is .none.
-     - parameter searchRefinements: OPTIONAL This is the search specification additional filters. Default is an empty set.
-     - parameter meetings: OPTIONAL This contains any found meetings. It may be empty or omitted (no meetings found).
+     - parameter searchType (OPTIONAL): This is the search specification main search type. Default is .none.
+     - parameter searchRefinements (OPTIONAL): This is the search specification additional filters. Default is an empty set.
+     - parameter meetings (OPTIONAL): This contains any found meetings. It may be empty or omitted (no meetings found).
+     - parameter extraInfo (OPTIONAL): This has any extra information that we wish to attach to the data set. Default is an empty String.
+     - parameter refCon (OPTIONAL): This has any reference context that we wish to attach to the data set. Default is nil.
      */
     public init(searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints = .none,
                 searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = [],
-                meetings inMeetings: [LGV_MeetingSDK_Meeting_Protocol] = []) {
+                meetings inMeetings: [LGV_MeetingSDK_Meeting_Protocol] = [],
+                extraInfo inExtraInfo: String = "",
+                refCon inRefCon: Any? = nil) {
         searchType = inSearchType
         searchRefinements = inSearchRefinements
         meetings = inMeetings
+        extraInfo = inExtraInfo
+        refCon = inRefCon
     }
 }
 
@@ -326,7 +332,7 @@ public class LGV_MeetingSDK_Generic_Organization: LGV_MeetingSDK_Organization_Tr
      
      - Parameters:
         - transport (REQUIRED): This is a required argument. It will be the transport instance to be used with this organization.
-        - organizationKey (REQUIRED): This is a required argument. The organization key. This should be unique, in the SDK execution context.
+        - organizationKey (REQUIRED): This is a required argument. The organization key.
         - organizationName (OPTIONAL): The name of the organization. Default is an empty String.
         - organizationName (OPTIONAL): A longer description for the organization. Default is nil.
         - organizationURL (OPTIONAL): A URL for the organization. Default is nil.

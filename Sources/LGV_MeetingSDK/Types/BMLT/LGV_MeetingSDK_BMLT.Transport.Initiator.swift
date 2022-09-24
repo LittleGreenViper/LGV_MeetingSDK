@@ -42,6 +42,8 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
         #if DEBUG
             print("URL Request: \(urlRequest.debugDescription)")
         #endif
-        inCompletion(parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: Data()), nil)
+        var parsedData = parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: Data())
+        parsedData.extraInfo = urlRequest?.url?.absoluteString ?? ""
+        inCompletion(parsedData, nil)
     }
 }

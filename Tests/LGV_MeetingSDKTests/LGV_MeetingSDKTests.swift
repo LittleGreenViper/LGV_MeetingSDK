@@ -44,8 +44,8 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
             /**
              REQUIRED - This parses data, and returns meetings.
              
-             - parameter searchType: OPTIONAL This is the search specification main search type. Default is .none.
-             - parameter searchRefinements: OPTIONAL This is the search specification additional filters. Default is .none.
+             - parameter searchType (OPTIONAL): This is the search specification main search type. Default is .none.
+             - parameter searchRefinements (OPTIONAL): This is the search specification additional filters. Default is .none.
              - parameter data: The unparsed data, from the transport. It should consist of a meeting data set.
 
              - returns: An empty parse set

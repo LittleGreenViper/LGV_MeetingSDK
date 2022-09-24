@@ -72,17 +72,11 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
             XCTFail("This should not happen.")
             return
         }
+        testSDK = LGV_MeetingSDK_BMLT(rootServerURL: rootServerURL)
         
-        let testingOrganization = LGV_MeetingSDK_Generic_Organization(transport: LGV_MeetingSDK_BMLT.Transport(rootServerURL: rootServerURL),
-                                                                      organizationKey: organizationKey,
-                                                                      organizationName: organizationName,
-                                                                      organizationDescription: organizationDescription,
-                                                                      organizationURL: organizationURL
-        )
-        testSDK = LGV_MeetingSDK_BMLT(organization: testingOrganization)
-        
-        XCTAssert(testSDK?.organization === testingOrganization)
-        XCTAssert(testSDK?.organization?.transport?.organization === testingOrganization)
+        XCTAssert(testSDK?.organization is LGV_MeetingSDK_Generic_Organization)
+        XCTAssert(testSDK?.organization?.transport?.organization is LGV_MeetingSDK_Generic_Organization)
+        XCTAssertEqual(testSDK?.organization?.transport?.baseURL, rootServerURL)
     }
 
     /* ################################################################################################################################## */

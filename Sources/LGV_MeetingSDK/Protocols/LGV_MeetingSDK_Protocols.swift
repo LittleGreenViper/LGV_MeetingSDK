@@ -28,7 +28,7 @@ public protocol LGV_MeetingSDK_RefCon_Protocol {
     /**
      OPTIONAL - This allows the SDK to declare a "refcon" (reference context), attaching any data to the object.
      */
-    var refCon: Any? { get }
+    var refCon: Any? { get set }
 }
 
 /* ###################################################################################################################################### */
@@ -39,7 +39,10 @@ public extension LGV_MeetingSDK_RefCon_Protocol {
     /**
      Default is nil.
      */
-    var refCon: Any? { nil }
+    var refCon: Any? {
+        get { nil }
+        set { _ = newValue }
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -53,7 +56,7 @@ public protocol LGV_MeetingSDK_Additional_Info_Protocol {
     /**
      OPTIONAL - This will return any "extra info," applied to the conformant instance.
      */
-    var extraInfo: String { get }
+    var extraInfo: String { get set }
 }
 
 /* ###################################################################################################################################### */
@@ -64,7 +67,10 @@ public extension LGV_MeetingSDK_Additional_Info_Protocol {
     /**
      Default is an empty String.
      */
-    var extraInfo: String { "" }
+    var extraInfo: String {
+        get { "" }
+        set { _ = newValue }
+    }
 }
 
 /* ###################################################################################################################################### */
