@@ -106,6 +106,7 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
         /* ############################################################## */
         /**
          This is a very basic Array of individual meeting IDs.
+         **NOTE:** If this is chosen, then `Search_Refinements` are ignored.
          */
         case meetingID(ids: [UInt64])
     }

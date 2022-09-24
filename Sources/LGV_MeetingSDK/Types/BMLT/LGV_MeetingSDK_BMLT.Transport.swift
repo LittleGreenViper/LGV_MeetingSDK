@@ -81,7 +81,7 @@ public extension LGV_MeetingSDK_BMLT.Transport {
             urlString += "&geo_width=\(-Int(minimumNumberOfResults))&long_val=\(centerLongLat.longitude)&lat_val=\(centerLongLat.latitude)"
 
         case .meetingID(let idArray):
-            urlString += "&search_string=\(idArray.compactMap({String($0)}).joined(separator: ","))"
+            urlString += "&SearchString=\(idArray.compactMap({String($0)}).joined(separator: ","))"
         }
         
         guard let url = URL(string: urlString) else { return nil }

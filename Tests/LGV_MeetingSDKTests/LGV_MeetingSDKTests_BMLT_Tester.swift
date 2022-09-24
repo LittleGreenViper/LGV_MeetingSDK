@@ -33,6 +33,12 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
+     The coordinates we'll use for our searches.
+     */
+    let testLocationCenter = CLLocationCoordinate2D(latitude: 34.23568825049199, longitude: -118.56374567190156)
+    
+    /* ################################################################## */
+    /**
      The organization key to use for the test organization.
      */
     let organizationKey: String = "BMLT"
@@ -61,6 +67,33 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
      */
     var testSDK: LGV_MeetingSDK_BMLT?
 
+    /* ################################################################## */
+    /**
+     This fetches the testing bundle.
+     */
+    var myBundle: Bundle { Bundle(for: type(of: self)) }
+    
+    /* ################################################################## */
+    /**
+     This fetches a JSON file from the bundle, specified by its index.
+     
+     - parameter inFileIndex: The 0-based index of the JSON file in the testing bundle.
+    
+     - returns: The JSON String, packaged as a Data instance. Nil, if an error.
+     */
+    func getResponseFile(_ inFileIndex: Int ) -> Data? {
+        if let filepath = myBundle.path(forResource: "SearchResponse-\(String(format: "%02d", inFileIndex))", ofType: "json") {
+            do {
+                let jsonFile = try String(contentsOfFile: filepath)
+                return jsonFile.data(using: .utf8)
+            } catch {
+            }
+        }
+        
+        XCTFail("JSON File Not Found for \(inFileIndex)!")
+        return nil
+    }
+    
     /* ################################################################## */
     /**
      This tests the basic setup of the BMLT SDK class.
@@ -92,21 +125,162 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
         XCTAssert(testSDK?.organization?.transport?.sdkInstance === testSDK)
         XCTAssert(testSDK?.organization?.transport is LGV_MeetingSDK_BMLT.Transport)
         XCTAssert(testSDK?.organization?.transport?.initiator is LGV_MeetingSDK_BMLT.Transport.Initiator)
-        XCTAssert(testSDK?.organization?.transport?.initiator.parser is LGV_MeetingSDK_BMLT.Transport.Parser)
+        XCTAssert(testSDK?.organization?.transport?.initiator?.parser is LGV_MeetingSDK_BMLT.Transport.Parser)
         XCTAssertEqual(testSDK?.organization?.organizationKey, organizationKey)
         XCTAssertEqual(testSDK?.organization?.organizationName, organizationName)
         XCTAssertEqual(testSDK?.organization?.organizationDescription, organizationDescription)
         XCTAssertEqual(testSDK?.organization?.organizationURL, organizationURL)
-        XCTAssertEqual((testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.baseURL, LGV_MeetingSDK_BMLT.Transport.testingRootServerURL)
+//        XCTAssertEqual((testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.baseURL, LGV_MeetingSDK_BMLT.Transport.testingRootServerURL)
     }
     
     /* ################################################################## */
     /**
+     Test the fixed radius search.
      */
-    func testRadiusSearch() {
+    func testFixedRadiusSearch() {
         setup()
-        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: CLLocationCoordinate2D(latitude: 34.23568825049199, longitude: -118.56374567190156), radiusInMeters: 1000), refinements: []) { inData, inError in
-            print("\(inData.debugDescription), \(inError?.localizedDescription ?? "ERROR")")
+        let expectation = XCTestExpectation(description: "Callback never occurred.")
+
+        (testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = getResponseFile(0)
+        
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: []) { inData, inError in
+            guard nil == inError else {
+                print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            expectation.fulfill()
+            
+            print("Fixed Radius Meeting Search Complete.")
+            print("\tCalling URL: \(inData?.extraInfo ?? "ERROR")")
+            print("\tMeetings: \(String(describing: inData?.meetings))")
         }
+        
+        wait(for: [expectation], timeout: 0.25)
+    }
+    
+    /* ################################################################## */
+    /**
+     Test the auto radius search.
+     */
+    func testAutoRadiusSearch() {
+        setup()
+        let expectation = XCTestExpectation(description: "Callback never occurred.")
+
+        (testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = getResponseFile(1)
+        
+        testSDK?.meetingSearch(type: .autoRadius(centerLongLat: testLocationCenter, minimumNumberOfResults: 10, maxRadiusInMeters: 20000), refinements: []) { inData, inError in
+            guard nil == inError else {
+                print("Auto Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            expectation.fulfill()
+            
+            print("Auto Radius Meeting Search Complete.")
+            print("\tCalling URL: \(inData?.extraInfo ?? "ERROR")")
+            print("\tMeetings: \(String(describing: inData?.meetings))")
+        }
+        
+        wait(for: [expectation], timeout: 0.25)
+    }
+    
+    /* ################################################################## */
+    /**
+     Test the auto radius search.
+     */
+    func testIDSearch() {
+        setup()
+        let expectation = XCTestExpectation(description: "Callback never occurred.")
+        let ids: [UInt64] = [402,
+                             403,
+                             425,
+                             428,
+                             432,
+                             433,
+                             435,
+                             439,
+                             1184,
+                             1185,
+                             1189,
+                             1190,
+                             1191,
+                             1192,
+                             1198,
+                             1202,
+                             1751,
+                             1766,
+                             1783,
+                             1788,
+                             1789,
+                             1792,
+                             1795,
+                             1881,
+                             1968,
+                             1970,
+                             1973,
+                             2030,
+                             2034,
+                             2035,
+                             2040,
+                             2063,
+                             2077,
+                             2107,
+                             2140,
+                             2147,
+                             2152,
+                             2153,
+                             2180,
+                             2190,
+                             2324,
+                             2326,
+                             2328,
+                             2330,
+                             2331,
+                             2333,
+                             2334,
+                             2335,
+                             2336,
+                             2339,
+                             2341,
+                             2342,
+                             2344,
+                             2345,
+                             2346,
+                             2358,
+                             2391,
+                             2421,
+                             2423,
+                             2425,
+                             2430,
+                             2431,
+                             2434,
+                             2435,
+                             2437,
+                             2441,
+                             2448,
+                             2451,
+                             2506,
+                             3704,
+                             5397,
+                             5494
+                             ]
+
+        (testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = getResponseFile(2)
+        
+        testSDK?.meetingSearch(type: .meetingID(ids: ids), refinements: []) { inData, inError in
+            guard nil == inError else {
+                print("ID Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            expectation.fulfill()
+            
+            print("ID Meeting Search Complete.")
+            print("\tCalling URL: \(inData?.extraInfo ?? "ERROR")")
+            print("\tMeetings: \(String(describing: inData?.meetings))")
+        }
+        
+        wait(for: [expectation], timeout: 0.25)
     }
 }

@@ -25,7 +25,7 @@ import Foundation
 /**
  This defines the requirements for an instance of a data parser for the transport.
  */
-public protocol LGV_MeetingSDK_Parser_Protocol {
+public protocol LGV_MeetingSDK_Parser_Protocol: AnyObject {
     /* ################################################################## */
     /**
      REQUIRED - This parses data, and returns meetings.
@@ -47,7 +47,7 @@ public protocol LGV_MeetingSDK_Parser_Protocol {
 /**
  This is supplied to a transport instance, and is used to form the searh "stimulus" commands, to be sent to the server.
  */
-public protocol LGV_MeetingSDK_SearchInitiator_Protocol {
+public protocol LGV_MeetingSDK_SearchInitiator_Protocol: AnyObject {
     /* ################################################################## */
     /**
      This is the callback made, when the search is complete.
@@ -102,12 +102,12 @@ extension LGV_MeetingSDK_SearchInitiator_Protocol {
 /**
  This defines requirements for a loosely-coupled transport layer.
  */
-public protocol LGV_MeetingSDK_Transport_Protocol {
+public protocol LGV_MeetingSDK_Transport_Protocol: AnyObject {
     /* ################################################################## */
     /**
      REQUIRED - The initiator, for creating search commands.
      */
-    var initiator: LGV_MeetingSDK_SearchInitiator_Protocol { get }
+    var initiator: LGV_MeetingSDK_SearchInitiator_Protocol? { get }
     
     /* ################################################################## */
     /**

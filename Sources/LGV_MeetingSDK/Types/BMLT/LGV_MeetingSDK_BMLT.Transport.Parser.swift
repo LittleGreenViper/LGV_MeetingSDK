@@ -19,6 +19,23 @@
 
 import Foundation
 
+public struct LGV_MeetingSDK_BMLT_Meeting: LGV_MeetingSDK_Meeting_Protocol {
+    /* ################################################################## */
+    /**
+     */
+    public var organization: LGV_MeetingSDK_Organization_Protocol
+    
+    /* ################################################################## */
+    /**
+     */
+    public var meetingID: UInt64
+    
+    /* ################################################################## */
+    /**
+     */
+    public var meetingName: String
+}
+
 /* ###################################################################################################################################### */
 // MARK: - BMLT Parser Extension -
 /* ###################################################################################################################################### */
@@ -26,6 +43,26 @@ import Foundation
  This adds methods to the parser struct.
  */
 extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
+    /* ################################################################## */
+    /**
+     */
+    private func _convert(theseMeetings inJSONParsedMeetings: [[String: String]], andTheseFormats inJSONParsedFormats: [[String: String]]) -> [LGV_MeetingSDK_Meeting_Protocol] {
+        var ret = [LGV_MeetingSDK_Meeting_Protocol]()
+        
+        guard let organization = initiator?.transport?.organization else { return [] }
+        
+        inJSONParsedMeetings.forEach { meetingDictionary in
+            guard let str = meetingDictionary["id_bigint"],
+                  let id = UInt64(str)
+            else { return }
+            let meetingName = meetingDictionary["meeting_name"] ?? "NA Meeting"
+            let meeting = LGV_MeetingSDK_BMLT_Meeting(organization: organization, meetingID: id, meetingName: meetingName)
+            ret.append(meeting)
+        }
+        
+        return ret
+    }
+
     /* ################################################################## */
     /**
      REQUIRED - This parses data, and returns meetings.
@@ -39,6 +76,12 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
     public func parseThis(searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints = .none,
                           searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = [],
                           data inData: Data) -> LGV_MeetingSDK_Meeting_Data_Set_Protocol {
-        LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: [])
+        if let main_object = try? JSONSerialization.jsonObject(with: inData, options: []) as? [String: [[String: String]]],
+           let meetingsObject = main_object["meetings"],
+           let formatsObject = main_object["formats"] {
+            return LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: _convert(theseMeetings: meetingsObject, andTheseFormats: formatsObject))
+        }
+        
+        return LGV_MeetingSDK_Meeting_Data_Set()
     }
 }

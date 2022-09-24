@@ -42,7 +42,9 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
         #if DEBUG
             print("URL Request: \(urlRequest.debugDescription)")
         #endif
-        var parsedData = parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: Data())
+        let dataToParse = (transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse ?? Data()
+        (transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = nil
+        var parsedData = parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: dataToParse)
         parsedData.extraInfo = urlRequest?.url?.absoluteString ?? ""
         inCompletion(parsedData, nil)
     }

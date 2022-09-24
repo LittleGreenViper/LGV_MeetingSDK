@@ -143,6 +143,6 @@ public extension LGV_MeetingSDK_Protocol {
     func meetingSearch(type inType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
                        refinements inRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
                        completion inCompletion: LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
-        organization?.transport?.initiator.meetingSearch(type: inType, refinements: inRefinements, completion: inCompletion)
+        organization?.transport?.initiator?.meetingSearch(type: inType, refinements: inRefinements, completion: inCompletion)
     }
 }

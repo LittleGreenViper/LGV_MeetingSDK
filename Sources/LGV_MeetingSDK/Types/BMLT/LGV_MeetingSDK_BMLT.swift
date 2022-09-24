@@ -34,27 +34,38 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
      We make this a class, so we can be weakly referenced.
      */
     public class Transport: LGV_MeetingSDK_Transport_Protocol {
-        /* ########################################################## */
-        /**
-         This is a special dummy URL that we use to allow mocking.
-         */
-        public static let testingRootServerURL = URL(string: "https://bmlt.app.example.com/littlegreenviper")
-        
         /* ############################################################################################################################## */
         // MARK: Parser
         /* ############################################################################################################################## */
         /**
          This is the parser. Most functionality will be in the extension.
          */
-        public struct Parser { }
+        public class Parser {
+            /* ################################################################## */
+            /**
+             The initiator, for creating search commands.
+             We declare the stored property private, and specific to the class, so we can weakly reference it.
+             */
+            private weak var _initiator: Initiator?
+            
+            /* ################################################################## */
+            /**
+             The initiator, for creating search commands.
+             */
+            public var initiator: LGV_MeetingSDK_SearchInitiator_Protocol? {
+                get { _initiator }
+                set { _initiator = newValue as? Initiator }
+            }
+        }
         
         /* ############################################################################################################################## */
         // MARK: Initiator
         /* ############################################################################################################################## */
         /**
          This is an initiator. It forms queries to the BMLT Root Server. Most functionality will be in the extension.
+         We make it a class, so it will be referencable.
          */
-        public struct Initiator {
+        public class Initiator {
             /* ########################################################## */
             /**
              The transport to be used for this initiator.
@@ -66,7 +77,7 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
             /**
              The parser goes here.
              */
-            public var parser: LGV_MeetingSDK_Parser_Protocol = Parser()
+            public var parser: LGV_MeetingSDK_Parser_Protocol
             
             /* ########################################################## */
             /**
@@ -75,6 +86,15 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
             public var transport: LGV_MeetingSDK_Transport_Protocol? {
                 get { _transport }
                 set { _transport = newValue as? Transport }
+            }
+            
+            /* ########################################################## */
+            /**
+             Default init. we simply create a parser, and let it know about us.
+             */
+            public init() {
+                parser = Parser()
+                (parser as? Parser)?.initiator = self
             }
         }
         
@@ -94,7 +114,7 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
         /**
          The initiator goes here.
          */
-        public var initiator: LGV_MeetingSDK_SearchInitiator_Protocol = Initiator()
+        public var initiator: LGV_MeetingSDK_SearchInitiator_Protocol?
         
         /* ################################################################## */
         /**
@@ -109,6 +129,24 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
         public var lastSearch: LGV_MeetingSDK_Meeting_Data_Set?
         
         /* ################################################################################################################################## */
+        // MARK: Mocking Properties
+        /* ################################################################################################################################## */
+        /* ########################################################## */
+        /**
+         This is a special dummy URL that we use to allow mocking.
+         */
+        public static let testingRootServerURL = URL(string: "https://bmlt.app.example.com/littlegreenviper")
+        
+        /* ########################################################## */
+        /**
+         This is used to "short-circuit" the actual network call.
+         
+         If this is non-nil, then the Data instance is sent to the callback closure as a "one-shot" call. The property is immediately cleared, after being read.
+         The URL is ignored.
+         */
+        public var debugMockDataResponse: Data?
+        
+        /* ################################################################################################################################## */
         // MARK: Initializer
         /* ################################################################################################################################## */
         /* ########################################################## */
@@ -119,7 +157,8 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
          */
         public init(rootServerURL inRootServerURL: URL) {
             baseURL = inRootServerURL
-            initiator.transport = self
+            initiator = Initiator()
+            initiator?.transport = self
         }
     }
     

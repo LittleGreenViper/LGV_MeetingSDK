@@ -39,7 +39,7 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
         /**
          This is an empty placeholder parser. It does nothing.
          */
-        struct Empty_Parser: LGV_MeetingSDK_Parser_Protocol {
+        class Empty_Parser: LGV_MeetingSDK_Parser_Protocol {
             /* ################################################################## */
             /**
              REQUIRED - This parses data, and returns meetings.
@@ -63,7 +63,7 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
         /**
          This is an empty placeholder initiator. It does nothing.
          */
-        struct Empty_Initiator: LGV_MeetingSDK_SearchInitiator_Protocol {
+        class Empty_Initiator: LGV_MeetingSDK_SearchInitiator_Protocol {
             /* ########################################################## */
             /**
              The dummy parser goes here.
@@ -98,12 +98,12 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
         /**
          This is an empty "placeholder" transport.
          */
-        struct Dummy_Transport: LGV_MeetingSDK_Transport_Protocol {
+        class Dummy_Transport: LGV_MeetingSDK_Transport_Protocol {
             /* ########################################################## */
             /**
              The dummy initiator goes here.
              */
-            var initiator: LGV_MeetingSDK_SearchInitiator_Protocol = Empty_Initiator()
+            var initiator: LGV_MeetingSDK_SearchInitiator_Protocol?
             
             /* ################################################################## */
             /**
@@ -121,7 +121,10 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
             /**
              The initiator uses us.
              */
-            init() { initiator.transport = self }
+            init() {
+                initiator = Empty_Initiator()
+                initiator?.transport = self
+            }
         }
         
         let expectation = XCTestExpectation(description: "Data Was Not Properly Set")
@@ -152,7 +155,7 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
         XCTAssert(testSDK.organization?.sdkInstance === testSDK)
         XCTAssert(testSDK.organization?.transport is Dummy_Transport)
         XCTAssert(testSDK.organization?.transport?.initiator is Empty_Initiator)
-        XCTAssert(testSDK.organization?.transport?.initiator.parser is Empty_Parser)
+        XCTAssert(testSDK.organization?.transport?.initiator?.parser is Empty_Parser)
         XCTAssert(testSDK.organization?.transport?.organization === organization)
         XCTAssert(testSDK.organization?.transport?.sdkInstance === testSDK)
         XCTAssertEqual(testSDK.organization?.organizationKey, organizationKey)
