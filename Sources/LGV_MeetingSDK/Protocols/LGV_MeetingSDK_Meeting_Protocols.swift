@@ -57,7 +57,7 @@ public enum LGV_MeetingSDK_VenueType_Enum: String {
 /**
  Each meeting may have a list of associated formats, describing details about the meeting.
  */
-public protocol LGV_MeetingSDK_Format_Protocol {
+public protocol LGV_MeetingSDK_Format_Protocol: LGV_MeetingSDK_RefCon_Protocol {
     /* ################################################################## */
     /**
      REQUIRED - The key for this format.
@@ -84,7 +84,7 @@ public protocol LGV_MeetingSDK_Format_Protocol {
 /**
  This defines the meeting's physical location component.
  */
-public protocol LGV_MeetingSDK_Meeting_Physical_Protocol {
+public protocol LGV_MeetingSDK_Meeting_Physical_Protocol: LGV_MeetingSDK_Additional_Info_Protocol {
     /* ################################################################## */
     /**
      REQUIRED - The location is stored as a standard placemark.
@@ -129,7 +129,7 @@ public extension LGV_MeetingSDK_Meeting_Physical_Protocol {
 /**
  This is one of the venues in a virtual meeting specifier.
  */
-public protocol LGV_MeetingSDK_Meeting_Virtual_Venue_Protocol {
+public protocol LGV_MeetingSDK_Meeting_Virtual_Venue_Protocol: LGV_MeetingSDK_Additional_Info_Protocol {
     /* ################################################################## */
     /**
      REQUIRED - This describes the meeting venue (i.e. "Video," "Zoom," "Audio-Only," "Phone," etc.).
@@ -192,7 +192,7 @@ public extension LGV_MeetingSDK_Meeting_Virtual_Venue_Protocol {
 /**
  This defines the meeting's virtual component (if any).
  */
-public protocol LGV_MeetingSDK_Meeting_Virtual_Protocol {
+public protocol LGV_MeetingSDK_Meeting_Virtual_Protocol: LGV_MeetingSDK_Additional_Info_Protocol {
     /* ################################################################## */
     /**
      OPTIONAL - If there is a video meeting associated, it is defined here. May be nil. This also applies to audio-only (not phone) meetings.
@@ -229,7 +229,7 @@ public extension LGV_MeetingSDK_Meeting_Virtual_Protocol {
 /**
  Each meeting instance will present itself as conforming to this protocol.
  */
-public protocol LGV_MeetingSDK_Meeting_Protocol {
+public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_Protocol {
     /* ################################################################## */
     /**
      REQUIRED - The meeting organization.

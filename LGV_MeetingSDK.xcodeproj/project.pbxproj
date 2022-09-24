@@ -142,9 +142,9 @@
 			isa = PBXGroup;
 			children = (
 				D47A4B5428D9F47D00B17823 /* LGV_MeetingSDK_Protocols.swift */,
-				D4A6EC8A28DBA74B00B3E660 /* LGV_MeetingSDK_Transport_Protocol.swift */,
-				D4A6EC8528DB68BA00B3E660 /* LGV_MeetingSDK_Organization_Protocol.swift */,
 				D4A6EC8728DB693400B3E660 /* LGV_MeetingSDK_Meeting_Protocols.swift */,
+				D4A6EC8528DB68BA00B3E660 /* LGV_MeetingSDK_Organization_Protocol.swift */,
+				D4A6EC8A28DBA74B00B3E660 /* LGV_MeetingSDK_Transport_Protocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";

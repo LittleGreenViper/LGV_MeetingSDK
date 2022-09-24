@@ -28,10 +28,10 @@ import CoreLocation
  */
 open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Protocol {
     /* ################################################################################################################################## */
-    // MARK: - Search Initiator Additional Modifiers Weekdays Enum -
+    // MARK: Search Initiator Additional Refinements Weekdays Enum
     /* ################################################################################################################################## */
     /**
-     This integer-based enum is a 1-based weekday specifier for the `LGV_MeetingSDK_SearchInitiator_Search_Modifiers.weekdays` specialization.
+     This integer-based enum is a 1-based weekday specifier for the `LGV_MeetingSDK_SearchInitiator_Search_Refinements.weekdays` specialization.
      */
     public enum Weekdays: Int, CaseIterable {
         /* ############################################################## */
@@ -78,15 +78,15 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
     }
 
     /* ################################################################################################################################## */
-    // MARK: - Search Initiator Search Types Enum -
+    // MARK: Search Initiator Search Types Enum
     /* ################################################################################################################################## */
     /**
      These are enums that describe the "main" search parameters.
      */
-    public enum SearchType {
+    public enum SearchConstraints {
         /* ############################################################## */
         /**
-         No search made.
+         No search constraints.
          */
         case none
         
@@ -108,24 +108,18 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
          This is a very basic Array of individual meeting IDs.
          */
         case meetingID(ids: [UInt64])
-        
-        /* ############################################################## */
-        /**
-         This allows a string to be submitted for a search.
-         */
-        case string(searchString: String)
     }
 
     /* ################################################################################################################################## */
-    // MARK: - Search Initiator Additional Modifiers Enum -
+    // MARK: Search Initiator Additional Refinements Enum
     /* ################################################################################################################################## */
     /**
-     The main search can have "modifiers" applied, that filter the response further.
+     The main search can have "refinements" applied, that filter the response further.
      */
-    public enum Search_Modifiers: Hashable {
+    public enum Search_Refinements: Hashable {
         /* ############################################################## */
         /**
-         This means don't apply any modifiers to the main search.
+         This means don't apply any refinements to the main search.
          */
         case none
         
@@ -148,19 +142,46 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
          Meetings that start within this range will be returned.
          */
         case startTimeRange(ClosedRange<TimeInterval>)
+        
+        /* ############################################################## */
+        /**
+         This allows a string to be submitted for a search.
+         */
+        case string(searchString: String)
     }
 
+    /* ################################################################################################################################## */
+    // MARK: LGV_MeetingSDK_Additional_Info_Protocol Conformance
+    /* ################################################################################################################################## */
+    /* ############################################################## */
+    /**
+     This allows us to have extra information attached to the found set.
+     */
+    public var extraInfo: String = ""
+
+    /* ################################################################################################################################## */
+    // MARK: LGV_MeetingSDK_RefCon_Protocol Conformance
+    /* ################################################################################################################################## */
+    /* ############################################################## */
+    /**
+     This allows us to have a reference context attached to the found set.
+     */
+    public var refCon: Any?
+
+    /* ################################################################################################################################## */
+    // MARK: Instance Properties
+    /* ################################################################################################################################## */
     /* ############################################################## */
     /**
      This is the search specification main search type.
      */
-    public let searchType: LGV_MeetingSDK_Meeting_Data_Set.SearchType
-    
+    public let searchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints
+
     /* ############################################################## */
     /**
      This is the search specification additional filters.
      */
-    public let searchModifiers: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Modifiers>
+    public let searchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>
     
     /* ############################################################## */
     /**
@@ -173,14 +194,14 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
      Default initializer.
      
      - parameter searchType: OPTIONAL This is the search specification main search type. Default is .none.
-     - parameter searchModifiers: OPTIONAL This is the search specification additional filters. Default is an empty set.
+     - parameter searchRefinements: OPTIONAL This is the search specification additional filters. Default is an empty set.
      - parameter meetings: OPTIONAL This contains any found meetings. It may be empty or omitted (no meetings found).
      */
-    public init(searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchType = .none,
-                searchModifiers inSearchModifiers: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Modifiers> = [],
+    public init(searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints = .none,
+                searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = [],
                 meetings inMeetings: [LGV_MeetingSDK_Meeting_Protocol] = []) {
         searchType = inSearchType
-        searchModifiers = inSearchModifiers
+        searchRefinements = inSearchRefinements
         meetings = inMeetings
     }
 }

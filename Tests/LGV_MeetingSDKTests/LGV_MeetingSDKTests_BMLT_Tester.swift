@@ -111,7 +111,7 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
      */
     func testRadiusSearch() {
         setup()
-        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: CLLocationCoordinate2D(latitude: 34.23568825049199, longitude: -118.56374567190156), radiusInMeters: 1000), modifiers: []) { inData, inError in
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: CLLocationCoordinate2D(latitude: 34.23568825049199, longitude: -118.56374567190156), radiusInMeters: 1000), refinements: []) { inData, inError in
             print("\(inData.debugDescription), \(inError?.localizedDescription ?? "ERROR")")
         }
     }

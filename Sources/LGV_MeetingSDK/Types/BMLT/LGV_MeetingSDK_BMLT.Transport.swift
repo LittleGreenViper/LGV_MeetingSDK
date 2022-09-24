@@ -31,12 +31,12 @@ public extension LGV_MeetingSDK_BMLT.Transport {
      Creates a URL Request, for the given search parameters.
      - Parameters:
         - type: Any search type that was specified.
-        - modifiers: Any search modifiers.
+        - refinements: Any search refinements.
      
      - returns: A new URL Request object, ready for a task.
      */
-    func ceateURLRequest(type inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchType,
-                         modifiers inSearchModifiers: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Modifiers>
+    func ceateURLRequest(type inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
+                         refinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>
     ) -> URLRequest? {
         var urlString = rootServerURL.absoluteString + "/client_interface/json?switcher=GetSearchResults&get_used_formats=1&lang_enum=\(String(Locale.preferredLanguages[0].prefix(2)))"
     

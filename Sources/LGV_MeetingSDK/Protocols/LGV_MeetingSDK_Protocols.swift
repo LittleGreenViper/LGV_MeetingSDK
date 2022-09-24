@@ -18,24 +18,74 @@
  */
 
 /* ###################################################################################################################################### */
+// MARK: - A Simple "Reference Context" Protocol -
+/* ###################################################################################################################################### */
+/**
+ This defines a protocol, that defines a simple `extraInfo` String, allowing conformant types to store string information.
+ */
+public protocol LGV_MeetingSDK_RefCon_Protocol {
+    /* ############################################################## */
+    /**
+     OPTIONAL - This allows the SDK to declare a "refcon" (reference context), attaching any data to the object.
+     */
+    var refCon: Any? { get }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Protocol Defaults
+/* ###################################################################################################################################### */
+public extension LGV_MeetingSDK_RefCon_Protocol {
+    /* ############################################################## */
+    /**
+     Default is nil.
+     */
+    var refCon: Any? { nil }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - A Simple "Extra Info" Protocol -
+/* ###################################################################################################################################### */
+/**
+ This defines a protocol, that declares a simple `extraInfo` String, allowing conformant types to store string information.
+ */
+public protocol LGV_MeetingSDK_Additional_Info_Protocol {
+    /* ############################################################## */
+    /**
+     OPTIONAL - This will return any "extra info," applied to the conformant instance.
+     */
+    var extraInfo: String { get }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Protocol Defaults
+/* ###################################################################################################################################### */
+public extension LGV_MeetingSDK_Additional_Info_Protocol {
+    /* ############################################################## */
+    /**
+     Default is an empty String.
+     */
+    var extraInfo: String { "" }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - The Parsed Meeting Search Information Protocol -
 /* ###################################################################################################################################### */
 /**
  This defines a protocol, containing a "found set" of meeting data.
  It is defined for a class, so it can be referenced (possibly weakly), in order to avoid data duplication.
  */
-public protocol LGV_MeetingSDK_Meeting_Data_Set_Protocol: AnyObject {
+public protocol LGV_MeetingSDK_Meeting_Data_Set_Protocol: AnyObject, LGV_MeetingSDK_Additional_Info_Protocol, LGV_MeetingSDK_RefCon_Protocol {
     /* ############################################################## */
     /**
      REQUIRED - This is the search specification main search type.
      */
-    var searchType: LGV_MeetingSDK_Meeting_Data_Set.SearchType { get }
+    var searchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints { get }
     
     /* ############################################################## */
     /**
      REQUIRED - This is the search specification additional filters.
      */
-    var searchModifiers: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Modifiers> { get }
+    var searchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> { get }
     
     /* ############################################################## */
     /**
@@ -68,11 +118,11 @@ public protocol LGV_MeetingSDK_Protocol {
      OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - This executes a meeting search.
      - Parameters:
         - type: The main search type.
-        - modifiers: a set of search filter modifiers.
+        - refinements: a set of search filter refinements.
         - completion: The completion closure.
      */
-    func meetingSearch(type: LGV_MeetingSDK_Meeting_Data_Set.SearchType,
-                       modifiers: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Modifiers>,
+    func meetingSearch(type: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
+                       refinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
                        completion: LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure)
 }
 
@@ -84,9 +134,9 @@ public extension LGV_MeetingSDK_Protocol {
     /**
      Default runs, using the built-in organization->transport->initiator method.
      */
-    func meetingSearch(type inType: LGV_MeetingSDK_Meeting_Data_Set.SearchType,
-                       modifiers inModifiers: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Modifiers>,
+    func meetingSearch(type inType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
+                       refinements inRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
                        completion inCompletion: LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
-        organization?.transport?.initiator.meetingSearch(type: inType, modifiers: inModifiers, completion: inCompletion)
+        organization?.transport?.initiator.meetingSearch(type: inType, refinements: inRefinements, completion: inCompletion)
     }
 }

@@ -31,14 +31,14 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
      REQUIRED - This parses data, and returns meetings.
      
      - parameter searchType: OPTIONAL This is the search specification main search type. Default is .none.
-     - parameter searchModifiers: OPTIONAL This is the search specification additional filters. Default is .none.
+     - parameter searchRefinements: OPTIONAL This is the search specification additional filters. Default is .none.
      - parameter data: The unparsed data, from the transport. It should consist of a meeting data set.
      
      - returns: An empty parse set
      */
-    public func parseThis(searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchType = .none,
-                          searchModifiers inSearchModifiers: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Modifiers> = [],
+    public func parseThis(searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints = .none,
+                          searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = [],
                           data inData: Data) -> LGV_MeetingSDK_Meeting_Data_Set_Protocol {
-        LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchModifiers: inSearchModifiers, meetings: [])
+        LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: [])
     }
 }

@@ -31,13 +31,13 @@ public protocol LGV_MeetingSDK_Parser_Protocol {
      REQUIRED - This parses data, and returns meetings.
      
      - parameter searchType: OPTIONAL This is the search specification main search type.
-     - parameter searchModifiers: OPTIONAL This is the search specification additional filters.
+     - parameter searchRefinements: OPTIONAL This is the search specification additional filters.
      - parameter data: The unparsed data, from the transport. It should consist of a meeting data set.
 
      - returns: The parsed meeting information
      */
-    func parseThis(searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchType,
-                   searchModifiers inSearchModifiers: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Modifiers>,
+    func parseThis(searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
+                   searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
                    data: Data) -> LGV_MeetingSDK_Meeting_Data_Set_Protocol
 }
 
@@ -74,11 +74,11 @@ public protocol LGV_MeetingSDK_SearchInitiator_Protocol {
      REQUIRED - This executes a meeting search.
      - Parameters:
         - type: The main search type.
-        - modifiers: a set of search filter modifiers.
+        - refinements: a set of search filter refinements.
         - completion: The completion closure.
      */
-    func meetingSearch(type: LGV_MeetingSDK_Meeting_Data_Set.SearchType,
-                       modifiers: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Modifiers>,
+    func meetingSearch(type: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
+                       refinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
                        completion: MeetingSearchCallbackClosure)
 }
 

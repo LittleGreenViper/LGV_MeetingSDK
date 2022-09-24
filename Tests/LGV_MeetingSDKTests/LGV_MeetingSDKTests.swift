@@ -45,15 +45,15 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
              REQUIRED - This parses data, and returns meetings.
              
              - parameter searchType: OPTIONAL This is the search specification main search type. Default is .none.
-             - parameter searchModifiers: OPTIONAL This is the search specification additional filters. Default is .none.
+             - parameter searchRefinements: OPTIONAL This is the search specification additional filters. Default is .none.
              - parameter data: The unparsed data, from the transport. It should consist of a meeting data set.
 
              - returns: An empty parse set
              */
-            func parseThis(searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchType,
-                           searchModifiers inSearchModifiers: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Modifiers>,
+            func parseThis(searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
+                           searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
                            data inData: Data) -> LGV_MeetingSDK_Meeting_Data_Set_Protocol {
-                LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchModifiers: inSearchModifiers, meetings: [])
+                LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: [])
             }
         }
 
@@ -82,13 +82,13 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
              
              - Parameters:
                 - type: Any search type that was specified.
-                - modifiers: Any search modifiers.
+                - refinements: Any search refinements.
                 - completion: A completion function.
              */
-            func meetingSearch(type inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchType,
-                               modifiers inSearchModifiers: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Modifiers>,
+            func meetingSearch(type inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
+                               refinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
                                completion inCompletion: MeetingSearchCallbackClosure) {
-                inCompletion(parser.parseThis(searchType: inSearchType, searchModifiers: inSearchModifiers, data: Data()), nil)
+                inCompletion(parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: Data()), nil)
             }
         }
         
@@ -129,7 +129,7 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
         // This just fulfills the expectation, so we know the callback was made.
         func dummyCompletion(_ inDataSet: LGV_MeetingSDK_Meeting_Data_Set_Protocol?, _: Error?) {
             guard case .none? = inDataSet?.searchType,
-                  [] == inDataSet?.searchModifiers
+                  [] == inDataSet?.searchRefinements
             else { return }
             expectation.fulfill()
         }
@@ -161,7 +161,7 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
         XCTAssertEqual(testSDK.organization?.organizationURL, organizationURL)
         
         // Make sure that our callback is made.
-        testSDK.meetingSearch(type: .none, modifiers: [], completion: dummyCompletion)
+        testSDK.meetingSearch(type: .none, refinements: [], completion: dummyCompletion)
         wait(for: [expectation], timeout: 0.25)
     }
 }
