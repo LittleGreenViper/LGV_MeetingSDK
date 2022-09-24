@@ -79,6 +79,15 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
         }
         
         /* ################################################################################################################################## */
+        // MARK: LGV_MeetingSDK_Transport_Protocol Conformance
+        /* ################################################################################################################################## */
+        /* ########################################################## */
+        /**
+         This will contain the URL to the Root Server that is being accessed by this transport instance.
+         */
+        public var baseURL: URL?
+
+        /* ################################################################################################################################## */
         // MARK: Instance Properties
         /* ################################################################################################################################## */
         /* ########################################################## */
@@ -99,12 +108,6 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
          */
         public var lastSearch: LGV_MeetingSDK_Meeting_Data_Set?
         
-        /* ########################################################## */
-        /**
-         This will contain the URL to the Root Server that is being accessed by this transport instance.
-         */
-        public var rootServerURL: URL
-        
         /* ################################################################################################################################## */
         // MARK: Initializer
         /* ################################################################################################################################## */
@@ -115,7 +118,7 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
          - parameter rootServerURL: The URL to the BMLT Root Server that will be accessed by this instance.
          */
         public init(rootServerURL inRootServerURL: URL) {
-            rootServerURL = inRootServerURL
+            baseURL = inRootServerURL
             initiator.transport = self
         }
     }

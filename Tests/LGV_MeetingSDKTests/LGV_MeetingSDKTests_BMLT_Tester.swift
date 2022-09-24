@@ -103,7 +103,7 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
         XCTAssertEqual(testSDK?.organization?.organizationName, organizationName)
         XCTAssertEqual(testSDK?.organization?.organizationDescription, organizationDescription)
         XCTAssertEqual(testSDK?.organization?.organizationURL, organizationURL)
-        XCTAssertEqual((testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.rootServerURL, LGV_MeetingSDK_BMLT.Transport.testingRootServerURL)
+        XCTAssertEqual((testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.baseURL, LGV_MeetingSDK_BMLT.Transport.testingRootServerURL)
     }
     
     /* ################################################################## */
