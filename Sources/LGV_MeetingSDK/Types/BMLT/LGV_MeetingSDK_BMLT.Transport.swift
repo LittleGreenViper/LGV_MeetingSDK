@@ -38,8 +38,35 @@ public extension LGV_MeetingSDK_BMLT.Transport {
     func ceateURLRequest(type inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
                          refinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>
     ) -> URLRequest? {
-        var urlString = rootServerURL.absoluteString + "/client_interface/json?switcher=GetSearchResults&get_used_formats=1&lang_enum=\(String(Locale.preferredLanguages[0].prefix(2)))"
-    
+        let dataFields = ["id_bigint",
+                          "weekday_tinyint",
+                          "start_time",
+                          "duration_time",
+                          "formats",
+                          "format_shared_id_list",
+                          "longitude",
+                          "latitude",
+                          "distance_in_km",
+                          "distance_in_miles",
+                          "meeting_name",
+                          "location_text",
+                          "location_info",
+                          "location_street",
+                          "location_city_subsection",
+                          "location_neighborhood",
+                          "location_municipality",
+                          "location_sub_province",
+                          "location_province",
+                          "location_postal_code_1",
+                          "location_nation",
+                          "comments",
+                          "virtual_meeting_link",
+                          "phone_meeting_number",
+                          "virtual_meeting_additional_info",
+                          "service_body_bigint"
+        ]
+        var urlString = rootServerURL.absoluteString + "/client_interface/json?switcher=GetSearchResults&get_used_formats=1&lang_enum=\(String(Locale.preferredLanguages[0].prefix(2)))&data_field_key=\(dataFields.joined(separator: ","))"
+
         switch inSearchType {
         case .fixedRadius(let centerLongLat, let radiusInMeters):
             urlString += "&geo_width_km=\(radiusInMeters / 1000)&long_val=\(centerLongLat.longitude)&lat_val=\(centerLongLat.latitude)"
