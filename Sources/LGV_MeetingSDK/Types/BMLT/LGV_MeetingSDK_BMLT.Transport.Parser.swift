@@ -28,12 +28,12 @@ public struct LGV_MeetingSDK_BMLT_Meeting: LGV_MeetingSDK_Meeting_Protocol {
     /* ################################################################## */
     /**
      */
-    public var meetingID: UInt64
+    public var id: UInt64
     
     /* ################################################################## */
     /**
      */
-    public var meetingName: String
+    public var name: String
 }
 
 /* ###################################################################################################################################### */
@@ -56,7 +56,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
                   let id = UInt64(str)
             else { return }
             let meetingName = meetingDictionary["meeting_name"] ?? "NA Meeting"
-            let meeting = LGV_MeetingSDK_BMLT_Meeting(organization: organization, meetingID: id, meetingName: meetingName)
+            let meeting = LGV_MeetingSDK_BMLT_Meeting(organization: organization, id: id, name: meetingName)
             ret.append(meeting)
         }
         

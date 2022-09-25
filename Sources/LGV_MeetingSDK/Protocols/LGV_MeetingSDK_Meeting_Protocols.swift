@@ -242,7 +242,7 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
      
      **NOTE:** This is positive, and 1-based. 0 is an error.
      */
-    var meetingID: UInt64 { get }
+    var id: UInt64 { get }
     
     /* ################################################################## */
     /**
@@ -252,9 +252,25 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
 
     /* ################################################################## */
     /**
+     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - Returns an optional DateComponents object, with the time of the meeting. Nil, if one-time event.
+     
+     **NOTE:** This will not allow "2400" to be indicative of midnight. 2359 is the max.
+     */
+    var startTime: DateComponents? { get }
+
+    /* ################################################################## */
+    /**
      OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - Returns an optional DateComponents object, with the weekday and time of the meeting. Nil, if one-time event.
      */
     var startTimeAndDay: DateComponents? { get }
+    
+    /* ################################################################## */
+    /**
+     - returns: returns an integer that allows sorting quickly. Weekday is 1,000s, hours are 100s, and minutes are 1s.
+     **NOTE:** This value reflects the localized start day of the week (the others do not). This is because the reason for this value is for sorting.
+     That means that if the week starts on Monday, then the weekday index will be 1 if the meeting is on Monday, and 7 if on Sunday.
+     */
+    var timeDayAsInteger: Int { get }
 
     /* ################################################################## */
     /**
@@ -270,19 +286,38 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
 
     /* ################################################################## */
     /**
+     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The duration in minutes.
+     */
+    var durationInMinutes: Int { get }
+    
+    /* ################################################################## */
+    /**
+     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The weekday, adjusted for the start of week.
+     */
+    var adjustedWeekdayIndex: Int { get }
+    
+    /* ################################################################## */
+    /**
+     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - A direct accessor for the physical location coordinates.
+     **NOTE:** Virtual-only meetings may either have no coords, or may return an invalid coordinate.
+     */
+    var locationCoords: CLLocationCoordinate2D? { get }
+
+    /* ################################################################## */
+    /**
      OPTIONAL -. The next meeting (from now) will start on this date (time).
      
      If this is a one-time event, then this will be the only indicator of the meeting start time/date.
      
      In normal weekly meetings, this should not need to be implemented.
      */
-    var nextMeetingStartsOn: Date? { get }
+    var nextStartDate: Date? { get }
     
     /* ################################################################## */
     /**
      OPTIONAL - The name for this meeting.
      */
-    var meetingName: String { get }
+    var name: String { get }
 
     /* ################################################################## */
     /**
@@ -292,7 +327,7 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
      
      **NOTE:** 1 is Sunday, regardless of the current region week start day.
      */
-    var weekday: Int { get }
+    var weekdayIndex: Int { get }
     
     /* ################################################################## */
     /**
@@ -374,16 +409,31 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
     
     /* ################################################################## */
     /**
+     Default returns an optional DateComponents object, with the time of the meeting. This will not allow "2400" to be indicative of midnight. 2359 is the max.
+     */
+    var startTime: DateComponents? {
+        guard (0...2400).contains(meetingStartTime) else { return nil }
+        
+        guard 2400 != meetingStartTime else { return DateComponents(hour: 0, minute: 0, second: 0) }
+        
+        var hour = Int(meetingStartTime / 1000)
+        let minute = Int(meetingStartTime - (hour * 1000))
+
+        return DateComponents(hour: hour, minute: minute, second: 0)
+    }
+
+    /* ################################################################## */
+    /**
      Default returns an optional DateComponents object, with the weekday and time of the meeting. Returns nil, if the meeting weekday and/or start time is invalid.
      */
     var startTimeAndDay: DateComponents? {
-        guard (1...7).contains(weekday),
+        guard (1...7).contains(weekdayIndex),
               (0...2400).contains(meetingStartTime)
         else { return nil }
         
         var hour = Int(meetingStartTime / 1000)
         let minute = Int(meetingStartTime - (hour * 1000))
-        var weekdayIndex = weekday
+        var weekdayIndex = weekdayIndex
 
         // Special case for "tonight midnight."
         if (24 == hour) && (0 == minute) {
@@ -391,7 +441,7 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
             hour = 0
         }
 
-       return DateComponents(hour: hour, minute: minute, second: 0, weekday: weekdayIndex)
+        return DateComponents(hour: hour, minute: minute, second: 0, weekday: weekdayIndex)
     }
 
     /* ################################################################## */
@@ -400,17 +450,66 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
      
      If the meeting is not a recurring weekly meeting, this should be implemented by the conforming class.
      */
-    var nextMeetingStartsOn: Date? {
+    var nextStartDate: Date? {
         guard let startTimeAndDay = startTimeAndDay else { return nil }
 
         return Calendar.current.nextDate(after: Date(), matching: startTimeAndDay, matchingPolicy: .nextTimePreservingSmallerComponents)
     }
+    
+    /* ################################################################## */
+    /**
+     Default simply divides the seconds duration into minutes.
+     */
+    var durationInMinutes: Int { Int(meetingDuration / 60) }
+    
+    /* ################################################################## */
+    /**
+     Default includes an offset of the weekday, for a different week start, as well as taking into account, the "2400" for midnight.
+     */
+    var timeDayAsInteger: Int {
+        guard let startTimeAndDay = startTimeAndDay,
+              var hour = startTimeAndDay.hour,
+              let minute = startTimeAndDay.minute
+        else { return 0 }
+        
+        var weekdayIndex = adjustedWeekdayIndex
+
+        if 2400 == meetingStartTime {
+            hour = 0
+            weekdayIndex += 1
+            if 0 > weekdayIndex {
+                weekdayIndex += 7
+            }
+        }
+        
+        return (weekdayIndex * 10000) + (hour * 100) + minute
+    }
+    
+    /* ################################################################## */
+    /**
+     Default returns the adjusted weekday. Note that this should only be used, when accounting for different week starts.
+     */
+    var adjustedWeekdayIndex: Int {
+        var weekdayIndex = self.weekdayIndex - Calendar.current.firstWeekday
+        
+        if 0 > weekdayIndex {
+            weekdayIndex += 7
+        }
+        
+        return weekdayIndex
+    }
+    
+    /* ################################################################## */
+    /**
+     Default gets the coordinates from the physical location. May be nil, or an invalid location.
+     */
+    var locationCoords: CLLocationCoordinate2D? { isValid && .virtualOnly != meetingType ? physicalLocation?.coordinate : nil }
 
     /* ################################################################## */
     /**
      This is false, if the combination of meeting values does not represent a valid meeting.
      */
-    var isValid: Bool { .invalid != meetingType && 0 < meetingID && nil != nextMeetingStartsOn && (nil != physicalLocation || nil != virtualMeetingInfo) }
+    var isValid: Bool { .invalid != meetingType && 0 < id && nil != nextStartDate && (nil != physicalLocation || nil != virtualMeetingInfo) }
 
     /* ################################################################## */
     /**
@@ -422,13 +521,13 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
     /**
      Default is an empty String.
      */
-    var meetingName: String { "" }
+    var name: String { "" }
     
     /* ################################################################## */
     /**
      Default is 0
      */
-    var weekday: Int { 0 }
+    var weekdayIndex: Int { 0 }
     
     /* ################################################################## */
     /**

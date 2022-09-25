@@ -99,8 +99,8 @@
 			children = (
 				D498E52728DD21DA00312432 /* LGV_MeetingSDK_BMLT.swift */,
 				D41EE90528DE2BD000A8ED53 /* LGV_MeetingSDK_BMLT.Transport.swift */,
-				D41EE90728DE2C4500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Parser.swift */,
 				D41EE90928DE2CD500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Initiator.swift */,
+				D41EE90728DE2C4500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Parser.swift */,
 			);
 			path = BMLT;
 			sourceTree = "<group>";
