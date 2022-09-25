@@ -192,79 +192,7 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
     func testIDSearch() {
         setup()
         let expectation = XCTestExpectation(description: "Callback never occurred.")
-        let ids: [UInt64] = [402,
-                             403,
-                             425,
-                             428,
-                             432,
-                             433,
-                             435,
-                             439,
-                             1184,
-                             1185,
-                             1189,
-                             1190,
-                             1191,
-                             1192,
-                             1198,
-                             1202,
-                             1751,
-                             1766,
-                             1783,
-                             1788,
-                             1789,
-                             1792,
-                             1795,
-                             1881,
-                             1968,
-                             1970,
-                             1973,
-                             2030,
-                             2034,
-                             2035,
-                             2040,
-                             2063,
-                             2077,
-                             2107,
-                             2140,
-                             2147,
-                             2152,
-                             2153,
-                             2180,
-                             2190,
-                             2324,
-                             2326,
-                             2328,
-                             2330,
-                             2331,
-                             2333,
-                             2334,
-                             2335,
-                             2336,
-                             2339,
-                             2341,
-                             2342,
-                             2344,
-                             2345,
-                             2346,
-                             2358,
-                             2391,
-                             2421,
-                             2423,
-                             2425,
-                             2430,
-                             2431,
-                             2434,
-                             2435,
-                             2437,
-                             2441,
-                             2448,
-                             2451,
-                             2506,
-                             3704,
-                             5397,
-                             5494
-                             ]
+        let ids: [UInt64] = [432, 1185, 1184, 3704, 1751, 1792, 1968, 2147, 2180, 2341, 2344, 2434]
 
         (testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = getResponseFile(2)
         
@@ -274,6 +202,8 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
                 return
             }
             
+            XCTAssertEqual(ids.count, inData?.meetings.count)
+            XCTAssertTrue(inData?.meetings.allSatisfy({ ids.contains($0.id) }) ?? false)
             expectation.fulfill()
             
             print("ID Meeting Search Complete.")
