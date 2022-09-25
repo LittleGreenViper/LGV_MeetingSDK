@@ -189,7 +189,14 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
      This contains any found meetings. It may be empty (no meetings found).
      */
     public let meetings: [LGV_MeetingSDK_Meeting_Protocol]
-
+    
+    /* ############################################################## */
+    /**
+     This contains any found formats. It may be empty (no formats found).
+     The key is the shared format ID.
+     */
+    public let formats: [UInt64: LGV_MeetingSDK_Format_Protocol]
+    
     /* ############################################################## */
     /**
      Default initializer.
@@ -197,17 +204,20 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
      - parameter searchType (OPTIONAL): This is the search specification main search type. Default is .none.
      - parameter searchRefinements (OPTIONAL): This is the search specification additional filters. Default is an empty set.
      - parameter meetings (OPTIONAL): This contains any found meetings. It may be empty or omitted (no meetings found).
+     - parameter formats (OPTIONAL): This Dictionary contains any found formats.
      - parameter extraInfo (OPTIONAL): This has any extra information that we wish to attach to the data set. Default is an empty String.
      - parameter refCon (OPTIONAL): This has any reference context that we wish to attach to the data set. Default is nil.
      */
     public init(searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints = .none,
                 searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = [],
                 meetings inMeetings: [LGV_MeetingSDK_Meeting_Protocol] = [],
+                formats inFormats: [UInt64: LGV_MeetingSDK_Format_Protocol] = [:],
                 extraInfo inExtraInfo: String = "",
                 refCon inRefCon: Any? = nil) {
         searchType = inSearchType
         searchRefinements = inSearchRefinements
         meetings = inMeetings
+        formats = inFormats
         extraInfo = inExtraInfo
         refCon = inRefCon
     }

@@ -98,6 +98,12 @@ public protocol LGV_MeetingSDK_Meeting_Data_Set_Protocol: AnyObject, LGV_Meeting
      REQUIRED - This contains any found meetings. It may be empty (no meetings found).
      */
     var meetings: [LGV_MeetingSDK_Meeting_Protocol] { get }
+    
+    /* ############################################################## */
+    /**
+     REQUIRED - This contains any found formats. It may be empty (no formats found). The key is the shared ID of the format.
+     */
+    var formats: [UInt64: LGV_MeetingSDK_Format_Protocol] { get }
 }
 
 /* ###################################################################################################################################### */

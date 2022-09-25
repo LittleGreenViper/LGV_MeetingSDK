@@ -60,22 +60,29 @@ public enum LGV_MeetingSDK_VenueType_Enum: String {
 public protocol LGV_MeetingSDK_Format_Protocol: LGV_MeetingSDK_RefCon_Protocol {
     /* ################################################################## */
     /**
+     REQUIRED - The Integer ID for this format.
+     This must be unique within the context of the Meeting Instance.
+     */
+    var id: UInt64 { get }
+    
+    /* ################################################################## */
+    /**
      REQUIRED - The key for this format.
      This must be unique within the context of the Meeting Instance.
      */
-    var formatKey: String { get }
+    var key: String { get }
     
     /* ################################################################## */
     /**
      REQUIRED - The name for this format (a short descriptive string).
      */
-    var formatName: String { get }
+    var name: String { get }
     
     /* ################################################################## */
     /**
      REQUIRED - The longer description for this format.
      */
-    var formatDescription: String { get }
+    var description: String { get }
 }
 
 /* ###################################################################################################################################### */
@@ -234,7 +241,7 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
     /**
      REQUIRED - The meeting organization.
      */
-    var organization: LGV_MeetingSDK_Organization_Protocol { get }
+    var organization: LGV_MeetingSDK_Organization_Protocol? { get }
     
     /* ################################################################## */
     /**
@@ -416,7 +423,7 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
         
         guard 2400 != meetingStartTime else { return DateComponents(hour: 0, minute: 0, second: 0) }
         
-        var hour = Int(meetingStartTime / 1000)
+        let hour = Int(meetingStartTime / 1000)
         let minute = Int(meetingStartTime - (hour * 1000))
 
         return DateComponents(hour: hour, minute: minute, second: 0)

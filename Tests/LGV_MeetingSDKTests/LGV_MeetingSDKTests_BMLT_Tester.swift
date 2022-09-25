@@ -165,9 +165,10 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
      */
     func testAutoRadiusSearch() {
         setup()
-        let expectation = XCTestExpectation(description: "Callback never occurred.")
 
         (testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = getResponseFile(1)
+        
+        let expectation = XCTestExpectation(description: "Callback never occurred.")
         
         testSDK?.meetingSearch(type: .autoRadius(centerLongLat: testLocationCenter, minimumNumberOfResults: 10, maxRadiusInMeters: 20000), refinements: []) { inData, inError in
             guard nil == inError else {
@@ -187,15 +188,16 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
     
     /* ################################################################## */
     /**
-     Test the auto radius search.
+     Test the search, with the IDs of a few meetings.
      */
     func testIDSearch() {
         setup()
-        let expectation = XCTestExpectation(description: "Callback never occurred.")
         let ids: [UInt64] = [432, 1185, 1184, 3704, 1751, 1792, 1968, 2147, 2180, 2341, 2344, 2434]
 
         (testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = getResponseFile(2)
         
+        let expectation = XCTestExpectation(description: "Callback never occurred.")
+
         testSDK?.meetingSearch(type: .meetingID(ids: ids), refinements: []) { inData, inError in
             guard nil == inError else {
                 print("ID Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
@@ -207,6 +209,33 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
             expectation.fulfill()
             
             print("ID Meeting Search Complete.")
+            print("\tCalling URL: \(inData?.extraInfo ?? "ERROR")")
+            print("\tMeetings: \(String(describing: inData?.meetings))")
+        }
+        
+        wait(for: [expectation], timeout: 0.25)
+    }
+    
+    /* ################################################################## */
+    /**
+     Test the search with a giant response (32,000 meetings).
+     */
+    func testFullMontySearch() {
+        setup()
+
+        (testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = getResponseFile(3)
+        
+        let expectation = XCTestExpectation(description: "Callback never occurred.")
+
+        testSDK?.meetingSearch(type: .none, refinements: []) { inData, inError in
+            guard nil == inError else {
+                print("ID Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            expectation.fulfill()
+            
+            print("Full Monty Meeting Search Complete.")
             print("\tCalling URL: \(inData?.extraInfo ?? "ERROR")")
             print("\tMeetings: \(String(describing: inData?.meetings))")
         }

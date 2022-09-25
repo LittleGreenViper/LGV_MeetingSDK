@@ -19,12 +19,39 @@
 
 import Foundation
 
+/* ###################################################################################################################################### */
+// MARK: - Meeting Struct -
+/* ###################################################################################################################################### */
+/**
+ */
 public struct LGV_MeetingSDK_BMLT_Meeting: LGV_MeetingSDK_Meeting_Protocol {
     /* ################################################################## */
     /**
      */
-    public var organization: LGV_MeetingSDK_Organization_Protocol
+    public weak var organization: LGV_MeetingSDK_Organization_Protocol?
     
+    /* ################################################################## */
+    /**
+     */
+    public let id: UInt64
+    
+    /* ################################################################## */
+    /**
+     */
+    public let name: String
+    
+    /* ################################################################## */
+    /**
+     */
+    public let formats: [LGV_MeetingSDK_Format_Protocol]
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Format Struct -
+/* ###################################################################################################################################### */
+/**
+ */
+public struct LGV_MeetingSDK_BMLT_Format: LGV_MeetingSDK_Format_Protocol {
     /* ################################################################## */
     /**
      */
@@ -33,7 +60,17 @@ public struct LGV_MeetingSDK_BMLT_Meeting: LGV_MeetingSDK_Meeting_Protocol {
     /* ################################################################## */
     /**
      */
+    public var key: String
+    
+    /* ################################################################## */
+    /**
+     */
     public var name: String
+    
+    /* ################################################################## */
+    /**
+     */
+    public var description: String
 }
 
 /* ###################################################################################################################################### */
@@ -45,18 +82,47 @@ public struct LGV_MeetingSDK_BMLT_Meeting: LGV_MeetingSDK_Meeting_Protocol {
 extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
     /* ################################################################## */
     /**
+     This converts "raw" (String Dictionary) meeting objects, into actual Swift structs.
+     - parameter theseFormats: The Dictionary of String Dictionaries that represent the parsed JSON object for the formats.
+     - returns: An Array of parsed and initialized format instances.
      */
-    private func _convert(theseMeetings inJSONParsedMeetings: [[String: String]], andTheseFormats inJSONParsedFormats: [[String: String]]) -> [LGV_MeetingSDK_Meeting_Protocol] {
+    private func _convert(theseFormats inJSONParsedFormats: [[String: String]]) -> [UInt64: LGV_MeetingSDK_Format_Protocol] {
+        var ret = [UInt64: LGV_MeetingSDK_Format_Protocol]()
+        
+        inJSONParsedFormats.forEach { formatDictionary in
+            guard let str = formatDictionary["id"],
+                  let id = UInt64(str),
+                  let key = formatDictionary["key_string"],
+                  let name = formatDictionary["name_string"],
+                  let description = formatDictionary["description_string"]
+            else { return }
+            let format = LGV_MeetingSDK_BMLT_Format(id: id, key: key, name: name, description: description)
+            ret[id] = format
+        }
+        
+        return ret
+    }
+
+    /* ################################################################## */
+    /**
+     This converts "raw" (String Dictionary) meeting objects, into actual Swift structs.
+     - parameter theseMeetings: The Dictionary of String Dictionaries that represent the parsed JSON object for the meetings.
+     - parameter andTheseFormats: The Dictionary of parsed formats.
+     - returns: An Array of parsed and initialized meeting instances.
+     */
+    private func _convert(theseMeetings inJSONParsedMeetings: [[String: String]], andTheseFormats inFormats: [UInt64: LGV_MeetingSDK_Format_Protocol]) -> [LGV_MeetingSDK_Meeting_Protocol] {
         var ret = [LGV_MeetingSDK_Meeting_Protocol]()
         
         guard let organization = initiator?.transport?.organization else { return [] }
         
         inJSONParsedMeetings.forEach { meetingDictionary in
             guard let str = meetingDictionary["id_bigint"],
+                  let sharedFormatIDs = meetingDictionary["format_shared_id_list"],
                   let id = UInt64(str)
             else { return }
             let meetingName = meetingDictionary["meeting_name"] ?? "NA Meeting"
-            let meeting = LGV_MeetingSDK_BMLT_Meeting(organization: organization, id: id, name: meetingName)
+            let formats = sharedFormatIDs.split(separator: ",").compactMap { UInt64($0) }.compactMap { inFormats[$0] }
+            let meeting = LGV_MeetingSDK_BMLT_Meeting(organization: organization, id: id, name: meetingName, formats: formats)
             ret.append(meeting)
         }
         
@@ -79,7 +145,8 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
         if let main_object = try? JSONSerialization.jsonObject(with: inData, options: []) as? [String: [[String: String]]],
            let meetingsObject = main_object["meetings"],
            let formatsObject = main_object["formats"] {
-            return LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: _convert(theseMeetings: meetingsObject, andTheseFormats: formatsObject))
+            let formats = _convert(theseFormats: formatsObject)
+            return LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: _convert(theseMeetings: meetingsObject, andTheseFormats: formats), formats: formats)
         }
         
         return LGV_MeetingSDK_Meeting_Data_Set()

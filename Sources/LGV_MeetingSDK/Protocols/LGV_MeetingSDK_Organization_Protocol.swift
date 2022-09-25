@@ -25,7 +25,7 @@ import Foundation
 /**
  Each meeting is given/managed by an organization (AA, NA, etc.). This defines the associated organization.
  */
-public protocol LGV_MeetingSDK_Organization_Protocol: LGV_MeetingSDK_Additional_Info_Protocol {
+public protocol LGV_MeetingSDK_Organization_Protocol: LGV_MeetingSDK_Additional_Info_Protocol, AnyObject {
     /* ################################################################## */
     /**
      REQUIRED - The key for this organization.
