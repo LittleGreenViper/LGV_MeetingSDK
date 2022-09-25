@@ -15,7 +15,7 @@
 		D47A4B5528D9F47D00B17823 /* LGV_MeetingSDK_Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A4B5428D9F47D00B17823 /* LGV_MeetingSDK_Protocols.swift */; };
 		D498E52828DD21DA00312432 /* LGV_MeetingSDK_BMLT.swift in Sources */ = {isa = PBXBuildFile; fileRef = D498E52728DD21DA00312432 /* LGV_MeetingSDK_BMLT.swift */; };
 		D4A6EC7B28DB4B3900B3E660 /* LGV_MeetingSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A6EC7A28DB4B3900B3E660 /* LGV_MeetingSDKTests.swift */; };
-		D4A6EC7C28DB4B3900B3E660 /* libLGV_MeetingSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A985A828D3C0A7007D75E4 /* libLGV_MeetingSDK.a */; };
+		D4A6EC7C28DB4B3900B3E660 /* libLGV_MeetingSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A985A828D3C0A7007D75E4 /* libLGV_MeetingSDK.a */; platformFilters = (ios, macos, ); };
 		D4A6EC8628DB68BA00B3E660 /* LGV_MeetingSDK_Organization_Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A6EC8528DB68BA00B3E660 /* LGV_MeetingSDK_Organization_Protocol.swift */; };
 		D4A6EC8828DB693400B3E660 /* LGV_MeetingSDK_Meeting_Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A6EC8728DB693400B3E660 /* LGV_MeetingSDK_Meeting_Protocols.swift */; };
 		D4A6EC8B28DBA74B00B3E660 /* LGV_MeetingSDK_Transport_Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A6EC8A28DBA74B00B3E660 /* LGV_MeetingSDK_Transport_Protocol.swift */; };
@@ -327,6 +327,10 @@
 /* Begin PBXTargetDependency section */
 		D4A6EC7E28DB4B3900B3E660 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilters = (
+				ios,
+				macos,
+			);
 			target = D4A985A728D3C0A7007D75E4 /* LGV_MeetingSDK */;
 			targetProxy = D4A6EC7D28DB4B3900B3E660 /* PBXContainerItemProxy */;
 		};
@@ -454,13 +458,18 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P53V4JS928;
 				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.LGV-MeetingSDKTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -471,41 +480,60 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P53V4JS928;
 				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.LGV-MeetingSDKTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 		D4A985AF28D3C0A7007D75E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P53V4JS928;
 				EXECUTABLE_PREFIX = lib;
-				MACOSX_DEPLOYMENT_TARGET = 12.3;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_MODULE_NAME = LGV_MeetingSDK;
+				PRODUCT_NAME = LGV_MeetingSDK;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "watchsimulator watchos macosx iphonesimulator iphoneos driverkit appletvsimulator appletvos";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
+				TVOS_DEPLOYMENT_TARGET = 14.0;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
 			};
 			name = Debug;
 		};
 		D4A985B028D3C0A7007D75E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P53V4JS928;
 				EXECUTABLE_PREFIX = lib;
-				MACOSX_DEPLOYMENT_TARGET = 12.3;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_MODULE_NAME = LGV_MeetingSDK;
+				PRODUCT_NAME = LGV_MeetingSDK;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "watchsimulator watchos macosx iphonesimulator iphoneos driverkit appletvsimulator appletvos";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
+				TVOS_DEPLOYMENT_TARGET = 14.0;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
 			};
 			name = Release;
 		};
