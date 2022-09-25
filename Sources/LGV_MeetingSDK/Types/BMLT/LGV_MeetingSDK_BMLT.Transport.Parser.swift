@@ -146,7 +146,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
            let meetingsObject = main_object["meetings"],
            let formatsObject = main_object["formats"] {
             let formats = _convert(theseFormats: formatsObject)
-            return LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: _convert(theseMeetings: meetingsObject, andTheseFormats: formats), formats: formats)
+            return LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: _convert(theseMeetings: meetingsObject, andTheseFormats: formats))
         }
         
         return LGV_MeetingSDK_Meeting_Data_Set()
