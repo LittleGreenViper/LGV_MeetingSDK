@@ -77,6 +77,23 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
      - returns: An Array of parsed and initialized meeting instances.
      */
     private func _convert(theseMeetings inJSONParsedMeetings: [[String: String]], andTheseFormats inFormats: [UInt64: LGV_MeetingSDK_Format_Protocol]) -> [LGV_MeetingSDK_Meeting_Protocol] {
+        /* ################################################################## */
+        /**
+         This simply strips out all non-decimal characters in the string, leaving only valid decimal digits.
+         
+         - parameter inString: The string to be "decimated."
+         
+         - returns: A String, with all the non-decimal characters stripped.
+         */
+        func decimalOnly(_ inString: String) -> String {
+            let decimalDigits = CharacterSet(charactersIn: "0123456789")
+            return inString.filter {
+                // The higher-order function stuff will convert each character into an aggregate integer, which then becomes a Unicode scalar. Very primitive, but shouldn't be a problem for us, as we only need a very limited ASCII set.
+                guard let cha = UnicodeScalar($0.unicodeScalars.map { $0.value }.reduce(0, +)) else { return false }
+                
+                return decimalDigits.contains(cha)
+            }
+        }
         var ret = [LGV_MeetingSDK_Meeting_Protocol]()
         
         guard let organization = initiator?.transport?.organization else { return [] }
@@ -87,9 +104,11 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
                   let id = UInt64(str)
             else { return }
             let meetingName = meetingDictionary["meeting_name"] ?? "NA Meeting"
+            let weekdayIndex = Int(meetingDictionary["weekday_tinyint"] ?? "0") ?? 0
+            let meetingStartTime = (Int(decimalOnly(meetingDictionary["start_time"] ?? "00:00:00")) ?? 0) / 100
             let formats = sharedFormatIDs.split(separator: ",").compactMap { UInt64($0) }.compactMap { inFormats[$0] }
             let physicalLocation = _convert(thisDataToAPhysicalLocation: meetingDictionary)
-            let meeting = LGV_MeetingSDK_BMLT.Meeting(organization: organization, id: id, name: meetingName, formats: formats, physicalLocation: physicalLocation)
+            let meeting = LGV_MeetingSDK_BMLT.Meeting(organization: organization, id: id, name: meetingName, weekdayIndex: weekdayIndex, meetingStartTime: meetingStartTime, formats: formats, physicalLocation: physicalLocation)
             ret.append(meeting)
         }
         

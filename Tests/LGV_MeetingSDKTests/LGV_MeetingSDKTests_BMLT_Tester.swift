@@ -148,11 +148,8 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
                 return
             }
             
+            XCTAssertEqual(191, inData?.meetings.count)
             expectation.fulfill()
-            
-            print("Fixed Radius Meeting Search Complete.")
-            print("\tCalling URL: \(inData?.extraInfo ?? "ERROR")")
-            print("\tMeetings: \(String(describing: inData?.meetings))")
         }
         
         wait(for: [expectation], timeout: 0.25)
@@ -175,11 +172,8 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
                 return
             }
             
+            XCTAssertEqual(10, inData?.meetings.count)
             expectation.fulfill()
-            
-            print("Auto Radius Meeting Search Complete.")
-            print("\tCalling URL: \(inData?.extraInfo ?? "ERROR")")
-            print("\tMeetings: \(String(describing: inData?.meetings))")
         }
         
         wait(for: [expectation], timeout: 0.25)
@@ -195,7 +189,7 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
 
         (testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = getResponseFile(2)
         
-        let expectation = XCTestExpectation(description: "Callback never occurred.")
+        var expectation = XCTestExpectation(description: "Callback never occurred.")
 
         testSDK?.meetingSearch(type: .meetingID(ids: ids), refinements: []) { inData, inError in
             guard nil == inError else {
@@ -206,10 +200,54 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
             XCTAssertEqual(ids.count, inData?.meetings.count)
             XCTAssertTrue(inData?.meetings.allSatisfy({ ids.contains($0.id) }) ?? false)
             expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 30)
+        
+        expectation = XCTestExpectation(description: "Callback never occurred.")
+        
+        (testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = getResponseFile(5)
+        testSDK?.meetingSearch(type: .meetingID(ids: ids), refinements: [.weekdays([.tuesday, .wednesday])]) { inData, inError in
+            guard nil == inError else {
+                print("ID Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
             
-            print("ID Meeting Search Complete.")
-            print("\tCalling URL: \(inData?.extraInfo ?? "ERROR")")
-            print("\tMeetings: \(String(describing: inData?.meetings))")
+            XCTAssertEqual(4, inData?.meetings.count)
+            XCTAssertTrue(inData?.meetings.allSatisfy({ ids.contains($0.id) }) ?? false)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 30)
+        
+        expectation = XCTestExpectation(description: "Callback never occurred.")
+        
+        (testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = getResponseFile(6)
+        testSDK?.meetingSearch(type: .meetingID(ids: ids), refinements: [.startTimeRange(1400...1900)]) { inData, inError in
+            guard nil == inError else {
+                print("ID Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            XCTAssertEqual(3, inData?.meetings.count)
+            XCTAssertTrue(inData?.meetings.allSatisfy({ ids.contains($0.id) }) ?? false)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 30)
+        
+        expectation = XCTestExpectation(description: "Callback never occurred.")
+        
+        (testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = getResponseFile(7)
+        testSDK?.meetingSearch(type: .meetingID(ids: ids), refinements: [.startTimeRange(1400...1900), .weekdays([.tuesday, .wednesday])]) { inData, inError in
+            guard nil == inError else {
+                print("ID Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            XCTAssertEqual(1, inData?.meetings.count)
+            XCTAssertTrue(inData?.meetings.allSatisfy({ ids.contains($0.id) }) ?? false)
+            expectation.fulfill()
         }
         
         wait(for: [expectation], timeout: 30)
@@ -232,11 +270,8 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
                 return
             }
             
+            XCTAssertEqual(32710, inData?.meetings.count)
             expectation.fulfill()
-            
-            print("Full Monty Meeting Search Complete.")
-            print("\tCalling URL: \(inData?.extraInfo ?? "ERROR")")
-            print("\tMeetings: \(String(describing: inData?.meetings))")
         }
         
         wait(for: [expectation], timeout: 1)
@@ -259,11 +294,8 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
                 return
             }
             
+            XCTAssertEqual(130840, inData?.meetings.count)
             expectation.fulfill()
-            
-            print("Full Monty Meeting Search Complete.")
-            print("\tCalling URL: \(inData?.extraInfo ?? "ERROR")")
-            print("\tMeetings: \(String(describing: inData?.meetings))")
         }
         
         wait(for: [expectation], timeout: 1)

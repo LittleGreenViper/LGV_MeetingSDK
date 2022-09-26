@@ -238,7 +238,55 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
      **NOTE:** This is positive, and 1-based. 0 is an error.
      */
     var id: UInt64 { get }
+
+    /* ################################################################## */
+    /**
+     REQUIRED - The repeating weekday for the meeting (1-based, with 1 being Sunday, and 7 being Saturday).
+     
+     If this is 0, then the meeting is considered to be a one-time event, and the `meetingStartTime` property should be ignored (`nextMeetingStartsOn` will have the start time and day).
+     
+     **NOTE:** 1 is Sunday, regardless of the current region week start day.
+     */
+    var weekdayIndex: Int { get }
     
+    /* ################################################################## */
+    /**
+     REQUIRED - The start time of the meeting, as military time (HHMM). This only applies, if `(1...7).contains(weekday)`.
+     
+     **NOTE:** 0 is midnight (this morning), and 2400 is midnight (tonight).
+     
+     A meeting that starts at midnight, on Friday night (which is actually, midnight, Saturday morning), would have a `weekday` of 6, and a `meetingStartTime` of 2400.
+     
+     If we wanted to say the meeting starts on Saturday morning, instead, we would make the `weekday` 7, and a `meetingStartTime` of 0.
+     
+     Most meetings will probably choose the 2400/previous day format, as that is more "natural" to people.
+     
+     The `nextMeetingStartsOn` property will have the absolute time, in any case.
+     */
+    var meetingStartTime: Int { get }
+    
+    /* ################################################################## */
+    /**
+     REQUIRED - If the meeting has a physical presence, this will have the location. Nil, if no physical location.
+     
+     **NOTE:** If this is not provided, then `virtualMeetingInfo` should be provided.
+     */
+    var physicalLocation: LGV_MeetingSDK_Meeting_Physical_Protocol? { get set }
+
+    /* ################################################################## */
+    /**
+     REQUIRED - If the meeting has a virtual presence, this will have that information. Nil, if no virtual meeting.
+     
+     **NOTE:** If this is not provided, then `physicalLocation` should be provided.
+     */
+    var virtualMeetingInfo: LGV_MeetingSDK_Meeting_Virtual_Protocol? { get set }
+    
+    /* ################################################################## */
+    /**
+     REQUIRED - If the meeting has formats, then this contains a list of them. Empty, if no formats.
+     */
+    var formats: [LGV_MeetingSDK_Format_Protocol] { get }
+
     /* ################################################################## */
     /**
      OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The meeting venue type.
@@ -261,17 +309,12 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
     
     /* ################################################################## */
     /**
-     - returns: returns an integer that allows sorting quickly. Weekday is 1,000s, hours are 100s, and minutes are 1s.
+     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - Returns an integer that allows sorting quickly. Weekday is 1,000s, hours are 100s, and minutes are 1s.
+     
      **NOTE:** This value reflects the localized start day of the week (the others do not). This is because the reason for this value is for sorting.
      That means that if the week starts on Monday, then the weekday index will be 1 if the meeting is on Monday, and 7 if on Sunday.
      */
     var timeDayAsInteger: Int { get }
-    
-    /* ################################################################## */
-    /**
-     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The local timezone of the meeting.
-     */
-    var meetingLocalTimezone: TimeZone { get }
 
     /* ################################################################## */
     /**
@@ -288,9 +331,18 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
     /* ################################################################## */
     /**
      OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - A direct accessor for the physical location coordinates.
+     
      **NOTE:** Virtual-only meetings may either have no coords, or may return an invalid coordinate.
      */
     var locationCoords: CLLocationCoordinate2D? { get }
+    
+    /* ################################################################## */
+    /**
+     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The local timezone of the meeting.
+     
+     **NOTE:** This may not be useful, if the meeting does not have a timezone.
+     */
+    var meetingLocalTimezone: TimeZone { get }
 
     /* ################################################################## */
     /**
@@ -310,63 +362,15 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
 
     /* ################################################################## */
     /**
-     OPTIONAL - The repeating weekday for the meeting (1-based, with 1 being Sunday, and 7 being Saturday).
-     
-     If this is 0, then the meeting is considered to be a one-time event, and the `meetingStartTime` property should be ignored (`nextMeetingStartsOn` will have the start time and day).
-     
-     **NOTE:** 1 is Sunday, regardless of the current region week start day.
-     */
-    var weekdayIndex: Int { get }
-    
-    /* ################################################################## */
-    /**
-     OPTIONAL - The start time of the meeting, as military time (HHMM). This only applies, if `(1...7).contains(weekday)`.
-     
-     **NOTE:** 0 is midnight (this morning), and 2400 is midnight (tonight).
-     
-     A meeting that starts at midnight, on Friday night (which is actually, midnight, Saturday morning), would have a `weekday` of 6, and a `meetingStartTime` of 2400.
-     
-     If we wanted to say the meeting starts on Saturday morning, instead, we would make the `weekday` 7, and a `meetingStartTime` of 0.
-     
-     Most meetings will probably choose the 2400/previous day format, as that is more "natural" to people.
-     
-     The `nextMeetingStartsOn` property will have the absolute time, in any case.
-     */
-    var meetingStartTime: Int { get }
-
-    /* ################################################################## */
-    /**
      OPTIONAL - The duration of the meeting, in seconds.
      */
     var meetingDuration: TimeInterval { get }
-    
-    /* ################################################################## */
-    /**
-     OPTIONAL - If the meeting has formats, then this contains a list of them. Empty, if no formats.
-     */
-    var formats: [LGV_MeetingSDK_Format_Protocol] { get }
 
     /* ################################################################## */
     /**
      OPTIONAL - If the meeting has comments associated, they will be here, as a String. Empty, if no comments.
      */
     var comments: String { get }
-    
-    /* ################################################################## */
-    /**
-     REQUIRED - If the meeting has a physical presence, this will have the location. Nil, if no physical location.
-     
-     **NOTE:** If this is not provided, then `virtualMeetingInfo` should be provided.
-     */
-    var physicalLocation: LGV_MeetingSDK_Meeting_Physical_Protocol? { get set }
-
-    /* ################################################################## */
-    /**
-     REQUIRED - If the meeting has a virtual presence, this will have that information. Nil, if no virtual meeting.
-     
-     **NOTE:** If this is not provided, then `physicalLocation` should be provided.
-     */
-    var virtualMeetingInfo: LGV_MeetingSDK_Meeting_Virtual_Protocol? { get set }
     
     /* ################################################################## */
     /**
@@ -510,25 +514,7 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
     /**
      Default is 0
      */
-    var weekdayIndex: Int { 0 }
-    
-    /* ################################################################## */
-    /**
-     Default is 0
-     */
-    var meetingStartTime: Int { 0 }
-    
-    /* ################################################################## */
-    /**
-     Default is 0
-     */
     var meetingDuration: TimeInterval { 0 }
-    
-    /* ################################################################## */
-    /**
-     Default is an Empty Array
-     */
-    var formats: [LGV_MeetingSDK_Format_Protocol] { [] }
 
     /* ################################################################## */
     /**

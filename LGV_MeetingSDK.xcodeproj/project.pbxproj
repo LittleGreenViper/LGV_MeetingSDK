@@ -14,6 +14,9 @@
 		D442316328E0BB7900BB3B70 /* SearchResponse-03.json in Resources */ = {isa = PBXBuildFile; fileRef = D442316228E0BB7900BB3B70 /* SearchResponse-03.json */; };
 		D477C00128E1D66F00B29654 /* SearchResponse-04.json in Resources */ = {isa = PBXBuildFile; fileRef = D477C00028E1D66F00B29654 /* SearchResponse-04.json */; };
 		D477C00528E1DD1C00B29654 /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D477C00428E1DD1C00B29654 /* Warnings.xcconfig */; };
+		D477C00828E1E7C100B29654 /* SearchResponse-05.json in Resources */ = {isa = PBXBuildFile; fileRef = D477C00728E1E7C000B29654 /* SearchResponse-05.json */; };
+		D477C00A28E1EF4B00B29654 /* SearchResponse-06.json in Resources */ = {isa = PBXBuildFile; fileRef = D477C00928E1EF4B00B29654 /* SearchResponse-06.json */; };
+		D477C00C28E1F4B200B29654 /* SearchResponse-07.json in Resources */ = {isa = PBXBuildFile; fileRef = D477C00B28E1F4B200B29654 /* SearchResponse-07.json */; };
 		D47A4B5528D9F47D00B17823 /* LGV_MeetingSDK_Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A4B5428D9F47D00B17823 /* LGV_MeetingSDK_Protocols.swift */; };
 		D498E52828DD21DA00312432 /* LGV_MeetingSDK_BMLT.swift in Sources */ = {isa = PBXBuildFile; fileRef = D498E52728DD21DA00312432 /* LGV_MeetingSDK_BMLT.swift */; };
 		D4A6EC7B28DB4B3900B3E660 /* LGV_MeetingSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A6EC7A28DB4B3900B3E660 /* LGV_MeetingSDKTests.swift */; };
@@ -48,6 +51,9 @@
 		D46D476128D3BF9200D8785E /* LGV_MeetingSDK.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = LGV_MeetingSDK.docc; sourceTree = "<group>"; };
 		D477C00028E1D66F00B29654 /* SearchResponse-04.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-04.json"; sourceTree = "<group>"; };
 		D477C00428E1DD1C00B29654 /* Warnings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Warnings.xcconfig; sourceTree = "<group>"; };
+		D477C00728E1E7C000B29654 /* SearchResponse-05.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-05.json"; sourceTree = "<group>"; };
+		D477C00928E1EF4B00B29654 /* SearchResponse-06.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-06.json"; sourceTree = "<group>"; };
+		D477C00B28E1F4B200B29654 /* SearchResponse-07.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-07.json"; sourceTree = "<group>"; };
 		D47A4B5428D9F47D00B17823 /* LGV_MeetingSDK_Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Protocols.swift; sourceTree = "<group>"; };
 		D498E52728DD21DA00312432 /* LGV_MeetingSDK_BMLT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_BMLT.swift; sourceTree = "<group>"; };
 		D4A6EC7828DB4B3900B3E660 /* LGV_MeetingSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LGV_MeetingSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -184,6 +190,9 @@
 				D4B20DDB28DFAB0200643A20 /* SearchResponse-02.json */,
 				D442316228E0BB7900BB3B70 /* SearchResponse-03.json */,
 				D477C00028E1D66F00B29654 /* SearchResponse-04.json */,
+				D477C00728E1E7C000B29654 /* SearchResponse-05.json */,
+				D477C00928E1EF4B00B29654 /* SearchResponse-06.json */,
+				D477C00B28E1F4B200B29654 /* SearchResponse-07.json */,
 			);
 			path = BMLTList;
 			sourceTree = "<group>";
@@ -195,7 +204,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4A6EC8128DB4B3900B3E660 /* Build configuration list for PBXNativeTarget "LGV_MeetingSDKTests" */;
 			buildPhases = (
-				D4A6EC8428DB4CD000B3E660 /* SwiftLint */,
 				D4A6EC7428DB4B3900B3E660 /* Sources */,
 				D4A6EC7528DB4B3900B3E660 /* Frameworks */,
 				D4AE9FA528DBAF0600A99630 /* Resources */,
@@ -277,8 +285,11 @@
 				D4B20DE128DFAB2600643A20 /* SearchResponse-00.json in Resources */,
 				D4B20DE228DFAB2600643A20 /* SearchResponse-01.json in Resources */,
 				D4B20DE328DFAB2600643A20 /* SearchResponse-02.json in Resources */,
+				D477C00828E1E7C100B29654 /* SearchResponse-05.json in Resources */,
 				D477C00528E1DD1C00B29654 /* Warnings.xcconfig in Resources */,
 				D477C00128E1D66F00B29654 /* SearchResponse-04.json in Resources */,
+				D477C00A28E1EF4B00B29654 /* SearchResponse-06.json in Resources */,
+				D477C00C28E1F4B200B29654 /* SearchResponse-07.json in Resources */,
 				D442316328E0BB7900BB3B70 /* SearchResponse-03.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -287,25 +298,6 @@
 
 /* Begin PBXShellScriptBuildPhase section */
 		D4A6EC8328DB4CBC00B3E660 /* SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = SwiftLint;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if command -v swiftlint\nthen\n    swiftlint\nfi\n";
-		};
-		D4A6EC8428DB4CD000B3E660 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;

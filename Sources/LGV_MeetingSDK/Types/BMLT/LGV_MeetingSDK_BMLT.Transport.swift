@@ -91,6 +91,53 @@ public extension LGV_MeetingSDK_BMLT.Transport {
                 weekdays.forEach { weekday in
                     urlString += "&weekdays\(1 < weekdays.count ? "[]" : "")=\(weekday.rawValue)"
                 }
+                
+            case .startTimeRange(let range):
+                guard 0 <= range.lowerBound,
+                      2359 > range.upperBound
+                else { break }
+                
+                let startTimeRaw = Int(range.lowerBound)
+                
+                var beginHours = startTimeRaw / 100
+                var beginMinutes = startTimeRaw - (beginHours * 100)
+                
+                // We subtract one minute, because the comparison is not inclusive.
+                beginMinutes -= 1
+                
+                if 0 > beginMinutes {
+                    beginMinutes = 59
+                    beginHours -= 1
+                    
+                    if 0 > beginHours {
+                        beginMinutes = 0
+                        beginHours = 0
+                    }
+                }
+                
+                // If we are at zero, then there's no need to have a start to the range.
+                if 0 < beginMinutes || 0 < beginHours {
+                    urlString += "&StartsAfterH=\(beginHours)&StartsAfterM=\(beginMinutes)"
+                }
+                
+                // We add one to the end, as well (same reason). We clamp at 2359.
+                var endHours = Int(range.upperBound) / 100
+                var endMinutes = Int(range.upperBound) - (endHours * 100)
+                
+                endMinutes += 1
+                
+                if 59 < endMinutes {
+                    endMinutes = 0
+                    endHours += 1
+                    
+                    if 23 < endHours {
+                        endHours = 23
+                        endMinutes = 59
+                    }
+                }
+                
+                urlString += "&StartsBeforeH=\(endHours)&StartsBeforeM=\(endMinutes)"
+                
             default:
                 break
             }

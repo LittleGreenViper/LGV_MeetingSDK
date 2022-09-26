@@ -200,6 +200,16 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
         /* ################################################################## */
         /**
          */
+        public var weekdayIndex: Int
+        
+        /* ################################################################## */
+        /**
+         */
+        public var meetingStartTime: Int
+        
+        /* ################################################################## */
+        /**
+         */
         public let formats: [LGV_MeetingSDK_Format_Protocol]
         
         /* ################################################################## */
@@ -221,12 +231,16 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
         public init(organization inOrganization: LGV_MeetingSDK_Organization_Protocol? = nil,
                     id inID: UInt64,
                     name inName: String,
+                    weekdayIndex inWeekdayIndex: Int,
+                    meetingStartTime inMeetingStartTime: Int,
                     formats inFormats: [LGV_MeetingSDK_Format_Protocol],
                     physicalLocation inPhysicalLocation: LGV_MeetingSDK_Meeting_Physical_Protocol? = nil,
                     virtualMeetingInfo inVirtualMeetingInfo: LGV_MeetingSDK_Meeting_Virtual_Protocol? = nil) {
             organization = inOrganization
             id = inID
             name = inName
+            weekdayIndex = inWeekdayIndex
+            meetingStartTime = inMeetingStartTime
             formats = inFormats
             _physicalLocation = inPhysicalLocation as? PhysicalLocation
             virtualMeetingInfo = inVirtualMeetingInfo
