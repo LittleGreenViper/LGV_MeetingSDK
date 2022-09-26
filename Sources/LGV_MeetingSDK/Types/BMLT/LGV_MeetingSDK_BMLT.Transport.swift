@@ -85,6 +85,17 @@ public extension LGV_MeetingSDK_BMLT.Transport {
             urlString += "&SearchString=\(idArray.compactMap({String($0)}).joined(separator: ","))"
         }
         
+        inSearchRefinements.forEach { refinement in
+            switch refinement {
+            case .weekdays(let weekdays):
+                weekdays.forEach { weekday in
+                    urlString += "&weekdays\(1 < weekdays.count ? "[]" : "")=\(weekday.rawValue)"
+                }
+            default:
+                break
+            }
+        }
+        
         guard let url = URL(string: urlString) else { return nil }
         
         #if DEBUG

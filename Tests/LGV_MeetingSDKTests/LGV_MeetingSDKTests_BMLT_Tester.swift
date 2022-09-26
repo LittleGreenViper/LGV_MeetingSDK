@@ -219,7 +219,7 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
     /**
      Test the search with a giant response (32,000 meetings).
      */
-    func testFullMontySearch() {
+    func testCompleteTomatoDatasetSearch() {
         setup()
 
         (testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = getResponseFile(3)
@@ -239,6 +239,33 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
             print("\tMeetings: \(String(describing: inData?.meetings))")
         }
         
-        wait(for: [expectation], timeout: 30)
+        wait(for: [expectation], timeout: 1)
+    }
+    
+    /* ################################################################## */
+    /**
+     Test the search with a quardrupled full dataset response (130,000 meetings).
+     */
+    func testFullMontySearch() {
+        setup()
+
+        (testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = getResponseFile(4)
+        
+        let expectation = XCTestExpectation(description: "Callback never occurred.")
+
+        testSDK?.meetingSearch(type: .none, refinements: []) { inData, inError in
+            guard nil == inError else {
+                print("ID Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            expectation.fulfill()
+            
+            print("Full Monty Meeting Search Complete.")
+            print("\tCalling URL: \(inData?.extraInfo ?? "ERROR")")
+            print("\tMeetings: \(String(describing: inData?.meetings))")
+        }
+        
+        wait(for: [expectation], timeout: 1)
     }
 }

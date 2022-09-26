@@ -12,6 +12,8 @@
 		D41EE90828DE2C4500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EE90728DE2C4500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Parser.swift */; };
 		D41EE90A28DE2CD500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Initiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EE90928DE2CD500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Initiator.swift */; };
 		D442316328E0BB7900BB3B70 /* SearchResponse-03.json in Resources */ = {isa = PBXBuildFile; fileRef = D442316228E0BB7900BB3B70 /* SearchResponse-03.json */; };
+		D477C00128E1D66F00B29654 /* SearchResponse-04.json in Resources */ = {isa = PBXBuildFile; fileRef = D477C00028E1D66F00B29654 /* SearchResponse-04.json */; };
+		D477C00528E1DD1C00B29654 /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D477C00428E1DD1C00B29654 /* Warnings.xcconfig */; };
 		D47A4B5528D9F47D00B17823 /* LGV_MeetingSDK_Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A4B5428D9F47D00B17823 /* LGV_MeetingSDK_Protocols.swift */; };
 		D498E52828DD21DA00312432 /* LGV_MeetingSDK_BMLT.swift in Sources */ = {isa = PBXBuildFile; fileRef = D498E52728DD21DA00312432 /* LGV_MeetingSDK_BMLT.swift */; };
 		D4A6EC7B28DB4B3900B3E660 /* LGV_MeetingSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A6EC7A28DB4B3900B3E660 /* LGV_MeetingSDKTests.swift */; };
@@ -44,6 +46,8 @@
 		D442316228E0BB7900BB3B70 /* SearchResponse-03.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-03.json"; sourceTree = "<group>"; };
 		D463874828E0F68700F2D660 /* RVS_Generic_Swift_Toolbox */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = RVS_Generic_Swift_Toolbox; path = "/Users/chrismarshall/Development/Developer/Xcode/DerivedData/LGV_MeetingSDK-bmmehuegutavvebjwadwlotsupab/SourcePackages/checkouts/RVS_Generic_Swift_Toolbox"; sourceTree = "<absolute>"; };
 		D46D476128D3BF9200D8785E /* LGV_MeetingSDK.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = LGV_MeetingSDK.docc; sourceTree = "<group>"; };
+		D477C00028E1D66F00B29654 /* SearchResponse-04.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-04.json"; sourceTree = "<group>"; };
+		D477C00428E1DD1C00B29654 /* Warnings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Warnings.xcconfig; sourceTree = "<group>"; };
 		D47A4B5428D9F47D00B17823 /* LGV_MeetingSDK_Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Protocols.swift; sourceTree = "<group>"; };
 		D498E52728DD21DA00312432 /* LGV_MeetingSDK_BMLT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_BMLT.swift; sourceTree = "<group>"; };
 		D4A6EC7828DB4B3900B3E660 /* LGV_MeetingSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LGV_MeetingSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,6 +78,7 @@
 			children = (
 				D46D476028D3BF6400D8785E /* Sources */,
 				D4A6EC8228DB4B4200B3E660 /* Tests */,
+				D477C00628E1DD2F00B29654 /* Meta */,
 				D412C80328D3BEC500BAFC16 /* Products */,
 				D463874728E0F67400F2D660 /* Frameworks */,
 			);
@@ -125,6 +130,14 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
+		D477C00628E1DD2F00B29654 /* Meta */ = {
+			isa = PBXGroup;
+			children = (
+				D477C00428E1DD1C00B29654 /* Warnings.xcconfig */,
+			);
+			name = Meta;
+			sourceTree = "<group>";
+		};
 		D478AD6828DCC43E006D1B4D /* Types */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +183,7 @@
 				D4B20DDD28DFAB0200643A20 /* SearchResponse-01.json */,
 				D4B20DDB28DFAB0200643A20 /* SearchResponse-02.json */,
 				D442316228E0BB7900BB3B70 /* SearchResponse-03.json */,
+				D477C00028E1D66F00B29654 /* SearchResponse-04.json */,
 			);
 			path = BMLTList;
 			sourceTree = "<group>";
@@ -263,6 +277,8 @@
 				D4B20DE128DFAB2600643A20 /* SearchResponse-00.json in Resources */,
 				D4B20DE228DFAB2600643A20 /* SearchResponse-01.json in Resources */,
 				D4B20DE328DFAB2600643A20 /* SearchResponse-02.json in Resources */,
+				D477C00528E1DD1C00B29654 /* Warnings.xcconfig in Resources */,
+				D477C00128E1D66F00B29654 /* SearchResponse-04.json in Resources */,
 				D442316328E0BB7900BB3B70 /* SearchResponse-03.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -353,6 +369,7 @@
 /* Begin XCBuildConfiguration section */
 		D412C80728D3BEC500BAFC16 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D477C00428E1DD1C00B29654 /* Warnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -413,6 +430,7 @@
 		};
 		D412C80828D3BEC500BAFC16 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D477C00428E1DD1C00B29654 /* Warnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
