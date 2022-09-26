@@ -306,15 +306,6 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
      OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - Returns an optional DateComponents object, with the weekday and time of the meeting. Nil, if one-time event.
      */
     var startTimeAndDay: DateComponents? { get }
-    
-    /* ################################################################## */
-    /**
-     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - Returns an integer that allows sorting quickly. Weekday is 1,000s, hours are 100s, and minutes are 1s.
-     
-     **NOTE:** This value reflects the localized start day of the week (the others do not). This is because the reason for this value is for sorting.
-     That means that if the week starts on Monday, then the weekday index will be 1 if the meeting is on Monday, and 7 if on Sunday.
-     */
-    var timeDayAsInteger: Int { get }
 
     /* ################################################################## */
     /**
@@ -359,6 +350,12 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
      OPTIONAL - The name for this meeting.
      */
     var name: String { get }
+    
+    /* ################################################################## */
+    /**
+     OPTIONAL - The distance of this meetings from the search.
+     */
+    var distanceInMeters: CLLocationDistance { get }
 
     /* ################################################################## */
     /**
@@ -457,29 +454,6 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
     
     /* ################################################################## */
     /**
-     Default includes an offset of the weekday, for a different week start, as well as taking into account, the "2400" for midnight.
-     */
-    var timeDayAsInteger: Int {
-        guard let startTimeAndDay = startTimeAndDay,
-              var hour = startTimeAndDay.hour,
-              let minute = startTimeAndDay.minute
-        else { return 0 }
-        
-        var weekdayIndex = adjustedWeekdayIndex
-
-        if 2400 == meetingStartTime {
-            hour = 0
-            weekdayIndex += 1
-            if 0 > weekdayIndex {
-                weekdayIndex += 7
-            }
-        }
-        
-        return (weekdayIndex * 10000) + (hour * 100) + minute
-    }
-    
-    /* ################################################################## */
-    /**
      Default returns the adjusted weekday. Note that this should only be used, when accounting for different week starts.
      */
     var adjustedWeekdayIndex: Int {
@@ -510,6 +484,12 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
      */
     var name: String { "" }
     
+    /* ################################################################## */
+    /**
+     Default is maximum value of the float.
+     */
+    var distanceInMeters: CLLocationDistance { Double.greatestFiniteMagnitude }
+
     /* ################################################################## */
     /**
      Default is 0

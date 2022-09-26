@@ -181,7 +181,7 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
         /**
          */
         private var _physicalLocation: PhysicalLocation?
-        
+
         /* ################################################################## */
         /**
          */
@@ -200,12 +200,28 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
         /* ################################################################## */
         /**
          */
-        public var weekdayIndex: Int
+        public let extraInfo: String
+
+        /* ################################################################## */
+        /**
+         */
+        public let meetingDuration: TimeInterval
+        
+        /* ################################################################## */
+        /**
+         The distance of this meeting, from the search center.
+         */
+        public let distanceInMeters: CLLocationDistance
+
+        /* ################################################################## */
+        /**
+         */
+        public let weekdayIndex: Int
         
         /* ################################################################## */
         /**
          */
-        public var meetingStartTime: Int
+        public let meetingStartTime: Int
         
         /* ################################################################## */
         /**
@@ -233,6 +249,9 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
                     name inName: String,
                     weekdayIndex inWeekdayIndex: Int,
                     meetingStartTime inMeetingStartTime: Int,
+                    extraInfo inExtraInfo: String,
+                    meetingDuration inMeetingDuration: TimeInterval,
+                    distance inDistance: CLLocationDistance,
                     formats inFormats: [LGV_MeetingSDK_Format_Protocol],
                     physicalLocation inPhysicalLocation: LGV_MeetingSDK_Meeting_Physical_Protocol? = nil,
                     virtualMeetingInfo inVirtualMeetingInfo: LGV_MeetingSDK_Meeting_Virtual_Protocol? = nil) {
@@ -241,6 +260,9 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
             name = inName
             weekdayIndex = inWeekdayIndex
             meetingStartTime = inMeetingStartTime
+            extraInfo = inExtraInfo
+            meetingDuration = inMeetingDuration
+            distanceInMeters = inDistance
             formats = inFormats
             _physicalLocation = inPhysicalLocation as? PhysicalLocation
             virtualMeetingInfo = inVirtualMeetingInfo

@@ -33,9 +33,9 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
     /* ################################################################################################################################## */
     /* ################################################################## */
     /**
-     The coordinates we'll use for our searches.
+     The coordinates we'll use for our searches (Central Park, NYC).
      */
-    let testLocationCenter = CLLocationCoordinate2D(latitude: 34.23568825049199, longitude: -118.56374567190156)
+    let testLocationCenter = CLLocationCoordinate2D(latitude: 40.7812, longitude: -73.9665)
     
     /* ################################################################## */
     /**
@@ -142,13 +142,13 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
 
         (testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = getResponseFile(0)
         
-        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: []) { inData, inError in
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 3000), refinements: []) { inData, inError in
             guard nil == inError else {
                 print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
             }
             
-            XCTAssertEqual(191, inData?.meetings.count)
+            XCTAssertEqual(37, inData?.meetings.count)
             expectation.fulfill()
         }
         
