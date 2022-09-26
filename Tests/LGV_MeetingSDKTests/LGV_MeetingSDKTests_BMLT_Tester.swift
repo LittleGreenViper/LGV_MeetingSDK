@@ -130,7 +130,6 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
         XCTAssertEqual(testSDK?.organization?.organizationName, organizationName)
         XCTAssertEqual(testSDK?.organization?.organizationDescription, organizationDescription)
         XCTAssertEqual(testSDK?.organization?.organizationURL, organizationURL)
-//        XCTAssertEqual((testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.baseURL, LGV_MeetingSDK_BMLT.Transport.testingRootServerURL)
     }
     
     /* ################################################################## */
@@ -213,7 +212,7 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
             print("\tMeetings: \(String(describing: inData?.meetings))")
         }
         
-        wait(for: [expectation], timeout: 0.25)
+        wait(for: [expectation], timeout: 30)
     }
     
     /* ################################################################## */
@@ -240,6 +239,6 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
             print("\tMeetings: \(String(describing: inData?.meetings))")
         }
         
-        wait(for: [expectation], timeout: 0.25)
+        wait(for: [expectation], timeout: 30)
     }
 }

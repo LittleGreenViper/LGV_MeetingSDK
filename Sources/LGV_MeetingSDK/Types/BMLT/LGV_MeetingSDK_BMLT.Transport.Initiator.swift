@@ -37,15 +37,20 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
      */
     public func meetingSearch(type inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
                               refinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
-                              completion inCompletion: MeetingSearchCallbackClosure) {
+                              completion inCompletion: @escaping MeetingSearchCallbackClosure) {
         let urlRequest = (transport as? LGV_MeetingSDK_BMLT.Transport)?.ceateURLRequest(type: inSearchType, refinements: inSearchRefinements)
         #if DEBUG
-            print("URL Request: \(urlRequest.debugDescription)")
+                print("URL Request: \(urlRequest.debugDescription)")
         #endif
         let dataToParse = (transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse ?? Data()
         (transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = nil
-        var parsedData = parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: dataToParse)
-        parsedData.extraInfo = urlRequest?.url?.absoluteString ?? ""
-        inCompletion(parsedData, nil)
+        parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: dataToParse) { inParsedMeetings, inError in
+            if var parsedData = inParsedMeetings {
+                parsedData.extraInfo = urlRequest?.url?.absoluteString ?? ""
+                inCompletion(parsedData, inError)
+            } else {
+                inCompletion(nil, nil)
+            }
+        }
     }
 }

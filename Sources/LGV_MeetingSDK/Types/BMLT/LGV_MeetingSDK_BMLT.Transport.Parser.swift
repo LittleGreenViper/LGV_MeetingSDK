@@ -17,69 +17,35 @@
  CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import Foundation
+import CoreLocation
+import Contacts
 
 /* ###################################################################################################################################### */
-// MARK: - Meeting Struct -
+// MARK: - CLLocationCoordinate2D Extension -
 /* ###################################################################################################################################### */
-/**
- */
-public struct LGV_MeetingSDK_BMLT_Meeting: LGV_MeetingSDK_Meeting_Protocol {
+internal extension CLLocationCoordinate2D {
     /* ################################################################## */
     /**
+     - returns: True, if the location is valid. This allows some "slop" around the Prime Meridian/Equator point.
      */
-    public weak var organization: LGV_MeetingSDK_Organization_Protocol?
-    
-    /* ################################################################## */
-    /**
-     */
-    public let id: UInt64
-    
-    /* ################################################################## */
-    /**
-     */
-    public let name: String
-    
-    /* ################################################################## */
-    /**
-     */
-    public let formats: [LGV_MeetingSDK_Format_Protocol]
-}
+    var isValid: Bool { !isEqualTo(CLLocationCoordinate2D(latitude: 0, longitude: 0), precisionInMeters: 500000) && CLLocationCoordinate2DIsValid(self) }
 
-/* ###################################################################################################################################### */
-// MARK: - Format Struct -
-/* ###################################################################################################################################### */
-/**
- */
-public struct LGV_MeetingSDK_BMLT_Format: LGV_MeetingSDK_Format_Protocol {
     /* ################################################################## */
     /**
+     - parameter inComp: A location (long and lat), to which we are comparing ourselves.
+     - parameter precisionInMeters: This is an optional precision (slop area), in meters. If left out, then the match must be exact.
+     
+     - returns: True, if the locations are equal, according to the given precision.
      */
-    public var id: UInt64
-    
-    /* ################################################################## */
-    /**
-     */
-    public var key: String
-    
-    /* ################################################################## */
-    /**
-     */
-    public var name: String
-    
-    /* ################################################################## */
-    /**
-     */
-    public var description: String
+    func isEqualTo(_ inComp: CLLocationCoordinate2D, precisionInMeters inPrecisionInMeters: CLLocationDistance = 0.0) -> Bool {
+        CLLocation(latitude: latitude, longitude: longitude).distance(from: CLLocation(latitude: inComp.latitude, longitude: inComp.longitude)) <= inPrecisionInMeters
+    }
 }
 
 /* ###################################################################################################################################### */
 // MARK: - BMLT Parser Extension -
 /* ###################################################################################################################################### */
-/**
- This adds methods to the parser struct.
- */
-extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
+extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {    
     /* ################################################################## */
     /**
      This converts "raw" (String Dictionary) meeting objects, into actual Swift structs.
@@ -96,7 +62,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
                   let name = formatDictionary["name_string"],
                   let description = formatDictionary["description_string"]
             else { return }
-            let format = LGV_MeetingSDK_BMLT_Format(id: id, key: key, name: name, description: description)
+            let format = LGV_MeetingSDK_BMLT.Format(id: id, key: key, name: name, description: description)
             ret[id] = format
         }
         
@@ -122,13 +88,63 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
             else { return }
             let meetingName = meetingDictionary["meeting_name"] ?? "NA Meeting"
             let formats = sharedFormatIDs.split(separator: ",").compactMap { UInt64($0) }.compactMap { inFormats[$0] }
-            let meeting = LGV_MeetingSDK_BMLT_Meeting(organization: organization, id: id, name: meetingName, formats: formats)
+            let physicalLocation = _convert(thisDataToAPhysicalLocation: meetingDictionary)
+            let meeting = LGV_MeetingSDK_BMLT.Meeting(organization: organization, id: id, name: meetingName, formats: formats, physicalLocation: physicalLocation)
             ret.append(meeting)
         }
         
         return ret
     }
+        
+    /* ################################################################## */
+    /**
+     This converts "raw" (String Dictionary) meeting objects, into actual Swift structs.
+     - parameter theseMeetings: The Dictionary of String Dictionaries that represent the parsed JSON object for the meetings.
+     - returns: A new physical location instance.
+     */
+    private func _convert(thisDataToAPhysicalLocation inMeetingData: [String: String]) -> LGV_MeetingSDK_BMLT.Meeting.PhysicalLocation? {
+        let coords = CLLocationCoordinate2D(latitude: Double(inMeetingData["latitude"] ?? "0") ?? 0, longitude: Double(inMeetingData["longitude"] ?? "0") ?? 0)
+        let name = inMeetingData["location_text"] ?? ""
+        let extraInfo = inMeetingData["location_info"] ?? ""
+        var timeZone = TimeZone.autoupdatingCurrent
+        if let timeZoneIdentifier = inMeetingData["time_zone"],
+           let timeZoneTemp = TimeZone(identifier: timeZoneIdentifier) {
+            timeZone = timeZoneTemp
+        }
 
+        let postalAddress = CNMutablePostalAddress()
+
+        if let value = inMeetingData["location_street"] {
+            postalAddress.street = value
+        }
+        
+        if let value = inMeetingData["location_city_subsection"] {
+            postalAddress.subLocality = value
+        }
+        
+        if let value = inMeetingData["location_municipality"] {
+            postalAddress.city = value
+        }
+        
+        if let value = inMeetingData["location_sub_province"] {
+            postalAddress.subAdministrativeArea = value
+        }
+        
+        if let value = inMeetingData["location_province"] {
+            postalAddress.state = value
+        }
+        
+        if let value = inMeetingData["location_postal_code_1"] {
+            postalAddress.postalCode = value
+        }
+        
+        if let value = inMeetingData["location_nation"] {
+            postalAddress.country = value
+        }
+
+        return LGV_MeetingSDK_BMLT.Meeting.PhysicalLocation(coords: coords, name: name, postalAddress: postalAddress, timeZone: timeZone, extraInfo: extraInfo)
+    }
+    
     /* ################################################################## */
     /**
      REQUIRED - This parses data, and returns meetings.
@@ -136,19 +152,54 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
      - parameter searchType (OPTIONAL): This is the search specification main search type. Default is .none.
      - parameter searchRefinements (OPTIONAL): This is the search specification additional filters. Default is .none.
      - parameter data: The unparsed data, from the transport. It should consist of a meeting data set.
-     
-     - returns: An empty parse set
+     - parameter completion: A callback, for when the parse is complete.
      */
     public func parseThis(searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints = .none,
                           searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = [],
-                          data inData: Data) -> LGV_MeetingSDK_Meeting_Data_Set_Protocol {
+                          data inData: Data,
+                          completion inCompletion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
         if let main_object = try? JSONSerialization.jsonObject(with: inData, options: []) as? [String: [[String: String]]],
            let meetingsObject = main_object["meetings"],
            let formatsObject = main_object["formats"] {
             let formats = _convert(theseFormats: formatsObject)
-            return LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: _convert(theseMeetings: meetingsObject, andTheseFormats: formats))
+            let meetingData = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: _convert(theseMeetings: meetingsObject, andTheseFormats: formats))
+            
+            if false { // !meetingData.meetings.isEmpty {
+//                let geocoder = CLGeocoder()
+//                var currentMeetingIndex: Int = 0
+//                meetingData.meetings.forEach { _ in
+//                    let meeting = meetingData.meetings[currentMeetingIndex]
+//                    if let coords = meeting.physicalLocation?.coords {
+//                        geocoder.reverseGeocodeLocation(CLLocation(latitude: coords.latitude, longitude: coords.longitude)) {(_ inPlaceMarks: [CLPlacemark]?, _ inError: Error?) in
+//                            if currentMeetingIndex >= meetingData.meetings.count {
+//                                inCompletion(meetingData, nil)
+//                            } else if let timeZone = inPlaceMarks?[0].timeZone,
+//                                      var postalAddress = meeting.physicalLocation?.postalAddress,
+//                                      let name = meeting.physicalLocation?.name,
+//                                      let extraInfo = meeting.physicalLocation?.extraInfo {
+//                                if let isoCountryCode = inPlaceMarks?[0].isoCountryCode {
+//                                    let newPostalAddress = CNMutablePostalAddress()
+//
+//                                    newPostalAddress.street = postalAddress.street
+//                                    newPostalAddress.subLocality = postalAddress.subLocality
+//                                    newPostalAddress.city = postalAddress.city
+//                                    newPostalAddress.subAdministrativeArea = postalAddress.subAdministrativeArea
+//                                    newPostalAddress.state = postalAddress.state
+//                                    newPostalAddress.postalCode = postalAddress.postalCode
+//                                    newPostalAddress.country = postalAddress.country
+//                                    newPostalAddress.isoCountryCode = isoCountryCode
+//                                    meetingData.meetings[currentMeetingIndex].physicalLocation = LGV_MeetingSDK_BMLT.Meeting.PhysicalLocation(coords: coords, name: name, postalAddress: newPostalAddress, timeZone: timeZone, extraInfo: extraInfo)
+//                                } else {
+//                                    meetingData.meetings[currentMeetingIndex].physicalLocation = LGV_MeetingSDK_BMLT.Meeting.PhysicalLocation(coords: coords, name: name, postalAddress: postalAddress, timeZone: timeZone, extraInfo: extraInfo)
+//                                }
+//                            }
+//                        }
+//                    }
+//                    currentMeetingIndex += 1
+//                }
+            } else {
+                inCompletion(meetingData, nil)
+            }
         }
-        
-        return LGV_MeetingSDK_Meeting_Data_Set()
     }
 }

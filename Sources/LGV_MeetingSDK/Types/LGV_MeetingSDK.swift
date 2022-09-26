@@ -188,7 +188,7 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
     /**
      This contains any found meetings. It may be empty (no meetings found).
      */
-    public let meetings: [LGV_MeetingSDK_Meeting_Protocol]
+    public var meetings: [LGV_MeetingSDK_Meeting_Protocol]
     
     /* ############################################################## */
     /**

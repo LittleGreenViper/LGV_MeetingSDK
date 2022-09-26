@@ -17,7 +17,8 @@
  CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import Foundation
+import CoreLocation
+import Contacts
 
 /* ###################################################################################################################################### */
 // MARK: - BMLT-Specialized SDK struct -
@@ -26,6 +27,212 @@ import Foundation
  This is a subclass of the main SDK class, that is "tuned" for [the BMLT](https://bmlt.app)
  */
 open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
+    /* ###################################################################################################################################### */
+    // MARK: - The Parsed Meeting Search Information Class -
+    /* ###################################################################################################################################### */
+    /**
+     This defines a class, containing a "found set" of meeting data.
+     It is defined as a class, so it can be referenced (possibly weakly), in order to avoid data duplication.
+     */
+    public class Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Protocol {
+        /* ################################################################################################################################## */
+        // MARK: LGV_MeetingSDK_Additional_Info_Protocol Conformance
+        /* ################################################################################################################################## */
+        /* ############################################################## */
+        /**
+         This allows us to have extra information attached to the found set.
+         */
+        public var extraInfo: String = ""
+
+        /* ################################################################################################################################## */
+        // MARK: LGV_MeetingSDK_RefCon_Protocol Conformance
+        /* ################################################################################################################################## */
+        /* ############################################################## */
+        /**
+         This allows us to have a reference context attached to the found set.
+         */
+        public var refCon: Any?
+
+        /* ################################################################################################################################## */
+        // MARK: Instance Properties
+        /* ################################################################################################################################## */
+        /* ############################################################## */
+        /**
+         This is the search specification main search type.
+         */
+        public let searchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints
+
+        /* ############################################################## */
+        /**
+         This is the search specification additional filters.
+         */
+        public let searchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>
+        
+        /* ############################################################## */
+        /**
+         This contains any found meetings. It may be empty (no meetings found).
+         */
+        private var _meetings: [Meeting]
+        
+        /* ############################################################## */
+        /**
+         This contains any found meetings. It may be empty (no meetings found).
+         */
+        public var meetings: [LGV_MeetingSDK_Meeting_Protocol] {
+            get { _meetings }
+            set { _meetings = (newValue as? [Meeting]) ?? [] }
+        }
+
+        /* ############################################################## */
+        /**
+         Default initializer.
+         
+         - parameter searchType (OPTIONAL): This is the search specification main search type. Default is .none.
+         - parameter searchRefinements (OPTIONAL): This is the search specification additional filters. Default is an empty set.
+         - parameter meetings (OPTIONAL): This contains any found meetings. It may be empty or omitted (no meetings found).
+         - parameter formats (OPTIONAL): This Dictionary contains any found formats.
+         - parameter extraInfo (OPTIONAL): This has any extra information that we wish to attach to the data set. Default is an empty String.
+         - parameter refCon (OPTIONAL): This has any reference context that we wish to attach to the data set. Default is nil.
+         */
+        public init(searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints = .none,
+                    searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = [],
+                    meetings inMeetings: [LGV_MeetingSDK_Meeting_Protocol] = [],
+                    extraInfo inExtraInfo: String = "",
+                    refCon inRefCon: Any? = nil) {
+            searchType = inSearchType
+            searchRefinements = inSearchRefinements
+            _meetings = (inMeetings as? [Meeting]) ?? []
+            extraInfo = inExtraInfo
+            refCon = inRefCon
+        }
+    }
+
+    /* ################################################################################################################################## */
+    // MARK: - Format Struct -
+    /* ################################################################################################################################## */
+    /**
+     */
+    public struct Format: LGV_MeetingSDK_Format_Protocol {
+        /* ################################################################## */
+        /**
+         */
+        public var id: UInt64
+        
+        /* ################################################################## */
+        /**
+         */
+        public var key: String
+        
+        /* ################################################################## */
+        /**
+         */
+        public var name: String
+        
+        /* ################################################################## */
+        /**
+         */
+        public var description: String
+    }
+
+    /* ################################################################################################################################## */
+    // MARK: - Meeting Struct -
+    /* ################################################################################################################################## */
+    /**
+     */
+    public struct Meeting: LGV_MeetingSDK_Meeting_Protocol {
+        /* ############################################################################################################################## */
+        // MARK: - Meeting Struct -
+        /* ############################################################################################################################## */
+        /**
+         */
+        public struct PhysicalLocation: LGV_MeetingSDK_Meeting_Physical_Protocol {
+            /* ############################################################## */
+            /**
+             The coordinates of the meeting.
+             */
+            public var coords: CLLocationCoordinate2D
+            
+            /* ############################################################## */
+            /**
+                A name for the location.
+             */
+            public var name: String
+
+            /* ############################################################## */
+            /**
+             The address of the meeting.
+             */
+            public var postalAddress: CNPostalAddress
+            
+            /* ############################################################## */
+            /**
+             The local time zone of the meeting.
+             */
+            public var timeZone: TimeZone
+            
+            /* ############################################################## */
+            /**
+             Any additional information.
+             */
+            public var extraInfo: String
+        }
+
+        /* ################################################################## */
+        /**
+         */
+        private var _physicalLocation: PhysicalLocation?
+        
+        /* ################################################################## */
+        /**
+         */
+        public weak var organization: LGV_MeetingSDK_Organization_Protocol?
+        
+        /* ################################################################## */
+        /**
+         */
+        public let id: UInt64
+        
+        /* ################################################################## */
+        /**
+         */
+        public let name: String
+        
+        /* ################################################################## */
+        /**
+         */
+        public let formats: [LGV_MeetingSDK_Format_Protocol]
+        
+        /* ################################################################## */
+        /**
+         */
+        public var physicalLocation: LGV_MeetingSDK_Meeting_Physical_Protocol? {
+            get { _physicalLocation }
+            set { _physicalLocation = newValue as? PhysicalLocation }
+        }
+
+        /* ################################################################## */
+        /**
+         */
+        public var virtualMeetingInfo: LGV_MeetingSDK_Meeting_Virtual_Protocol?
+        
+        /* ################################################################## */
+        /**
+         */
+        public init(organization inOrganization: LGV_MeetingSDK_Organization_Protocol? = nil,
+                    id inID: UInt64,
+                    name inName: String,
+                    formats inFormats: [LGV_MeetingSDK_Format_Protocol],
+                    physicalLocation inPhysicalLocation: LGV_MeetingSDK_Meeting_Physical_Protocol? = nil,
+                    virtualMeetingInfo inVirtualMeetingInfo: LGV_MeetingSDK_Meeting_Virtual_Protocol? = nil) {
+            organization = inOrganization
+            id = inID
+            name = inName
+            formats = inFormats
+            _physicalLocation = inPhysicalLocation as? PhysicalLocation
+            virtualMeetingInfo = inVirtualMeetingInfo
+        }
+    }
+
     /* ################################################################################################################################## */
     // MARK: BMLT-Specific Transport Struct
     /* ################################################################################################################################## */

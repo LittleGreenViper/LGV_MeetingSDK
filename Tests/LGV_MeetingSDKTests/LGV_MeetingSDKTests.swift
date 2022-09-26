@@ -47,13 +47,12 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
              - parameter searchType (OPTIONAL): This is the search specification main search type. Default is .none.
              - parameter searchRefinements (OPTIONAL): This is the search specification additional filters. Default is .none.
              - parameter data: The unparsed data, from the transport. It should consist of a meeting data set.
-
-             - returns: An empty parse set
              */
             func parseThis(searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
                            searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
-                           data inData: Data) -> LGV_MeetingSDK_Meeting_Data_Set_Protocol {
-                LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: [])
+                           data inData: Data,
+                           completion inCompletion: LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
+                inCompletion(LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: []), nil)
             }
         }
 
@@ -87,8 +86,8 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
              */
             func meetingSearch(type inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
                                refinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
-                               completion inCompletion: MeetingSearchCallbackClosure) {
-                inCompletion(parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: Data()), nil)
+                               completion inCompletion: @escaping MeetingSearchCallbackClosure) {
+                parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: Data(), completion: inCompletion)
             }
         }
         

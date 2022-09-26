@@ -62,6 +62,7 @@ public extension LGV_MeetingSDK_BMLT.Transport {
                           "location_postal_code_1",
                           "location_nation",
                           "comments",
+                          "time_zone",
                           "virtual_meeting_link",
                           "phone_meeting_number",
                           "virtual_meeting_additional_info",

@@ -18,6 +18,7 @@
  */
 
 import CoreLocation // For physical venues.
+import Contacts // For the postal address
 
 /* ###################################################################################################################################### */
 // MARK: - Enum for the Meeting Venue -
@@ -94,40 +95,27 @@ public protocol LGV_MeetingSDK_Format_Protocol: LGV_MeetingSDK_RefCon_Protocol {
 public protocol LGV_MeetingSDK_Meeting_Physical_Protocol: LGV_MeetingSDK_Additional_Info_Protocol {
     /* ################################################################## */
     /**
-     REQUIRED - The location is stored as a standard placemark.
-     
-     **NOTE:** This should specify the [`timeZone`](https://developer.apple.com/documentation/corelocation/clplacemark/1423707-timezone) property!.
+     REQUIRED - The coordinates for the meeting.
      */
-    var placemark: CLPlacemark { get }
+    var coords: CLLocationCoordinate2D { get }
 
     /* ################################################################## */
     /**
-     OPTIONAL - This is a direct accessor for the location (degrees Long/Lat, altitude, etc.). May be nil.
+     REQUIRED - A name for the location.
      */
-    var location: CLLocation? { get }
+    var name: String { get }
 
     /* ################################################################## */
     /**
-     OPTIONAL - This is a direct accessor for the coordinates (degrees Long/Lat). Nil, if no coordinates (address only).
+     REQUIRED - The location is stored as a standard postal address.
      */
-    var coordinate: CLLocationCoordinate2D? { get }
-}
-
-/* ###################################################################################################################################### */
-// MARK: Protocol Defaults
-/* ###################################################################################################################################### */
-public extension LGV_MeetingSDK_Meeting_Physical_Protocol {
-    /* ################################################################## */
-    /**
-     The default returns the location directly from the placemark.
-     */
-    var location: CLLocation? { placemark.location }
+    var postalAddress: CNPostalAddress { get }
 
     /* ################################################################## */
     /**
-     The default returns the coordinates directly from the placemark location.
+     REQUIRED - The time zone.
      */
-    var coordinate: CLLocationCoordinate2D? { location?.coordinate }
+    var timeZone: TimeZone { get }
 }
 
 /* ###################################################################################################################################### */
@@ -278,12 +266,6 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
      That means that if the week starts on Monday, then the weekday index will be 1 if the meeting is on Monday, and 7 if on Sunday.
      */
     var timeDayAsInteger: Int { get }
-
-    /* ################################################################## */
-    /**
-     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - This is false, if the combination of meeting values does not represent a valid meeting.
-     */
-    var isValid: Bool { get }
     
     /* ################################################################## */
     /**
@@ -372,19 +354,19 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
     
     /* ################################################################## */
     /**
-     OPTIONAL - If the meeting has a physical presence, this will have the location. Nil, if no physical location.
+     REQUIRED - If the meeting has a physical presence, this will have the location. Nil, if no physical location.
      
      **NOTE:** If this is not provided, then `virtualMeetingInfo` should be provided.
      */
-    var physicalLocation: LGV_MeetingSDK_Meeting_Physical_Protocol? { get }
+    var physicalLocation: LGV_MeetingSDK_Meeting_Physical_Protocol? { get set }
 
     /* ################################################################## */
     /**
-     OPTIONAL - If the meeting has a virtual presence, this will have that information. Nil, if no virtual meeting.
+     REQUIRED - If the meeting has a virtual presence, this will have that information. Nil, if no virtual meeting.
      
      **NOTE:** If this is not provided, then `physicalLocation` should be provided.
      */
-    var virtualMeetingInfo: LGV_MeetingSDK_Meeting_Virtual_Protocol? { get }
+    var virtualMeetingInfo: LGV_MeetingSDK_Meeting_Virtual_Protocol? { get set }
     
     /* ################################################################## */
     /**
@@ -402,12 +384,12 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
      Default figures out the meeting type, based on what venues are available.
      */
     var meetingType: LGV_MeetingSDK_VenueType_Enum {
-        if nil != physicalLocation,
-           nil != virtualMeetingInfo {
+        if nil != self.physicalLocation,
+           nil != self.virtualMeetingInfo {
             return .hybrid
-        } else if nil != physicalLocation {
+        } else if nil != self.physicalLocation {
             return .inPersonOnly
-        } else if nil != virtualMeetingInfo {
+        } else if nil != self.virtualMeetingInfo {
             return .virtualOnly
         }
         
@@ -510,19 +492,13 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
     /**
      Default gets the coordinates from the physical location. May be nil, or an invalid location.
      */
-    var locationCoords: CLLocationCoordinate2D? { isValid && .virtualOnly != meetingType ? physicalLocation?.coordinate : nil }
-
-    /* ################################################################## */
-    /**
-     This is false, if the combination of meeting values does not represent a valid meeting.
-     */
-    var isValid: Bool { .invalid != meetingType && 0 < id && nil != nextStartDate && (nil != physicalLocation || nil != virtualMeetingInfo) }
+    var locationCoords: CLLocationCoordinate2D? { physicalLocation?.coords }
 
     /* ################################################################## */
     /**
      Default tries to get the timezone from the physical address first, then the virtual, and failing that, our local timezone.
      */
-    var meetingLocalTimezone: TimeZone { physicalLocation?.placemark.timeZone ?? virtualMeetingInfo?.videoMeeting?.timeZone ?? virtualMeetingInfo?.phoneMeeting?.timeZone ?? TimeZone.autoupdatingCurrent }
+    var meetingLocalTimezone: TimeZone { physicalLocation?.timeZone ?? virtualMeetingInfo?.videoMeeting?.timeZone ?? virtualMeetingInfo?.phoneMeeting?.timeZone ?? TimeZone.autoupdatingCurrent }
 
     /* ################################################################## */
     /**
@@ -559,18 +535,6 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
      Default is an Empty String
      */
     var comments: String { "" }
-    
-    /* ################################################################## */
-    /**
-     Default is Nil
-     */
-    var physicalLocation: LGV_MeetingSDK_Meeting_Physical_Protocol? { nil }
-
-    /* ################################################################## */
-    /**
-     Default is Nil
-     */
-    var virtualMeetingInfo: LGV_MeetingSDK_Meeting_Virtual_Protocol? { nil }
     
     /* ################################################################## */
     /**

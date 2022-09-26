@@ -97,7 +97,7 @@ public protocol LGV_MeetingSDK_Meeting_Data_Set_Protocol: AnyObject, LGV_Meeting
     /**
      REQUIRED - This contains any found meetings. It may be empty (no meetings found).
      */
-    var meetings: [LGV_MeetingSDK_Meeting_Protocol] { get }
+    var meetings: [LGV_MeetingSDK_Meeting_Protocol] { get set }
 }
 
 /* ###################################################################################################################################### */
@@ -129,7 +129,7 @@ public protocol LGV_MeetingSDK_Protocol {
      */
     func meetingSearch(type: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
                        refinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
-                       completion: LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure)
+                       completion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure)
 }
 
 /* ###################################################################################################################################### */
@@ -142,7 +142,7 @@ public extension LGV_MeetingSDK_Protocol {
      */
     func meetingSearch(type inType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
                        refinements inRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
-                       completion inCompletion: LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
+                       completion inCompletion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
         organization?.transport?.initiator?.meetingSearch(type: inType, refinements: inRefinements, completion: inCompletion)
     }
 }
