@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>SearchType Enumeration Reference</title>
+    <title>Data_Set Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Enum/SearchType" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Class/Data_Set" class="dashAnchor"></a>
 
-    <a title="SearchType Enumeration Reference"></a>
+    <a title="Data_Set Class Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../../index.html"> Reference</a>
       <img class="carat" src="../../img/carat.png" alt=""/>
-      SearchType Enumeration Reference
+      Data_Set Class Reference
     </p>
 
     <div class="content-wrapper">
@@ -60,6 +60,15 @@
                 <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_BMLT.html">LGV_MeetingSDK_BMLT</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_BMLT/Data_Set.html">– Data_Set</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_BMLT/Format.html">– Format</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_BMLT/Meeting.html">– Meeting</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_BMLT/Transport.html">– Transport</a>
               </li>
               <li class="nav-group-task">
@@ -72,10 +81,10 @@
                 <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_Meeting_Data_Set/Weekdays.html">– Weekdays</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_Meeting_Data_Set/SearchType.html">– SearchType</a>
+                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_Meeting_Data_Set/SearchConstraints.html">– SearchConstraints</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_Meeting_Data_Set/Search_Modifiers.html">– Search_Modifiers</a>
+                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_Meeting_Data_Set/Search_Refinements.html">– Search_Refinements</a>
               </li>
             </ul>
           </li>
@@ -88,8 +97,19 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Extensions/CLLocationCoordinate2D.html">CLLocationCoordinate2D</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a class="nav-group-name-link" href="../../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Protocols/LGV_MeetingSDK_Additional_Info_Protocol.html">LGV_MeetingSDK_Additional_Info_Protocol</a>
+              </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Protocols/LGV_MeetingSDK_Format_Protocol.html">LGV_MeetingSDK_Format_Protocol</a>
               </li>
@@ -121,6 +141,9 @@
                 <a class="nav-group-task-link" href="../../Protocols/LGV_MeetingSDK_Protocol.html">LGV_MeetingSDK_Protocol</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Protocols/LGV_MeetingSDK_RefCon_Protocol.html">LGV_MeetingSDK_RefCon_Protocol</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Protocols/LGV_MeetingSDK_SearchInitiator_Protocol.html">LGV_MeetingSDK_SearchInitiator_Protocol</a>
               </li>
               <li class="nav-group-task">
@@ -134,8 +157,9 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>SearchType</h1>
-            <p>These are enums that describe the &ldquo;main&rdquo; search parameters.</p>
+            <h1>Data_Set</h1>
+            <p>This defines a class, containing a &ldquo;found set&rdquo; of meeting data.
+It is defined as a class, so it can be referenced (possibly weakly), in order to avoid data duplication.</p>
 
           </div>
         </section>
@@ -143,13 +167,22 @@
         <section class="section">
           <div class="section-content">
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/LGV_MeetingSDK_Additional_Info_Protocol%20Conformance"></a>
+                <a name="//apple_ref/swift/Section/LGV_MeetingSDK_Additional_Info_Protocol Conformance" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/LGV_MeetingSDK_Additional_Info_Protocol%20Conformance"></a>
+                  <h3 class="section-name"><span>LGV_MeetingSDK_Additional_Info_Protocol Conformance</span>
+</h3>
+                </div>
+              </div>
               <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Element/none" class="dashAnchor"></a>
-                    <a class="token" href="#/">none</a>
+                    <a name="//apple_ref/swift/Property/extraInfo" class="dashAnchor"></a>
+                    <a class="token" href="#/">extraInfo</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -157,7 +190,71 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>No search made.</p>
+                        <p>This allows us to have extra information attached to the found set.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/LGV_MeetingSDK_RefCon_Protocol%20Conformance"></a>
+                <a name="//apple_ref/swift/Section/LGV_MeetingSDK_RefCon_Protocol Conformance" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/LGV_MeetingSDK_RefCon_Protocol%20Conformance"></a>
+                  <h3 class="section-name"><span>LGV_MeetingSDK_RefCon_Protocol Conformance</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/refCon" class="dashAnchor"></a>
+                    <a class="token" href="#/">refCon</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This allows us to have a reference context attached to the found set.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Instance%20Properties"></a>
+                <a name="//apple_ref/swift/Section/Instance Properties" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20Properties"></a>
+                  <h3 class="section-name"><span>Instance Properties</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/searchType" class="dashAnchor"></a>
+                    <a class="token" href="#/">searchType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is the search specification main search type.</p>
 
                       </div>
                     </section>
@@ -167,8 +264,8 @@
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Element/fixedRadius(centerLongLat:radiusInMeters:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">fixedRadius(centerLongLat:<wbr>radiusInMeters:<wbr>)</a>
+                    <a name="//apple_ref/swift/Property/searchRefinements" class="dashAnchor"></a>
+                    <a class="token" href="#/">searchRefinements</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -176,7 +273,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This means that the search will sweep up every meeting within <code>radiusInMeters</code> meters of <code>centerLongLat</code>.</p>
+                        <p>This is the search specification additional filters.</p>
 
                       </div>
                     </section>
@@ -186,8 +283,8 @@
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Element/autoRadius(centerLongLat:minimumNumberOfResults:maxRadiusInMeters:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">autoRadius(centerLongLat:<wbr>minimumNumberOfResults:<wbr>maxRadiusInMeters:<wbr>)</a>
+                    <a name="//apple_ref/swift/Property/_meetings" class="dashAnchor"></a>
+                    <a class="token" href="#/">_meetings</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -195,8 +292,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This means that the search will start at <code>centerLongLat</code>, and move outward, in &ldquo;rings,&rdquo; until it gets at least the <code>minimumNumberOfResults</code> number of meetings, and will stop there.
-We deliberately do not specify the &ldquo;width&rdquo; of these &ldquo;rings,&rdquo; because the server may have its own ideas. A conformant implementation of the initiator could be used to allow the width to be specified.</p>
+                        <p>This contains any found meetings. It may be empty (no meetings found).</p>
 
                       </div>
                     </section>
@@ -206,8 +302,8 @@ We deliberately do not specify the &ldquo;width&rdquo; of these &ldquo;rings,&rd
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Element/meetingID(ids:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">meetingID(ids:<wbr>)</a>
+                    <a name="//apple_ref/swift/Property/meetings" class="dashAnchor"></a>
+                    <a class="token" href="#/">meetings</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -215,7 +311,7 @@ We deliberately do not specify the &ldquo;width&rdquo; of these &ldquo;rings,&rd
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This is a very basic Array of individual meeting IDs.</p>
+                        <p>This contains any found meetings. It may be empty (no meetings found).</p>
 
                       </div>
                     </section>
@@ -225,8 +321,8 @@ We deliberately do not specify the &ldquo;width&rdquo; of these &ldquo;rings,&rd
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Element/string(searchString:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">string(searchString:<wbr>)</a>
+                    <a name="//apple_ref/swift/Method/init(searchType:searchRefinements:meetings:extraInfo:refCon:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">init(searchType:<wbr>searchRefinements:<wbr>meetings:<wbr>extraInfo:<wbr>refCon:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -234,7 +330,7 @@ We deliberately do not specify the &ldquo;width&rdquo; of these &ldquo;rings,&rd
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This allows a string to be submitted for a search.</p>
+                        <p>Default initializer.</p>
 
                       </div>
                     </section>
@@ -248,7 +344,7 @@ We deliberately do not specify the &ldquo;width&rdquo; of these &ldquo;rings,&rd
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-09-23)</p>
+      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-09-26)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

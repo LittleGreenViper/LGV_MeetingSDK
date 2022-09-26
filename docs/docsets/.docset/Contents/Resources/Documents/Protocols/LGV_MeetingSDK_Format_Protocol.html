@@ -60,6 +60,15 @@
                 <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_BMLT.html">LGV_MeetingSDK_BMLT</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_BMLT/Data_Set.html">– Data_Set</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_BMLT/Format.html">– Format</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_BMLT/Meeting.html">– Meeting</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_BMLT/Transport.html">– Transport</a>
               </li>
               <li class="nav-group-task">
@@ -72,10 +81,10 @@
                 <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_Meeting_Data_Set/Weekdays.html">– Weekdays</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_Meeting_Data_Set/SearchType.html">– SearchType</a>
+                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_Meeting_Data_Set/SearchConstraints.html">– SearchConstraints</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_Meeting_Data_Set/Search_Modifiers.html">– Search_Modifiers</a>
+                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_Meeting_Data_Set/Search_Refinements.html">– Search_Refinements</a>
               </li>
             </ul>
           </li>
@@ -88,8 +97,19 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/CLLocationCoordinate2D.html">CLLocationCoordinate2D</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_Additional_Info_Protocol.html">LGV_MeetingSDK_Additional_Info_Protocol</a>
+              </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_Format_Protocol.html">LGV_MeetingSDK_Format_Protocol</a>
               </li>
@@ -121,6 +141,9 @@
                 <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_Protocol.html">LGV_MeetingSDK_Protocol</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_RefCon_Protocol.html">LGV_MeetingSDK_RefCon_Protocol</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/LGV_MeetingSDK_SearchInitiator_Protocol.html">LGV_MeetingSDK_SearchInitiator_Protocol</a>
               </li>
               <li class="nav-group-task">
@@ -148,8 +171,28 @@
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/formatKey" class="dashAnchor"></a>
-                    <a class="token" href="#/">formatKey</a>
+                    <a name="//apple_ref/swift/Property/id" class="dashAnchor"></a>
+                    <a class="token" href="#/">id</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>REQUIRED - The Integer ID for this format.
+This must be unique within the context of the Meeting Instance.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/key" class="dashAnchor"></a>
+                    <a class="token" href="#/">key</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -168,8 +211,8 @@ This must be unique within the context of the Meeting Instance.</p>
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/formatName" class="dashAnchor"></a>
-                    <a class="token" href="#/">formatName</a>
+                    <a name="//apple_ref/swift/Property/name" class="dashAnchor"></a>
+                    <a class="token" href="#/">name</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -187,8 +230,8 @@ This must be unique within the context of the Meeting Instance.</p>
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/formatDescription" class="dashAnchor"></a>
-                    <a class="token" href="#/">formatDescription</a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/">description</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -210,7 +253,7 @@ This must be unique within the context of the Meeting Instance.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-09-23)</p>
+      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-09-26)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

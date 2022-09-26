@@ -7,7 +7,6 @@ echo "Creating Docs for the LGV_MeetingSDK Package\n"
 rm -drf docs/*
 
 jazzy  --readme ./README.md \
-       --build-tool-arguments -scheme,"LGV_MeetingSDK-Library",-target,"LGV_MeetingSDK" \
        --github_url https://github.com/LittleGreenViper/LGV_MeetingSDK \
        --title "LGV_MeetingSDK Doumentation" \
        --min_acl private \

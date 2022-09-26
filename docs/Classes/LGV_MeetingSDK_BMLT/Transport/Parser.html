@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Parser Structure Reference</title>
+    <title>Parser Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Struct/Parser" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Class/Parser" class="dashAnchor"></a>
 
-    <a title="Parser Structure Reference"></a>
+    <a title="Parser Class Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../../../index.html"> Reference</a>
       <img class="carat" src="../../../img/carat.png" alt=""/>
-      Parser Structure Reference
+      Parser Class Reference
     </p>
 
     <div class="content-wrapper">
@@ -60,6 +60,15 @@
                 <a class="nav-group-task-link" href="../../../Classes/LGV_MeetingSDK_BMLT.html">LGV_MeetingSDK_BMLT</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../../Classes/LGV_MeetingSDK_BMLT/Data_Set.html">– Data_Set</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../../Classes/LGV_MeetingSDK_BMLT/Format.html">– Format</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../../Classes/LGV_MeetingSDK_BMLT/Meeting.html">– Meeting</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../../Classes/LGV_MeetingSDK_BMLT/Transport.html">– Transport</a>
               </li>
               <li class="nav-group-task">
@@ -72,10 +81,10 @@
                 <a class="nav-group-task-link" href="../../../Classes/LGV_MeetingSDK_Meeting_Data_Set/Weekdays.html">– Weekdays</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../../Classes/LGV_MeetingSDK_Meeting_Data_Set/SearchType.html">– SearchType</a>
+                <a class="nav-group-task-link" href="../../../Classes/LGV_MeetingSDK_Meeting_Data_Set/SearchConstraints.html">– SearchConstraints</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../../Classes/LGV_MeetingSDK_Meeting_Data_Set/Search_Modifiers.html">– Search_Modifiers</a>
+                <a class="nav-group-task-link" href="../../../Classes/LGV_MeetingSDK_Meeting_Data_Set/Search_Refinements.html">– Search_Refinements</a>
               </li>
             </ul>
           </li>
@@ -88,8 +97,19 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../../../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../../Extensions/CLLocationCoordinate2D.html">CLLocationCoordinate2D</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a class="nav-group-name-link" href="../../../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../../Protocols/LGV_MeetingSDK_Additional_Info_Protocol.html">LGV_MeetingSDK_Additional_Info_Protocol</a>
+              </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../../Protocols/LGV_MeetingSDK_Format_Protocol.html">LGV_MeetingSDK_Format_Protocol</a>
               </li>
@@ -121,6 +141,9 @@
                 <a class="nav-group-task-link" href="../../../Protocols/LGV_MeetingSDK_Protocol.html">LGV_MeetingSDK_Protocol</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../../Protocols/LGV_MeetingSDK_RefCon_Protocol.html">LGV_MeetingSDK_RefCon_Protocol</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../../Protocols/LGV_MeetingSDK_SearchInitiator_Protocol.html">LGV_MeetingSDK_SearchInitiator_Protocol</a>
               </li>
               <li class="nav-group-task">
@@ -135,7 +158,14 @@
         <section class="section">
           <div class="section-content top-matter">
             <h1>Parser</h1>
-            
+              <div class="declaration">
+                <div class="language">
+                  
+                  
+                </div>
+              </div>
+            <p>This is the parser. Most functionality will be in the extension.</p>
+
           </div>
         </section>
 
@@ -147,8 +177,118 @@
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Method/parseThis(searchType:searchModifiers:data:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">parseThis(searchType:<wbr>searchModifiers:<wbr>data:<wbr>)</a>
+                    <a name="//apple_ref/swift/Property/_initiator" class="dashAnchor"></a>
+                    <a class="token" href="#/">_initiator</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The initiator, for creating search commands.
+We declare the stored property private, and specific to the class, so we can weakly reference it.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/initiator" class="dashAnchor"></a>
+                    <a class="token" href="#/">initiator</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The initiator, for creating search commands.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/BMLT%20Parser%20Extension"></a>
+                <a name="//apple_ref/swift/Section/BMLT Parser Extension" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/BMLT%20Parser%20Extension"></a>
+                  <h3 class="section-name"><span>BMLT Parser Extension</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/_convert(theseFormats:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">_convert(theseFormats:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This converts &ldquo;raw&rdquo; (String Dictionary) meeting objects, into actual Swift structs.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/_convert(theseMeetings:andTheseFormats:searchCenter:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">_convert(theseMeetings:<wbr>andTheseFormats:<wbr>searchCenter:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This converts &ldquo;raw&rdquo; (String Dictionary) meeting objects, into actual Swift structs.</p>
+
+                        <a href="../../../Classes/LGV_MeetingSDK_BMLT/Transport/Parser/_convert%28theseMeetings%3AandTheseFormats%3AsearchCenter%3A%29.html" class="slightly-smaller">See more</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/_convert(thisDataToAPhysicalLocation:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">_convert(thisDataToAPhysicalLocation:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This converts &ldquo;raw&rdquo; (String Dictionary) meeting objects, into actual Swift structs.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/parseThis(searchType:searchRefinements:data:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">parseThis(searchType:<wbr>searchRefinements:<wbr>data:<wbr>completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -170,7 +310,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-09-23)</p>
+      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-09-26)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

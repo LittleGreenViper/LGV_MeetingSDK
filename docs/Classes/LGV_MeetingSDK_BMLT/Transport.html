@@ -60,6 +60,15 @@
                 <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_BMLT.html">LGV_MeetingSDK_BMLT</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_BMLT/Data_Set.html">– Data_Set</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_BMLT/Format.html">– Format</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_BMLT/Meeting.html">– Meeting</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_BMLT/Transport.html">– Transport</a>
               </li>
               <li class="nav-group-task">
@@ -72,10 +81,10 @@
                 <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_Meeting_Data_Set/Weekdays.html">– Weekdays</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_Meeting_Data_Set/SearchType.html">– SearchType</a>
+                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_Meeting_Data_Set/SearchConstraints.html">– SearchConstraints</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_Meeting_Data_Set/Search_Modifiers.html">– Search_Modifiers</a>
+                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_Meeting_Data_Set/Search_Refinements.html">– Search_Refinements</a>
               </li>
             </ul>
           </li>
@@ -88,8 +97,19 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Extensions/CLLocationCoordinate2D.html">CLLocationCoordinate2D</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a class="nav-group-name-link" href="../../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Protocols/LGV_MeetingSDK_Additional_Info_Protocol.html">LGV_MeetingSDK_Additional_Info_Protocol</a>
+              </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Protocols/LGV_MeetingSDK_Format_Protocol.html">LGV_MeetingSDK_Format_Protocol</a>
               </li>
@@ -121,6 +141,9 @@
                 <a class="nav-group-task-link" href="../../Protocols/LGV_MeetingSDK_Protocol.html">LGV_MeetingSDK_Protocol</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Protocols/LGV_MeetingSDK_RefCon_Protocol.html">LGV_MeetingSDK_RefCon_Protocol</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Protocols/LGV_MeetingSDK_SearchInitiator_Protocol.html">LGV_MeetingSDK_SearchInitiator_Protocol</a>
               </li>
               <li class="nav-group-task">
@@ -144,29 +167,6 @@ We make this a class, so we can be weakly referenced.</p>
         <section class="section">
           <div class="section-content">
             <div class="task-group">
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/"></a>
-                    <a name="//apple_ref/swift/Variable/testingRootServerURL" class="dashAnchor"></a>
-                    <a class="token" href="#/">testingRootServerURL</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This is a special dummy URL that we use to allow mocking.</p>
-
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
               <div class="task-name-container">
                 <a name="/Parser"></a>
                 <a name="//apple_ref/swift/Section/Parser" class="dashAnchor"></a>
@@ -181,7 +181,7 @@ We make this a class, so we can be weakly referenced.</p>
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Struct/Parser" class="dashAnchor"></a>
+                    <a name="//apple_ref/swift/Class/Parser" class="dashAnchor"></a>
                     <a class="token" href="#/">Parser</a>
                     </code>
                   </div>
@@ -190,8 +190,16 @@ We make this a class, so we can be weakly referenced.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>This is the parser. Most functionality will be in the extension.</p>
+
                         <a href="../../Classes/LGV_MeetingSDK_BMLT/Transport/Parser.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -213,7 +221,7 @@ We make this a class, so we can be weakly referenced.</p>
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Struct/Initiator" class="dashAnchor"></a>
+                    <a name="//apple_ref/swift/Class/Initiator" class="dashAnchor"></a>
                     <a class="token" href="#/">Initiator</a>
                     </code>
                   </div>
@@ -222,13 +230,66 @@ We make this a class, so we can be weakly referenced.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This is an initiator. It forms queries to the BMLT Root Server.</p>
+                        <p>This is an initiator. It forms queries to the BMLT Root Server. Most functionality will be in the extension.
+We make it a class, so it will be referencable.</p>
 
                         <a href="../../Classes/LGV_MeetingSDK_BMLT/Transport/Initiator.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          
+                        </div>
                       </div>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/LGV_MeetingSDK_Transport_Protocol%20Conformance"></a>
+                <a name="//apple_ref/swift/Section/LGV_MeetingSDK_Transport_Protocol Conformance" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/LGV_MeetingSDK_Transport_Protocol%20Conformance"></a>
+                  <h3 class="section-name"><span>LGV_MeetingSDK_Transport_Protocol Conformance</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/baseURL" class="dashAnchor"></a>
+                    <a class="token" href="#/">baseURL</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This will contain the URL to the Root Server that is being accessed by this transport instance.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Instance%20Properties"></a>
+                <a name="//apple_ref/swift/Section/Instance Properties" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20Properties"></a>
+                  <h3 class="section-name"><span>Instance Properties</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
@@ -286,12 +347,25 @@ We make this a class, so we can be weakly referenced.</p>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Mocking%20Properties"></a>
+                <a name="//apple_ref/swift/Section/Mocking Properties" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Mocking%20Properties"></a>
+                  <h3 class="section-name"><span>Mocking Properties</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Property/rootServerURL" class="dashAnchor"></a>
-                    <a class="token" href="#/">rootServerURL</a>
+                    <a name="//apple_ref/swift/Variable/testingRootServerURL" class="dashAnchor"></a>
+                    <a class="token" href="#/">testingRootServerURL</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -299,12 +373,47 @@ We make this a class, so we can be weakly referenced.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This will contain the URL to the Root Server that is being accessed by this transport instance.</p>
+                        <p>This is a special dummy URL that we use to allow mocking.</p>
 
                       </div>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/debugMockDataResponse" class="dashAnchor"></a>
+                    <a class="token" href="#/">debugMockDataResponse</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is used to &ldquo;short-circuit&rdquo; the actual network call.</p>
+
+<p>If this is non-nil, then the Data instance is sent to the callback closure as a &ldquo;one-shot&rdquo; call. The property is immediately cleared, after being read.
+The URL is ignored.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Initializer"></a>
+                <a name="//apple_ref/swift/Section/Initializer" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Initializer"></a>
+                  <h3 class="section-name"><span>Initializer</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
@@ -326,13 +435,45 @@ We make this a class, so we can be weakly referenced.</p>
                 </li>
               </ul>
             </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/BMLT%20Transport%20Extension"></a>
+                <a name="//apple_ref/swift/Section/BMLT Transport Extension" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/BMLT%20Transport%20Extension"></a>
+                  <h3 class="section-name"><span>BMLT Transport Extension</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/ceateURLRequest(type:refinements:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">ceateURLRequest(type:<wbr>refinements:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a URL Request, for the given search parameters.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
         </section>
 
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-09-23)</p>
+      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-09-26)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

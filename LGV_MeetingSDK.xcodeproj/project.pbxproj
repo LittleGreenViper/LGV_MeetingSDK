@@ -13,6 +13,11 @@
 		D41EE90A28DE2CD500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Initiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EE90928DE2CD500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Initiator.swift */; };
 		D43DD68928E227E50075047D /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D43DD68828E227E50075047D /* Warnings.xcconfig */; };
 		D442316328E0BB7900BB3B70 /* SearchResponse-03.json in Resources */ = {isa = PBXBuildFile; fileRef = D442316228E0BB7900BB3B70 /* SearchResponse-03.json */; };
+		D44AA17428E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness_AppSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AA17328E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness_AppSceneDelegate.swift */; };
+		D44AA17828E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AA17728E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness_ViewController.swift */; };
+		D44AA17B28E23C5100AB0D85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D44AA17928E23C5100AB0D85 /* Main.storyboard */; };
+		D44AA17D28E23C5200AB0D85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D44AA17C28E23C5200AB0D85 /* Assets.xcassets */; };
+		D44AA18028E23C5200AB0D85 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D44AA17E28E23C5200AB0D85 /* LaunchScreen.storyboard */; };
 		D477C00128E1D66F00B29654 /* SearchResponse-04.json in Resources */ = {isa = PBXBuildFile; fileRef = D477C00028E1D66F00B29654 /* SearchResponse-04.json */; };
 		D477C00828E1E7C100B29654 /* SearchResponse-05.json in Resources */ = {isa = PBXBuildFile; fileRef = D477C00728E1E7C000B29654 /* SearchResponse-05.json */; };
 		D477C00A28E1EF4B00B29654 /* SearchResponse-06.json in Resources */ = {isa = PBXBuildFile; fileRef = D477C00928E1EF4B00B29654 /* SearchResponse-06.json */; };
@@ -20,7 +25,7 @@
 		D47A4B5528D9F47D00B17823 /* LGV_MeetingSDK_Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A4B5428D9F47D00B17823 /* LGV_MeetingSDK_Protocols.swift */; };
 		D498E52828DD21DA00312432 /* LGV_MeetingSDK_BMLT.swift in Sources */ = {isa = PBXBuildFile; fileRef = D498E52728DD21DA00312432 /* LGV_MeetingSDK_BMLT.swift */; };
 		D4A6EC7B28DB4B3900B3E660 /* LGV_MeetingSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A6EC7A28DB4B3900B3E660 /* LGV_MeetingSDKTests.swift */; };
-		D4A6EC7C28DB4B3900B3E660 /* libLGV_MeetingSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A985A828D3C0A7007D75E4 /* libLGV_MeetingSDK.a */; platformFilters = (ios, macos, ); };
+		D4A6EC7C28DB4B3900B3E660 /* LGV_MeetingSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A985A828D3C0A7007D75E4 /* LGV_MeetingSDK.a */; platformFilters = (ios, macos, ); };
 		D4A6EC8628DB68BA00B3E660 /* LGV_MeetingSDK_Organization_Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A6EC8528DB68BA00B3E660 /* LGV_MeetingSDK_Organization_Protocol.swift */; };
 		D4A6EC8828DB693400B3E660 /* LGV_MeetingSDK_Meeting_Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A6EC8728DB693400B3E660 /* LGV_MeetingSDK_Meeting_Protocols.swift */; };
 		D4A6EC8B28DBA74B00B3E660 /* LGV_MeetingSDK_Transport_Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A6EC8A28DBA74B00B3E660 /* LGV_MeetingSDK_Transport_Protocol.swift */; };
@@ -28,10 +33,20 @@
 		D4B20DE128DFAB2600643A20 /* SearchResponse-00.json in Resources */ = {isa = PBXBuildFile; fileRef = D4B20DDC28DFAB0200643A20 /* SearchResponse-00.json */; };
 		D4B20DE228DFAB2600643A20 /* SearchResponse-01.json in Resources */ = {isa = PBXBuildFile; fileRef = D4B20DDD28DFAB0200643A20 /* SearchResponse-01.json */; };
 		D4B20DE328DFAB2600643A20 /* SearchResponse-02.json in Resources */ = {isa = PBXBuildFile; fileRef = D4B20DDB28DFAB0200643A20 /* SearchResponse-02.json */; };
+		D4B46A5B28E24742004A203E /* LGV_MeetingSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A985A828D3C0A7007D75E4 /* LGV_MeetingSDK.a */; };
+		D4B46A6528E2481E004A203E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4B46A6328E2481E004A203E /* Localizable.strings */; };
+		D4B46A6828E2484F004A203E /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4B46A6728E2484F004A203E /* RVS_Generic_Swift_Toolbox */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		D4A6EC7D28DB4B3900B3E660 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D412C7FA28D3BEC500BAFC16 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D4A985A728D3C0A7007D75E4;
+			remoteInfo = LGV_MeetingSDK;
+		};
+		D4B46A5C28E24742004A203E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D412C7FA28D3BEC500BAFC16 /* Project object */;
 			proxyType = 1;
@@ -48,6 +63,13 @@
 		D41EE90928DE2CD500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Initiator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_BMLT.Transport.Initiator.swift; sourceTree = "<group>"; };
 		D43DD68828E227E50075047D /* Warnings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Warnings.xcconfig; path = Meta/Warnings.xcconfig; sourceTree = "<group>"; };
 		D442316228E0BB7900BB3B70 /* SearchResponse-03.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-03.json"; sourceTree = "<group>"; };
+		D44AA17128E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LGV_MeetingSDK_Test_Harness.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D44AA17328E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness_AppSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Test_Harness_AppSceneDelegate.swift; sourceTree = "<group>"; };
+		D44AA17728E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Test_Harness_ViewController.swift; sourceTree = "<group>"; };
+		D44AA17A28E23C5100AB0D85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D44AA17C28E23C5200AB0D85 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D44AA17F28E23C5200AB0D85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D44AA18128E23C5200AB0D85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D463874828E0F68700F2D660 /* RVS_Generic_Swift_Toolbox */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = RVS_Generic_Swift_Toolbox; path = "/Users/chrismarshall/Development/Developer/Xcode/DerivedData/LGV_MeetingSDK-bmmehuegutavvebjwadwlotsupab/SourcePackages/checkouts/RVS_Generic_Swift_Toolbox"; sourceTree = "<absolute>"; };
 		D46D476128D3BF9200D8785E /* LGV_MeetingSDK.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = LGV_MeetingSDK.docc; sourceTree = "<group>"; };
 		D477C00028E1D66F00B29654 /* SearchResponse-04.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-04.json"; sourceTree = "<group>"; };
@@ -61,18 +83,28 @@
 		D4A6EC8528DB68BA00B3E660 /* LGV_MeetingSDK_Organization_Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Organization_Protocol.swift; sourceTree = "<group>"; };
 		D4A6EC8728DB693400B3E660 /* LGV_MeetingSDK_Meeting_Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Meeting_Protocols.swift; sourceTree = "<group>"; };
 		D4A6EC8A28DBA74B00B3E660 /* LGV_MeetingSDK_Transport_Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Transport_Protocol.swift; sourceTree = "<group>"; };
-		D4A985A828D3C0A7007D75E4 /* libLGV_MeetingSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLGV_MeetingSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4A985A828D3C0A7007D75E4 /* LGV_MeetingSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = LGV_MeetingSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4B20DDB28DFAB0200643A20 /* SearchResponse-02.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-02.json"; sourceTree = "<group>"; };
 		D4B20DDC28DFAB0200643A20 /* SearchResponse-00.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-00.json"; sourceTree = "<group>"; };
 		D4B20DDD28DFAB0200643A20 /* SearchResponse-01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-01.json"; sourceTree = "<group>"; };
+		D4B46A6428E2481E004A203E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D44AA16E28E23C5100AB0D85 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4B46A6828E2484F004A203E /* RVS_Generic_Swift_Toolbox in Frameworks */,
+				D4B46A5B28E24742004A203E /* LGV_MeetingSDK.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4A6EC7528DB4B3900B3E660 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4A6EC7C28DB4B3900B3E660 /* libLGV_MeetingSDK.a in Frameworks */,
+				D4A6EC7C28DB4B3900B3E660 /* LGV_MeetingSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,8 +125,9 @@
 		D412C80328D3BEC500BAFC16 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D4A985A828D3C0A7007D75E4 /* libLGV_MeetingSDK.a */,
+				D4A985A828D3C0A7007D75E4 /* LGV_MeetingSDK.a */,
 				D4A6EC7828DB4B3900B3E660 /* LGV_MeetingSDKTests.xctest */,
+				D44AA17128E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -118,6 +151,17 @@
 				D41EE90728DE2C4500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Parser.swift */,
 			);
 			path = BMLT;
+			sourceTree = "<group>";
+		};
+		D44AA17228E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness */ = {
+			isa = PBXGroup;
+			children = (
+				D4B46A5F28E247A6004A203E /* MainApp */,
+				D4B46A6028E247AF004A203E /* ViewControllers */,
+				D4B46A5A28E246D9004A203E /* Resources */,
+				D4B46A5E28E24780004A203E /* Meta */,
+			);
+			path = LGV_MeetingSDK_Test_Harness;
 			sourceTree = "<group>";
 		};
 		D463874728E0F67400F2D660 /* Frameworks */ = {
@@ -166,6 +210,7 @@
 		D4A6EC8228DB4B4200B3E660 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				D44AA17228E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness */,
 				D4A6EC7928DB4B3900B3E660 /* LGV_MeetingSDKTests */,
 			);
 			path = Tests;
@@ -197,9 +242,66 @@
 			path = BMLTList;
 			sourceTree = "<group>";
 		};
+		D4B46A5A28E246D9004A203E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D4B46A6328E2481E004A203E /* Localizable.strings */,
+				D44AA17928E23C5100AB0D85 /* Main.storyboard */,
+				D44AA17C28E23C5200AB0D85 /* Assets.xcassets */,
+				D44AA17E28E23C5200AB0D85 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D4B46A5E28E24780004A203E /* Meta */ = {
+			isa = PBXGroup;
+			children = (
+				D44AA18128E23C5200AB0D85 /* Info.plist */,
+			);
+			name = Meta;
+			sourceTree = "<group>";
+		};
+		D4B46A5F28E247A6004A203E /* MainApp */ = {
+			isa = PBXGroup;
+			children = (
+				D44AA17328E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness_AppSceneDelegate.swift */,
+			);
+			path = MainApp;
+			sourceTree = "<group>";
+		};
+		D4B46A6028E247AF004A203E /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D44AA17728E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness_ViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		D44AA17028E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D44AA18428E23C5200AB0D85 /* Build configuration list for PBXNativeTarget "LGV_MeetingSDK_Test_Harness" */;
+			buildPhases = (
+				D4B46A5928E24696004A203E /* SwiftLint */,
+				D44AA16D28E23C5100AB0D85 /* Sources */,
+				D44AA16E28E23C5100AB0D85 /* Frameworks */,
+				D44AA16F28E23C5100AB0D85 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D4B46A5D28E24742004A203E /* PBXTargetDependency */,
+			);
+			name = LGV_MeetingSDK_Test_Harness;
+			packageProductDependencies = (
+				D4B46A6728E2484F004A203E /* RVS_Generic_Swift_Toolbox */,
+			);
+			productName = LGV_MeetingSDK_Test_Harness;
+			productReference = D44AA17128E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness.app */;
+			productType = "com.apple.product-type.application";
+		};
 		D4A6EC7728DB4B3900B3E660 /* LGV_MeetingSDKTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4A6EC8128DB4B3900B3E660 /* Build configuration list for PBXNativeTarget "LGV_MeetingSDKTests" */;
@@ -233,7 +335,7 @@
 			packageProductDependencies = (
 			);
 			productName = LGV_MeetingSDK2;
-			productReference = D4A985A828D3C0A7007D75E4 /* libLGV_MeetingSDK.a */;
+			productReference = D4A985A828D3C0A7007D75E4 /* LGV_MeetingSDK.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -248,6 +350,9 @@
 				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = "Little Green Viper Software Development LLC";
 				TargetAttributes = {
+					D44AA17028E23C5100AB0D85 = {
+						CreatedOnToolsVersion = 14.0;
+					};
 					D4A6EC7728DB4B3900B3E660 = {
 						CreatedOnToolsVersion = 14.0;
 					};
@@ -266,6 +371,7 @@
 			);
 			mainGroup = D412C7F928D3BEC500BAFC16;
 			packageReferences = (
+				D4B46A6628E2484F004A203E /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */,
 			);
 			productRefGroup = D412C80328D3BEC500BAFC16 /* Products */;
 			projectDirPath = "";
@@ -273,11 +379,23 @@
 			targets = (
 				D4A985A728D3C0A7007D75E4 /* LGV_MeetingSDK */,
 				D4A6EC7728DB4B3900B3E660 /* LGV_MeetingSDKTests */,
+				D44AA17028E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D44AA16F28E23C5100AB0D85 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D44AA18028E23C5200AB0D85 /* LaunchScreen.storyboard in Resources */,
+				D4B46A6528E2481E004A203E /* Localizable.strings in Resources */,
+				D44AA17D28E23C5200AB0D85 /* Assets.xcassets in Resources */,
+				D44AA17B28E23C5100AB0D85 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4AE9FA528DBAF0600A99630 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -316,9 +434,37 @@
 			shellPath = /bin/sh;
 			shellScript = "if command -v swiftlint\nthen\n    swiftlint\nfi\n";
 		};
+		D4B46A5928E24696004A203E /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if command -v swiftlint\nthen\n    swiftlint\nfi\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D44AA16D28E23C5100AB0D85 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D44AA17828E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness_ViewController.swift in Sources */,
+				D44AA17428E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness_AppSceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4A6EC7428DB4B3900B3E660 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -356,7 +502,39 @@
 			target = D4A985A728D3C0A7007D75E4 /* LGV_MeetingSDK */;
 			targetProxy = D4A6EC7D28DB4B3900B3E660 /* PBXContainerItemProxy */;
 		};
+		D4B46A5D28E24742004A203E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D4A985A728D3C0A7007D75E4 /* LGV_MeetingSDK */;
+			targetProxy = D4B46A5C28E24742004A203E /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D44AA17928E23C5100AB0D85 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D44AA17A28E23C5100AB0D85 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D44AA17E28E23C5200AB0D85 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D44AA17F28E23C5200AB0D85 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D4B46A6328E2481E004A203E /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4B46A6428E2481E004A203E /* Base */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		D412C80728D3BEC500BAFC16 /* Debug */ = {
@@ -475,6 +653,66 @@
 			};
 			name = Release;
 		};
+		D44AA18228E23C5200AB0D85 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53V4JS928;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Tests/LGV_MeetingSDK_Test_Harness/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.LGV-MeetingSDK-Test-Harness";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D44AA18328E23C5200AB0D85 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53V4JS928;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Tests/LGV_MeetingSDK_Test_Harness/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.LGV-MeetingSDK-Test-Harness";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		D4A6EC7F28DB4B3900B3E660 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -525,7 +763,7 @@
 				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P53V4JS928;
-				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_PREFIX = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_MODULE_NAME = LGV_MeetingSDK;
@@ -546,7 +784,7 @@
 				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P53V4JS928;
-				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_PREFIX = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_MODULE_NAME = LGV_MeetingSDK;
@@ -573,6 +811,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		D44AA18428E23C5200AB0D85 /* Build configuration list for PBXNativeTarget "LGV_MeetingSDK_Test_Harness" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D44AA18228E23C5200AB0D85 /* Debug */,
+				D44AA18328E23C5200AB0D85 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D4A6EC8128DB4B3900B3E660 /* Build configuration list for PBXNativeTarget "LGV_MeetingSDKTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -592,6 +839,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D4B46A6628E2484F004A203E /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.10.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D4B46A6728E2484F004A203E /* RVS_Generic_Swift_Toolbox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4B46A6628E2484F004A203E /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
+			productName = RVS_Generic_Swift_Toolbox;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D412C7FA28D3BEC500BAFC16 /* Project object */;
 }
