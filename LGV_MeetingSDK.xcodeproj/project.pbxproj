@@ -11,9 +11,9 @@
 		D41EE90628DE2BD100A8ED53 /* LGV_MeetingSDK_BMLT.Transport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EE90528DE2BD000A8ED53 /* LGV_MeetingSDK_BMLT.Transport.swift */; };
 		D41EE90828DE2C4500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EE90728DE2C4500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Parser.swift */; };
 		D41EE90A28DE2CD500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Initiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EE90928DE2CD500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Initiator.swift */; };
+		D43DD68928E227E50075047D /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D43DD68828E227E50075047D /* Warnings.xcconfig */; };
 		D442316328E0BB7900BB3B70 /* SearchResponse-03.json in Resources */ = {isa = PBXBuildFile; fileRef = D442316228E0BB7900BB3B70 /* SearchResponse-03.json */; };
 		D477C00128E1D66F00B29654 /* SearchResponse-04.json in Resources */ = {isa = PBXBuildFile; fileRef = D477C00028E1D66F00B29654 /* SearchResponse-04.json */; };
-		D477C00528E1DD1C00B29654 /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D477C00428E1DD1C00B29654 /* Warnings.xcconfig */; };
 		D477C00828E1E7C100B29654 /* SearchResponse-05.json in Resources */ = {isa = PBXBuildFile; fileRef = D477C00728E1E7C000B29654 /* SearchResponse-05.json */; };
 		D477C00A28E1EF4B00B29654 /* SearchResponse-06.json in Resources */ = {isa = PBXBuildFile; fileRef = D477C00928E1EF4B00B29654 /* SearchResponse-06.json */; };
 		D477C00C28E1F4B200B29654 /* SearchResponse-07.json in Resources */ = {isa = PBXBuildFile; fileRef = D477C00B28E1F4B200B29654 /* SearchResponse-07.json */; };
@@ -46,11 +46,11 @@
 		D41EE90528DE2BD000A8ED53 /* LGV_MeetingSDK_BMLT.Transport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_BMLT.Transport.swift; sourceTree = "<group>"; };
 		D41EE90728DE2C4500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_BMLT.Transport.Parser.swift; sourceTree = "<group>"; };
 		D41EE90928DE2CD500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Initiator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_BMLT.Transport.Initiator.swift; sourceTree = "<group>"; };
+		D43DD68828E227E50075047D /* Warnings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Warnings.xcconfig; path = Meta/Warnings.xcconfig; sourceTree = "<group>"; };
 		D442316228E0BB7900BB3B70 /* SearchResponse-03.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-03.json"; sourceTree = "<group>"; };
 		D463874828E0F68700F2D660 /* RVS_Generic_Swift_Toolbox */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = RVS_Generic_Swift_Toolbox; path = "/Users/chrismarshall/Development/Developer/Xcode/DerivedData/LGV_MeetingSDK-bmmehuegutavvebjwadwlotsupab/SourcePackages/checkouts/RVS_Generic_Swift_Toolbox"; sourceTree = "<absolute>"; };
 		D46D476128D3BF9200D8785E /* LGV_MeetingSDK.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = LGV_MeetingSDK.docc; sourceTree = "<group>"; };
 		D477C00028E1D66F00B29654 /* SearchResponse-04.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-04.json"; sourceTree = "<group>"; };
-		D477C00428E1DD1C00B29654 /* Warnings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Warnings.xcconfig; sourceTree = "<group>"; };
 		D477C00728E1E7C000B29654 /* SearchResponse-05.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-05.json"; sourceTree = "<group>"; };
 		D477C00928E1EF4B00B29654 /* SearchResponse-06.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-06.json"; sourceTree = "<group>"; };
 		D477C00B28E1F4B200B29654 /* SearchResponse-07.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-07.json"; sourceTree = "<group>"; };
@@ -139,7 +139,7 @@
 		D477C00628E1DD2F00B29654 /* Meta */ = {
 			isa = PBXGroup;
 			children = (
-				D477C00428E1DD1C00B29654 /* Warnings.xcconfig */,
+				D43DD68828E227E50075047D /* Warnings.xcconfig */,
 			);
 			name = Meta;
 			sourceTree = "<group>";
@@ -283,10 +283,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4B20DE128DFAB2600643A20 /* SearchResponse-00.json in Resources */,
+				D43DD68928E227E50075047D /* Warnings.xcconfig in Resources */,
 				D4B20DE228DFAB2600643A20 /* SearchResponse-01.json in Resources */,
 				D4B20DE328DFAB2600643A20 /* SearchResponse-02.json in Resources */,
 				D477C00828E1E7C100B29654 /* SearchResponse-05.json in Resources */,
-				D477C00528E1DD1C00B29654 /* Warnings.xcconfig in Resources */,
 				D477C00128E1D66F00B29654 /* SearchResponse-04.json in Resources */,
 				D477C00A28E1EF4B00B29654 /* SearchResponse-06.json in Resources */,
 				D477C00C28E1F4B200B29654 /* SearchResponse-07.json in Resources */,
@@ -361,7 +361,7 @@
 /* Begin XCBuildConfiguration section */
 		D412C80728D3BEC500BAFC16 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D477C00428E1DD1C00B29654 /* Warnings.xcconfig */;
+			baseConfigurationReference = D43DD68828E227E50075047D /* Warnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -422,7 +422,7 @@
 		};
 		D412C80828D3BEC500BAFC16 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D477C00428E1DD1C00B29654 /* Warnings.xcconfig */;
+			baseConfigurationReference = D43DD68828E227E50075047D /* Warnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
