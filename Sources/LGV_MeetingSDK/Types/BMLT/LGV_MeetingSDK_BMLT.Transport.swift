@@ -48,8 +48,6 @@ public extension LGV_MeetingSDK_BMLT.Transport {
                           "format_shared_id_list",
                           "longitude",
                           "latitude",
-                          "distance_in_km",
-                          "distance_in_miles",
                           "meeting_name",
                           "location_text",
                           "location_info",
