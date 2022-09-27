@@ -222,9 +222,11 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
      - returns: A new virtual location instance.
      */
     private func _convert(thisDataToAVirtualLocation inMeetingData: [String: String]) -> LGV_MeetingSDK_BMLT.Meeting.VirtualLocation? {
-        let meetingURL = URL(string: Self.cleanURI(urlString: inMeetingData["virtual_meeting_link"] ?? inMeetingData["comments"] ?? "") ?? "")
+        let meetingURL = URL(string: Self.cleanURI(urlString: inMeetingData["virtual_meeting_link"] ?? inMeetingData["virtual_meeting_additional_info"] ?? "") ?? "")
+                        ?? URL(string: Self.cleanURI(urlString: inMeetingData["comments"] ?? "") ?? "")
         let phoneNumber = Self.decimalOnly(inMeetingData["phone_meeting_number"] ?? "")
         let phoneURL = phoneNumber.isEmpty ? nil : URL(string: "tel:\(phoneNumber)")
+        let extraInfo = inMeetingData["virtual_meeting_additional_info"] ?? ""
         var timeZone: TimeZone
         if let timeZoneIdentifier = inMeetingData["time_zone"],
            let timeZoneTemp = TimeZone(identifier: timeZoneIdentifier) {
@@ -240,18 +242,14 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
             videoVenue = LGV_MeetingSDK_BMLT.Meeting.VirtualLocation.VirtualVenue(description: "",
                                                                                   timeZone: timeZone,
                                                                                   url: meetingURL,
-                                                                                  meetingID: nil,
-                                                                                  password: nil,
-                                                                                  extraInfo: "")
+                                                                                  extraInfo: extraInfo)
         }
 
         if let phoneURL = phoneURL {
             phoneVenue = LGV_MeetingSDK_BMLT.Meeting.VirtualLocation.VirtualVenue(description: "",
                                                                                   timeZone: timeZone,
                                                                                   url: phoneURL,
-                                                                                  meetingID: nil,
-                                                                                  password: nil,
-                                                                                  extraInfo: "")
+                                                                                  extraInfo: extraInfo)
         }
 
         guard nil != videoVenue || nil != phoneVenue else { return nil }
