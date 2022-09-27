@@ -48,6 +48,73 @@ internal extension CLLocationCoordinate2D {
 extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
     /* ################################################################## */
     /**
+     "Cleans" a URI.
+     
+     - parameter urlString: The URL, as a String. It can be optional.
+     
+     - returns: an optional String. This is the given URI, "cleaned up" ("https://" or "tel:" may be prefixed)
+     */
+    static func cleanURI(urlString inURLString: String?) -> String? {
+        /* ################################################################## */
+        /**
+         This tests a string to see if a given substring is present at the start.
+         
+         - parameter inString: The string to test.
+         - parameter inSubstring: The substring to test for.
+
+         - returns: true, if the string begins with the given substring.
+         */
+        func string (_ inString: String, beginsWith inSubstring: String) -> Bool {
+            var ret: Bool = false
+            if let range = inString.range(of: inSubstring) {
+                ret = (range.lowerBound == inString.startIndex)
+            }
+            return ret
+        }
+
+        guard var ret: String = inURLString?.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed),
+              let regex = try? NSRegularExpression(pattern: "^(http://|https://|tel://|tel:)", options: .caseInsensitive)
+        else { return nil }
+        
+        // We specifically look for tel URIs.
+        let wasTel = string(ret.lowercased(), beginsWith: "tel:")
+        
+        // Yeah, this is pathetic, but it's quick, simple, and works a charm.
+        ret = regex.stringByReplacingMatches(in: ret, options: [], range: NSRange(location: 0, length: ret.count), withTemplate: "")
+
+        if ret.isEmpty {
+            return nil
+        }
+        
+        if wasTel {
+            ret = "tel:" + ret
+        } else {
+            ret = "https://" + ret
+        }
+        
+        return ret
+    }
+
+    /* ################################################################## */
+    /**
+     This simply strips out all non-decimal characters in the string, leaving only valid decimal digits.
+     
+     - parameter inString: The string to be "decimated."
+     
+     - returns: A String, with all the non-decimal characters stripped.
+     */
+    static func decimalOnly(_ inString: String) -> String {
+        let decimalDigits = CharacterSet(charactersIn: "0123456789")
+        return inString.filter {
+            // The higher-order function stuff will convert each character into an aggregate integer, which then becomes a Unicode scalar. Very primitive, but shouldn't be a problem for us, as we only need a very limited ASCII set.
+            guard let cha = UnicodeScalar($0.unicodeScalars.map { $0.value }.reduce(0, +)) else { return false }
+            
+            return decimalDigits.contains(cha)
+        }
+    }
+
+    /* ################################################################## */
+    /**
      This converts "raw" (String Dictionary) meeting objects, into actual Swift structs.
      - parameter theseFormats: The Dictionary of String Dictionaries that represent the parsed JSON object for the formats.
      - returns: An Array of parsed and initialized format instances.
@@ -77,23 +144,6 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
      - returns: An Array of parsed and initialized meeting instances.
      */
     private func _convert(theseMeetings inJSONParsedMeetings: [[String: String]], andTheseFormats inFormats: [UInt64: LGV_MeetingSDK_Format_Protocol], searchCenter inSearchCenter: CLLocation) -> [LGV_MeetingSDK_Meeting_Protocol] {
-        /* ################################################################## */
-        /**
-         This simply strips out all non-decimal characters in the string, leaving only valid decimal digits.
-         
-         - parameter inString: The string to be "decimated."
-         
-         - returns: A String, with all the non-decimal characters stripped.
-         */
-        func decimalOnly(_ inString: String) -> String {
-            let decimalDigits = CharacterSet(charactersIn: "0123456789")
-            return inString.filter {
-                // The higher-order function stuff will convert each character into an aggregate integer, which then becomes a Unicode scalar. Very primitive, but shouldn't be a problem for us, as we only need a very limited ASCII set.
-                guard let cha = UnicodeScalar($0.unicodeScalars.map { $0.value }.reduce(0, +)) else { return false }
-                
-                return decimalDigits.contains(cha)
-            }
-        }
         var ret = [LGV_MeetingSDK_Meeting_Protocol]()
         
         guard let organization = initiator?.transport?.organization else { return [] }
@@ -107,7 +157,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
             else { return }
             let meetingName = meetingDictionary["meeting_name"] ?? "NA Meeting"
             let weekdayIndex = Int(meetingDictionary["weekday_tinyint"] ?? "0") ?? 0
-            let meetingStartTime = (Int(decimalOnly(meetingDictionary["start_time"] ?? "00:00:00")) ?? 0) / 100
+            let meetingStartTime = (Int(Self.decimalOnly(meetingDictionary["start_time"] ?? "00:00:00")) ?? 0) / 100
             let meetingDuration = TimeInterval((meetingDurationComponents[0] * (60 * 60)) + (meetingDurationComponents[1] * 60))
             let formats = sharedFormatIDs.split(separator: ",").compactMap { UInt64($0) }.compactMap { inFormats[$0] }
             let physicalLocation = _convert(thisDataToAPhysicalLocation: meetingDictionary)
@@ -168,11 +218,45 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
     
     /* ################################################################## */
     /**
-     - parameter theseMeetings: The Dictionary of String Dictionaries that represent the parsed JSON object for the meetings.
+     - parameter theseMeetings: The Dictionary that represents this meeting.
      - returns: A new virtual location instance.
      */
     private func _convert(thisDataToAVirtualLocation inMeetingData: [String: String]) -> LGV_MeetingSDK_BMLT.Meeting.VirtualLocation? {
-        nil
+        let meetingURL = URL(string: Self.cleanURI(urlString: inMeetingData["virtual_meeting_link"] ?? inMeetingData["comments"] ?? "") ?? "")
+        let phoneNumber = Self.decimalOnly(inMeetingData["phone_meeting_number"] ?? "")
+        let phoneURL = phoneNumber.isEmpty ? nil : URL(string: "tel:\(phoneNumber)")
+        var timeZone: TimeZone
+        if let timeZoneIdentifier = inMeetingData["time_zone"],
+           let timeZoneTemp = TimeZone(identifier: timeZoneIdentifier) {
+            timeZone = timeZoneTemp
+        } else {
+            timeZone = TimeZone(secondsFromGMT: 0) ?? TimeZone.current
+        }
+
+        var videoVenue: LGV_MeetingSDK_BMLT.Meeting.VirtualLocation.VirtualVenue?
+        var phoneVenue: LGV_MeetingSDK_BMLT.Meeting.VirtualLocation.VirtualVenue?
+
+        if let meetingURL = meetingURL {
+            videoVenue = LGV_MeetingSDK_BMLT.Meeting.VirtualLocation.VirtualVenue(description: "",
+                                                                                  timeZone: timeZone,
+                                                                                  url: meetingURL,
+                                                                                  meetingID: nil,
+                                                                                  password: nil,
+                                                                                  extraInfo: "")
+        }
+
+        if let phoneURL = phoneURL {
+            phoneVenue = LGV_MeetingSDK_BMLT.Meeting.VirtualLocation.VirtualVenue(description: "",
+                                                                                  timeZone: timeZone,
+                                                                                  url: phoneURL,
+                                                                                  meetingID: nil,
+                                                                                  password: nil,
+                                                                                  extraInfo: "")
+        }
+
+        guard nil != videoVenue || nil != phoneVenue else { return nil }
+        
+        return LGV_MeetingSDK_BMLT.Meeting.VirtualLocation(videoMeeting: videoVenue, phoneMeeting: phoneVenue, extraInfo: "")
     }
     
     /* ################################################################## */
