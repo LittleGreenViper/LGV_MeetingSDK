@@ -233,6 +233,14 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
             } else if case let .autoRadius(centerLongLat, _, _) = inSearchType {
                 searchCenter = CLLocation(latitude: centerLongLat.latitude, longitude: centerLongLat.longitude)
             }
+            
+            inSearchRefinements.forEach { refinement in
+                // If a distance from was specified in refinements, that trumps the search center.
+                if case let .distanceFrom(thisLocation) = refinement {
+                    searchCenter = CLLocation(latitude: thisLocation.latitude, longitude: thisLocation.longitude)
+                }
+            }
+            
             let formats = _convert(theseFormats: formatsObject)
             let meetingData = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: _convert(theseMeetings: meetingsObject, andTheseFormats: formats, searchCenter: searchCenter))
             inCompletion(meetingData, nil)

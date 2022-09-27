@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D4A985A728D3C0A7007D75E4"
-               BuildableName = "libLGV_MeetingSDK.a"
+               BuildableName = "LGV_MeetingSDK.a"
                BlueprintName = "LGV_MeetingSDK"
                ReferencedContainer = "container:LGV_MeetingSDK.xcodeproj">
             </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D4A985A728D3C0A7007D75E4"
-            BuildableName = "libLGV_MeetingSDK.a"
+            BuildableName = "LGV_MeetingSDK.a"
             BlueprintName = "LGV_MeetingSDK"
             ReferencedContainer = "container:LGV_MeetingSDK.xcodeproj">
          </BuildableReference>

@@ -20,6 +20,38 @@
 import CoreLocation
 
 /* ###################################################################################################################################### */
+// MARK: - Hashable Conformance for CLLocationCoordinate2D -
+/* ###################################################################################################################################### */
+extension CLLocationCoordinate2D: Hashable {
+    /* ############################################################## */
+    /**
+     This hashes the two double values.
+     
+     - parameter into: The mutable property that receives the hash.
+     */
+    public func hash(into inHasher: inout Hasher) {
+        inHasher.combine(latitude)
+        inHasher.combine(longitude)
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Equatable Conformance for CLLocationCoordinate2D -
+/* ###################################################################################################################################### */
+extension CLLocationCoordinate2D: Equatable {
+    /* ############################################################## */
+    /**
+     They need to both be equal.
+     
+     - parameter lhs: The left-hand side of the comparison.
+     - parameter rhs: The right-hand side of the comparison.
+     
+     - returns: True, if they are equal.
+     */
+    public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool { lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - The Parsed Meeting Search Information Class -
 /* ###################################################################################################################################### */
 /**
@@ -149,6 +181,12 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
          This allows a string to be submitted for a search.
          */
         case string(searchString: String)
+        
+        /* ############################################################## */
+        /**
+         We can specify a location that can be used as a "fulcrum," from which to measure distance to the results.
+         */
+        case distanceFrom(thisLocation: CLLocationCoordinate2D)
     }
 
     /* ################################################################################################################################## */
