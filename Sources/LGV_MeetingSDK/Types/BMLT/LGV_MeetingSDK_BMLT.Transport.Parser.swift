@@ -333,13 +333,46 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
                           completion inCompletion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
         /* ############################################################## */
         /**
-         - parameter searchType (OPTIONAL): This is the search specification main search type. Default is .none.
-         - parameter searchRefinements (OPTIONAL): This is the search specification additional filters. Default is .none.
+         - parameter inMeetings: The meeting array to be filtered.
+         - parameter searchRefinements: This is the search specification additional filters.
+         
+         - returns: The refined meeting array.
          */
         func refineMeetings(_ inMeetings: [LGV_MeetingSDK_Meeting_Protocol],
-                            searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
                             searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>) -> [LGV_MeetingSDK_Meeting_Protocol] {
-            
+            return inMeetings.compactMap { meeting in
+                if !inSearchRefinements.isEmpty {
+                    var returned: LGV_MeetingSDK_Meeting_Protocol?
+                    for refinement in inSearchRefinements.enumerated() {
+                        switch refinement.element {
+                        case let .string(searchForThisString):
+                            if Self.isThisString(searchForThisString, withinThisString: meeting.name) {
+                                returned = meeting
+                            } else if Self.isThisString(searchForThisString, withinThisString: meeting.extraInfo) {
+                                returned = meeting
+                            } else {
+                                return nil
+                            }
+                            
+                        case let .weekdays(weekdays):
+                            if weekdays.map({ $0.rawValue }).contains(meeting.weekdayIndex) {
+                                returned = meeting
+                            } else {
+                                return nil
+                            }
+                            
+                        default:
+                            break
+                        }
+                        
+                        return returned
+                    }
+                    
+                    return nil
+                } else {
+                    return meeting
+                }
+            }
         }
         
         if let main_object = try? JSONSerialization.jsonObject(with: inData, options: []) as? [String: [[String: String]]],
@@ -361,68 +394,8 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
             }
             
             let formats = _convert(theseFormats: formatsObject)
-            let meetings = _convert(theseMeetings: meetingsObject, andTheseFormats: formats, searchCenter: searchCenter)
-
-            var retMeetings = [LGV_MeetingSDK_Meeting_Protocol]()
-            
-            if case .meetingID(_) = inSearchType {
-                retMeetings = meetings.compactMap { meeting in
-                    var returned: LGV_MeetingSDK_Meeting_Protocol?
-                    if !inSearchRefinements.isEmpty {
-                        for refinement in inSearchRefinements.enumerated() {
-                            switch refinement.element {
-                            case let .string(searchForThisString):
-                                if Self.isThisString(searchForThisString, withinThisString: meeting.name) {
-                                    returned = meeting
-                                } else if Self.isThisString(searchForThisString, withinThisString: meeting.extraInfo) {
-                                    returned = meeting
-                                } else {
-                                    return nil
-                                }
-                                
-                            case let .weekdays(weekdays):
-                                if weekdays.map({ $0.rawValue }).contains(meeting.weekdayIndex) {
-                                    returned = meeting
-                                } else {
-                                    return nil
-                                }
-                                
-                            default:
-                                break
-                            }
-                            
-                            return returned
-                        }
-                        
-                        return nil
-                    }
-                    
-                    return meeting
-                }
-            } else if !inSearchRefinements.isEmpty {
-                retMeetings = meetings.compactMap { meeting in
-                    var returned: LGV_MeetingSDK_Meeting_Protocol?
-                    for refinement in inSearchRefinements.enumerated() {
-                        switch refinement.element {
-                        case let .weekdays(weekdays):
-                            if weekdays.map({ $0.rawValue }).contains(meeting.weekdayIndex) {
-                                returned = meeting
-                            } else {
-                                return nil
-                            }
-                            
-                        default:
-                            break
-                        }
-                    }
-                    
-                    return returned
-                }
-            } else {
-                retMeetings = meetings
-            }
-            
-            let meetingData = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: retMeetings)
+            let meetings = refineMeetings(_convert(theseMeetings: meetingsObject, andTheseFormats: formats, searchCenter: searchCenter), searchRefinements: inSearchRefinements)
+            let meetingData = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: meetings)
 
             inCompletion(meetingData, nil)
         }
