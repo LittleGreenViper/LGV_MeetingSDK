@@ -99,33 +99,35 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
         guard let organization = initiator?.transport?.organization else { return [] }
         
         inJSONParsedMeetings.forEach { meetingDictionary in
-            guard let str = meetingDictionary["id_bigint"],
+            let meetingDurationComponents = meetingDictionary["duration_time"]?.split(separator: ":").map { Int($0) ?? 0 } ?? [0, 0]
+            guard 1 < meetingDurationComponents.count,
+                  let str = meetingDictionary["id_bigint"],
                   let sharedFormatIDs = meetingDictionary["format_shared_id_list"],
                   let id = UInt64(str)
             else { return }
             let meetingName = meetingDictionary["meeting_name"] ?? "NA Meeting"
             let weekdayIndex = Int(meetingDictionary["weekday_tinyint"] ?? "0") ?? 0
             let meetingStartTime = (Int(decimalOnly(meetingDictionary["start_time"] ?? "00:00:00")) ?? 0) / 100
+            let meetingDuration = TimeInterval((meetingDurationComponents[0] * (60 * 60)) + (meetingDurationComponents[1] * 60))
             let formats = sharedFormatIDs.split(separator: ",").compactMap { UInt64($0) }.compactMap { inFormats[$0] }
             let physicalLocation = _convert(thisDataToAPhysicalLocation: meetingDictionary)
             let comments = meetingDictionary["comments"] ?? ""
             var distance = Double.greatestFiniteMagnitude
             if let coords = physicalLocation?.coords,
+               coords.isValid,
                inSearchCenter.coordinate.isValid {
                 let meetingLocation = CLLocation(latitude: coords.latitude, longitude: coords.longitude)
                 distance = abs(meetingLocation.distance(from: inSearchCenter))
             }
-            let meetingDurationComponents = meetingDictionary["duration_time"]?.split(separator: ":").map { Int($0) ?? 0 } ?? [0, 0]
-            guard 1 < meetingDurationComponents.count else { return }
-            let meetingDuration = TimeInterval((meetingDurationComponents[0] * (60 * 60)) + (meetingDurationComponents[1] * 60))
+
             let meeting = LGV_MeetingSDK_BMLT.Meeting(organization: organization,
                                                       id: id,
-                                                      name: meetingName,
                                                       weekdayIndex: weekdayIndex,
                                                       meetingStartTime: meetingStartTime,
+                                                      name: meetingName,
                                                       extraInfo: comments,
                                                       meetingDuration: meetingDuration,
-                                                      distance: distance,
+                                                      distanceInMeters: distance,
                                                       formats: formats,
                                                       physicalLocation: physicalLocation
             )
@@ -161,7 +163,16 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
             return false
         }
     }
-        
+    
+    /* ################################################################## */
+    /**
+     - parameter theseMeetings: The Dictionary of String Dictionaries that represent the parsed JSON object for the meetings.
+     - returns: A new virtual location instance.
+     */
+    private func _convert(thisDataToAVirtualLocation inMeetingData: [String: String]) -> LGV_MeetingSDK_BMLT.Meeting.VirtualLocation? {
+        nil
+    }
+    
     /* ################################################################## */
     /**
      This converts "raw" (String Dictionary) meeting objects, into actual Swift structs.

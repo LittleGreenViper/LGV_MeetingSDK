@@ -141,7 +141,7 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
      */
     public struct Meeting: LGV_MeetingSDK_Meeting_Protocol {
         /* ############################################################################################################################## */
-        // MARK: - Meeting Struct -
+        // MARK: Physical Location Struct
         /* ############################################################################################################################## */
         /**
          */
@@ -176,60 +176,200 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
              */
             public var extraInfo: String
         }
+        
+        /* ############################################################################################################################## */
+        // MARK: Virtual Location Struct
+        /* ############################################################################################################################## */
+        /**
+         */
+        public struct VirtualLocation: LGV_MeetingSDK_Meeting_Virtual_Protocol {
+            /* ############################################################################################################################## */
+            // MARK: Virtual Venue Struct
+            /* ############################################################################################################################## */
+            /**
+             This is a concrete implementation of the venue struct.
+             */
+            public struct VirtualVenue: LGV_MeetingSDK_Meeting_Virtual_Venue_Protocol {
+                /* ################################################################## */
+                /**
+                 This describes the meeting venue (i.e. "Video," "Zoom," "Audio-Only," "Phone," etc.).
+                 */
+                public let description: String
+
+                /* ################################################################## */
+                /**
+                 The local timezone for the meeting.
+                 */
+                public let timeZone: TimeZone?
+
+                /* ################################################################## */
+                /**
+                 If the meeting has a URI, that is available here.
+                 */
+                public let url: URL?
+                
+                /* ################################################################## */
+                /**
+                 If the meeting has a separate meeting ID, that is available here, as a String.
+                 */
+                public let meetingID: String?
+                
+                /* ################################################################## */
+                /**
+                 If the meeting has a separate meeting password, that is available here, as a String.
+                 */
+                public let password: String?
+                
+                /* ############################################################## */
+                /**
+                 Any additional information.
+                 */
+                public let extraInfo: String
+                
+                /* ############################################################## */
+                /**
+                 Default initializer.
+                 
+                 - parameter description (OPTIONAL): This describes the meeting venue (i.e. "Video," "Zoom," "Audio-Only," "Phone," etc.).
+                 - parameter timeZone (OPTIONAL): The local timezone for the meeting.
+                 - parameter url (OPTIONAL): If the meeting has a URI, that is available here.
+                 - parameter meetingID (OPTIONAL): If the meeting has a separate meeting ID, that is available here, as a String.
+                 - parameter password (OPTIONAL): If the meeting has a separate meeting password, that is available here, as a String.
+                 - parameter extraInfo (OPTIONAL): Any additional information (as a String).
+                 */
+                init(description inDescription: String = "",
+                     timeZone inTimeZone: TimeZone? = nil,
+                     url inURL: URL? = nil,
+                     meetingID inMeetingID: String? = nil,
+                     password inPassword: String? = nil,
+                     extraInfo inExtraInfo: String = "") {
+                    description = inDescription
+                    timeZone = inTimeZone
+                    url = inURL
+                    meetingID = inMeetingID
+                    password = inPassword
+                    extraInfo = inExtraInfo
+                }
+            }
+            
+            /* ################################################################## */
+            /**
+             Local storage for the video venue.
+             */
+            private let _videoMeeting: VirtualVenue?
+            
+            /* ################################################################## */
+            /**
+             Local storage for the phone venue.
+             */
+            private let _phoneMeeting: VirtualVenue?
+
+            /* ############################################################## */
+            /**
+             Any additional information.
+             */
+            public let extraInfo: String
+
+            /* ################################################################## */
+            /**
+             If there is a video meeting associated, it is defined here. May be nil. This also applies to audio-only (not phone) meetings.
+             */
+            public var videoMeeting: LGV_MeetingSDK_Meeting_Virtual_Venue_Protocol? { _videoMeeting }
+            
+            /* ################################################################## */
+            /**
+             If there is a phone meeting associated, it is defined here. May be nil.
+             */
+            public var phoneMeeting: LGV_MeetingSDK_Meeting_Virtual_Venue_Protocol? { _phoneMeeting }
+            
+            /* ############################################################## */
+            /**
+             Default initializer.
+             
+             - parameter videoMeeting (OPTIONAL): If specified, the video meeting venue.
+             - parameter phoneMeeting (OPTIONAL): If specified, the phone meeting venue.
+             - parameter extraInfo (OPTIONAL): Any additional information (as a String).
+             */
+            public init(videoMeeting inVideoMeeting: VirtualVenue? = nil, phoneMeeting inPhoneMeeting: VirtualVenue? = nil, extraInfo inExtraInfo: String = "") {
+                _videoMeeting = inVideoMeeting
+                _phoneMeeting = inPhoneMeeting
+                extraInfo = inExtraInfo
+            }
+        }
 
         /* ################################################################## */
         /**
+         The meeting's physical location (if any).
          */
         private var _physicalLocation: PhysicalLocation?
 
         /* ################################################################## */
         /**
+         The meeting's virtual information (if any).
+         */
+        private var _virtualLocation: VirtualLocation?
+
+        /* ################################################################## */
+        /**
+         The organization to which this meeting belongs.
          */
         public weak var organization: LGV_MeetingSDK_Organization_Protocol?
         
         /* ################################################################## */
         /**
+         A unique ID for this meeting (within the organization).
          */
         public let id: UInt64
         
         /* ################################################################## */
         /**
+         The name of the meeting.
          */
         public let name: String
         
         /* ################################################################## */
         /**
+         Any comments and/or additional information.
          */
         public let extraInfo: String
 
         /* ################################################################## */
         /**
+         The duration of the meeting, in seconds.
          */
         public let meetingDuration: TimeInterval
         
         /* ################################################################## */
         /**
-         The distance of this meeting, from the search center.
+         The distance of this meeting, from the search center, or a specified "distance from" refinement.
          */
         public let distanceInMeters: CLLocationDistance
 
         /* ################################################################## */
         /**
+         The 1-based weekday instance.
+         
+         **NOTE:** This is always 1 -> Sunday, 7 -> Saturday, regardless of when the week starts in the device locale.
          */
         public let weekdayIndex: Int
         
         /* ################################################################## */
         /**
+         The start time of the meeting, in miltary time (HHMM).
+         
+         **NOTE:** 0000 is midnight (this morning), and 2400 is midnight (tonight).
          */
         public let meetingStartTime: Int
         
         /* ################################################################## */
         /**
+         Any formats that apply to this meeting.
          */
         public let formats: [LGV_MeetingSDK_Format_Protocol]
         
         /* ################################################################## */
         /**
+         Accessor for the physical location.
          */
         public var physicalLocation: LGV_MeetingSDK_Meeting_Physical_Protocol? {
             get { _physicalLocation }
@@ -238,21 +378,38 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
 
         /* ################################################################## */
         /**
+         Accessor for the virtual information.
          */
-        public var virtualMeetingInfo: LGV_MeetingSDK_Meeting_Virtual_Protocol?
+        public var virtualMeetingInfo: LGV_MeetingSDK_Meeting_Virtual_Protocol? {
+            get { _virtualLocation }
+            set { _virtualLocation = newValue as? VirtualLocation }
+        }
         
         /* ################################################################## */
         /**
+         Default initializer.
+         
+         - Parameters:
+            - id: A unique ID for this meeting (within the organization).
+            - weekdayIndex: The 1-based weekday instance.
+            - meetingStartTime: The start time of the meeting, in miltary time (HHMM).
+            - name (OPTIONAL): The name of the meeting.
+            - extraInfo (OPTIONAL): Any comments and/or additional information.
+            - meetingDuration (OPTIONAL): The duration of the meeting, in seconds.
+            - distanceInMeters (OPTIONAL): The distance of this meeting, from the search center, or a specified "distance from" refinement. This is in meters.
+            - formats (OPTIONAL): Any formats that apply to this meeting.
+            - physicalLocation (OPTIONAL): The meeting's physical location (if any).
+            - virtualMeetingInfo (OPTIONAL): The meeting's virtual information (if any).
          */
         public init(organization inOrganization: LGV_MeetingSDK_Organization_Protocol? = nil,
                     id inID: UInt64,
-                    name inName: String,
                     weekdayIndex inWeekdayIndex: Int,
                     meetingStartTime inMeetingStartTime: Int,
-                    extraInfo inExtraInfo: String,
-                    meetingDuration inMeetingDuration: TimeInterval,
-                    distance inDistance: CLLocationDistance,
-                    formats inFormats: [LGV_MeetingSDK_Format_Protocol],
+                    name inName: String = "",
+                    extraInfo inExtraInfo: String = "",
+                    meetingDuration inMeetingDuration: TimeInterval = 0,
+                    distanceInMeters inDistance: CLLocationDistance = 0,
+                    formats inFormats: [LGV_MeetingSDK_Format_Protocol] = [],
                     physicalLocation inPhysicalLocation: LGV_MeetingSDK_Meeting_Physical_Protocol? = nil,
                     virtualMeetingInfo inVirtualMeetingInfo: LGV_MeetingSDK_Meeting_Virtual_Protocol? = nil) {
             organization = inOrganization
