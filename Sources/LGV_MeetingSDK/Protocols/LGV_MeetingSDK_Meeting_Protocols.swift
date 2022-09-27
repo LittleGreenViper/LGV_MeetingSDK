@@ -309,6 +309,12 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
 
     /* ################################################################## */
     /**
+     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The start time, in seconds.
+     */
+    var startTimeInSeconds: TimeInterval? { get }
+    
+    /* ################################################################## */
+    /**
      OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The duration in minutes.
      */
     var durationInMinutes: Int { get }
@@ -434,6 +440,19 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
         return DateComponents(hour: hour, minute: minute, weekday: weekdayIndex)
     }
 
+    /* ################################################################## */
+    /**
+     Default simply calculates the start time from the components of the military time.
+     */
+    var startTimeInSeconds: TimeInterval? {
+        guard (0...2400).contains(meetingStartTime) else { return nil }
+        
+        let hour = meetingStartTime / 100
+        let minute = meetingStartTime - (hour * 100)
+        
+        return TimeInterval((hour * 60 * 60) + (minute * 60))
+    }
+    
     /* ################################################################## */
     /**
      By default, this calculates and returns the date of a repeating weekly meeting, and returns the next time the meeting will gather, after now.

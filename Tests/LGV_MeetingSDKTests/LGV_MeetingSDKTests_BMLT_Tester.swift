@@ -229,7 +229,7 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
                 return
             }
             
-            XCTAssertEqual(4, inData?.meetings.count)
+            XCTAssertEqual(3, inData?.meetings.count)
             XCTAssertTrue(inData?.meetings.allSatisfy({ ids.contains($0.id) }) ?? false)
             expectation.fulfill()
         }
@@ -239,7 +239,7 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
         expectation = XCTestExpectation(description: "Callback never occurred.")
         
         (testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = getResponseFile(6)
-        testSDK?.meetingSearch(type: .meetingID(ids: ids), refinements: [.startTimeRange(1400...1900)]) { inData, inError in
+        testSDK?.meetingSearch(type: .meetingID(ids: ids), refinements: [.startTimeRange(TimeInterval(14 * 60 * 60)...TimeInterval(19 * 60 * 60))]) { inData, inError in
             guard nil == inError else {
                 print("ID Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -255,7 +255,7 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
         expectation = XCTestExpectation(description: "Callback never occurred.")
         
         (testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = getResponseFile(7)
-        testSDK?.meetingSearch(type: .meetingID(ids: ids), refinements: [.startTimeRange(1400...1900), .weekdays([.tuesday, .wednesday])]) { inData, inError in
+        testSDK?.meetingSearch(type: .meetingID(ids: ids), refinements: [.startTimeRange(TimeInterval(14 * 60 * 60)...TimeInterval(19 * 60 * 60)), .weekdays([.tuesday, .wednesday])]) { inData, inError in
             guard nil == inError else {
                 print("ID Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return

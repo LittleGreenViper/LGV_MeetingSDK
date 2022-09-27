@@ -56,7 +56,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
      
      - returns: True, if the string contains the other String.
      */
-    static func isThisString(_ inString: String, withinThisString inMainString: String, options inOptions: String.CompareOptions = [.caseInsensitive, .diacriticInsensitive]) -> Bool { nil != inMainString.range(of: inString, options: inOptions)?.lowerBound }
+    private static func _isThisString(_ inString: String, withinThisString inMainString: String, options inOptions: String.CompareOptions = [.caseInsensitive, .diacriticInsensitive]) -> Bool { nil != inMainString.range(of: inString, options: inOptions)?.lowerBound }
 
     /* ################################################################## */
     /**
@@ -66,7 +66,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
      
      - returns: an optional String. This is the given URI, "cleaned up" ("https://" or "tel:" may be prefixed)
      */
-    static func cleanURI(urlString inURLString: String?) -> String? {
+    private static func _cleanURI(urlString inURLString: String?) -> String? {
         /* ################################################################## */
         /**
          This tests a string to see if a given substring is present at the start.
@@ -115,7 +115,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
      
      - returns: A String, with all the non-decimal characters stripped.
      */
-    static func decimalOnly(_ inString: String) -> String {
+    private static func _decimalOnly(_ inString: String) -> String {
         let decimalDigits = CharacterSet(charactersIn: "0123456789")
         return inString.filter {
             // The higher-order function stuff will convert each character into an aggregate integer, which then becomes a Unicode scalar. Very primitive, but shouldn't be a problem for us, as we only need a very limited ASCII set.
@@ -124,6 +124,96 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
             return decimalDigits.contains(cha)
         }
     }
+    
+    /* ################################################################## */
+    /**
+     - parameter theseMeetings: The Dictionary that represents this meeting.
+     - returns: A new virtual location instance.
+     */
+    private static func _convert(thisDataToAVirtualLocation inMeetingData: [String: String]) -> LGV_MeetingSDK_BMLT.Meeting.VirtualLocation? {
+        let meetingURL = URL(string: _cleanURI(urlString: inMeetingData["virtual_meeting_link"] ?? inMeetingData["virtual_meeting_additional_info"] ?? "") ?? "")
+                        ?? URL(string: _cleanURI(urlString: inMeetingData["comments"] ?? "") ?? "")
+        let phoneNumber = _decimalOnly(inMeetingData["phone_meeting_number"] ?? "")
+        let phoneURL = phoneNumber.isEmpty ? nil : URL(string: "tel:\(phoneNumber)")
+        let extraInfo = inMeetingData["virtual_meeting_additional_info"] ?? ""
+        var timeZone: TimeZone
+        if let timeZoneIdentifier = inMeetingData["time_zone"],
+           let timeZoneTemp = TimeZone(identifier: timeZoneIdentifier) {
+            timeZone = timeZoneTemp
+        } else {
+            timeZone = TimeZone(secondsFromGMT: 0) ?? TimeZone.current
+        }
+
+        var videoVenue: LGV_MeetingSDK_BMLT.Meeting.VirtualLocation.VirtualVenue?
+        var phoneVenue: LGV_MeetingSDK_BMLT.Meeting.VirtualLocation.VirtualVenue?
+
+        if let meetingURL = meetingURL {
+            videoVenue = LGV_MeetingSDK_BMLT.Meeting.VirtualLocation.VirtualVenue(description: "",
+                                                                                  timeZone: timeZone,
+                                                                                  url: meetingURL,
+                                                                                  extraInfo: extraInfo)
+        }
+
+        if let phoneURL = phoneURL {
+            phoneVenue = LGV_MeetingSDK_BMLT.Meeting.VirtualLocation.VirtualVenue(description: "",
+                                                                                  timeZone: timeZone,
+                                                                                  url: phoneURL,
+                                                                                  extraInfo: extraInfo)
+        }
+
+        guard nil != videoVenue || nil != phoneVenue else { return nil }
+        
+        return LGV_MeetingSDK_BMLT.Meeting.VirtualLocation(videoMeeting: videoVenue, phoneMeeting: phoneVenue, extraInfo: "")
+    }
+    
+    /* ################################################################## */
+    /**
+     This converts "raw" (String Dictionary) meeting objects, into actual Swift structs.
+     - parameter theseMeetings: The Dictionary of String Dictionaries that represent the parsed JSON object for the meetings.
+     - returns: A new physical location instance.
+     */
+    private static func _convert(thisDataToAPhysicalLocation inMeetingData: [String: String]) -> LGV_MeetingSDK_BMLT.Meeting.PhysicalLocation? {
+        let coords = CLLocationCoordinate2D(latitude: Double(inMeetingData["latitude"] ?? "0") ?? 0, longitude: Double(inMeetingData["longitude"] ?? "0") ?? 0)
+        let name = inMeetingData["location_text"] ?? ""
+        let extraInfo = inMeetingData["location_info"] ?? ""
+        var timeZone = TimeZone.autoupdatingCurrent
+        if let timeZoneIdentifier = inMeetingData["time_zone"],
+           let timeZoneTemp = TimeZone(identifier: timeZoneIdentifier) {
+            timeZone = timeZoneTemp
+        }
+
+        let postalAddress = CNMutablePostalAddress()
+
+        if let value = inMeetingData["location_street"] {
+            postalAddress.street = value
+        }
+        
+        if let value = inMeetingData["location_city_subsection"] {
+            postalAddress.subLocality = value
+        }
+        
+        if let value = inMeetingData["location_municipality"] {
+            postalAddress.city = value
+        }
+        
+        if let value = inMeetingData["location_sub_province"] {
+            postalAddress.subAdministrativeArea = value
+        }
+        
+        if let value = inMeetingData["location_province"] {
+            postalAddress.state = value
+        }
+        
+        if let value = inMeetingData["location_postal_code_1"] {
+            postalAddress.postalCode = value
+        }
+        
+        if let value = inMeetingData["location_nation"] {
+            postalAddress.country = value
+        }
+
+        return LGV_MeetingSDK_BMLT.Meeting.PhysicalLocation(coords: coords, name: name, postalAddress: postalAddress, timeZone: timeZone, extraInfo: extraInfo)
+    }
 
     /* ################################################################## */
     /**
@@ -131,7 +221,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
      - parameter theseFormats: The Dictionary of String Dictionaries that represent the parsed JSON object for the formats.
      - returns: An Array of parsed and initialized format instances.
      */
-    private func _convert(theseFormats inJSONParsedFormats: [[String: String]]) -> [UInt64: LGV_MeetingSDK_Format_Protocol] {
+    private static func _convert(theseFormats inJSONParsedFormats: [[String: String]]) -> [UInt64: LGV_MeetingSDK_Format_Protocol] {
         var ret = [UInt64: LGV_MeetingSDK_Format_Protocol]()
         
         inJSONParsedFormats.forEach { formatDictionary in
@@ -146,6 +236,66 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
         }
         
         return ret
+    }
+
+    /* ################################################################## */
+    /**
+     - parameter inMeetings: The meeting array to be filtered.
+     - parameter searchRefinements: This is the search specification additional filters.
+     
+     - returns: The refined meeting array.
+     */
+    private static func _refineMeetings(_ inMeetings: [LGV_MeetingSDK_Meeting_Protocol],
+                                        searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>) -> [LGV_MeetingSDK_Meeting_Protocol] {
+        return inMeetings.compactMap { meeting in
+            if !inSearchRefinements.isEmpty {
+                var returned: LGV_MeetingSDK_Meeting_Protocol?
+                for refinement in inSearchRefinements.enumerated() {
+                    switch refinement.element {
+                    case let .string(searchForThisString):
+                        if _isThisString(searchForThisString, withinThisString: meeting.name) {
+                            returned = meeting
+                        } else if _isThisString(searchForThisString, withinThisString: meeting.extraInfo) {
+                            returned = meeting
+                        } else {
+                            return nil
+                        }
+                        
+                    case let .weekdays(weekdays):
+                        if weekdays.map({ $0.rawValue }).contains(meeting.weekdayIndex) {
+                            returned = meeting
+                        } else {
+                            return nil
+                        }
+                        
+                    case let .startTimeRange(startTimeRange):
+                        guard let startTimeInSeconds = meeting.startTimeInSeconds else { return nil }
+                        
+                        if startTimeRange.contains(startTimeInSeconds) {
+                            returned = meeting
+                        } else {
+                            return nil
+                        }
+                    
+                    case let .venueTypes(venues):
+                        if venues.contains(meeting.meetingType) {
+                            returned = meeting
+                        } else {
+                            return nil
+                        }
+                        
+                    default:
+                        returned = meeting
+                    }
+                    
+                    return returned
+                }
+                
+                return nil
+            } else {
+                return meeting
+            }
+        }
     }
 
     /* ################################################################## */
@@ -169,11 +319,11 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
             else { return }
             let meetingName = meetingDictionary["meeting_name"] ?? "NA Meeting"
             let weekdayIndex = Int(meetingDictionary["weekday_tinyint"] ?? "0") ?? 0
-            let meetingStartTime = (Int(Self.decimalOnly(meetingDictionary["start_time"] ?? "00:00:00")) ?? 0) / 100
+            let meetingStartTime = (Int(Self._decimalOnly(meetingDictionary["start_time"] ?? "00:00:00")) ?? 0) / 100
             let meetingDuration = TimeInterval((meetingDurationComponents[0] * (60 * 60)) + (meetingDurationComponents[1] * 60))
             let formats = sharedFormatIDs.split(separator: ",").compactMap { UInt64($0) }.compactMap { inFormats[$0] }
-            let physicalLocation = _convert(thisDataToAPhysicalLocation: meetingDictionary)
-            let virtualInformation = _convert(thisDataToAVirtualLocation: meetingDictionary)
+            let physicalLocation = Self._convert(thisDataToAPhysicalLocation: meetingDictionary)
+            let virtualInformation = Self._convert(thisDataToAVirtualLocation: meetingDictionary)
             let comments = meetingDictionary["comments"] ?? ""
             var distance = Double.greatestFiniteMagnitude
             if let coords = physicalLocation?.coords,
@@ -227,97 +377,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
             return false
         }
     }
-    
-    /* ################################################################## */
-    /**
-     - parameter theseMeetings: The Dictionary that represents this meeting.
-     - returns: A new virtual location instance.
-     */
-    private func _convert(thisDataToAVirtualLocation inMeetingData: [String: String]) -> LGV_MeetingSDK_BMLT.Meeting.VirtualLocation? {
-        let meetingURL = URL(string: Self.cleanURI(urlString: inMeetingData["virtual_meeting_link"] ?? inMeetingData["virtual_meeting_additional_info"] ?? "") ?? "")
-                        ?? URL(string: Self.cleanURI(urlString: inMeetingData["comments"] ?? "") ?? "")
-        let phoneNumber = Self.decimalOnly(inMeetingData["phone_meeting_number"] ?? "")
-        let phoneURL = phoneNumber.isEmpty ? nil : URL(string: "tel:\(phoneNumber)")
-        let extraInfo = inMeetingData["virtual_meeting_additional_info"] ?? ""
-        var timeZone: TimeZone
-        if let timeZoneIdentifier = inMeetingData["time_zone"],
-           let timeZoneTemp = TimeZone(identifier: timeZoneIdentifier) {
-            timeZone = timeZoneTemp
-        } else {
-            timeZone = TimeZone(secondsFromGMT: 0) ?? TimeZone.current
-        }
 
-        var videoVenue: LGV_MeetingSDK_BMLT.Meeting.VirtualLocation.VirtualVenue?
-        var phoneVenue: LGV_MeetingSDK_BMLT.Meeting.VirtualLocation.VirtualVenue?
-
-        if let meetingURL = meetingURL {
-            videoVenue = LGV_MeetingSDK_BMLT.Meeting.VirtualLocation.VirtualVenue(description: "",
-                                                                                  timeZone: timeZone,
-                                                                                  url: meetingURL,
-                                                                                  extraInfo: extraInfo)
-        }
-
-        if let phoneURL = phoneURL {
-            phoneVenue = LGV_MeetingSDK_BMLT.Meeting.VirtualLocation.VirtualVenue(description: "",
-                                                                                  timeZone: timeZone,
-                                                                                  url: phoneURL,
-                                                                                  extraInfo: extraInfo)
-        }
-
-        guard nil != videoVenue || nil != phoneVenue else { return nil }
-        
-        return LGV_MeetingSDK_BMLT.Meeting.VirtualLocation(videoMeeting: videoVenue, phoneMeeting: phoneVenue, extraInfo: "")
-    }
-    
-    /* ################################################################## */
-    /**
-     This converts "raw" (String Dictionary) meeting objects, into actual Swift structs.
-     - parameter theseMeetings: The Dictionary of String Dictionaries that represent the parsed JSON object for the meetings.
-     - returns: A new physical location instance.
-     */
-    private func _convert(thisDataToAPhysicalLocation inMeetingData: [String: String]) -> LGV_MeetingSDK_BMLT.Meeting.PhysicalLocation? {
-        let coords = CLLocationCoordinate2D(latitude: Double(inMeetingData["latitude"] ?? "0") ?? 0, longitude: Double(inMeetingData["longitude"] ?? "0") ?? 0)
-        let name = inMeetingData["location_text"] ?? ""
-        let extraInfo = inMeetingData["location_info"] ?? ""
-        var timeZone = TimeZone.autoupdatingCurrent
-        if let timeZoneIdentifier = inMeetingData["time_zone"],
-           let timeZoneTemp = TimeZone(identifier: timeZoneIdentifier) {
-            timeZone = timeZoneTemp
-        }
-
-        let postalAddress = CNMutablePostalAddress()
-
-        if let value = inMeetingData["location_street"] {
-            postalAddress.street = value
-        }
-        
-        if let value = inMeetingData["location_city_subsection"] {
-            postalAddress.subLocality = value
-        }
-        
-        if let value = inMeetingData["location_municipality"] {
-            postalAddress.city = value
-        }
-        
-        if let value = inMeetingData["location_sub_province"] {
-            postalAddress.subAdministrativeArea = value
-        }
-        
-        if let value = inMeetingData["location_province"] {
-            postalAddress.state = value
-        }
-        
-        if let value = inMeetingData["location_postal_code_1"] {
-            postalAddress.postalCode = value
-        }
-        
-        if let value = inMeetingData["location_nation"] {
-            postalAddress.country = value
-        }
-
-        return LGV_MeetingSDK_BMLT.Meeting.PhysicalLocation(coords: coords, name: name, postalAddress: postalAddress, timeZone: timeZone, extraInfo: extraInfo)
-    }
-    
     /* ################################################################## */
     /**
      REQUIRED - This parses data, and returns meetings.
@@ -331,49 +391,6 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
                           searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = [],
                           data inData: Data,
                           completion inCompletion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
-        /* ############################################################## */
-        /**
-         - parameter inMeetings: The meeting array to be filtered.
-         - parameter searchRefinements: This is the search specification additional filters.
-         
-         - returns: The refined meeting array.
-         */
-        func refineMeetings(_ inMeetings: [LGV_MeetingSDK_Meeting_Protocol],
-                            searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>) -> [LGV_MeetingSDK_Meeting_Protocol] {
-            return inMeetings.compactMap { meeting in
-                if !inSearchRefinements.isEmpty {
-                    var returned: LGV_MeetingSDK_Meeting_Protocol?
-                    for refinement in inSearchRefinements.enumerated() {
-                        switch refinement.element {
-                        case let .string(searchForThisString):
-                            if Self.isThisString(searchForThisString, withinThisString: meeting.name) {
-                                returned = meeting
-                            } else if Self.isThisString(searchForThisString, withinThisString: meeting.extraInfo) {
-                                returned = meeting
-                            } else {
-                                return nil
-                            }
-                            
-                        case let .weekdays(weekdays):
-                            if weekdays.map({ $0.rawValue }).contains(meeting.weekdayIndex) {
-                                returned = meeting
-                            } else {
-                                return nil
-                            }
-                            
-                        default:
-                            break
-                        }
-                        
-                        return returned
-                    }
-                    
-                    return nil
-                } else {
-                    return meeting
-                }
-            }
-        }
         
         if let main_object = try? JSONSerialization.jsonObject(with: inData, options: []) as? [String: [[String: String]]],
            let meetingsObject = main_object["meetings"],
@@ -393,8 +410,8 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
                 }
             }
             
-            let formats = _convert(theseFormats: formatsObject)
-            let meetings = refineMeetings(_convert(theseMeetings: meetingsObject, andTheseFormats: formats, searchCenter: searchCenter), searchRefinements: inSearchRefinements)
+            let formats = Self._convert(theseFormats: formatsObject)
+            let meetings = Self._refineMeetings(_convert(theseMeetings: meetingsObject, andTheseFormats: formats, searchCenter: searchCenter), searchRefinements: inSearchRefinements)
             let meetingData = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: meetings)
 
             inCompletion(meetingData, nil)
