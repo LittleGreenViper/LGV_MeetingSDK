@@ -5,6 +5,8 @@ disabled_rules:
 - type_name
 - file_length
 - nesting
+- leading_whitespace
+- trailing_newline
 
 opt_in_rules:
 - control_statement

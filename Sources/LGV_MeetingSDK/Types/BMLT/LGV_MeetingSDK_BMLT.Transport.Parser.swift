@@ -234,10 +234,11 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
                 searchCenter = CLLocation(latitude: centerLongLat.latitude, longitude: centerLongLat.longitude)
             }
             
-            inSearchRefinements.forEach { refinement in
-                // If a distance from was specified in refinements, that trumps the search center.
-                if case let .distanceFrom(thisLocation) = refinement {
+            // We can specify a "distance from here" in refinements, and that trumps a search center, for distances. It can also add distances to otherwise unmeasured meetings.
+            for refinement in inSearchRefinements.enumerated() {
+                if case let .distanceFrom(thisLocation) = refinement.element {
                     searchCenter = CLLocation(latitude: thisLocation.latitude, longitude: thisLocation.longitude)
+                    break
                 }
             }
             

@@ -18,6 +18,7 @@
 		D44AA17B28E23C5100AB0D85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D44AA17928E23C5100AB0D85 /* Main.storyboard */; };
 		D44AA17D28E23C5200AB0D85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D44AA17C28E23C5200AB0D85 /* Assets.xcassets */; };
 		D44AA18028E23C5200AB0D85 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D44AA17E28E23C5200AB0D85 /* LaunchScreen.storyboard */; };
+		D463D67D28E31C030001D78C /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D463D67C28E31C030001D78C /* RVS_Generic_Swift_Toolbox */; };
 		D477C00128E1D66F00B29654 /* SearchResponse-04.json in Resources */ = {isa = PBXBuildFile; fileRef = D477C00028E1D66F00B29654 /* SearchResponse-04.json */; };
 		D477C00828E1E7C100B29654 /* SearchResponse-05.json in Resources */ = {isa = PBXBuildFile; fileRef = D477C00728E1E7C000B29654 /* SearchResponse-05.json */; };
 		D477C00A28E1EF4B00B29654 /* SearchResponse-06.json in Resources */ = {isa = PBXBuildFile; fileRef = D477C00928E1EF4B00B29654 /* SearchResponse-06.json */; };
@@ -35,7 +36,6 @@
 		D4B20DE328DFAB2600643A20 /* SearchResponse-02.json in Resources */ = {isa = PBXBuildFile; fileRef = D4B20DDB28DFAB0200643A20 /* SearchResponse-02.json */; };
 		D4B46A5B28E24742004A203E /* LGV_MeetingSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A985A828D3C0A7007D75E4 /* LGV_MeetingSDK.a */; };
 		D4B46A6528E2481E004A203E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4B46A6328E2481E004A203E /* Localizable.strings */; };
-		D4B46A6828E2484F004A203E /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4B46A6728E2484F004A203E /* RVS_Generic_Swift_Toolbox */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,7 +70,6 @@
 		D44AA17C28E23C5200AB0D85 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D44AA17F28E23C5200AB0D85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D44AA18128E23C5200AB0D85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D463874828E0F68700F2D660 /* RVS_Generic_Swift_Toolbox */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = RVS_Generic_Swift_Toolbox; path = "/Users/chrismarshall/Development/Developer/Xcode/DerivedData/LGV_MeetingSDK-bmmehuegutavvebjwadwlotsupab/SourcePackages/checkouts/RVS_Generic_Swift_Toolbox"; sourceTree = "<absolute>"; };
 		D46D476128D3BF9200D8785E /* LGV_MeetingSDK.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = LGV_MeetingSDK.docc; sourceTree = "<group>"; };
 		D477C00028E1D66F00B29654 /* SearchResponse-04.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-04.json"; sourceTree = "<group>"; };
 		D477C00728E1E7C000B29654 /* SearchResponse-05.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-05.json"; sourceTree = "<group>"; };
@@ -95,7 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4B46A6828E2484F004A203E /* RVS_Generic_Swift_Toolbox in Frameworks */,
+				D463D67D28E31C030001D78C /* RVS_Generic_Swift_Toolbox in Frameworks */,
 				D4B46A5B28E24742004A203E /* LGV_MeetingSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -118,7 +117,6 @@
 				D4A6EC8228DB4B4200B3E660 /* Tests */,
 				D477C00628E1DD2F00B29654 /* Meta */,
 				D412C80328D3BEC500BAFC16 /* Products */,
-				D463874728E0F67400F2D660 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -162,14 +160,6 @@
 				D4B46A5E28E24780004A203E /* Meta */,
 			);
 			path = LGV_MeetingSDK_Test_Harness;
-			sourceTree = "<group>";
-		};
-		D463874728E0F67400F2D660 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D463874828E0F68700F2D660 /* RVS_Generic_Swift_Toolbox */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D46D476028D3BF6400D8785E /* Sources */ = {
@@ -296,7 +286,7 @@
 			);
 			name = LGV_MeetingSDK_Test_Harness;
 			packageProductDependencies = (
-				D4B46A6728E2484F004A203E /* RVS_Generic_Swift_Toolbox */,
+				D463D67C28E31C030001D78C /* RVS_Generic_Swift_Toolbox */,
 			);
 			productName = LGV_MeetingSDK_Test_Harness;
 			productReference = D44AA17128E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness.app */;
@@ -371,7 +361,7 @@
 			);
 			mainGroup = D412C7F928D3BEC500BAFC16;
 			packageReferences = (
-				D4B46A6628E2484F004A203E /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */,
+				D463D67B28E31C030001D78C /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */,
 			);
 			productRefGroup = D412C80328D3BEC500BAFC16 /* Products */;
 			projectDirPath = "";
@@ -841,7 +831,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D4B46A6628E2484F004A203E /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */ = {
+		D463D67B28E31C030001D78C /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox";
 			requirement = {
@@ -852,9 +842,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D4B46A6728E2484F004A203E /* RVS_Generic_Swift_Toolbox */ = {
+		D463D67C28E31C030001D78C /* RVS_Generic_Swift_Toolbox */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D4B46A6628E2484F004A203E /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
+			package = D463D67B28E31C030001D78C /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
 			productName = RVS_Generic_Swift_Toolbox;
 		};
 /* End XCSwiftPackageProductDependency section */
