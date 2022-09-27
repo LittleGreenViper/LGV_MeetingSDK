@@ -111,6 +111,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
             let meetingDuration = TimeInterval((meetingDurationComponents[0] * (60 * 60)) + (meetingDurationComponents[1] * 60))
             let formats = sharedFormatIDs.split(separator: ",").compactMap { UInt64($0) }.compactMap { inFormats[$0] }
             let physicalLocation = _convert(thisDataToAPhysicalLocation: meetingDictionary)
+            let virtualInformation = _convert(thisDataToAVirtualLocation: meetingDictionary)
             let comments = meetingDictionary["comments"] ?? ""
             var distance = Double.greatestFiniteMagnitude
             if let coords = physicalLocation?.coords,
@@ -129,7 +130,8 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
                                                       meetingDuration: meetingDuration,
                                                       distanceInMeters: distance,
                                                       formats: formats,
-                                                      physicalLocation: physicalLocation
+                                                      physicalLocation: physicalLocation,
+                                                      virtualMeetingInfo: virtualInformation
             )
             ret.append(meeting)
         }
