@@ -297,7 +297,7 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
     /**
      OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - Returns an optional DateComponents object, with the time of the meeting. Nil, if one-time event.
      
-     **NOTE:** This will not allow "2400" to be indicative of midnight. 2359 is the max.
+     **NOTE:** This will not allow "2400" to be indicative of midnight. 23:59:59 is returned, if the meeting specifies "2400."
      */
     var startTime: DateComponents? { get }
 
@@ -337,7 +337,7 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
 
     /* ################################################################## */
     /**
-     OPTIONAL -. The next meeting (from now) will start on this date (time).
+     OPTIONAL - The next meeting (from now) will start on this date (time).
      
      If this is a one-time event, then this will be the only indicator of the meeting start time/date.
      
@@ -399,17 +399,17 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
     
     /* ################################################################## */
     /**
-     Default returns an optional DateComponents object, with the time of the meeting. This will not allow "2400" to be indicative of midnight. 2359 is the max.
+     Default returns an optional DateComponents object, with the time of the meeting. This will not allow "2400" to be indicative of midnight. 23:59:59 is returned, if the meeting specifies "2400."
      */
     var startTime: DateComponents? {
         guard (0...2400).contains(meetingStartTime) else { return nil }
         
-        guard 2400 != meetingStartTime else { return DateComponents(hour: 0, minute: 0, second: 0) }
+        guard 2400 != meetingStartTime else { return DateComponents(hour: 23, minute: 59, second: 59, nanosecond: 999999999) }
         
         let hour = Int(meetingStartTime / 1000)
         let minute = Int(meetingStartTime - (hour * 1000))
 
-        return DateComponents(hour: hour, minute: minute, second: 0)
+        return DateComponents(hour: hour, minute: minute)
     }
 
     /* ################################################################## */
@@ -431,7 +431,7 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
             hour = 0
         }
 
-        return DateComponents(hour: hour, minute: minute, second: 0, weekday: weekdayIndex)
+        return DateComponents(hour: hour, minute: minute, weekday: weekdayIndex)
     }
 
     /* ################################################################## */
