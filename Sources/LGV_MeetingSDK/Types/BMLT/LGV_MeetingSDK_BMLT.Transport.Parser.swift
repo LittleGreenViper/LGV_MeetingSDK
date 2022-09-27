@@ -331,6 +331,17 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
                           searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = [],
                           data inData: Data,
                           completion inCompletion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
+        /* ############################################################## */
+        /**
+         - parameter searchType (OPTIONAL): This is the search specification main search type. Default is .none.
+         - parameter searchRefinements (OPTIONAL): This is the search specification additional filters. Default is .none.
+         */
+        func refineMeetings(_ inMeetings: [LGV_MeetingSDK_Meeting_Protocol],
+                            searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
+                            searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>) -> [LGV_MeetingSDK_Meeting_Protocol] {
+            
+        }
+        
         if let main_object = try? JSONSerialization.jsonObject(with: inData, options: []) as? [String: [[String: String]]],
            let meetingsObject = main_object["meetings"],
            let formatsObject = main_object["formats"] {
@@ -357,30 +368,55 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
             if case .meetingID(_) = inSearchType {
                 retMeetings = meetings.compactMap { meeting in
                     var returned: LGV_MeetingSDK_Meeting_Protocol?
-                    for refinement in inSearchRefinements.enumerated() {
-                        if case let .string(searchForThisString) = refinement.element {
-                            if Self.isThisString(searchForThisString, withinThisString: meeting.name) {
-                                returned = meeting
-                            } else if Self.isThisString(searchForThisString, withinThisString: meeting.extraInfo) {
-                                returned = meeting
+                    if !inSearchRefinements.isEmpty {
+                        for refinement in inSearchRefinements.enumerated() {
+                            switch refinement.element {
+                            case let .string(searchForThisString):
+                                if Self.isThisString(searchForThisString, withinThisString: meeting.name) {
+                                    returned = meeting
+                                } else if Self.isThisString(searchForThisString, withinThisString: meeting.extraInfo) {
+                                    returned = meeting
+                                } else {
+                                    return nil
+                                }
+                                
+                            case let .weekdays(weekdays):
+                                if weekdays.map({ $0.rawValue }).contains(meeting.weekdayIndex) {
+                                    returned = meeting
+                                } else {
+                                    return nil
+                                }
+                                
+                            default:
+                                break
                             }
                             
-                            return nil
+                            return returned
                         }
                         
-                        if case let .weekdays(weekdays) = refinement.element {
-                            let weekdayIndexes = weekdays.map { $0.rawValue }
-                            if weekdayIndexes.contains(meeting.weekdayIndex) {
+                        return nil
+                    }
+                    
+                    return meeting
+                }
+            } else if !inSearchRefinements.isEmpty {
+                retMeetings = meetings.compactMap { meeting in
+                    var returned: LGV_MeetingSDK_Meeting_Protocol?
+                    for refinement in inSearchRefinements.enumerated() {
+                        switch refinement.element {
+                        case let .weekdays(weekdays):
+                            if weekdays.map({ $0.rawValue }).contains(meeting.weekdayIndex) {
                                 returned = meeting
                             } else {
                                 return nil
                             }
+                            
+                        default:
+                            break
                         }
-                        
-                        return returned
                     }
                     
-                    return meeting
+                    return returned
                 }
             } else {
                 retMeetings = meetings
