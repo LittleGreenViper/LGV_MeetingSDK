@@ -48,6 +48,18 @@ internal extension CLLocationCoordinate2D {
 extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
     /* ################################################################## */
     /**
+     This allows us to find if a string contains another string.
+     
+     - parameter inString: The string we're looking for.
+     - parameter withinThisString: The string we're looking through.
+     - parameter options (OPTIONAL): The String options for the search. Default is case insensitive, and diacritical insensitive.
+     
+     - returns: True, if the string contains the other String.
+     */
+    static func isThisString(_ inString: String, withinThisString inMainString: String, options inOptions: String.CompareOptions = [.caseInsensitive, .diacriticInsensitive]) -> Bool { nil != inMainString.range(of: inString, options: inOptions)?.lowerBound }
+
+    /* ################################################################## */
+    /**
      "Cleans" a URI.
      
      - parameter urlString: The URL, as a String. It can be optional.
@@ -185,7 +197,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
             )
             ret.append(meeting)
         }
-        
+
         return ret.sorted { lhs, rhs in
             guard !inSearchCenter.coordinate.isValid || lhs.distanceInMeters == rhs.distanceInMeters else {
                 return lhs.distanceInMeters < rhs.distanceInMeters
@@ -338,7 +350,44 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
             }
             
             let formats = _convert(theseFormats: formatsObject)
-            let meetingData = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: _convert(theseMeetings: meetingsObject, andTheseFormats: formats, searchCenter: searchCenter))
+            let meetings = _convert(theseMeetings: meetingsObject, andTheseFormats: formats, searchCenter: searchCenter)
+
+            var retMeetings = [LGV_MeetingSDK_Meeting_Protocol]()
+            
+            if case .meetingID(_) = inSearchType {
+                retMeetings = meetings.compactMap { meeting in
+                    var returned: LGV_MeetingSDK_Meeting_Protocol?
+                    for refinement in inSearchRefinements.enumerated() {
+                        if case let .string(searchForThisString) = refinement.element {
+                            if Self.isThisString(searchForThisString, withinThisString: meeting.name) {
+                                returned = meeting
+                            } else if Self.isThisString(searchForThisString, withinThisString: meeting.extraInfo) {
+                                returned = meeting
+                            }
+                            
+                            return nil
+                        }
+                        
+                        if case let .weekdays(weekdays) = refinement.element {
+                            let weekdayIndexes = weekdays.map { $0.rawValue }
+                            if weekdayIndexes.contains(meeting.weekdayIndex) {
+                                returned = meeting
+                            } else {
+                                return nil
+                            }
+                        }
+                        
+                        return returned
+                    }
+                    
+                    return meeting
+                }
+            } else {
+                retMeetings = meetings
+            }
+            
+            let meetingData = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: retMeetings)
+
             inCompletion(meetingData, nil)
         }
     }

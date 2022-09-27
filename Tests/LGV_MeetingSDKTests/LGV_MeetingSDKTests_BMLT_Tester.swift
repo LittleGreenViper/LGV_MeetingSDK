@@ -138,7 +138,7 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
      */
     func testFixedRadiusSearch() {
         setup()
-        let expectation = XCTestExpectation(description: "Callback never occurred.")
+        var expectation = XCTestExpectation(description: "Callback never occurred.")
 
         (testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = getResponseFile(0)
         
@@ -149,6 +149,22 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
             }
             
             XCTAssertEqual(37, inData?.meetings.count)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 0.25)
+      
+        expectation = XCTestExpectation(description: "Callback never occurred.")
+
+        (testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = getResponseFile(8)
+        
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 3000), refinements: [.string(searchString: "gratitude")]) { inData, inError in
+            guard nil == inError else {
+                print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            XCTAssertEqual(7, inData?.meetings.count)
             expectation.fulfill()
         }
         
@@ -202,7 +218,7 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 30)
+        wait(for: [expectation], timeout: 0.25)
         
         expectation = XCTestExpectation(description: "Callback never occurred.")
         
@@ -218,7 +234,7 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 30)
+        wait(for: [expectation], timeout: 0.25)
         
         expectation = XCTestExpectation(description: "Callback never occurred.")
         
@@ -234,7 +250,7 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 30)
+        wait(for: [expectation], timeout: 0.25)
         
         expectation = XCTestExpectation(description: "Callback never occurred.")
         
@@ -250,7 +266,26 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 30)
+        wait(for: [expectation], timeout: 0.25)
+
+        (testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = getResponseFile(2)
+        
+        expectation = XCTestExpectation(description: "Callback never occurred.")
+
+        testSDK?.meetingSearch(type: .meetingID(ids: ids), refinements: [.distanceFrom(thisLocation: testLocationCenter)]) { inData, inError in
+            guard nil == inError else {
+                print("ID Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            XCTAssertEqual(ids.count, inData?.meetings.count)
+            XCTAssertTrue(inData?.meetings.allSatisfy({ ids.contains($0.id) }) ?? false)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 0.25)
+
+        (testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = getResponseFile(2)
     }
     
     /* ################################################################## */

@@ -40,12 +40,15 @@ public extension LGV_MeetingSDK_BMLT.Transport {
     ) -> URLRequest? {
         guard var urlString = baseURL?.absoluteString else { return nil }
 
+        var idSearch = false
+        
         let dataFields = ["id_bigint",
                           "weekday_tinyint",
                           "start_time",
                           "duration_time",
-                          "formats",
                           "format_shared_id_list",
+                          "venue_type",
+                          "lang_enum",
                           "longitude",
                           "latitude",
                           "meeting_name",
@@ -80,6 +83,7 @@ public extension LGV_MeetingSDK_BMLT.Transport {
             urlString += "&geo_width=\(-Int(minimumNumberOfResults))&long_val=\(centerLongLat.longitude)&lat_val=\(centerLongLat.latitude)"
 
         case .meetingID(let idArray):
+            idSearch = true
             urlString += "&SearchString=\(idArray.compactMap({String($0)}).joined(separator: ","))"
         }
         
@@ -89,7 +93,7 @@ public extension LGV_MeetingSDK_BMLT.Transport {
                 weekdays.forEach { weekday in
                     urlString += "&weekdays\(1 < weekdays.count ? "[]" : "")=\(weekday.rawValue)"
                 }
-                
+
             case .startTimeRange(let range):
                 guard 0 <= range.lowerBound,
                       2359 > range.upperBound
@@ -136,6 +140,12 @@ public extension LGV_MeetingSDK_BMLT.Transport {
                 
                 urlString += "&StartsBeforeH=\(endHours)&StartsBeforeM=\(endMinutes)"
                 
+            case .string(let searchForThisString):
+                if !idSearch,
+                   let encodedString = searchForThisString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) {
+                    urlString += "&SearchString=\(encodedString)"
+                }
+                
             default:
                 break
             }
@@ -147,8 +157,6 @@ public extension LGV_MeetingSDK_BMLT.Transport {
             print("URL Request Created for: \(url.absoluteString)")
         #endif
         
-        let urlRequest = URLRequest(url: url)
-        
-        return urlRequest
+        return URLRequest(url: url)
     }
 }

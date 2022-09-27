@@ -36,6 +36,7 @@
 		D4B20DE328DFAB2600643A20 /* SearchResponse-02.json in Resources */ = {isa = PBXBuildFile; fileRef = D4B20DDB28DFAB0200643A20 /* SearchResponse-02.json */; };
 		D4B46A5B28E24742004A203E /* LGV_MeetingSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A985A828D3C0A7007D75E4 /* LGV_MeetingSDK.a */; };
 		D4B46A6528E2481E004A203E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4B46A6328E2481E004A203E /* Localizable.strings */; };
+		D4E43CE428E35C30003378CE /* SearchResponse-08.json in Resources */ = {isa = PBXBuildFile; fileRef = D4E43CE328E35C30003378CE /* SearchResponse-08.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		D4B20DDC28DFAB0200643A20 /* SearchResponse-00.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-00.json"; sourceTree = "<group>"; };
 		D4B20DDD28DFAB0200643A20 /* SearchResponse-01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-01.json"; sourceTree = "<group>"; };
 		D4B46A6428E2481E004A203E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D4E43CE328E35C30003378CE /* SearchResponse-08.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-08.json"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +230,7 @@
 				D477C00728E1E7C000B29654 /* SearchResponse-05.json */,
 				D477C00928E1EF4B00B29654 /* SearchResponse-06.json */,
 				D477C00B28E1F4B200B29654 /* SearchResponse-07.json */,
+				D4E43CE328E35C30003378CE /* SearchResponse-08.json */,
 			);
 			path = BMLTList;
 			sourceTree = "<group>";
@@ -392,6 +395,7 @@
 			files = (
 				D4B20DE128DFAB2600643A20 /* SearchResponse-00.json in Resources */,
 				D43DD68928E227E50075047D /* Warnings.xcconfig in Resources */,
+				D4E43CE428E35C30003378CE /* SearchResponse-08.json in Resources */,
 				D4B20DE228DFAB2600643A20 /* SearchResponse-01.json in Resources */,
 				D4B20DE328DFAB2600643A20 /* SearchResponse-02.json in Resources */,
 				D477C00828E1E7C100B29654 /* SearchResponse-05.json in Resources */,
