@@ -43,9 +43,9 @@ internal extension CLLocationCoordinate2D {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - BMLT Parser Extension -
+// MARK: - BMLT Parser Extension (Static Utility Methods) -
 /* ###################################################################################################################################### */
-extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
+extension LGV_MeetingSDK_BMLT.Transport.Parser {
     /* ################################################################## */
     /**
      This allows us to find if a string contains another string.
@@ -241,63 +241,111 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
     /* ################################################################## */
     /**
      - parameter inMeetings: The meeting array to be filtered.
+     - parameter searchType: This is the search specification main search type.
      - parameter searchRefinements: This is the search specification additional filters.
      
      - returns: The refined meeting array.
      */
     private static func _refineMeetings(_ inMeetings: [LGV_MeetingSDK_Meeting_Protocol],
+                                        searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
                                         searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>) -> [LGV_MeetingSDK_Meeting_Protocol] {
+        var maximumDistanceInMeters: CLLocationDistance = Double.greatestFiniteMagnitude
+        
+        switch inSearchType {
+        case let .fixedRadius(centerLongLat: _, radiusInMeters: max):
+            maximumDistanceInMeters = max
+            
+        case let .autoRadius(centerLongLat: _, minimumNumberOfResults: _, maxRadiusInMeters: max):
+            maximumDistanceInMeters = max
+            
+        default:
+            break
+        }
+        
         return inMeetings.compactMap { meeting in
-            if !inSearchRefinements.isEmpty {
-                var returned: LGV_MeetingSDK_Meeting_Protocol?
-                for refinement in inSearchRefinements.enumerated() {
-                    switch refinement.element {
-                    case let .string(searchForThisString):
-                        if _isThisString(searchForThisString, withinThisString: meeting.name) {
+            if meeting.distanceInMeters <= maximumDistanceInMeters {
+                if !inSearchRefinements.isEmpty {
+                    var returned: LGV_MeetingSDK_Meeting_Protocol?
+                    for refinement in inSearchRefinements.enumerated() {
+                        switch refinement.element {
+                        case let .string(searchForThisString):
+                            if _isThisString(searchForThisString, withinThisString: meeting.name)
+                                || _isThisString(searchForThisString, withinThisString: meeting.extraInfo) {
+                                returned = meeting
+                            } else if let physicalLocationName = meeting.physicalLocation?.name,
+                                      _isThisString(searchForThisString, withinThisString: physicalLocationName) {
+                                returned = meeting
+                            } else if let virtualInfo = meeting.virtualMeetingInfo?.videoMeeting?.extraInfo,
+                                      _isThisString(searchForThisString, withinThisString: virtualInfo) {
+                                returned = meeting
+                            } else if let virtualInfo = meeting.virtualMeetingInfo?.videoMeeting?.description,
+                                      _isThisString(searchForThisString, withinThisString: virtualInfo) {
+                                returned = meeting
+                            } else if let virtualInfo = meeting.virtualMeetingInfo?.phoneMeeting?.extraInfo,
+                                      _isThisString(searchForThisString, withinThisString: virtualInfo) {
+                                returned = meeting
+                            } else if let virtualInfo = meeting.virtualMeetingInfo?.phoneMeeting?.description,
+                                      _isThisString(searchForThisString, withinThisString: virtualInfo) {
+                                returned = meeting
+                            } else if !meeting.formats.isEmpty {
+                                for format in meeting.formats {
+                                    if _isThisString(searchForThisString, withinThisString: format.name) {
+                                        returned = meeting
+                                        break
+                                    } else if _isThisString(searchForThisString, withinThisString: format.description) {
+                                        returned = meeting
+                                        break
+                                    }
+                                }
+                            } else {
+                                return nil
+                            }
+                            
+                        case let .weekdays(weekdays):
+                            if weekdays.map({ $0.rawValue }).contains(meeting.weekdayIndex) {
+                                returned = meeting
+                            } else {
+                                return nil
+                            }
+                            
+                        case let .startTimeRange(startTimeRange):
+                            guard let startTimeInSeconds = meeting.startTimeInSeconds else { return nil }
+                            
+                            if startTimeRange.contains(startTimeInSeconds) {
+                                returned = meeting
+                            } else {
+                                return nil
+                            }
+                            
+                        case let .venueTypes(venues):
+                            if venues.contains(meeting.meetingType) {
+                                returned = meeting
+                            } else {
+                                return nil
+                            }
+                            
+                        default:
                             returned = meeting
-                        } else if _isThisString(searchForThisString, withinThisString: meeting.extraInfo) {
-                            returned = meeting
-                        } else {
-                            return nil
                         }
                         
-                    case let .weekdays(weekdays):
-                        if weekdays.map({ $0.rawValue }).contains(meeting.weekdayIndex) {
-                            returned = meeting
-                        } else {
-                            return nil
-                        }
-                        
-                    case let .startTimeRange(startTimeRange):
-                        guard let startTimeInSeconds = meeting.startTimeInSeconds else { return nil }
-                        
-                        if startTimeRange.contains(startTimeInSeconds) {
-                            returned = meeting
-                        } else {
-                            return nil
-                        }
-                    
-                    case let .venueTypes(venues):
-                        if venues.contains(meeting.meetingType) {
-                            returned = meeting
-                        } else {
-                            return nil
-                        }
-                        
-                    default:
-                        returned = meeting
+                        return returned
                     }
                     
-                    return returned
+                    return nil
+                } else {
+                    return meeting
                 }
-                
-                return nil
             } else {
-                return meeting
+                return nil
             }
         }
     }
+}
 
+/* ###################################################################################################################################### */
+// MARK: Instance Utility Methods
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_BMLT.Transport.Parser {
     /* ################################################################## */
     /**
      This converts "raw" (String Dictionary) meeting objects, into actual Swift structs.
@@ -377,7 +425,12 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
             return false
         }
     }
+}
 
+/* ###################################################################################################################################### */
+// MARK: LGV_MeetingSDK_Parser_Protocol Conformance
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
     /* ################################################################## */
     /**
      REQUIRED - This parses data, and returns meetings.
@@ -411,7 +464,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
             }
             
             let formats = Self._convert(theseFormats: formatsObject)
-            let meetings = Self._refineMeetings(_convert(theseMeetings: meetingsObject, andTheseFormats: formats, searchCenter: searchCenter), searchRefinements: inSearchRefinements)
+            let meetings = Self._refineMeetings(_convert(theseMeetings: meetingsObject, andTheseFormats: formats, searchCenter: searchCenter), searchType: inSearchType, searchRefinements: inSearchRefinements)
             let meetingData = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: meetings)
 
             inCompletion(meetingData, nil)
