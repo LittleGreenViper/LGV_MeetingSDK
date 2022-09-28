@@ -30,6 +30,38 @@ import MapKit
  This displays the map search controller.
  */
 class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harness_Base_ViewController {
+    /* ################################################################################################################################## */
+    // MARK: Custom Marker Annotation Class
+    /* ################################################################################################################################## */
+    /**
+     */
+    class CustomCenterMarkerAnnotation: MKPointAnnotation {
+        /* ############################################################## */
+        /**
+         */
+        private var _coords: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+        
+        /* ############################################################## */
+        /**
+         */
+        override var coordinate: CLLocationCoordinate2D {
+            get { _coords }
+            set { _coords = newValue }
+        }
+        
+        /* ############################################################## */
+        /**
+         */
+        var image: UIImage? { UIImage(named: "Marker") }
+        
+        /* ############################################################## */
+        /**
+         */
+        init(coordinate inCoords: CLLocationCoordinate2D) {
+            _coords = inCoords
+        }
+    }
+    
     /* ################################################################## */
     /**
      */
@@ -150,6 +182,17 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
     /* ################################################################## */
     /**
      */
+    private func _setTheCenterMarker() {
+        if let index = modeSelectionSegmentedControl?.selectedSegmentIndex,
+           1 == index,
+           let center = mapView?.centerCoordinate {
+            markerAnnotation = CustomCenterMarkerAnnotation(coordinate: center)
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     */
     func autoStuffShownOrNot() {
         autoSearchStackView?.isHidden = 0 == modeSelectionSegmentedControl?.selectedSegmentIndex
         textInputField?.text = String(Self._defaultCount)
@@ -165,7 +208,12 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
             circleOverlay = nil
         }
         
+        if let marker = markerAnnotation {
+            mapView?.removeAnnotation(marker)
+        }
+        
         _setTheCircleOverlay()
+        _setTheCenterMarker()
     }
     
     /* ################################################################## */
@@ -240,5 +288,24 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController: MKMapViewDelegate {
      */
     func mapViewDidChangeVisibleRegion(_: MKMapView) {
         updateTheCircleOverlay()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func mapView(_: MKMapView, viewFor inAnnotation: MKAnnotation) -> MKAnnotationView? {
+        guard !(inAnnotation is MKUserLocation),
+              let annotation = inAnnotation as? CustomCenterMarkerAnnotation
+        else { return nil }
+        
+        var annotationView = mapView?.dequeueReusableAnnotationView(withIdentifier: "centerMarker")
+        
+        annotationView = annotationView ?? MKAnnotationView(annotation: annotation, reuseIdentifier: "centerMarker")
+
+        annotationView?.annotation = annotation
+        
+        annotationView?.image = annotation.image
+        
+        return annotationView
     }
 }
