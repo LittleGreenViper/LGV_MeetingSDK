@@ -26,6 +26,7 @@ import RVS_UIKit_Toolbox
 // MARK: - Tab Controller Class -
 /* ###################################################################################################################################### */
 /**
+ This manages the tab bar of the app. It also presents the displayed NavBar.
  */
 class LGV_MeetingSDK_Test_Harness_TabController: UITabBarController {
     /* ################################################################## */
@@ -46,19 +47,14 @@ class LGV_MeetingSDK_Test_Harness_TabController: UITabBarController {
 // MARK: - Base View Controller Class -
 /* ###################################################################################################################################### */
 /**
+ This is a base class for each of the tab view controllers.
  */
 class LGV_MeetingSDK_Test_Harness_Base_ViewController: UIViewController {
     /* ################################################################## */
     /**
-     Called when the view hierarchy has loaded.
-     */
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-    /* ################################################################## */
-    /**
      Called when the view is about to appear.
+     
+     We use this to set the navbar title (from the tab item).
      
      - parameter inAnimated: True, if the appearance is animated.
      */

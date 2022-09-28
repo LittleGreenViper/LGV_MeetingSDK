@@ -26,6 +26,7 @@ import RVS_UIKit_Toolbox
 // MARK: - Manual Search View Controller Class -
 /* ###################################################################################################################################### */
 /**
+ This displays the manual search controller.
  */
 class LGV_MeetingSDK_Test_Harness_Manual_ViewController: LGV_MeetingSDK_Test_Harness_Base_ViewController {
 }
