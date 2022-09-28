@@ -21,6 +21,7 @@ import UIKit
 import LGV_MeetingSDK
 import RVS_Generic_Swift_Toolbox
 import RVS_UIKit_Toolbox
+import MapKit
 
 /* ###################################################################################################################################### */
 // MARK: - Map Search View Controller Class -
@@ -29,4 +30,132 @@ import RVS_UIKit_Toolbox
  This displays the map search controller.
  */
 class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harness_Base_ViewController {
+    /* ################################################################## */
+    /**
+     */
+    private static let _defaultCount = 10
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var mainVerticalStackView: UIStackView?
+
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var modeSelectionSegmentedControl: UISegmentedControl?
+
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var autoSearchStackView: UIStackView?
+
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var textInputLabel: UILabel?
+
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var textInputField: UITextField?
+
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var maxRadiusSwitch: UISwitch?
+
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var maxRadiusLabelButton: UIButton?
+
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var mapContainerView: UIView?
+
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var mapView: MKMapView?
+}
+
+/* ###################################################################################################################################### */
+// MARK: Base Class Overrides
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
+    /* ################################################################## */
+    /**
+     */
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        textInputLabel?.adjustsFontSizeToFitWidth = true
+        textInputLabel?.minimumScaleFactor = 0.5
+        textInputLabel?.accessibilityHint = textInputLabel?.text?.accessibilityLocalizedVariant
+        textInputLabel?.text = textInputLabel?.text?.localizedVariant
+        
+        maxRadiusLabelButton?.titleLabel?.textAlignment = .left
+        maxRadiusLabelButton?.setTitle(maxRadiusLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
+        
+        for segmentIndex in (0..<(modeSelectionSegmentedControl?.numberOfSegments ?? 0)) {
+            modeSelectionSegmentedControl?.setTitle(modeSelectionSegmentedControl?.titleForSegment(at: segmentIndex)?.localizedVariant, forSegmentAt: segmentIndex)
+        }
+        autoStuffShownOrNot()
+        setAccessibilityHints()
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Instance Methods
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
+    /* ################################################################## */
+    /**
+     */
+    func autoStuffShownOrNot() {
+        autoSearchStackView?.isHidden = 0 == modeSelectionSegmentedControl?.selectedSegmentIndex
+        textInputField?.text = String(Self._defaultCount)
+        maxRadiusSwitch?.isOn = false
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func setAccessibilityHints() {
+        textInputLabel?.accessibilityHint = "SLUG-MAX-COUNT-HINT".accessibilityLocalizedVariant
+        textInputField?.accessibilityHint = "SLUG-MAX-COUNT-HINT".accessibilityLocalizedVariant
+        maxRadiusSwitch?.accessibilityHint = "SLUG-MAX-RADIUS-BUTTON".accessibilityLocalizedVariant
+        maxRadiusLabelButton?.accessibilityHint = "SLUG-MAX-RADIUS-BUTTON".accessibilityLocalizedVariant
+        modeSelectionSegmentedControl?.accessibilityHint = "SLUG-SEGMENTED-RADIUS-SWITCH-HINT".accessibilityLocalizedVariant
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Callbacks
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func modeSelectionSegmentedControlHit(_ inSelectionSwitch: UISegmentedControl) {
+        autoStuffShownOrNot()
+    }
+
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func textInputFieldTextChanged(_ inTextField: UITextField) {
+    }
+
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func maxRadiusLabelButtonOrSwitchHit(_ inButtonOrSwitch: UIControl) {
+        if inButtonOrSwitch is UIButton {
+            maxRadiusSwitch?.setOn(!(maxRadiusSwitch?.isOn ?? true), animated: true)
+            maxRadiusSwitch?.sendActions(for: .valueChanged)
+        } else {
+        }
+    }
 }

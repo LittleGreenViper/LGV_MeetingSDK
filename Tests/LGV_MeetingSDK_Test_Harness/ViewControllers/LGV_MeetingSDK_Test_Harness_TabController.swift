@@ -31,6 +31,17 @@ import RVS_UIKit_Toolbox
 class LGV_MeetingSDK_Test_Harness_TabController: UITabBarController {
     /* ################################################################## */
     /**
+     The Search Bar Button Item.
+     */
+    @IBOutlet weak var searchBarButtonItem: UIBarButtonItem?
+}
+
+/* ###################################################################################################################################### */
+// MARK: Base Class Overrides
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_TabController {
+    /* ################################################################## */
+    /**
      Called when the view hierarchy has loaded.
      */
     override func viewDidLoad() {
@@ -44,22 +55,15 @@ class LGV_MeetingSDK_Test_Harness_TabController: UITabBarController {
 }
 
 /* ###################################################################################################################################### */
-// MARK: - Base View Controller Class -
+// MARK: Callbacks
 /* ###################################################################################################################################### */
-/**
- This is a base class for each of the tab view controllers.
- */
-class LGV_MeetingSDK_Test_Harness_Base_ViewController: UIViewController {
+extension LGV_MeetingSDK_Test_Harness_TabController {
     /* ################################################################## */
     /**
-     Called when the view is about to appear.
+     Called when the search bar button item has been hit.
      
-     We use this to set the navbar title (from the tab item).
-     
-     - parameter inAnimated: True, if the appearance is animated.
+     - parameter: ignored.
      */
-    override func viewWillAppear(_ inAnimated: Bool) {
-        super.viewWillAppear(inAnimated)
-        tabBarController?.navigationItem.title = tabBarItem?.title
+    @IBAction func searchBarButtonItemHit(_: Any) {
     }
 }

@@ -19,6 +19,7 @@
 		D44AA17B28E23C5100AB0D85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D44AA17928E23C5100AB0D85 /* Main.storyboard */; };
 		D44AA17D28E23C5200AB0D85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D44AA17C28E23C5200AB0D85 /* Assets.xcassets */; };
 		D44AA18028E23C5200AB0D85 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D44AA17E28E23C5200AB0D85 /* LaunchScreen.storyboard */; };
+		D461ABBC28E4CDB100FB8D04 /* LGV_MeetingSDK_Test_Harness_UtilityClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = D461ABBB28E4CDB100FB8D04 /* LGV_MeetingSDK_Test_Harness_UtilityClasses.swift */; };
 		D463D67D28E31C030001D78C /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D463D67C28E31C030001D78C /* RVS_Generic_Swift_Toolbox */; };
 		D468D04228E493860077DB6C /* LGV_MeetingSDK_Test_Harness_Map_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D468D04028E493860077DB6C /* LGV_MeetingSDK_Test_Harness_Map_ViewController.swift */; };
 		D468D04328E493860077DB6C /* LGV_MeetingSDK_Test_Harness_TabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D468D04128E493860077DB6C /* LGV_MeetingSDK_Test_Harness_TabController.swift */; };
@@ -75,6 +76,7 @@
 		D44AA17C28E23C5200AB0D85 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D44AA17F28E23C5200AB0D85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D44AA18128E23C5200AB0D85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D461ABBB28E4CDB100FB8D04 /* LGV_MeetingSDK_Test_Harness_UtilityClasses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_MeetingSDK_Test_Harness_UtilityClasses.swift; path = Tests/LGV_MeetingSDK_Test_Harness/ViewControllers/LGV_MeetingSDK_Test_Harness_UtilityClasses.swift; sourceTree = SOURCE_ROOT; };
 		D468D04028E493860077DB6C /* LGV_MeetingSDK_Test_Harness_Map_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Test_Harness_Map_ViewController.swift; sourceTree = "<group>"; };
 		D468D04128E493860077DB6C /* LGV_MeetingSDK_Test_Harness_TabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Test_Harness_TabController.swift; sourceTree = "<group>"; };
 		D468D04528E49E020077DB6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Accessibility.strings; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				D44AA17328E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness_AppSceneDelegate.swift */,
+				D461ABBB28E4CDB100FB8D04 /* LGV_MeetingSDK_Test_Harness_UtilityClasses.swift */,
 			);
 			path = MainApp;
 			sourceTree = "<group>";
@@ -472,6 +475,7 @@
 				D468D04328E493860077DB6C /* LGV_MeetingSDK_Test_Harness_TabController.swift in Sources */,
 				D468D04228E493860077DB6C /* LGV_MeetingSDK_Test_Harness_Map_ViewController.swift in Sources */,
 				D44AA17428E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness_AppSceneDelegate.swift in Sources */,
+				D461ABBC28E4CDB100FB8D04 /* LGV_MeetingSDK_Test_Harness_UtilityClasses.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

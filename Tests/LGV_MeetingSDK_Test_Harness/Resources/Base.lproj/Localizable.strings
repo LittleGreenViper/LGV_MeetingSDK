@@ -18,3 +18,8 @@
  */
 "SLUG-MAP-SEARCH-CONTROLLER"                                    =       "Map Search";
 "SLUG-MANUAL-SEARCH-CONTROLLER"                                 =       "Manual Search";
+"SLUG-FIXED-NAME"                                               =       "Fixed Radius Search";
+"SLUG-AUTO-NAME"                                                =       "Auto Radius Search";
+"SLUG-MAX-COUNT-LABEL"                                          =       "Required Found:";
+"SLUG-MAX-RADIUS-BUTTON"                                        =       "Max Radius";
+"SLUG-SEARCH-BUTTON"                                            =       "Search";
