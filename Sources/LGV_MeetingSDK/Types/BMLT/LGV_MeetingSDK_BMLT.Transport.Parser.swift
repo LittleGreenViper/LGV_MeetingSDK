@@ -240,6 +240,10 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser {
 
     /* ################################################################## */
     /**
+     Yeah, this is a big, ugly function, with lots of cyclomatic complexity.
+     
+     Deal with it. It works great.
+     
      - parameter inMeetings: The meeting array to be filtered.
      - parameter searchType: This is the search specification main search type.
      - parameter searchRefinements: This is the search specification additional filters.
@@ -249,8 +253,9 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser {
     private static func _refineMeetings(_ inMeetings: [LGV_MeetingSDK_Meeting_Protocol],
                                         searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
                                         searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>) -> [LGV_MeetingSDK_Meeting_Protocol] {
-        var maximumDistanceInMeters: CLLocationDistance = Double.greatestFiniteMagnitude
+        var maximumDistanceInMeters: CLLocationDistance = -1
         
+        // See if we have a distance-constrained search.
         switch inSearchType {
         case let .fixedRadius(centerLongLat: _, radiusInMeters: max):
             maximumDistanceInMeters = max
@@ -262,12 +267,16 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser {
             break
         }
         
+        // We go through each meeting in the results.
         return inMeetings.compactMap { meeting in
-            if meeting.distanceInMeters <= maximumDistanceInMeters {
+            // First filter is for distance.
+            if 0 > maximumDistanceInMeters || meeting.distanceInMeters <= maximumDistanceInMeters {
+                // We then see if we specified any refinements. If so, we need to meet them.
                 if !inSearchRefinements.isEmpty {
                     var returned: LGV_MeetingSDK_Meeting_Protocol?
                     for refinement in inSearchRefinements.enumerated() {
                         switch refinement.element {
+                        // String searches look at a number of fields in each meeting.
                         case let .string(searchForThisString):
                             if _isThisString(searchForThisString, withinThisString: meeting.name)
                                 || _isThisString(searchForThisString, withinThisString: meeting.extraInfo) {
@@ -301,6 +310,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser {
                                 return nil
                             }
                             
+                        // If we specified weekdays, then we need to meet on one of the provided days.
                         case let .weekdays(weekdays):
                             if weekdays.map({ $0.rawValue }).contains(meeting.weekdayIndex) {
                                 returned = meeting
@@ -308,6 +318,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser {
                                 return nil
                             }
                             
+                        // If we specified a start time range, then we need to start within that range.
                         case let .startTimeRange(startTimeRange):
                             guard let startTimeInSeconds = meeting.startTimeInSeconds else { return nil }
                             
@@ -317,6 +328,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser {
                                 return nil
                             }
                             
+                        // Are we looking for only virtual, in-person, or hybrid (or combinations, thereof)?
                         case let .venueTypes(venues):
                             if venues.contains(meeting.meetingType) {
                                 returned = meeting
@@ -330,12 +342,12 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser {
                         
                         return returned
                     }
-                    
+                    // If the meeting did not meet any of the refinements, then we don't include it.
                     return nil
-                } else {
+                } else {    // If we are not refining, then we just include the meeting.
                     return meeting
                 }
-            } else {
+            } else {    // If we were looking at restricting the distance, then this means the meeting exceeds our maximum distance.
                 return nil
             }
         }
