@@ -445,12 +445,23 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
      Default simply calculates the start time from the components of the military time.
      */
     var startTimeInSeconds: TimeInterval? {
-        guard (0...2400).contains(meetingStartTime) else { return nil }
+        var components: DateComponents? = startTime
         
-        let hour = meetingStartTime / 100
-        let minute = meetingStartTime - (hour * 100)
+        if nil == components,
+           let startDate = nextStartDate {
+            components = Calendar.current.dateComponents([.hour, .minute], from: startDate)
+        }
         
-        return TimeInterval((hour * 60 * 60) + (minute * 60))
+        let hour = components?.hour ?? -1
+        let minute = components?.minute ?? -1
+        
+        let startTime = (hour * 100) + minute
+        
+        if (0...2400).contains(startTime) {
+            return TimeInterval((hour * 60 * 60) + (minute * 60))
+        }
+        
+        return nil
     }
     
     /* ################################################################## */
