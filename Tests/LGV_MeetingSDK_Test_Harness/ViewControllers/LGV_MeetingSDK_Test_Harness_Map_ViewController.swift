@@ -33,6 +33,21 @@ class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harnes
     /* ################################################################## */
     /**
      */
+    private static let _insetCoefficient: Double = 0.025
+    
+    /* ################################################################## */
+    /**
+     */
+    weak var circleOverlay: MKCircle?
+    
+    /* ################################################################## */
+    /**
+     */
+    var markerAnnotation: MKAnnotation?
+    
+    /* ################################################################## */
+    /**
+     */
     private static let _defaultCount = 10
     
     /* ################################################################## */
@@ -90,6 +105,8 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        mapView?.delegate = self
+        
         textInputLabel?.adjustsFontSizeToFitWidth = true
         textInputLabel?.minimumScaleFactor = 0.5
         textInputLabel?.accessibilityHint = textInputLabel?.text?.accessibilityLocalizedVariant
@@ -102,6 +119,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
             modeSelectionSegmentedControl?.setTitle(modeSelectionSegmentedControl?.titleForSegment(at: segmentIndex)?.localizedVariant, forSegmentAt: segmentIndex)
         }
         autoStuffShownOrNot()
+        updateTheCircleOverlay()
         setAccessibilityHints()
     }
 }
@@ -113,10 +131,41 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
     /* ################################################################## */
     /**
      */
+    private func _setTheCircleOverlay() {
+        if let index = modeSelectionSegmentedControl?.selectedSegmentIndex,
+           0 == index || (1 == index && maxRadiusSwitch?.isOn ?? false),
+           let mapRect = mapView?.visibleMapRect {
+            var mapRectangle = mapRect
+            let center = MKMapPoint(x: (mapRect.size.width / 2) + mapRect.origin.x, y: (mapRect.size.height / 2) + mapRect.origin.y)
+            mapRectangle.size.width = min(mapRect.size.width, mapRect.size.height)
+            mapRectangle.size.height = min(mapRect.size.width, mapRect.size.height)
+            mapRectangle.origin = MKMapPoint(x: center.x - (mapRectangle.size.width / 2), y: center.y - (mapRectangle.size.height / 2))
+            mapRectangle = mapRectangle.insetBy(dx: mapRectangle.size.width * Self._insetCoefficient, dy: mapRectangle.size.height * Self._insetCoefficient)
+            let circle = MKCircle(mapRect: mapRectangle)
+            circleOverlay = circle
+            mapView?.addOverlay(circle)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
     func autoStuffShownOrNot() {
         autoSearchStackView?.isHidden = 0 == modeSelectionSegmentedControl?.selectedSegmentIndex
         textInputField?.text = String(Self._defaultCount)
         maxRadiusSwitch?.isOn = false
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func updateTheCircleOverlay() {
+        if let circle = circleOverlay {
+            mapView?.removeOverlay(circle)
+            circleOverlay = nil
+        }
+        
+        _setTheCircleOverlay()
     }
     
     /* ################################################################## */
@@ -140,6 +189,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
      */
     @IBAction func modeSelectionSegmentedControlHit(_ inSelectionSwitch: UISegmentedControl) {
         autoStuffShownOrNot()
+        updateTheCircleOverlay()
     }
 
     /* ################################################################## */
@@ -156,6 +206,39 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
             maxRadiusSwitch?.setOn(!(maxRadiusSwitch?.isOn ?? true), animated: true)
             maxRadiusSwitch?.sendActions(for: .valueChanged)
         } else {
+            updateTheCircleOverlay()
         }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: MKMapViewDelegate Conformance
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_Map_ViewController: MKMapViewDelegate {
+    /* ################################################################## */
+    /**
+     */
+    func mapView(_: MKMapView, rendererFor inOverlay: MKOverlay) -> MKOverlayRenderer {
+        if inOverlay is MKCircle {
+            let circleRenderer = MKCircleRenderer(overlay: inOverlay)
+            circleRenderer.strokeColor = .red
+            return circleRenderer
+        }
+        
+        return MKOverlayRenderer()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        updateTheCircleOverlay()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func mapViewDidChangeVisibleRegion(_: MKMapView) {
+        updateTheCircleOverlay()
     }
 }
