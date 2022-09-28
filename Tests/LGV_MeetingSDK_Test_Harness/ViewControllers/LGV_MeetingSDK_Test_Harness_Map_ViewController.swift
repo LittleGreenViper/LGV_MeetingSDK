@@ -20,11 +20,12 @@
 import UIKit
 import LGV_MeetingSDK
 import RVS_Generic_Swift_Toolbox
+import RVS_UIKit_Toolbox
 
 /* ###################################################################################################################################### */
-// MARK: - Main View Controller Class -
+// MARK: - Map Search View Controller Class -
 /* ###################################################################################################################################### */
 /**
  */
-class LGV_MeetingSDK_Test_Harness_ViewController: UIViewController {
+class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harness_Base_ViewController {
 }

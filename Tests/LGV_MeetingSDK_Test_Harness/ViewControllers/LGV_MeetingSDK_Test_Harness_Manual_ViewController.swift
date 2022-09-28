@@ -16,5 +16,16 @@
  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
  CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-"SLUG-MAP-SEARCH-CONTROLLER"                                    =       "Map Search";
-"SLUG-MANUAL-SEARCH-CONTROLLER"                                 =       "Manual Search";
+
+import UIKit
+import LGV_MeetingSDK
+import RVS_Generic_Swift_Toolbox
+import RVS_UIKit_Toolbox
+
+/* ###################################################################################################################################### */
+// MARK: - Manual Search View Controller Class -
+/* ###################################################################################################################################### */
+/**
+ */
+class LGV_MeetingSDK_Test_Harness_Manual_ViewController: LGV_MeetingSDK_Test_Harness_Base_ViewController {
+}
