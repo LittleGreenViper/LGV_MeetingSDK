@@ -36,6 +36,18 @@ import MapKit
 class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harness_Base_ViewController {
     /* ################################################################## */
     /**
+     We start in the center of the US.
+     */
+    private static let _mapCenter = CLLocationCoordinate2D(latitude: 37.0902, longitude: -95.7129)
+
+    /* ################################################################## */
+    /**
+     We start with a size of 2800 miles (roughly the size of the US).
+     */
+    private static let _mapSizeInMeters: Double = 4506163
+
+    /* ################################################################## */
+    /**
      This is how many display units we'll inset the mask (if shown) from the edges.
      */
     private static let _insetInDisplayUnits: CGFloat = 12
@@ -155,11 +167,12 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mapView?.delegate = self
+        
         textInputLabel?.adjustsFontSizeToFitWidth = true
         textInputLabel?.minimumScaleFactor = 0.5
         textInputLabel?.accessibilityHint = textInputLabel?.text?.accessibilityLocalizedVariant
         textInputLabel?.text = textInputLabel?.text?.localizedVariant
-        textInputField?.text = String(Self._defaultCount)
 
         maxRadiusLabelButton?.titleLabel?.textAlignment = .left
         maxRadiusLabelButton?.setTitle(maxRadiusLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
@@ -173,20 +186,37 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
     
     /* ################################################################## */
     /**
-     Called just before we will lay out the subviews.
-     */
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        autoSearchStackView?.isHidden = 0 == modeSelectionSegmentedControl?.selectedSegmentIndex
-        textInputField?.text = String(Self._defaultCount)
-    }
-    
-    /* ################################################################## */
-    /**
      Called just after the subviews have been laid out.
      */
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
+        autoSearchStackView?.isHidden = 0 == modeSelectionSegmentedControl?.selectedSegmentIndex
+
+        var inputText = String(Self._defaultCount)
+        var mapCenter = Self._mapCenter
+        var mapSizeInMeters: Double = Self._mapSizeInMeters
+        
+        if case let .autoRadius(centerLongLat, minimumNumberOfResults, maxRadiusInMeters) = searchData?.searchType {
+            inputText = String(minimumNumberOfResults)
+            mapCenter = centerLongLat
+            mapSizeInMeters = maxRadiusInMeters * 2
+        } else if case let .fixedRadius(centerLongLat, radiusInMeters) = searchData?.searchType {
+            mapCenter = centerLongLat
+            mapSizeInMeters = radiusInMeters * 2
+        }
+
+        let mapSizeInPoints = MKMapPointsPerMeterAtLatitude(mapCenter.latitude) * mapSizeInMeters
+        let mapOriginInMapPoints = MKMapPoint(mapCenter)
+        let offsetOrigin = MKMapPoint(x: mapOriginInMapPoints.x - (mapSizeInPoints / 2), y: mapOriginInMapPoints.y - (mapSizeInPoints / 2))
+        let mapRegion = MKCoordinateRegion(MKMapRect(origin: offsetOrigin, size: MKMapSize(width: mapSizeInPoints, height: mapSizeInPoints)))
+        
+        textInputField?.text = inputText
+        
+        if let fitRegion = mapView?.regionThatFits(mapRegion) {
+            mapView?.setRegion(fitRegion, animated: false)
+        }
+
         updateTheCircleOverlay()
     }
 }
@@ -207,7 +237,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         
         if isCircleMaskShown {
             guard let mapBounds = mapContainerView?.bounds else { return }
-            let squareSide = min(mapBounds.size.width, mapBounds.size.height) - (Self._insetInDisplayUnits * 2)
+            let squareSide = min(mapBounds.size.width, mapBounds.size.height)
             var cutoutRect = CGRect(origin: .zero, size: CGSize(width: squareSide, height: squareSide))
             cutoutRect.origin = CGPoint(x: (mapBounds.size.width - squareSide) / 2, y: (mapBounds.size.height - squareSide) / 2)
             
@@ -307,5 +337,29 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         } else {
             view?.setNeedsLayout()
         }
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: MKMapViewDelegate Conformance
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_Map_ViewController: MKMapViewDelegate {
+    /* ################################################################## */
+    /**
+     Called when the map region changes.
+     
+     - parameter: The map view (ignored).
+     - parameter regionDidChangeAnimated: True, if the change was animated.
+     */
+    func mapView(_: MKMapView, regionDidChangeAnimated: Bool) {
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the map's visible region changed.
+     
+     - parameter: The map view (ignored).
+     */
+    func mapViewDidChangeVisibleRegion(_: MKMapView) {
     }
 }

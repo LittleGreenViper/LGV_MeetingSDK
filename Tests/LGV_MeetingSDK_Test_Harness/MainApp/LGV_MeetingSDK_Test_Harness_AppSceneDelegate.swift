@@ -35,6 +35,23 @@ class LGV_MeetingSDK_Test_Harness_AppSceneDelegate: UIResponder {
      The required window property.
      */
     var window: UIWindow?
+    
+    /* ################################################################## */
+    /**
+     This allows us to specify, and receive, a search.
+     */
+    var searchData: LGV_MeetingSDK_BMLT.Data_Set?
+}
+
+/* ###################################################################################################################################### */
+// MARK: Computed Class Properties
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_AppSceneDelegate {
+    /* ################################################################## */
+    /**
+     Convenience accessor for the app delegate instance.
+     */
+    static var appDelegateInstance: LGV_MeetingSDK_Test_Harness_AppSceneDelegate? { UIApplication.shared.delegate as? LGV_MeetingSDK_Test_Harness_AppSceneDelegate }
 }
 
 /* ###################################################################################################################################### */

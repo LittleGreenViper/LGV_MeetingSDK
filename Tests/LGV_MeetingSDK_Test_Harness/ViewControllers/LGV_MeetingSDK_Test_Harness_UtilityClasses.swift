@@ -77,6 +77,17 @@ class LGV_MeetingSDK_Test_Harness_CustomUISwitch: UISwitch {
  This is a base class for each of the tab view controllers.
  */
 class LGV_MeetingSDK_Test_Harness_Base_ViewController: UIViewController {
+    /* ################################################################## */
+    /**
+     Convenience accessor for the app delegate instance.
+     */
+    var appDelegateInstance: LGV_MeetingSDK_Test_Harness_AppSceneDelegate? { LGV_MeetingSDK_Test_Harness_AppSceneDelegate.appDelegateInstance }
+    
+    /* ################################################################## */
+    /**
+     This allows us to specify, and receive, a search.
+     */
+    var searchData: LGV_MeetingSDK_BMLT.Data_Set? { appDelegateInstance?.searchData }
 }
 
 /* ###################################################################################################################################### */
