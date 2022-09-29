@@ -28,80 +28,100 @@ import MapKit
 /* ###################################################################################################################################### */
 /**
  This displays the map search controller.
+ 
+ We display a mask, and a center circle, to indicate a search radius (or maximum radius), and a search center.
+ 
+ The mask is attached to the map container, and allows the map to be moved around, under it.
  */
 class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harness_Base_ViewController {
     /* ################################################################## */
     /**
+     This is how many display units we'll inset the mask (if shown) from the edges.
      */
     private static let _insetInDisplayUnits: CGFloat = 12
     
     /* ################################################################## */
     /**
+     The center circle will be twice this, in diameter, in display units.
      */
     private static let _centerCircleRadiusInDisplayUnits: CGFloat = 12
     
     /* ################################################################## */
     /**
+     The center circle is slightly transparent.
      */
-    private static let _alphaValue: CGFloat = 0.8
+    private static let _centerAlphaValue: CGFloat = 0.5
     
     /* ################################################################## */
     /**
+     The mask is fairly transparent.
+     */
+    private static let _maskAlphaValue: CGFloat = 0.25
+
+    /* ################################################################## */
+    /**
+     This will reference the main mask layer.
      */
     weak var circleMask: CALayer?
     
     /* ################################################################## */
     /**
+     This will reference the center circle layer.
      */
     weak var centerCircle: CAShapeLayer?
     
     /* ################################################################## */
     /**
+     This is the initial (default) number of meetings to be found in an auto-radius search.
      */
     private static let _defaultCount = 10
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBOutlet weak var mainVerticalStackView: UIStackView?
 
     /* ################################################################## */
     /**
+     This is the segmented switch that goes between fixed radius, and auto-radius, searches.
      */
     @IBOutlet weak var modeSelectionSegmentedControl: UISegmentedControl?
 
     /* ################################################################## */
     /**
+     This is the stack view that holds all the auto-radius extra controls.
+     We hide it, when we are in fixed radius mode.
      */
     @IBOutlet weak var autoSearchStackView: UIStackView?
 
     /* ################################################################## */
     /**
+     The label for the text entry (for the number of meetings to find, in auto-radius mode).
      */
     @IBOutlet weak var textInputLabel: UILabel?
 
     /* ################################################################## */
     /**
+     The numerical text entry (for the number of meetings to find, in auto-radius mode).
      */
     @IBOutlet weak var textInputField: UITextField?
 
     /* ################################################################## */
     /**
+     The switch that turns on a maximum radius for auto-radius search.
      */
     @IBOutlet weak var maxRadiusSwitch: UISwitch?
 
     /* ################################################################## */
     /**
+     The "label" for that switch is actually a button, that toggles the switch (like a web checkbox).
      */
     @IBOutlet weak var maxRadiusLabelButton: UIButton?
 
     /* ################################################################## */
     /**
+     This is the container for the map. We attach the two overlay layers to this.
      */
     @IBOutlet weak var mapContainerView: UIView?
 
     /* ################################################################## */
     /**
+     The map view.
      */
     @IBOutlet weak var mapView: MKMapView?
 }
@@ -112,6 +132,7 @@ class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harnes
 extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
     /* ################################################################## */
     /**
+     Returns true, if we should show the surrounding mask overlay.
      */
     var isCircleMaskShown: Bool {
         guard let index = modeSelectionSegmentedControl?.selectedSegmentIndex,
@@ -129,28 +150,30 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
 extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
     /* ################################################################## */
     /**
+     Called when the view hierarchy has loaded.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        mapView?.delegate = self
         
         textInputLabel?.adjustsFontSizeToFitWidth = true
         textInputLabel?.minimumScaleFactor = 0.5
         textInputLabel?.accessibilityHint = textInputLabel?.text?.accessibilityLocalizedVariant
         textInputLabel?.text = textInputLabel?.text?.localizedVariant
-        
+        textInputField?.text = String(Self._defaultCount)
+
         maxRadiusLabelButton?.titleLabel?.textAlignment = .left
         maxRadiusLabelButton?.setTitle(maxRadiusLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         
         for segmentIndex in (0..<(modeSelectionSegmentedControl?.numberOfSegments ?? 0)) {
             modeSelectionSegmentedControl?.setTitle(modeSelectionSegmentedControl?.titleForSegment(at: segmentIndex)?.localizedVariant, forSegmentAt: segmentIndex)
         }
+        
         setAccessibilityHints()
-        autoStuffShownOrNot()
     }
     
     /* ################################################################## */
     /**
+     Called just before we will lay out the subviews.
      */
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -160,6 +183,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
     
     /* ################################################################## */
     /**
+     Called just after the subviews have been laid out.
      */
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -173,6 +197,9 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
 extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
     /* ################################################################## */
     /**
+     This creates the main surrounding circle mask overlay.
+     
+     It will not be shown, if `isCircleMaskShown` is not true.
      */
     private func _setTheCircleOverlay() {
         circleMask?.removeFromSuperlayer()
@@ -198,7 +225,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
             
             let circleLayer = CALayer()
             circleLayer.frame = mapBounds
-            circleLayer.backgroundColor = UIColor.black.withAlphaComponent(0.25).cgColor
+            circleLayer.backgroundColor = UIColor.black.withAlphaComponent(Self._maskAlphaValue).cgColor
             circleLayer.mask = maskLayer
             mapContainerView?.layer.addSublayer(circleLayer)
             circleMask = circleLayer
@@ -207,6 +234,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
     
     /* ################################################################## */
     /**
+     This creates the center circle overlay.
      */
     private func _setTheCenterOverlay() {
         centerCircle?.removeFromSuperlayer()
@@ -215,7 +243,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         guard let mapBounds = mapContainerView?.bounds else { return }
         
         let centerLayer = CAShapeLayer()
-        centerLayer.fillColor = UIColor.red.withAlphaComponent(Self._alphaValue).cgColor
+        centerLayer.fillColor = UIColor.systemRed.withAlphaComponent(Self._centerAlphaValue).cgColor
         var containerRect = CGRect(origin: .zero, size: CGSize(width: Self._centerCircleRadiusInDisplayUnits, height: Self._centerCircleRadiusInDisplayUnits))
         containerRect.origin = CGPoint(x: ((mapBounds.size.width - Self._centerCircleRadiusInDisplayUnits) / 2), y: ((mapBounds.size.height - Self._centerCircleRadiusInDisplayUnits) / 2))
         let circlePath = UIBezierPath(ovalIn: containerRect)
@@ -232,6 +260,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
 extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
     /* ################################################################## */
     /**
+     This forces updates of both overlays.
      */
     func updateTheCircleOverlay() {
         _setTheCenterOverlay()
@@ -240,15 +269,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
 
     /* ################################################################## */
     /**
-     */
-    func autoStuffShownOrNot() {
-        autoSearchStackView?.isHidden = 0 == modeSelectionSegmentedControl?.selectedSegmentIndex
-        textInputField?.text = String(Self._defaultCount)
-        maxRadiusSwitch?.isOn = false
-    }
-
-    /* ################################################################## */
-    /**
+     This sets the accessibility hints.
      */
     func setAccessibilityHints() {
         textInputLabel?.accessibilityHint = "SLUG-MAX-COUNT-HINT".accessibilityLocalizedVariant
@@ -265,19 +286,19 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
 extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
     /* ################################################################## */
     /**
+     Called when the main segmented switch changes value.
+     
+     - parameter: ignored.
      */
-    @IBAction func modeSelectionSegmentedControlHit(_ inSelectionSwitch: UISegmentedControl) {
+    @IBAction func modeSelectionSegmentedControlHit(_: UISegmentedControl) {
         view?.setNeedsLayout()
     }
 
     /* ################################################################## */
     /**
-     */
-    @IBAction func textInputFieldTextChanged(_ inTextField: UITextField) {
-    }
-
-    /* ################################################################## */
-    /**
+     This is called if either the switch, or its "label," ar hit.
+     
+     - parameter: Either the button, or the switch. If it is the button, the switch is toggled, and this will be called again, with the switch as the parameter.
      */
     @IBAction func maxRadiusLabelButtonOrSwitchHit(_ inButtonOrSwitch: UIControl) {
         if inButtonOrSwitch is UIButton {
@@ -286,23 +307,5 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         } else {
             view?.setNeedsLayout()
         }
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: MKMapViewDelegate Conformance
-/* ###################################################################################################################################### */
-extension LGV_MeetingSDK_Test_Harness_Map_ViewController: MKMapViewDelegate {
-    /* ################################################################## */
-    /**
-     */
-    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func mapViewDidChangeVisibleRegion(_: MKMapView) {
-        updateTheCircleOverlay()
     }
 }
