@@ -33,7 +33,7 @@ class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harnes
     /* ################################################################## */
     /**
      */
-    private static let _insetCoefficient: Double = 0.025
+    private static let _insetInDisplayUnits: CGFloat = 12
     
     /* ################################################################## */
     /**
@@ -48,7 +48,7 @@ class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harnes
     /* ################################################################## */
     /**
      */
-    weak var circleMask: CAShapeLayer?
+    weak var circleMask: CALayer?
     
     /* ################################################################## */
     /**
@@ -107,6 +107,23 @@ class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harnes
 }
 
 /* ###################################################################################################################################### */
+// MARK: Computed Properties
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
+    /* ################################################################## */
+    /**
+     */
+    var isCircleMaskShown: Bool {
+        guard let index = modeSelectionSegmentedControl?.selectedSegmentIndex,
+              let isMaxRadiusOn = maxRadiusSwitch?.isOn,
+              0 == index || isMaxRadiusOn
+        else { return false }
+        
+        return true
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: Base Class Overrides
 /* ###################################################################################################################################### */
 extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
@@ -128,9 +145,17 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         for segmentIndex in (0..<(modeSelectionSegmentedControl?.numberOfSegments ?? 0)) {
             modeSelectionSegmentedControl?.setTitle(modeSelectionSegmentedControl?.titleForSegment(at: segmentIndex)?.localizedVariant, forSegmentAt: segmentIndex)
         }
-        autoStuffShownOrNot()
-        updateTheCircleOverlay()
         setAccessibilityHints()
+        autoStuffShownOrNot()
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        autoSearchStackView?.isHidden = 0 == modeSelectionSegmentedControl?.selectedSegmentIndex
+        textInputField?.text = String(Self._defaultCount)
     }
     
     /* ################################################################## */
@@ -143,25 +168,51 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
 }
 
 /* ###################################################################################################################################### */
-// MARK: Instance Methods
+// MARK: Private Instance Methods
 /* ###################################################################################################################################### */
 extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
     /* ################################################################## */
     /**
      */
     private func _setTheCircleOverlay() {
+        circleMask?.removeFromSuperlayer()
+        circleMask = nil
+        
+        if isCircleMaskShown {
+            guard let mapBounds = mapContainerView?.bounds else { return }
+            let squareSide = min(mapBounds.size.width, mapBounds.size.height) - (Self._insetInDisplayUnits * 2)
+            var cutoutRect = CGRect(origin: .zero, size: CGSize(width: squareSide, height: squareSide))
+            cutoutRect.origin = CGPoint(x: (mapBounds.size.width - squareSide) / 2, y: (mapBounds.size.height - squareSide) / 2)
+            
+            let path = CGMutablePath()
+            let fillPath = UIBezierPath(rect: mapBounds)
+            let circlePath = UIBezierPath(ovalIn: cutoutRect)
+            path.addPath(fillPath.cgPath)
+            path.addPath(circlePath.cgPath)
+            
+            let maskLayer = CAShapeLayer()
+            maskLayer.frame = mapBounds
+            maskLayer.fillColor = UIColor.white.cgColor
+            maskLayer.path = path
+            maskLayer.fillRule = .evenOdd
+            
+            let circleLayer = CALayer()
+            circleLayer.frame = mapBounds
+            circleLayer.backgroundColor = UIColor.black.withAlphaComponent(0.25).cgColor
+            circleLayer.mask = maskLayer
+            mapContainerView?.layer.addSublayer(circleLayer)
+            circleMask = circleLayer
+        }
     }
     
     /* ################################################################## */
     /**
      */
     private func _setTheCenterOverlay() {
-        if let center = centerCircle {
-            center.removeFromSuperlayer()
-            centerCircle = nil
-        }
+        centerCircle?.removeFromSuperlayer()
+        centerCircle = nil
         
-        guard let mapBounds = mapView?.bounds else { return }
+        guard let mapBounds = mapContainerView?.bounds else { return }
         
         let centerLayer = CAShapeLayer()
         centerLayer.fillColor = UIColor.red.withAlphaComponent(Self._alphaValue).cgColor
@@ -173,12 +224,18 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         mapContainerView?.layer.addSublayer(centerLayer)
         centerCircle = centerLayer
     }
-    
+}
+
+/* ###################################################################################################################################### */
+// MARK: Instance Methods
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
     /* ################################################################## */
     /**
      */
     func updateTheCircleOverlay() {
         _setTheCenterOverlay()
+        _setTheCircleOverlay()
     }
 
     /* ################################################################## */
@@ -210,8 +267,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
     /**
      */
     @IBAction func modeSelectionSegmentedControlHit(_ inSelectionSwitch: UISegmentedControl) {
-        autoStuffShownOrNot()
-        updateTheCircleOverlay()
+        view?.setNeedsLayout()
     }
 
     /* ################################################################## */
@@ -228,7 +284,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
             maxRadiusSwitch?.setOn(!(maxRadiusSwitch?.isOn ?? true), animated: true)
             maxRadiusSwitch?.sendActions(for: .valueChanged)
         } else {
-            updateTheCircleOverlay()
+            view?.setNeedsLayout()
         }
     }
 }
@@ -247,5 +303,6 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController: MKMapViewDelegate {
     /**
      */
     func mapViewDidChangeVisibleRegion(_: MKMapView) {
+        updateTheCircleOverlay()
     }
 }

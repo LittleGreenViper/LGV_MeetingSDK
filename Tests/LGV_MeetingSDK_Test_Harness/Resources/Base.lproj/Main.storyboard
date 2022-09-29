@@ -56,113 +56,117 @@
                                     <constraint firstAttribute="width" secondItem="nHi-yR-yfO" secondAttribute="height" multiplier="1:1" id="PmH-mk-WcW"/>
                                 </constraints>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="1cF-my-btH">
-                                <rect key="frame" x="0.0" y="91" width="390" height="670"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="cX6-RG-TvU">
+                                <rect key="frame" x="12" y="91" width="366" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="eP5-Wz-rZB"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="31" id="wTX-vi-jB3"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="SLUG-FIXED-NAME"/>
+                                    <segment title="SLUG-AUTO-NAME"/>
+                                </segments>
+                                <color key="selectedSegmentTintColor" name="AccentColor"/>
+                                <connections>
+                                    <action selector="modeSelectionSegmentedControlHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="qXr-7y-pOe"/>
+                                </connections>
+                            </segmentedControl>
+                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="rpF-LV-ecg">
+                                <rect key="frame" x="0.0" y="130" width="390" height="31"/>
                                 <subviews>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="cX6-RG-TvU">
-                                        <rect key="frame" x="53.666666666666657" y="0.0" width="283" height="32"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="SLUG-MAX-COUNT-LABEL" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Yl-R7-Zf0">
+                                        <rect key="frame" x="0.0" y="0.0" width="149.66666666666666" height="31"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Idm-2H-PSe">
+                                        <rect key="frame" x="157.66666666666666" y="0.0" width="48" height="31"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="31" id="eP5-Wz-rZB"/>
+                                            <constraint firstAttribute="width" constant="48" id="Gbv-Wi-Ikq"/>
                                         </constraints>
-                                        <segments>
-                                            <segment title="SLUG-FIXED-NAME"/>
-                                            <segment title="SLUG-AUTO-NAME"/>
-                                        </segments>
-                                        <color key="selectedSegmentTintColor" name="AccentColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                                         <connections>
-                                            <action selector="modeSelectionSegmentedControlHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="qXr-7y-pOe"/>
+                                            <action selector="textInputFieldTextChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="BGA-dy-387"/>
                                         </connections>
-                                    </segmentedControl>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="rpF-LV-ecg">
-                                        <rect key="frame" x="0.0" y="39" width="390" height="31"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="SLUG-MAX-COUNT-LABEL" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Yl-R7-Zf0">
-                                                <rect key="frame" x="0.0" y="0.0" width="149.66666666666666" height="31"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Idm-2H-PSe">
-                                                <rect key="frame" x="157.66666666666666" y="0.0" width="48" height="31"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="48" id="Gbv-Wi-Ikq"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
-                                                <connections>
-                                                    <action selector="textInputFieldTextChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="BGA-dy-387"/>
-                                                </connections>
-                                            </textField>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="GqK-f5-9BF" customClass="LGV_MeetingSDK_Test_Harness_CustomUISwitch" customModule="LGV_MeetingSDK_Test_Harness" customModuleProvider="target">
-                                                <rect key="frame" x="213.66666666666666" y="0.0" width="51.999999999999972" height="31"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="50" id="zdM-de-uSy"/>
-                                                </constraints>
-                                                <color key="onTintColor" name="AccentColor"/>
-                                                <color key="thumbTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <connections>
-                                                    <action selector="maxRadiusLabelButtonOrSwitchHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="E1X-IH-XoG"/>
-                                                </connections>
-                                            </switch>
-                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c8P-rS-YfM">
-                                                <rect key="frame" x="271.66666666666669" y="0.0" width="118.33333333333331" height="31"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="SLUG-MAX-RADIUS-BUTTON"/>
-                                                <connections>
-                                                    <action selector="maxRadiusLabelButtonOrSwitchHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="g4w-VJ-VBb"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
+                                    </textField>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="GqK-f5-9BF" customClass="LGV_MeetingSDK_Test_Harness_CustomUISwitch" customModule="LGV_MeetingSDK_Test_Harness" customModuleProvider="target">
+                                        <rect key="frame" x="213.66666666666666" y="0.0" width="51.999999999999972" height="31"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="Idm-2H-PSe" secondAttribute="bottom" id="3l4-Nf-6IM"/>
-                                            <constraint firstAttribute="bottom" secondItem="c8P-rS-YfM" secondAttribute="bottom" id="ViQ-qN-Y1b"/>
-                                            <constraint firstAttribute="height" constant="31" id="aA0-XG-cPi"/>
-                                            <constraint firstAttribute="bottom" secondItem="GqK-f5-9BF" secondAttribute="bottom" id="aB8-g6-Zod"/>
-                                            <constraint firstItem="c8P-rS-YfM" firstAttribute="top" secondItem="rpF-LV-ecg" secondAttribute="top" id="aik-Rb-9Y9"/>
-                                            <constraint firstAttribute="bottom" secondItem="5Yl-R7-Zf0" secondAttribute="bottom" id="hJn-qY-Xl0"/>
-                                            <constraint firstItem="Idm-2H-PSe" firstAttribute="top" secondItem="rpF-LV-ecg" secondAttribute="top" id="iiS-v8-3Hv"/>
-                                            <constraint firstItem="5Yl-R7-Zf0" firstAttribute="top" secondItem="rpF-LV-ecg" secondAttribute="top" id="kBl-SI-EMy"/>
-                                            <constraint firstItem="GqK-f5-9BF" firstAttribute="top" secondItem="rpF-LV-ecg" secondAttribute="top" id="vLU-WF-RN7"/>
+                                            <constraint firstAttribute="width" constant="50" id="zdM-de-uSy"/>
                                         </constraints>
-                                    </stackView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ONp-by-476">
-                                        <rect key="frame" x="0.0" y="78" width="390" height="592"/>
-                                        <subviews>
-                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="371-6M-bjM">
-                                                <rect key="frame" x="0.0" y="0.0" width="390" height="592"/>
-                                                <standardMapConfiguration key="preferredConfiguration"/>
-                                            </mapView>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstItem="371-6M-bjM" firstAttribute="leading" secondItem="ONp-by-476" secondAttribute="leading" id="6mQ-1r-8Ns"/>
-                                            <constraint firstAttribute="trailing" secondItem="371-6M-bjM" secondAttribute="trailing" id="7G2-cS-uL4"/>
-                                            <constraint firstItem="371-6M-bjM" firstAttribute="top" secondItem="ONp-by-476" secondAttribute="top" id="EzJ-zx-9Dk"/>
-                                            <constraint firstAttribute="bottom" secondItem="371-6M-bjM" secondAttribute="bottom" id="LA5-8Y-4Ma"/>
-                                        </constraints>
-                                    </view>
+                                        <color key="onTintColor" name="AccentColor"/>
+                                        <color key="thumbTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <action selector="maxRadiusLabelButtonOrSwitchHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="E1X-IH-XoG"/>
+                                        </connections>
+                                    </switch>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c8P-rS-YfM">
+                                        <rect key="frame" x="271.66666666666669" y="0.0" width="118.33333333333331" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="SLUG-MAX-RADIUS-BUTTON"/>
+                                        <connections>
+                                            <action selector="maxRadiusLabelButtonOrSwitchHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="g4w-VJ-VBb"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="ONp-by-476" firstAttribute="leading" secondItem="1cF-my-btH" secondAttribute="leading" id="Vpd-5i-TaL"/>
-                                    <constraint firstAttribute="trailing" secondItem="ONp-by-476" secondAttribute="trailing" id="cB5-v6-Y6z"/>
+                                    <constraint firstAttribute="bottom" secondItem="Idm-2H-PSe" secondAttribute="bottom" id="3l4-Nf-6IM"/>
+                                    <constraint firstAttribute="bottom" secondItem="c8P-rS-YfM" secondAttribute="bottom" id="ViQ-qN-Y1b"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="31" id="Yk9-jJ-mEd"/>
+                                    <constraint firstAttribute="height" constant="31" id="aA0-XG-cPi"/>
+                                    <constraint firstAttribute="bottom" secondItem="GqK-f5-9BF" secondAttribute="bottom" id="aB8-g6-Zod"/>
+                                    <constraint firstItem="c8P-rS-YfM" firstAttribute="top" secondItem="rpF-LV-ecg" secondAttribute="top" id="aik-Rb-9Y9"/>
+                                    <constraint firstAttribute="bottom" secondItem="5Yl-R7-Zf0" secondAttribute="bottom" id="hJn-qY-Xl0"/>
+                                    <constraint firstItem="Idm-2H-PSe" firstAttribute="top" secondItem="rpF-LV-ecg" secondAttribute="top" id="iiS-v8-3Hv"/>
+                                    <constraint firstItem="5Yl-R7-Zf0" firstAttribute="top" secondItem="rpF-LV-ecg" secondAttribute="top" id="kBl-SI-EMy"/>
+                                    <constraint firstItem="GqK-f5-9BF" firstAttribute="top" secondItem="rpF-LV-ecg" secondAttribute="top" id="vLU-WF-RN7"/>
                                 </constraints>
                             </stackView>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ONp-by-476">
+                                <rect key="frame" x="8" y="169" width="374" height="592"/>
+                                <subviews>
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="371-6M-bjM">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="592"/>
+                                        <standardMapConfiguration key="preferredConfiguration"/>
+                                    </mapView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="371-6M-bjM" firstAttribute="leading" secondItem="ONp-by-476" secondAttribute="leading" id="6mQ-1r-8Ns"/>
+                                    <constraint firstAttribute="trailing" secondItem="371-6M-bjM" secondAttribute="trailing" id="7G2-cS-uL4"/>
+                                    <constraint firstItem="371-6M-bjM" firstAttribute="top" secondItem="ONp-by-476" secondAttribute="top" id="EzJ-zx-9Dk"/>
+                                    <constraint firstAttribute="bottom" secondItem="371-6M-bjM" secondAttribute="bottom" id="LA5-8Y-4Ma"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="AccentColor"/>
                         <constraints>
-                            <constraint firstItem="1cF-my-btH" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="1xB-2u-UxD"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="leading" secondItem="rpF-LV-ecg" secondAttribute="leading" id="2uH-MU-MQ1"/>
                             <constraint firstItem="xy6-aw-USG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="5wV-Qd-Iyw"/>
+                            <constraint firstItem="ONp-by-476" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="6Vb-o3-Yq6"/>
+                            <constraint firstItem="cX6-RG-TvU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="12" id="Avr-NA-xAX"/>
                             <constraint firstAttribute="trailing" secondItem="xy6-aw-USG" secondAttribute="trailing" id="CHB-pA-0MP"/>
-                            <constraint firstItem="1cF-my-btH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="HyD-9c-R1u"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ONp-by-476" secondAttribute="bottom" id="Jym-uL-myU"/>
                             <constraint firstItem="nHi-yR-yfO" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="N5b-Ba-BQa"/>
-                            <constraint firstItem="1cF-my-btH" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="OGs-bF-gIQ"/>
                             <constraint firstAttribute="bottom" secondItem="xy6-aw-USG" secondAttribute="bottom" id="QcQ-ma-bY5"/>
-                            <constraint firstItem="1cF-my-btH" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Yss-5U-NUv"/>
+                            <constraint firstItem="rpF-LV-ecg" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Tmf-Lt-y4I"/>
+                            <constraint firstItem="cX6-RG-TvU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="cYi-Uu-oX0"/>
+                            <constraint firstItem="rpF-LV-ecg" firstAttribute="top" secondItem="cX6-RG-TvU" secondAttribute="bottom" constant="8" id="ek0-HB-yjw"/>
+                            <constraint firstItem="ONp-by-476" firstAttribute="top" secondItem="rpF-LV-ecg" secondAttribute="bottom" constant="8" id="pEq-dL-Iuj"/>
                             <constraint firstItem="nHi-yR-yfO" firstAttribute="height" relation="lessThanOrEqual" secondItem="xy6-aw-USG" secondAttribute="height" multiplier="0.6" id="pjt-30-te0"/>
+                            <constraint firstItem="ONp-by-476" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-8" id="sjA-A3-MFt"/>
                             <constraint firstItem="nHi-yR-yfO" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="u7W-40-uCs"/>
                             <constraint firstItem="nHi-yR-yfO" firstAttribute="width" relation="lessThanOrEqual" secondItem="xy6-aw-USG" secondAttribute="width" multiplier="0.6" id="xzO-9I-rth"/>
                             <constraint firstItem="xy6-aw-USG" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="yyJ-Gh-6Z2"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="cX6-RG-TvU" secondAttribute="trailing" constant="12" id="zQx-GW-NBM"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="SLUG-MAP-SEARCH-CONTROLLER" id="2Hn-A4-iNc">
@@ -170,7 +174,6 @@
                     </tabBarItem>
                     <connections>
                         <outlet property="autoSearchStackView" destination="rpF-LV-ecg" id="tMZ-sN-j4G"/>
-                        <outlet property="mainVerticalStackView" destination="1cF-my-btH" id="W6X-P8-mIh"/>
                         <outlet property="mapContainerView" destination="ONp-by-476" id="tGv-X1-mHF"/>
                         <outlet property="mapView" destination="371-6M-bjM" id="ns5-WC-5hk"/>
                         <outlet property="maxRadiusLabelButton" destination="c8P-rS-YfM" id="PNW-Tn-EHx"/>
@@ -242,7 +245,7 @@
     </scenes>
     <resources>
         <image name="BackgroundGradient" width="16" height="1024"/>
-        <image name="CenterImage" width="1024" height="1024"/>
+        <image name="CenterImage" width="320" height="318"/>
         <image name="list.bullet" catalog="system" width="128" height="87"/>
         <image name="mappin.and.ellipse" catalog="system" width="117" height="128"/>
         <namedColor name="AccentColor">
