@@ -308,6 +308,27 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         maxRadiusLabelButton?.accessibilityHint = "SLUG-MAX-RADIUS-BUTTON".accessibilityLocalizedVariant
         modeSelectionSegmentedControl?.accessibilityHint = "SLUG-SEGMENTED-RADIUS-SWITCH-HINT".accessibilityLocalizedVariant
     }
+    
+    /* ################################################################## */
+    /**
+     This looks at the current state of the screen, and updates the search spec (in the app delegate), to reflect it.
+     */
+    func recalculateSearchParameters() {
+        guard let mapCenter = mapView?.centerCoordinate else { return }
+        
+        var requestedNumberOfMeetings = Self._defaultCount
+        
+        if let requestedNumberOfMeetingsText = textInputField?.text,
+           let count = Int(requestedNumberOfMeetingsText) {
+            requestedNumberOfMeetings = count
+        }
+        
+        if 0 == modeSelectionSegmentedControl?.selectedSegmentIndex {
+            appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: .fixedRadius(centerLongLat: mapCenter, radiusInMeters: 1000))
+        } else {
+            appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: .autoRadius(centerLongLat: mapCenter, minimumNumberOfResults: UInt(requestedNumberOfMeetings), maxRadiusInMeters: 1000))
+        }
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -322,8 +343,9 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
      */
     @IBAction func modeSelectionSegmentedControlHit(_: UISegmentedControl) {
         view?.setNeedsLayout()
+        recalculateSearchParameters()
     }
-
+    
     /* ################################################################## */
     /**
      This is called if either the switch, or its "label," ar hit.
@@ -336,7 +358,18 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
             maxRadiusSwitch?.sendActions(for: .valueChanged)
         } else {
             view?.setNeedsLayout()
+            recalculateSearchParameters()
         }
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the text in the text field is changed.
+     
+     - parameter: ignored.
+     */
+    @IBAction func textChanged(_: UITextField) {
+        recalculateSearchParameters()
     }
 }
 
@@ -352,6 +385,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController: MKMapViewDelegate {
      - parameter regionDidChangeAnimated: True, if the change was animated.
      */
     func mapView(_: MKMapView, regionDidChangeAnimated: Bool) {
+        recalculateSearchParameters()
     }
     
     /* ################################################################## */
@@ -361,5 +395,6 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController: MKMapViewDelegate {
      - parameter: The map view (ignored).
      */
     func mapViewDidChangeVisibleRegion(_: MKMapView) {
+        recalculateSearchParameters()
     }
 }

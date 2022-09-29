@@ -87,6 +87,9 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
+                                        <connections>
+                                            <action selector="textChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="3nm-io-TDo"/>
+                                        </connections>
                                     </textField>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="GqK-f5-9BF" customClass="LGV_MeetingSDK_Test_Harness_CustomUISwitch" customModule="LGV_MeetingSDK_Test_Harness" customModuleProvider="target">
                                         <rect key="frame" x="213.66666666666666" y="0.0" width="51.999999999999972" height="31"/>
