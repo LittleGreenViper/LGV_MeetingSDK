@@ -24,51 +24,6 @@ import RVS_UIKit_Toolbox
 import MapKit
 
 /* ###################################################################################################################################### */
-// MARK: - Special Region Validator -
-/* ###################################################################################################################################### */
-extension MKCoordinateRegion {
-    /* ################################################################## */
-    /**
-    This comes directly from [this gist](https://gist.github.com/AJMiller/0def0fd492a09ca22fee095c4526cf68).
-    
-    Returns true, if the region is considered "valid."
-     */
-    var isValid: Bool {
-        let latitudeCenter = self.center.latitude
-        let latitudeNorth = self.center.latitude + self.span.latitudeDelta/2
-        let latitudeSouth = self.center.latitude - self.span.latitudeDelta/2
-
-        let longitudeCenter = self.center.longitude
-        let longitudeWest = self.center.longitude - self.span.longitudeDelta/2
-        let longitudeEast = self.center.longitude + self.span.longitudeDelta/2
-
-        let topLeft = CLLocationCoordinate2D(latitude: latitudeNorth, longitude: longitudeWest)
-        let topCenter = CLLocationCoordinate2D(latitude: latitudeNorth, longitude: longitudeCenter)
-        let topRight = CLLocationCoordinate2D(latitude: latitudeNorth, longitude: longitudeEast)
-
-        let centerLeft = CLLocationCoordinate2D(latitude: latitudeCenter, longitude: longitudeWest)
-        let centerCenter = CLLocationCoordinate2D(latitude: latitudeCenter, longitude: longitudeCenter)
-        let centerRight = CLLocationCoordinate2D(latitude: latitudeCenter, longitude: longitudeEast)
-
-        let bottomLeft = CLLocationCoordinate2D(latitude: latitudeSouth, longitude: longitudeWest)
-        let bottomCenter = CLLocationCoordinate2D(latitude: latitudeSouth, longitude: longitudeCenter)
-        let bottomRight = CLLocationCoordinate2D(latitude: latitudeSouth, longitude: longitudeEast)
-
-        return  CLLocationCoordinate2DIsValid(topLeft) &&
-            CLLocationCoordinate2DIsValid(topCenter) &&
-            CLLocationCoordinate2DIsValid(topRight) &&
-            CLLocationCoordinate2DIsValid(centerLeft) &&
-            CLLocationCoordinate2DIsValid(centerCenter) &&
-            CLLocationCoordinate2DIsValid(centerRight) &&
-            CLLocationCoordinate2DIsValid(bottomLeft) &&
-            CLLocationCoordinate2DIsValid(bottomCenter) &&
-            CLLocationCoordinate2DIsValid(bottomRight) ?
-              true :
-              false
-    }
-}
-
-/* ###################################################################################################################################### */
 // MARK: - Map Search View Controller Class -
 /* ###################################################################################################################################### */
 /**
@@ -79,6 +34,26 @@ extension MKCoordinateRegion {
  The mask is attached to the map container, and allows the map to be moved around, under it.
  */
 class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harness_Base_ViewController {
+    /* ################################################################################################################################## */
+    // MARK: Switch Index Enum
+    /* ################################################################################################################################## */
+    /**
+     These Represent our segmented switch values.
+     */
+    enum SwitchIndexes: Int {
+        /* ############################################################## */
+        /**
+         The Fixed Map Search Segment
+         */
+        case fixedSearch
+        
+        /* ############################################################## */
+        /**
+         The Auto Search Radius Segment
+         */
+        case autoRadiusSearch
+    }
+    
     /* ################################################################## */
     /**
      We start in the center of the US.
@@ -194,7 +169,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
     var isCircleMaskShown: Bool {
         guard let index = modeSelectionSegmentedControl?.selectedSegmentIndex,
               let isMaxRadiusOn = maxRadiusSwitch?.isOn,
-              0 == index || isMaxRadiusOn
+              SwitchIndexes.fixedSearch.rawValue == index || isMaxRadiusOn
         else { return false }
         
         return true
@@ -222,7 +197,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         maxRadiusLabelButton?.titleLabel?.textAlignment = .left
         maxRadiusLabelButton?.setTitle(maxRadiusLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         
-        for segmentIndex in (0..<(modeSelectionSegmentedControl?.numberOfSegments ?? 0)) {
+        for segmentIndex in (SwitchIndexes.fixedSearch.rawValue..<(modeSelectionSegmentedControl?.numberOfSegments ?? SwitchIndexes.fixedSearch.rawValue)) {
             modeSelectionSegmentedControl?.setTitle(modeSelectionSegmentedControl?.titleForSegment(at: segmentIndex)?.localizedVariant, forSegmentAt: segmentIndex)
         }
         
@@ -236,7 +211,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        autoSearchStackView?.isHidden = 0 == modeSelectionSegmentedControl?.selectedSegmentIndex
+        autoSearchStackView?.isHidden = SwitchIndexes.fixedSearch.rawValue == modeSelectionSegmentedControl?.selectedSegmentIndex
 
         var inputText = String(Self._defaultCount)
         var mapCenter = Self._mapCenter
@@ -385,7 +360,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         let horizontalMeters = (bottomRightMapPoint.x * metersPerMapPointBottom) - (topLeftMapPoint.x * metersPerMapPointTop)
         let radiusInMeters = min(verticalMeters, horizontalMeters) / 2
 
-        if 0 == modeSelectionSegmentedControl?.selectedSegmentIndex {
+        if SwitchIndexes.fixedSearch.rawValue == modeSelectionSegmentedControl?.selectedSegmentIndex {
             appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: .fixedRadius(centerLongLat: mapCenter, radiusInMeters: radiusInMeters))
         } else {
             var maxRadius = Double.greatestFiniteMagnitude

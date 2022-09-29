@@ -29,11 +29,48 @@ import RVS_UIKit_Toolbox
  This manages the tab bar of the app. It also presents the displayed NavBar.
  */
 class LGV_MeetingSDK_Test_Harness_TabController: UITabBarController {
+    /* ################################################################################################################################## */
+    // MARK: Tab Index Enum
+    /* ################################################################################################################################## */
+    /**
+     These Represent our tabs.
+     */
+    enum TabIndexes: Int {
+        /* ############################################################## */
+        /**
+         The Map Search Tab
+         */
+        case search
+        
+        /* ############################################################## */
+        /**
+         The Search Results Tab
+         */
+        case results
+    }
+    
     /* ################################################################## */
     /**
      The Search Bar Button Item.
      */
     @IBOutlet weak var searchBarButtonItem: UIBarButtonItem?
+}
+
+/* ###################################################################################################################################### */
+// MARK: Computed Properties
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_TabController {
+    /* ################################################################## */
+    /**
+     Convenience accessor for the app delegate instance.
+     */
+    var appDelegateInstance: LGV_MeetingSDK_Test_Harness_AppSceneDelegate? { LGV_MeetingSDK_Test_Harness_AppSceneDelegate.appDelegateInstance }
+    
+    /* ################################################################## */
+    /**
+     This allows us to specify, and receive, a search.
+     */
+    var searchData: LGV_MeetingSDK_BMLT.Data_Set? { appDelegateInstance?.searchData }
 }
 
 /* ###################################################################################################################################### */
@@ -50,6 +87,37 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
         viewControllers?.forEach {
             $0.tabBarItem?.accessibilityHint = $0.tabBarItem?.title?.accessibilityLocalizedVariant
             $0.tabBarItem?.title = $0.tabBarItem?.title?.localizedVariant
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the view is about to appear.
+     
+     - parameter inAnimated: True, if the appearance is animated.
+     */
+    override func viewWillAppear(_ inAnimated: Bool) {
+        super.viewWillAppear(inAnimated)
+        setTabBarEnablement()
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Instance Methods
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_TabController {
+    /* ################################################################## */
+    /**
+     Determines whether or not the results tab should be enabled.
+     */
+    func setTabBarEnablement() {
+        if (searchData?.meetings ?? []).isEmpty {
+            tabBar.items?[TabIndexes.results.rawValue].isEnabled = false
+            if TabIndexes.results.rawValue == selectedIndex {
+                selectedIndex = TabIndexes.search.rawValue
+            }
+        } else {
+            tabBar.items?[TabIndexes.results.rawValue].isEnabled = true
         }
     }
 }
