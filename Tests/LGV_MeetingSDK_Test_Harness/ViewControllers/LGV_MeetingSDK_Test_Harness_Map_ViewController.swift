@@ -48,12 +48,12 @@ class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harnes
     /* ################################################################## */
     /**
      */
-    weak var circleOverlay: MKCircle?
+    weak var circleMask: CAShapeLayer?
     
     /* ################################################################## */
     /**
      */
-    var centerOverlay: MKCircle?
+    weak var centerCircle: CAShapeLayer?
     
     /* ################################################################## */
     /**
@@ -142,38 +142,18 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
     /**
      */
     private func _setTheCircleOverlay() {
-        if let index = modeSelectionSegmentedControl?.selectedSegmentIndex,
-           0 == index || (1 == index && maxRadiusSwitch?.isOn ?? false),
-           let mapRect = mapView?.visibleMapRect {
-            var mapRectangle = mapRect
-            let center = MKMapPoint(x: (mapRect.size.width / 2) + mapRect.origin.x, y: (mapRect.size.height / 2) + mapRect.origin.y)
-            mapRectangle.size.width = min(mapRect.size.width, mapRect.size.height)
-            mapRectangle.size.height = min(mapRect.size.width, mapRect.size.height)
-            mapRectangle.origin = MKMapPoint(x: center.x - (mapRectangle.size.width / 2), y: center.y - (mapRectangle.size.height / 2))
-            mapRectangle = mapRectangle.insetBy(dx: mapRectangle.size.width * Self._insetCoefficient, dy: mapRectangle.size.height * Self._insetCoefficient)
-            let circle = MKCircle(mapRect: mapRectangle)
-            circleOverlay = circle
-            centerOverlay?.title = "circle"
-            mapView?.addOverlay(circle)
-        }
     }
     
     /* ################################################################## */
     /**
      */
     private func _setTheCenterOverlay() {
-        if let mapRect = mapView?.visibleMapRect {
-            var mapRectangle = mapRect
-            let center = MKMapPoint(x: (mapRect.size.width / 2) + mapRect.origin.x, y: (mapRect.size.height / 2) + mapRect.origin.y)
-            let circleRadius = min(mapRect.size.width, mapRect.size.height) * Self._centerRadiusCoefficient
-            mapRectangle.size.width = circleRadius
-            mapRectangle.size.height = circleRadius
-            mapRectangle.origin = MKMapPoint(x: center.x - (mapRectangle.size.width / 2), y: center.y - (mapRectangle.size.height / 2))
-            let circle = MKCircle(mapRect: mapRectangle)
-            centerOverlay = circle
-            centerOverlay?.title = "center"
-            mapView?.addOverlay(circle)
-        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func updateTheCircleOverlay() {
     }
 
     /* ################################################################## */
@@ -184,25 +164,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         textInputField?.text = String(Self._defaultCount)
         maxRadiusSwitch?.isOn = false
     }
-    
-    /* ################################################################## */
-    /**
-     */
-    func updateTheCircleOverlay() {
-        if let circle = circleOverlay {
-            mapView?.removeOverlay(circle)
-            circleOverlay = nil
-        }
-        
-        if let circle = centerOverlay {
-            mapView?.removeOverlay(circle)
-            centerOverlay = nil
-        }
-        
-        _setTheCircleOverlay()
-        _setTheCenterOverlay()
-    }
-    
+
     /* ################################################################## */
     /**
      */
@@ -253,34 +215,12 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController: MKMapViewDelegate {
     /* ################################################################## */
     /**
      */
-    func mapView(_: MKMapView, rendererFor inOverlay: MKOverlay) -> MKOverlayRenderer {
-        if let overlay = inOverlay as? MKCircle {
-            let circleRenderer = MKCircleRenderer(overlay: overlay)
-            if "center" == overlay.title {
-                circleRenderer.fillColor = .red.withAlphaComponent(Self._alphaValue)
-                circleRenderer.lineWidth = 0
-            } else {
-                circleRenderer.strokeColor = .red.withAlphaComponent(Self._alphaValue)
-                circleRenderer.fillColor = nil
-                circleRenderer.lineWidth = 4
-            }
-            return circleRenderer
-        }
-        
-        return MKOverlayRenderer()
-    }
-    
-    /* ################################################################## */
-    /**
-     */
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        updateTheCircleOverlay()
     }
     
     /* ################################################################## */
     /**
      */
     func mapViewDidChangeVisibleRegion(_: MKMapView) {
-        updateTheCircleOverlay()
     }
 }
