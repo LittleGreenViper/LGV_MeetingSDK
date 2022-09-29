@@ -480,7 +480,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
 
             inCompletion(meetingData, nil)
         } else {
-            inCompletion(nil, nil)
+            inCompletion(LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: []), nil)
         }
     }
 }
