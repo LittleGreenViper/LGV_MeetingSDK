@@ -373,6 +373,8 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
             
             appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: .autoRadius(centerLongLat: mapCenter, minimumNumberOfResults: UInt(requestedNumberOfMeetings), maxRadiusInMeters: maxRadius))
         }
+        
+        (tabBarController as? LGV_MeetingSDK_Test_Harness_TabController)?.setTabBarEnablement()
     }
 }
 

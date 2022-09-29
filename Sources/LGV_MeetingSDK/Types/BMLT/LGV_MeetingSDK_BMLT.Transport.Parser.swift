@@ -456,7 +456,6 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
                           searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = [],
                           data inData: Data,
                           completion inCompletion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
-        
         if let main_object = try? JSONSerialization.jsonObject(with: inData, options: []) as? [String: [[String: String]]],
            let meetingsObject = main_object["meetings"],
            let formatsObject = main_object["formats"] {
@@ -480,6 +479,8 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
             let meetingData = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: meetings)
 
             inCompletion(meetingData, nil)
+        } else {
+            inCompletion(nil, nil)
         }
     }
 }

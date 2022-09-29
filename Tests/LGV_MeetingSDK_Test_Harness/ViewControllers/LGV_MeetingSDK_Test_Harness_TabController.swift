@@ -49,6 +49,8 @@ class LGV_MeetingSDK_Test_Harness_TabController: UITabBarController {
         case results
     }
     
+    var sdk: LGV_MeetingSDK_BMLT?
+    
     /* ################################################################## */
     /**
      The Search Bar Button Item.
@@ -71,6 +73,36 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
      This allows us to specify, and receive, a search.
      */
     var searchData: LGV_MeetingSDK_BMLT.Data_Set? { appDelegateInstance?.searchData }
+    
+    /* ################################################################## */
+    /**
+     Returns true, if the search button should be enabled.
+     */
+    var isSearchButtonEnabled: Bool {
+        guard nil != sdk,
+              let searchData = searchData
+        else { return false }
+        
+        switch searchData.searchType {
+        case .none:
+            return false
+            
+        default:
+            return true
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     Returns true, if the search results tab should be enabled.
+     */
+    var isSearchResultsTabEnabled: Bool {
+        guard nil != sdk,
+              let searchData = searchData
+        else { return false }
+        
+        return !searchData.meetings.isEmpty
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -83,6 +115,10 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let rootServerURL = URL(string: "https://tomato.bmltenabled.org/main_server") {
+            sdk = LGV_MeetingSDK_BMLT(rootServerURL: rootServerURL)
+        }
+
         setColorsTo(normal: UIColor(named: "AccentColor"), selected: .lightGray, background: .clear)
         viewControllers?.forEach {
             $0.tabBarItem?.accessibilityHint = $0.tabBarItem?.title?.accessibilityLocalizedVariant
@@ -111,13 +147,13 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
      Determines whether or not the results tab should be enabled.
      */
     func setTabBarEnablement() {
-        if (searchData?.meetings ?? []).isEmpty {
-            tabBar.items?[TabIndexes.results.rawValue].isEnabled = false
-            if TabIndexes.results.rawValue == selectedIndex {
-                selectedIndex = TabIndexes.search.rawValue
-            }
-        } else {
-            tabBar.items?[TabIndexes.results.rawValue].isEnabled = true
+        searchBarButtonItem?.isEnabled = isSearchButtonEnabled
+        
+        tabBar.items?[TabIndexes.results.rawValue].isEnabled = isSearchResultsTabEnabled
+        
+        if !isSearchResultsTabEnabled,
+           TabIndexes.results.rawValue == selectedIndex {
+            selectedIndex = TabIndexes.search.rawValue
         }
     }
 }
@@ -130,8 +166,26 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
     /**
      Called when the search bar button item has been hit.
      
+     - parameter inSearchResults: The search results (if any).
+     - parameter inError: The error (if any)
+     */
+    func searchCallbackHandler(_ inSearchResults: LGV_MeetingSDK_Meeting_Data_Set_Protocol?, _ inError: Error?) {
+        print("We need to do something with this!")
+        print("\tSearch Results: \(String(describing: inSearchResults))")
+        print("\tError: \(String(describing: inError))")
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the search bar button item has been hit.
+     
      - parameter: ignored.
      */
     @IBAction func searchBarButtonItemHit(_: Any) {
+        guard let sdk = sdk,
+              let searchData = searchData
+        else { return }
+        
+        sdk.meetingSearch(type: searchData.searchType, refinements: searchData.searchRefinements, completion: searchCallbackHandler)
     }
 }
