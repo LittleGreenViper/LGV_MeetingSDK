@@ -78,31 +78,13 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
     /**
      Returns true, if the search button should be enabled.
      */
-    var isSearchButtonEnabled: Bool {
-        guard nil != sdk,
-              let searchData = searchData
-        else { return false }
-        
-        switch searchData.searchType {
-        case .none:
-            return false
-            
-        default:
-            return true
-        }
-    }
+    var isSearchButtonEnabled: Bool { nil != sdk }
     
     /* ################################################################## */
     /**
      Returns true, if the search results tab should be enabled.
      */
-    var isSearchResultsTabEnabled: Bool {
-        guard nil != sdk,
-              let searchData = searchData
-        else { return false }
-        
-        return !searchData.meetings.isEmpty
-    }
+    var isSearchResultsTabEnabled: Bool { !(searchData?.meetings ?? []).isEmpty }
 }
 
 /* ###################################################################################################################################### */

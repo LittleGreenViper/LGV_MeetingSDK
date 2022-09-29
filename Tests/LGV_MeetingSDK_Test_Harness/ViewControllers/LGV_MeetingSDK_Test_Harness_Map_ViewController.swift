@@ -188,7 +188,8 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         super.viewDidLoad()
         
         mapView?.delegate = self
-        
+        overrideUserInterfaceStyle = .light
+
         textInputLabel?.adjustsFontSizeToFitWidth = true
         textInputLabel?.minimumScaleFactor = 0.5
         textInputLabel?.accessibilityHint = textInputLabel?.text?.accessibilityLocalizedVariant
