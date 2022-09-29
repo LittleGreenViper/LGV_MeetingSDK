@@ -38,7 +38,7 @@ class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harnes
     /* ################################################################## */
     /**
      */
-    private static let _centerRadiusCoefficient: Double = 0.03
+    private static let _centerCircleRadiusInDisplayUnits: CGFloat = 12
     
     /* ################################################################## */
     /**
@@ -132,6 +132,14 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         updateTheCircleOverlay()
         setAccessibilityHints()
     }
+    
+    /* ################################################################## */
+    /**
+     */
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateTheCircleOverlay()
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -148,12 +156,29 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
     /**
      */
     private func _setTheCenterOverlay() {
+        if let center = centerCircle {
+            center.removeFromSuperlayer()
+            centerCircle = nil
+        }
+        
+        guard let mapBounds = mapView?.bounds else { return }
+        
+        let centerLayer = CAShapeLayer()
+        centerLayer.fillColor = UIColor.red.withAlphaComponent(Self._alphaValue).cgColor
+        var containerRect = CGRect(origin: .zero, size: CGSize(width: Self._centerCircleRadiusInDisplayUnits, height: Self._centerCircleRadiusInDisplayUnits))
+        containerRect.origin = CGPoint(x: ((mapBounds.size.width - Self._centerCircleRadiusInDisplayUnits) / 2), y: ((mapBounds.size.height - Self._centerCircleRadiusInDisplayUnits) / 2))
+        let circlePath = UIBezierPath(ovalIn: containerRect)
+        centerLayer.path = circlePath.cgPath
+        
+        mapContainerView?.layer.addSublayer(centerLayer)
+        centerCircle = centerLayer
     }
     
     /* ################################################################## */
     /**
      */
     func updateTheCircleOverlay() {
+        _setTheCenterOverlay()
     }
 
     /* ################################################################## */
