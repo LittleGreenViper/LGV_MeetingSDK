@@ -70,7 +70,7 @@ class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harnes
     /**
      This is how many display units we'll inset the mask (if shown) from the edges.
      */
-    private static let _insetInDisplayUnits: CGFloat = 12
+    private static let _insetInDisplayUnits: CGFloat = 8
     
     /* ################################################################## */
     /**
@@ -259,9 +259,11 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         
         if isCircleMaskShown {
             guard let mapBounds = mapContainerView?.bounds else { return }
-            let squareSide = min(mapBounds.size.width, mapBounds.size.height)
-            var cutoutRect = CGRect(origin: .zero, size: CGSize(width: squareSide, height: squareSide))
-            cutoutRect.origin = CGPoint(x: (mapBounds.size.width - squareSide) / 2, y: (mapBounds.size.height - squareSide) / 2)
+            let squareSide = min(mapBounds.size.width, mapBounds.size.height) - (Self._insetInDisplayUnits * 2)
+            let cutOutOrigin = CGPoint(x: (mapBounds.size.width - squareSide) / 2,
+                                       y: (mapBounds.size.height - squareSide) / 2)
+            let cutoutRect = CGRect(origin: cutOutOrigin,
+                                    size: CGSize(width: squareSide, height: squareSide))
             
             let path = CGMutablePath()
             let fillPath = UIBezierPath(rect: mapBounds)
@@ -349,8 +351,8 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
             requestedNumberOfMeetings = count
         }
         
-        let topLeftCoordinate = mapView.convert(.zero, toCoordinateFrom: mapContainerView)
-        let bottomRightCoordinate = mapView.convert(CGPoint(x: bounds.size.width, y: bounds.size.height), toCoordinateFrom: mapContainerView)
+        let topLeftCoordinate = mapView.convert(CGPoint(x: Self._insetInDisplayUnits, y: Self._insetInDisplayUnits), toCoordinateFrom: mapContainerView)
+        let bottomRightCoordinate = mapView.convert(CGPoint(x: bounds.size.width - (Self._insetInDisplayUnits * 2), y: bounds.size.height - (Self._insetInDisplayUnits * 2)), toCoordinateFrom: mapContainerView)
         let metersPerMapPointTop = MKMetersPerMapPointAtLatitude(topLeftCoordinate.latitude)
         let metersPerMapPointBottom = MKMetersPerMapPointAtLatitude(bottomRightCoordinate.latitude)
         let topLeftMapPoint = MKMapPoint(topLeftCoordinate)
