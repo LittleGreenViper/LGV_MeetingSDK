@@ -30,42 +30,20 @@ import MapKit
  This displays the map search controller.
  */
 class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harness_Base_ViewController {
-    /* ################################################################################################################################## */
-    // MARK: Custom Marker Annotation Class
-    /* ################################################################################################################################## */
-    /**
-     */
-    class CustomCenterMarkerAnnotation: MKPointAnnotation {
-        /* ############################################################## */
-        /**
-         */
-        private var _coords: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
-        
-        /* ############################################################## */
-        /**
-         */
-        override var coordinate: CLLocationCoordinate2D {
-            get { _coords }
-            set { _coords = newValue }
-        }
-        
-        /* ############################################################## */
-        /**
-         */
-        var image: UIImage? { UIImage(named: "Marker") }
-        
-        /* ############################################################## */
-        /**
-         */
-        init(coordinate inCoords: CLLocationCoordinate2D) {
-            _coords = inCoords
-        }
-    }
-    
     /* ################################################################## */
     /**
      */
     private static let _insetCoefficient: Double = 0.025
+    
+    /* ################################################################## */
+    /**
+     */
+    private static let _centerRadiusCoefficient: Double = 0.03
+    
+    /* ################################################################## */
+    /**
+     */
+    private static let _alphaValue: CGFloat = 0.8
     
     /* ################################################################## */
     /**
@@ -75,7 +53,7 @@ class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harnes
     /* ################################################################## */
     /**
      */
-    var markerAnnotation: MKAnnotation?
+    var centerOverlay: MKCircle?
     
     /* ################################################################## */
     /**
@@ -175,6 +153,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
             mapRectangle = mapRectangle.insetBy(dx: mapRectangle.size.width * Self._insetCoefficient, dy: mapRectangle.size.height * Self._insetCoefficient)
             let circle = MKCircle(mapRect: mapRectangle)
             circleOverlay = circle
+            centerOverlay?.title = "circle"
             mapView?.addOverlay(circle)
         }
     }
@@ -182,11 +161,18 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
     /* ################################################################## */
     /**
      */
-    private func _setTheCenterMarker() {
-        if let index = modeSelectionSegmentedControl?.selectedSegmentIndex,
-           1 == index,
-           let center = mapView?.centerCoordinate {
-            markerAnnotation = CustomCenterMarkerAnnotation(coordinate: center)
+    private func _setTheCenterOverlay() {
+        if let mapRect = mapView?.visibleMapRect {
+            var mapRectangle = mapRect
+            let center = MKMapPoint(x: (mapRect.size.width / 2) + mapRect.origin.x, y: (mapRect.size.height / 2) + mapRect.origin.y)
+            let circleRadius = min(mapRect.size.width, mapRect.size.height) * Self._centerRadiusCoefficient
+            mapRectangle.size.width = circleRadius
+            mapRectangle.size.height = circleRadius
+            mapRectangle.origin = MKMapPoint(x: center.x - (mapRectangle.size.width / 2), y: center.y - (mapRectangle.size.height / 2))
+            let circle = MKCircle(mapRect: mapRectangle)
+            centerOverlay = circle
+            centerOverlay?.title = "center"
+            mapView?.addOverlay(circle)
         }
     }
 
@@ -208,12 +194,13 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
             circleOverlay = nil
         }
         
-        if let marker = markerAnnotation {
-            mapView?.removeAnnotation(marker)
+        if let circle = centerOverlay {
+            mapView?.removeOverlay(circle)
+            centerOverlay = nil
         }
         
         _setTheCircleOverlay()
-        _setTheCenterMarker()
+        _setTheCenterOverlay()
     }
     
     /* ################################################################## */
@@ -267,9 +254,16 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController: MKMapViewDelegate {
     /**
      */
     func mapView(_: MKMapView, rendererFor inOverlay: MKOverlay) -> MKOverlayRenderer {
-        if inOverlay is MKCircle {
-            let circleRenderer = MKCircleRenderer(overlay: inOverlay)
-            circleRenderer.strokeColor = .red
+        if let overlay = inOverlay as? MKCircle {
+            let circleRenderer = MKCircleRenderer(overlay: overlay)
+            if "center" == overlay.title {
+                circleRenderer.fillColor = .red.withAlphaComponent(Self._alphaValue)
+                circleRenderer.lineWidth = 0
+            } else {
+                circleRenderer.strokeColor = .red.withAlphaComponent(Self._alphaValue)
+                circleRenderer.fillColor = nil
+                circleRenderer.lineWidth = 4
+            }
             return circleRenderer
         }
         
@@ -288,24 +282,5 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController: MKMapViewDelegate {
      */
     func mapViewDidChangeVisibleRegion(_: MKMapView) {
         updateTheCircleOverlay()
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    func mapView(_: MKMapView, viewFor inAnnotation: MKAnnotation) -> MKAnnotationView? {
-        guard !(inAnnotation is MKUserLocation),
-              let annotation = inAnnotation as? CustomCenterMarkerAnnotation
-        else { return nil }
-        
-        var annotationView = mapView?.dequeueReusableAnnotationView(withIdentifier: "centerMarker")
-        
-        annotationView = annotationView ?? MKAnnotationView(annotation: annotation, reuseIdentifier: "centerMarker")
-
-        annotationView?.annotation = annotation
-        
-        annotationView?.image = annotation.image
-        
-        return annotationView
     }
 }
