@@ -80,7 +80,7 @@ public extension LGV_MeetingSDK_Additional_Info_Protocol {
  This defines a protocol, containing a "found set" of meeting data.
  It is defined for a class, so it can be referenced (possibly weakly), in order to avoid data duplication.
  */
-public protocol LGV_MeetingSDK_Meeting_Data_Set_Protocol: AnyObject, LGV_MeetingSDK_Additional_Info_Protocol, LGV_MeetingSDK_RefCon_Protocol {
+public protocol LGV_MeetingSDK_Meeting_Data_Set_Protocol: AnyObject, LGV_MeetingSDK_Additional_Info_Protocol, LGV_MeetingSDK_RefCon_Protocol, CustomDebugStringConvertible {
     /* ############################################################## */
     /**
      REQUIRED - This is the search specification main search type.
@@ -98,6 +98,15 @@ public protocol LGV_MeetingSDK_Meeting_Data_Set_Protocol: AnyObject, LGV_Meeting
      REQUIRED - This contains any found meetings. It may be empty (no meetings found).
      */
     var meetings: [LGV_MeetingSDK_Meeting_Protocol] { get set }
+}
+
+extension LGV_MeetingSDK_Meeting_Data_Set_Protocol {
+    /* ############################################################## */
+    /**
+     */
+    var debugDescription: String {
+        
+    }
 }
 
 /* ###################################################################################################################################### */

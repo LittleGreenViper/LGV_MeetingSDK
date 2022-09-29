@@ -65,7 +65,7 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
     /**
      This integer-based enum is a 1-based weekday specifier for the `LGV_MeetingSDK_SearchInitiator_Search_Refinements.weekdays` specialization.
      */
-    public enum Weekdays: Int, CaseIterable {
+    public enum Weekdays: Int, CaseIterable, CustomDebugStringConvertible {
         /* ############################################################## */
         /**
          Sunday is always 1. The start of week is not taken into account, and should be handled at a level above this connector.
@@ -107,6 +107,35 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
          Saturday (Maximum value of 7).
          */
         case saturday
+        
+        /* ############################################################## */
+        /**
+         CustomDebugStringConvertible Conformance
+         */
+        public var debugDescription: String {
+            switch self {
+            case .sunday:
+                return "Sunday"
+                
+            case .monday:
+                return "Monday"
+                
+            case .tuesday:
+                return "Tuesday"
+                
+            case .wednesday:
+                return "Wednesday"
+                
+            case .thursday:
+                return "Thursday"
+                
+            case .friday:
+                return "Friday"
+                
+            case .saturday:
+                return "Saturday"
+            }
+        }
     }
 
     /* ################################################################################################################################## */
@@ -115,7 +144,7 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
     /**
      These are enums that describe the "main" search parameters.
      */
-    public enum SearchConstraints {
+    public enum SearchConstraints: CustomDebugStringConvertible {
         /* ############################################################## */
         /**
          No search constraints.
@@ -141,6 +170,28 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
          **NOTE:** If this is chosen, then `Search_Refinements` are ignored.
          */
         case meetingID(ids: [UInt64])
+        
+        /* ############################################################## */
+        /**
+         CustomDebugStringConvertible Conformance
+         */
+        public var debugDescription: String {
+            switch self {
+            case .none:
+                return "none"
+                
+            case let .fixedRadius(centerLongLat, radiusInMeters):
+                return ".fixedRadius(centerLongLat: (latitude: \(centerLongLat.latitude), longitude: \(centerLongLat.longitude)), radiusInMeters: \(radiusInMeters)"
+                
+            case let .autoRadius(centerLongLat, minimumNumberOfResults, maxRadiusInMeters):
+                return ".fixedRadius(centerLongLat: (latitude: \(centerLongLat.latitude), longitude: \(centerLongLat.longitude)), minimumNumberOfResults: \(minimumNumberOfResults), maxRadiusInMeters: \(maxRadiusInMeters)"
+                
+            case let .meetingID(ids):
+                return ".meetingID(ids: \(ids.debugDescription)"
+            }
+            
+            return "ERROR"
+        }
     }
 
     /* ################################################################################################################################## */
@@ -149,7 +200,7 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
     /**
      The main search can have "refinements" applied, that filter the response further.
      */
-    public enum Search_Refinements: Hashable {
+    public enum Search_Refinements: CustomDebugStringConvertible, Hashable {
         /* ############################################################## */
         /**
          This means don't apply any refinements to the main search.
@@ -189,6 +240,34 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
          **NOTE:** The parameter cannot be (0, 0), as that is considered an "invalid" location.
          */
         case distanceFrom(thisLocation: CLLocationCoordinate2D)
+        
+        /* ############################################################## */
+        /**
+         CustomDebugStringConvertible Conformance
+         */
+        public var debugDescription: String {
+            switch self {
+            case .none:
+                return "none"
+                
+            case let .venueTypes(venueTypes):
+                return ".venueTypes(\(venueTypes.debugDescription))"
+
+            case let .weekdays(weekdays):
+                return ".weekdays(\(weekdays.debugDescription))"
+
+            case let .startTimeRange(startTimeRange):
+                return ".startTimeRange(\(startTimeRange.debugDescription))"
+
+            case let .string(string):
+                return ".string(\(string))"
+
+            case let .distanceFrom(thisLocation):
+                return ".distanceFrom(latitude: \(thisLocation.latitude), longitude: \(thisLocation.longitude))"
+            }
+            
+            return "ERROR"
+        }
     }
 
     /* ################################################################################################################################## */
@@ -251,6 +330,18 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
         meetings = inMeetings
         extraInfo = inExtraInfo
         refCon = inRefCon
+    }
+    
+    /* ############################################################## */
+    /**
+     CustomDebugStringConvertible Conformance
+     */
+    public var debugDescription: String {
+        "LGV_MeetingSDK_Meeting_Data_Set\n\textraInfo: \"" + extraInfo + "\"" +
+        "\n\trefCon: " + String(describing: refCon) +
+        "\n\tsearchType: " + searchType.debugDescription +
+        "\n\tsearchRefinements: " + searchRefinements.debugDescription +
+        "\n\tmeetings: " + meetings.debugDescription
     }
 }
 

@@ -155,6 +155,8 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
         print("We need to do something with this!")
         print("\tSearch Results: \(String(describing: inSearchResults))")
         print("\tError: \(String(describing: inError))")
+        
+        setTabBarEnablement()
     }
     
     /* ################################################################## */
