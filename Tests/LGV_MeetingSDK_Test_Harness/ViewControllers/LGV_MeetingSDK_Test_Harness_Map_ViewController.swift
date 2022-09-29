@@ -314,7 +314,11 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
      This looks at the current state of the screen, and updates the search spec (in the app delegate), to reflect it.
      */
     func recalculateSearchParameters() {
-        guard let mapCenter = mapView?.centerCoordinate else { return }
+        guard let mapView = mapView,
+              let bounds = mapContainerView?.bounds
+        else { return }
+        
+        let mapCenter = mapView.centerCoordinate
         
         var requestedNumberOfMeetings = Self._defaultCount
         
@@ -323,10 +327,27 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
             requestedNumberOfMeetings = count
         }
         
+        let topLeftCoordinate = mapView.convert(.zero, toCoordinateFrom: mapContainerView)
+        let bottomRightCoordinate = mapView.convert(CGPoint(x: bounds.size.width, y: bounds.size.height), toCoordinateFrom: mapContainerView)
+        let metersPerMapPointTop = MKMetersPerMapPointAtLatitude(topLeftCoordinate.latitude)
+        let metersPerMapPointBottom = MKMetersPerMapPointAtLatitude(bottomRightCoordinate.latitude)
+        let topLeftMapPoint = MKMapPoint(topLeftCoordinate)
+        let bottomRightMapPoint = MKMapPoint(bottomRightCoordinate)
+        
+        let verticalMeters = (bottomRightMapPoint.y * metersPerMapPointBottom) - (topLeftMapPoint.y * metersPerMapPointTop)
+        let horizontalMeters = (bottomRightMapPoint.x * metersPerMapPointBottom) - (topLeftMapPoint.x * metersPerMapPointTop)
+        let radiusInMeters = min(verticalMeters, horizontalMeters) / 2
+
         if 0 == modeSelectionSegmentedControl?.selectedSegmentIndex {
-            appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: .fixedRadius(centerLongLat: mapCenter, radiusInMeters: 1000))
+            appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: .fixedRadius(centerLongLat: mapCenter, radiusInMeters: radiusInMeters))
         } else {
-            appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: .autoRadius(centerLongLat: mapCenter, minimumNumberOfResults: UInt(requestedNumberOfMeetings), maxRadiusInMeters: 1000))
+            var maxRadius = Double.greatestFiniteMagnitude
+            
+            if maxRadiusSwitch?.isOn ?? false {
+                maxRadius = radiusInMeters
+            }
+            
+            appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: .autoRadius(centerLongLat: mapCenter, minimumNumberOfResults: UInt(requestedNumberOfMeetings), maxRadiusInMeters: maxRadius))
         }
     }
 }
