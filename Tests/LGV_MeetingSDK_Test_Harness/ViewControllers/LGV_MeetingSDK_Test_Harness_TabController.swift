@@ -107,6 +107,11 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
         if let rootServerURL = URL(string: LGV_MeetingSDK_Test_Harness_Prefs().rootServerURLString) {
             sdk = LGV_MeetingSDK_BMLT(rootServerURL: rootServerURL)
         }
+        
+        if let searchType = LGV_MeetingSDK_Test_Harness_Prefs().searchType,
+           let searchRefinements = LGV_MeetingSDK_Test_Harness_Prefs().searchRefinements {
+            appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: searchType, searchRefinements: searchRefinements)
+        }
 
         // Sets the tab bar colors (I like to be different).
         setColorsTo(normal: UIColor(named: "AccentColor"), selected: .lightGray, background: .clear)
@@ -184,9 +189,16 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
      */
     @IBAction func searchBarButtonItemHit(_: Any) {
         mapViewController?.recalculateSearchParameters()
-        guard let searchType = searchData?.searchType,
+        guard let rootServerURLString = sdk?.rootServerURLString,
+              !rootServerURLString.isEmpty,
+              let searchType = searchData?.searchType,
               let searchRefinements = searchData?.searchRefinements
         else { return }
+        
+        LGV_MeetingSDK_Test_Harness_Prefs().rootServerURLString = rootServerURLString
+        LGV_MeetingSDK_Test_Harness_Prefs().searchType = searchType
+        LGV_MeetingSDK_Test_Harness_Prefs().searchRefinements = searchRefinements
+        
         mapViewController?.isBusy = true
         selectedIndex = TabIndexes.search.rawValue
         sdk?.meetingSearch(type: searchType, refinements: searchRefinements, completion: searchCallbackHandler)

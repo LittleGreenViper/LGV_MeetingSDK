@@ -74,17 +74,17 @@
                                             <action selector="modeSelectionSegmentedControlHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="qXr-7y-pOe"/>
                                         </connections>
                                     </segmentedControl>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="rpF-LV-ecg">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="rpF-LV-ecg">
                                         <rect key="frame" x="0.0" y="39" width="374" height="31"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="SLUG-MAX-COUNT-LABEL" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Yl-R7-Zf0">
-                                                <rect key="frame" x="0.0" y="0.0" width="157.66666666666666" height="31"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="154" height="31"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Idm-2H-PSe">
-                                                <rect key="frame" x="157.66666666666666" y="0.0" width="48" height="31"/>
+                                                <rect key="frame" x="158" y="0.0" width="48" height="31"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="48" id="Gbv-Wi-Ikq"/>
                                                 </constraints>
@@ -95,7 +95,7 @@
                                                 </connections>
                                             </textField>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="GqK-f5-9BF" customClass="LGV_MeetingSDK_Test_Harness_CustomUISwitch" customModule="LGV_MeetingSDK_Test_Harness" customModuleProvider="target">
-                                                <rect key="frame" x="205.66666666666666" y="0.0" width="52" height="31"/>
+                                                <rect key="frame" x="210" y="0.0" width="52" height="31"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="50" id="zdM-de-uSy"/>
                                                 </constraints>
@@ -106,7 +106,7 @@
                                                 </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c8P-rS-YfM">
-                                                <rect key="frame" x="255.66666666666671" y="0.0" width="118.33333333333334" height="31"/>
+                                                <rect key="frame" x="264" y="0.0" width="110" height="31"/>
                                                 <color key="tintColor" name="AccentColor"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-MAX-RADIUS-BUTTON"/>
@@ -281,7 +281,7 @@
     </scenes>
     <resources>
         <image name="BackgroundGradient" width="16" height="1024"/>
-        <image name="CenterImage" width="1024" height="1024"/>
+        <image name="CenterImage" width="320" height="318"/>
         <image name="list.bullet" catalog="system" width="128" height="87"/>
         <image name="mappin.and.ellipse" catalog="system" width="117" height="128"/>
         <namedColor name="AccentColor">

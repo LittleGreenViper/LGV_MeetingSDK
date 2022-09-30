@@ -65,12 +65,6 @@ class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harnes
      We start with a size of 2800 miles (roughly the size of the US).
      */
     private static let _mapSizeInMeters: Double = 4506163
-
-    /* ################################################################## */
-    /**
-     This is how many display units we'll inset the mask (if shown) from the edges.
-     */
-    private static let _insetInDisplayUnits: CGFloat = 8
     
     /* ################################################################## */
     /**
@@ -286,7 +280,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         
         if isCircleMaskShown {
             guard let mapBounds = mapContainerView?.bounds else { return }
-            let squareSide = min(mapBounds.size.width, mapBounds.size.height) - (Self._insetInDisplayUnits * 2)
+            let squareSide = min(mapBounds.size.width, mapBounds.size.height)
             let cutOutOrigin = CGPoint(x: (mapBounds.size.width - squareSide) / 2,
                                        y: (mapBounds.size.height - squareSide) / 2)
             let cutoutRect = CGRect(origin: cutOutOrigin,
@@ -377,12 +371,12 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         }
         
         let centerLocation = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
-        let leftSideCoordinate = mapView.convert(CGPoint(x: Self._insetInDisplayUnits, y: (bounds.size.height / 2)), toCoordinateFrom: mapContainerView)
+        let leftSideCoordinate = mapView.convert(CGPoint(x: 0, y: (bounds.size.height / 2)), toCoordinateFrom: mapContainerView)
         let leftCenterLocation = CLLocation(latitude: leftSideCoordinate.latitude, longitude: leftSideCoordinate.longitude)
-        let topLeftCoordinate = mapView.convert(CGPoint(x: (bounds.size.width / 2), y: Self._insetInDisplayUnits), toCoordinateFrom: mapContainerView)
+        let topLeftCoordinate = mapView.convert(CGPoint(x: (bounds.size.width / 2), y: 0), toCoordinateFrom: mapContainerView)
         let topCenterLocation = CLLocation(latitude: topLeftCoordinate.latitude, longitude: topLeftCoordinate.longitude)
 
-        let radiusInMeters = min(abs(centerLocation.distance(from: leftCenterLocation)), abs(centerLocation.distance(from: topCenterLocation))) / 2
+        let radiusInMeters = min(abs(centerLocation.distance(from: leftCenterLocation)), abs(centerLocation.distance(from: topCenterLocation)))
         
         if SwitchIndexes.fixedSearch.rawValue == modeSelectionSegmentedControl?.selectedSegmentIndex {
             appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: .fixedRadius(centerLongLat: mapView.centerCoordinate, radiusInMeters: radiusInMeters))

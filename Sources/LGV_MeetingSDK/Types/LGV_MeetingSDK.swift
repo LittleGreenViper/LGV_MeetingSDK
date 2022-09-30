@@ -144,7 +144,7 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
     /**
      These are enums that describe the "main" search parameters.
      */
-    public enum SearchConstraints: CustomDebugStringConvertible {
+    public enum SearchConstraints: CustomDebugStringConvertible, Codable {
         /* ############################################################## */
         /**
          No search constraints.
@@ -190,6 +190,141 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
                 return ".meetingID(ids: \(ids.debugDescription)"
             }
         }
+
+        /* ############################################################################################################################## */
+        // MARK: Coding Keys Enum (Codable Conformance)
+        /* ############################################################################################################################## */
+        /**
+         This enum defines the keys for the Codable protocol
+         */
+        enum CodingKeys: String, CodingKey {
+            /* ############################################################## */
+            /**
+             The type of search
+             */
+            case type
+
+            /* ############################################################## */
+            /**
+             The latitude of the center of a radius search.
+             */
+            case centerLongLat_Lat
+
+            /* ############################################################## */
+            /**
+             The longitude of the center of a radius search.
+             */
+            case centerLongLat_Lng
+
+            /* ############################################################## */
+            /**
+             The radius, in meters, of a constrained radius search.
+             */
+            case radiusInMeters
+
+            /* ############################################################## */
+            /**
+             The minimum number of results, for an auto-radius search.
+             */
+            case minimumNumberOfResults
+
+            /* ############################################################## */
+            /**
+             The ids, for an ID search.
+             */
+            case ids
+        }
+        
+        /* ############################################################## */
+        /**
+         Returns the parameter storage index for the type.
+         
+         - parameter for: The case we are checking.
+         */
+        private static func _typeIndex(for inCase: Self) -> Int {
+            switch inCase {
+            case .none:
+                return 0
+                
+            case .fixedRadius:
+                return 1
+                
+            case .autoRadius:
+                return 2
+            
+            case .meetingID:
+                return 3
+            }
+        }
+        
+        /* ############################################################################################################################## */
+        // MARK: Encodable Conformance
+        /* ############################################################################################################################## */
+        /* ############################################################## */
+        /**
+         Stores the state into an Encoder.
+         
+         - parameter to: The Encoder instance that will hold the data.
+         */
+        public func encode(to inEncoder: Encoder) throws {
+            var container = inEncoder.container(keyedBy: CodingKeys.self)
+            switch self {
+            case .none:
+                try container.encode(Self._typeIndex(for: self), forKey: .type)
+
+            case let .fixedRadius(centerLongLat, radiusInMeters):
+                try container.encode(Self._typeIndex(for: self), forKey: .type)
+                try container.encode(centerLongLat.latitude, forKey: .centerLongLat_Lat)
+                try container.encode(centerLongLat.longitude, forKey: .centerLongLat_Lng)
+                try container.encode(radiusInMeters, forKey: .radiusInMeters)
+
+            case let .autoRadius(centerLongLat, minimumNumberOfResults, maxRadiusInMeters):
+                try container.encode(Self._typeIndex(for: self), forKey: .type)
+                try container.encode(centerLongLat.latitude, forKey: .centerLongLat_Lat)
+                try container.encode(centerLongLat.longitude, forKey: .centerLongLat_Lng)
+                try container.encode(minimumNumberOfResults, forKey: .minimumNumberOfResults)
+                try container.encode(maxRadiusInMeters, forKey: .radiusInMeters)
+
+            case let .meetingID(ids):
+                try container.encode(Self._typeIndex(for: self), forKey: .type)
+                try container.encode(ids, forKey: .ids)
+            }
+        }
+
+        /* ############################################################################################################################## */
+        // MARK: Decodable Conformance
+        /* ############################################################################################################################## */
+        /* ############################################################## */
+        /**
+         Initializes from a decoder.
+         
+         - parameter from: The Decoder instance that has our state.
+         */
+        public init(from inDecoder: Decoder) throws {
+            let values = try inDecoder.container(keyedBy: CodingKeys.self)
+            let type = try values.decode(Int.self, forKey: .type)
+            switch type {
+            case Self._typeIndex(for: .fixedRadius(centerLongLat: CLLocationCoordinate2D(), radiusInMeters: 0)):
+                let latitude = try values.decode(CLLocationDegrees.self, forKey: .centerLongLat_Lat)
+                let longitude = try values.decode(CLLocationDegrees.self, forKey: .centerLongLat_Lng)
+                let radius = try values.decode(Double.self, forKey: .radiusInMeters)
+                self = .fixedRadius(centerLongLat: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), radiusInMeters: radius)
+
+            case Self._typeIndex(for: .autoRadius(centerLongLat: CLLocationCoordinate2D(), minimumNumberOfResults: 0, maxRadiusInMeters: 0)):
+                let latitude = try values.decode(CLLocationDegrees.self, forKey: .centerLongLat_Lat)
+                let longitude = try values.decode(CLLocationDegrees.self, forKey: .centerLongLat_Lng)
+                let minCount = try values.decode(UInt.self, forKey: .minimumNumberOfResults)
+                let radius = try values.decode(Double.self, forKey: .radiusInMeters)
+                self = .autoRadius(centerLongLat: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), minimumNumberOfResults: minCount, maxRadiusInMeters: radius)
+                
+            case Self._typeIndex(for: .meetingID(ids: [])):
+                let ids = try values.decode([UInt64].self, forKey: .ids)
+                self = .meetingID(ids: ids)
+                
+            default:
+                self = .none
+            }
+        }
     }
 
     /* ################################################################################################################################## */
@@ -198,7 +333,7 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
     /**
      The main search can have "refinements" applied, that filter the response further.
      */
-    public enum Search_Refinements: CustomDebugStringConvertible, Hashable {
+    public enum Search_Refinements: CustomDebugStringConvertible, Hashable, Codable {
         /* ############################################################## */
         /**
          This means don't apply any refinements to the main search.
@@ -305,6 +440,169 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
          */
         public func hash(into hasher: inout Hasher) {
             hasher.combine(hashKey)
+        }
+        
+        /* ############################################################## */
+        /**
+         Returns the parameter storage index for the type.
+         
+         - parameter for: The case we are checking.
+         */
+        private static func _typeIndex(for inCase: Self) -> Int {
+            switch inCase {
+            case .none:
+                return 0
+                
+            case .venueTypes:
+                return 1
+                
+            case .weekdays:
+                return 2
+            
+            case .startTimeRange:
+                return 3
+            
+            case .string:
+                return 4
+
+            case .distanceFrom:
+                return 5
+            }
+        }
+
+        /* ############################################################################################################################## */
+        // MARK: Coding Keys Enum (Codable Conformance)
+        /* ############################################################################################################################## */
+        /**
+         This enum defines the keys for the Codable protocol
+         */
+        enum CodingKeys: String, CodingKey {
+            /* ############################################################## */
+            /**
+             The type of enum
+             */
+            case type
+
+            /* ############################################################## */
+            /**
+             A list of venue types.
+             */
+            case venueTypes
+
+            /* ############################################################## */
+            /**
+             A list of weekdays
+             */
+            case weekdays
+
+            /* ############################################################## */
+            /**
+             The lower bound of the start time range.
+             */
+            case startTimeRange_LowerBound
+
+            /* ############################################################## */
+            /**
+             The upper bound of the start time range.
+             */
+            case startTimeRange_UpperBound
+
+            /* ############################################################## */
+            /**
+             The search string.
+             */
+            case string
+
+            /* ############################################################## */
+            /**
+             The latitude of the coordinate we want to find the distance from
+             */
+            case distanceFrom_Lat
+
+            /* ############################################################## */
+            /**
+             The longitude of the coordinate we want to find the distance from
+             */
+            case distanceFrom_Lng
+        }
+        
+        /* ############################################################################################################################## */
+        // MARK: Encodable Conformance
+        /* ############################################################################################################################## */
+        /* ############################################################## */
+        /**
+         Stores the state into an Encoder.
+         
+         - parameter to: The Encoder instance that will hold the data.
+         */
+        public func encode(to inEncoder: Encoder) throws {
+            var container = inEncoder.container(keyedBy: CodingKeys.self)
+            switch self {
+            case .none:
+                try container.encode(Self._typeIndex(for: self), forKey: .type)
+
+            case let .venueTypes(venueTypes):
+                try container.encode(Self._typeIndex(for: self), forKey: .type)
+                try container.encode(venueTypes.compactMap { $0.rawValue }, forKey: .venueTypes)
+
+            case let .weekdays(weekdays):
+                try container.encode(Self._typeIndex(for: self), forKey: .type)
+                try container.encode(weekdays.compactMap { $0.rawValue }, forKey: .weekdays)
+
+            case let .startTimeRange(startTimeRange):
+                try container.encode(3, forKey: .type)
+                try container.encode(startTimeRange.lowerBound, forKey: .startTimeRange_LowerBound)
+                try container.encode(startTimeRange.upperBound, forKey: .startTimeRange_UpperBound)
+
+            case let .string(searchString):
+                try container.encode(Self._typeIndex(for: self), forKey: .type)
+                try container.encode(searchString, forKey: .string)
+
+            case let .distanceFrom(thisLocation):
+                try container.encode(Self._typeIndex(for: self), forKey: .type)
+                try container.encode(thisLocation.latitude, forKey: .distanceFrom_Lat)
+                try container.encode(thisLocation.longitude, forKey: .distanceFrom_Lng)
+            }
+        }
+
+        /* ############################################################################################################################## */
+        // MARK: Decodable Conformance
+        /* ############################################################################################################################## */
+        /* ############################################################## */
+        /**
+         Initializes from a decoder.
+         
+         - parameter from: The Decoder instance that has our state.
+         */
+        public init(from inDecoder: Decoder) throws {
+            let values = try inDecoder.container(keyedBy: CodingKeys.self)
+            let type = try values.decode(Int.self, forKey: .type)
+            switch type {
+            case Self._typeIndex(for: .venueTypes([])):
+                let venues = try values.decode([String].self, forKey: .venueTypes)
+                self = .venueTypes(Set<LGV_MeetingSDK_VenueType_Enum>(venues.compactMap { LGV_MeetingSDK_VenueType_Enum(rawValue: $0) }))
+
+            case Self._typeIndex(for: .weekdays([])):
+                let weekdays = try values.decode([Int].self, forKey: .weekdays)
+                self = .weekdays(Set<Weekdays>(weekdays.compactMap { Weekdays(rawValue: $0) }))
+                
+            case Self._typeIndex(for: .startTimeRange((0...0))):
+                let rangeLower = try values.decode(TimeInterval.self, forKey: .startTimeRange_LowerBound)
+                let rangeUpper = try values.decode(TimeInterval.self, forKey: .startTimeRange_UpperBound)
+                self = .startTimeRange(rangeLower...rangeUpper)
+
+            case Self._typeIndex(for: .string(searchString: "")):
+                let searchString = try values.decode(String.self, forKey: .string)
+                self = .string(searchString: searchString)
+
+            case Self._typeIndex(for: .distanceFrom(thisLocation: CLLocationCoordinate2D())):
+                let latitude = try values.decode(CLLocationDegrees.self, forKey: .distanceFrom_Lat)
+                let longitude = try values.decode(CLLocationDegrees.self, forKey: .distanceFrom_Lng)
+                self = .distanceFrom(thisLocation: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+                
+            default:
+                self = .none
+            }
         }
     }
     

@@ -21,6 +21,10 @@ excluded:
 - spec
 - Project-Meta
 
+type_body_length:
+- 299 # warning
+- 300 # error
+
 line_length:
 - 299 # warning
 - 300 # error
