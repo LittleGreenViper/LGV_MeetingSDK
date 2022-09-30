@@ -58,13 +58,13 @@ class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harnes
     /**
      We start in the center of the US.
      */
-    private static let _mapCenter = CLLocationCoordinate2D(latitude: 37.0902, longitude: -95.7129)
+    private static let _mapCenter = CLLocationCoordinate2D(latitude: 40.7812, longitude: -73.9665)
 
     /* ################################################################## */
     /**
      We start with a size of 2800 miles (roughly the size of the US).
      */
-    private static let _mapSizeInMeters: Double = 4506163
+    private static let _mapSizeInMeters: Double = 50000
     
     /* ################################################################## */
     /**
@@ -223,23 +223,20 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         }
         
         setAccessibilityHints()
-    }
-    
-    /* ################################################################## */
-    /**
-     Called just after the subviews have been laid out.
-     */
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
         
-        autoSearchStackView?.isHidden = SwitchIndexes.fixedSearch.rawValue == modeSelectionSegmentedControl?.selectedSegmentIndex
-
+        if case .autoRadius = searchData?.searchType {
+            modeSelectionSegmentedControl?.selectedSegmentIndex = SwitchIndexes.autoRadiusSearch.rawValue
+        } else {
+            modeSelectionSegmentedControl?.selectedSegmentIndex = SwitchIndexes.fixedSearch.rawValue
+        }
+        
         var inputText = String(Self._defaultCount)
         var mapCenter = Self._mapCenter
         var mapSizeInMeters: Double = Self._mapSizeInMeters
         
         if case let .autoRadius(centerLongLat, minimumNumberOfResults, maxRadiusInMeters) = searchData?.searchType {
             inputText = String(minimumNumberOfResults)
+            maxRadiusSwitch?.isOn = (0..<Double.greatestFiniteMagnitude).contains(maxRadiusInMeters)
             mapCenter = centerLongLat
             mapSizeInMeters = maxRadiusInMeters * 2
         } else if case let .fixedRadius(centerLongLat, radiusInMeters) = searchData?.searchType {
@@ -259,8 +256,15 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
            fitRegion.isValid {
             mapView?.setRegion(fitRegion, animated: false)
         }
-
-        updateTheCircleOverlay()
+    }
+    
+    /* ################################################################## */
+    /**
+     Called just after the subviews have been laid out.
+     */
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateScreen()
     }
 }
 
@@ -359,9 +363,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
      This looks at the current state of the screen, and updates the search spec (in the app delegate), to reflect it.
      */
     func recalculateSearchParameters() {
-        guard let mapView = mapView,
-              let bounds = mapContainerView?.bounds
-        else { return }
+        guard let mapView = mapView else { return }
         
         var requestedNumberOfMeetings = Self._defaultCount
         
@@ -371,9 +373,9 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         }
         
         let centerLocation = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
-        let leftSideCoordinate = mapView.convert(CGPoint(x: 0, y: (bounds.size.height / 2)), toCoordinateFrom: mapContainerView)
+        let leftSideCoordinate = mapView.convert(CGPoint(x: 0, y: (mapView.bounds.size.height / 2)), toCoordinateFrom: mapView)
         let leftCenterLocation = CLLocation(latitude: leftSideCoordinate.latitude, longitude: leftSideCoordinate.longitude)
-        let topLeftCoordinate = mapView.convert(CGPoint(x: (bounds.size.width / 2), y: 0), toCoordinateFrom: mapContainerView)
+        let topLeftCoordinate = mapView.convert(CGPoint(x: (mapView.bounds.size.width / 2), y: 0), toCoordinateFrom: mapView)
         let topCenterLocation = CLLocation(latitude: topLeftCoordinate.latitude, longitude: topLeftCoordinate.longitude)
 
         let radiusInMeters = min(abs(centerLocation.distance(from: leftCenterLocation)), abs(centerLocation.distance(from: topCenterLocation)))
@@ -391,6 +393,21 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         }
         
         (tabBarController as? LGV_MeetingSDK_Test_Harness_TabController)?.setTabBarEnablement()
+    }
+    
+    /* ################################################################## */
+    /**
+     This updates the screen to reflect the current state.
+     */
+    func updateScreen() {
+        if case let .autoRadius(_, numberOfResults, maximumRadiusInMeters) = searchData?.searchType {
+            autoSearchStackView?.isHidden = false
+            textInputField?.text = String(numberOfResults)
+            maxRadiusSwitch?.isOn = (0..<Double.greatestFiniteMagnitude).contains(maximumRadiusInMeters)
+        } else {
+            autoSearchStackView?.isHidden = true
+        }
+        updateTheCircleOverlay()
     }
 }
 

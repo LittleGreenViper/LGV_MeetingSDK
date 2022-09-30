@@ -596,7 +596,10 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
     /**
      Simple accessor to the Root Server URL String.
      */
-    public var rootServerURLString: String { organization?.transport?.baseURL?.absoluteString ?? "" }
+    public var rootServerURLString: String {
+        get { organization?.transport?.baseURL?.absoluteString ?? "" }
+        set { organization?.transport?.baseURL = URL(string: newValue) }
+    }
     
     /* ###################################################################################################################################### */
     // MARK: Initializer

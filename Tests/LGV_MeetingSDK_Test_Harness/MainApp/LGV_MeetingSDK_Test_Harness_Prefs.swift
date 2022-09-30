@@ -40,28 +40,12 @@ class LGV_MeetingSDK_Test_Harness_Prefs: RVS_PersistentPrefs {
          This stores the Root Server URL String
          */
         case rootServerURLString
-        
-        /* ############################################################## */
-        /**
-         This stores the type of the last search.
-         */
-        case searchType
-        
-        /* ############################################################## */
-        /**
-         This stores the refinements applied to the last search.
-         */
-        case searchRefinements
 
         /* ############################################################## */
         /**
          These are all the keys, in an Array of String.
          */
-        static var allKeys: [String] { [
-            rootServerURLString.rawValue,
-            searchType.rawValue,
-            searchRefinements.rawValue
-        ] }
+        static var allKeys: [String] { [rootServerURLString.rawValue] }
     }
     
     /* ################################################################################################################################## */
@@ -86,23 +70,5 @@ class LGV_MeetingSDK_Test_Harness_Prefs: RVS_PersistentPrefs {
     var rootServerURLString: String {
         get { values[Keys.rootServerURLString.rawValue] as? String ?? "https://tomato.bmltenabled.org/main_server" }
         set { values[Keys.rootServerURLString.rawValue] = newValue }
-    }
-    
-    /* ################################################################## */
-    /**
-     This stores the Saved Search Type (and associated data).
-     */
-    var searchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints? {
-        get { values[Keys.searchType.rawValue] as? LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints }
-        set { values[Keys.searchType.rawValue] = newValue }
-    }
-    
-    /* ################################################################## */
-    /**
-     This stores the Saved Search Refinements (and associated data).
-     */
-    var searchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>? {
-        get { values[Keys.searchRefinements.rawValue] as? Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> }
-        set { values[Keys.searchRefinements.rawValue] = newValue }
     }
 }

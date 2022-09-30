@@ -125,7 +125,7 @@ public protocol LGV_MeetingSDK_Transport_Protocol: AnyObject {
     /**
      OPTIONAL - The "base" URL for the transport target.
      */
-    var baseURL: URL? { get }
+    var baseURL: URL? { get set }
 }
 
 /* ###################################################################################################################################### */
@@ -136,7 +136,10 @@ public extension LGV_MeetingSDK_Transport_Protocol {
     /**
      Default is nil.
      */
-    var baseURL: URL? { nil }
+    var baseURL: URL? {
+        get { nil }
+        set { _ = newValue }
+    }
     
     /* ################################################################## */
     /**
