@@ -103,11 +103,15 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let rootServerURL = URL(string: "https://tomato.bmltenabled.org/main_server") {
+        // Set up our SDK.
+        if let rootServerURL = URL(string: LGV_MeetingSDK_Test_Harness_Prefs().rootServerURLString) {
             sdk = LGV_MeetingSDK_BMLT(rootServerURL: rootServerURL)
         }
 
+        // Sets the tab bar colors (I like to be different).
         setColorsTo(normal: UIColor(named: "AccentColor"), selected: .lightGray, background: .clear)
+        
+        // Localize the names of the tabs.
         viewControllers?.forEach {
             $0.tabBarItem?.accessibilityHint = $0.tabBarItem?.title?.accessibilityLocalizedVariant
             $0.tabBarItem?.title = $0.tabBarItem?.title?.localizedVariant
@@ -133,6 +137,7 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
     /* ################################################################## */
     /**
      Determines whether or not the results tab should be enabled.
+     This also sets the search enablement (almost always allowed).
      */
     func setTabBarEnablement() {
         searchBarButtonItem?.isEnabled = isSearchButtonEnabled
@@ -165,6 +170,9 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
         DispatchQueue.main.async { [weak self] in
             self?.mapViewController?.isBusy = false
             self?.setTabBarEnablement()
+            if !(inSearchResults?.meetings ?? []).isEmpty {
+                self?.selectedIndex = TabIndexes.results.rawValue
+            }
         }
     }
     
@@ -180,6 +188,7 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
               let searchRefinements = searchData?.searchRefinements
         else { return }
         mapViewController?.isBusy = true
+        selectedIndex = TabIndexes.search.rawValue
         sdk?.meetingSearch(type: searchType, refinements: searchRefinements, completion: searchCallbackHandler)
     }
 }

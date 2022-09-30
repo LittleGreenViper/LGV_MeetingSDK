@@ -39,9 +39,9 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
                               refinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
                               completion inCompletion: @escaping MeetingSearchCallbackClosure) {
         guard let urlRequest = (transport as? LGV_MeetingSDK_BMLT.Transport)?.ceateURLRequest(type: inSearchType, refinements: inSearchRefinements) else { return }
-#if DEBUG
-        print("URL Request: \(urlRequest.debugDescription)")
-#endif
+        #if DEBUG
+            print("URL Request: \(urlRequest.debugDescription)")
+        #endif
         // See if we have mock data.
         if let dataToParse = (transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse {
             (transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = nil
@@ -53,7 +53,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
                     inCompletion(nil, nil)
                 }
             }
-        } else {    // Otherwise, we need to execute an NSURLSession.
+        } else {    // Otherwise, we need to execute an NSURLSession data task.
             URLSession.shared.dataTask(with: urlRequest) { [weak self] data, response, error in
                 if nil == error,
                    let response = response as? HTTPURLResponse {

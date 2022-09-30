@@ -19,8 +19,10 @@
 		D44AA17B28E23C5100AB0D85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D44AA17928E23C5100AB0D85 /* Main.storyboard */; };
 		D44AA17D28E23C5200AB0D85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D44AA17C28E23C5200AB0D85 /* Assets.xcassets */; };
 		D44AA18028E23C5200AB0D85 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D44AA17E28E23C5200AB0D85 /* LaunchScreen.storyboard */; };
-		D461ABBC28E4CDB100FB8D04 /* LGV_MeetingSDK_Test_Harness_UtilityClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = D461ABBB28E4CDB100FB8D04 /* LGV_MeetingSDK_Test_Harness_UtilityClasses.swift */; };
 		D463D67D28E31C030001D78C /* RVS_Generic_Swift_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D463D67C28E31C030001D78C /* RVS_Generic_Swift_Toolbox */; };
+		D467FD0128E7272A007BA459 /* RVS_Persistent_Prefs in Frameworks */ = {isa = PBXBuildFile; productRef = D467FD0028E7272A007BA459 /* RVS_Persistent_Prefs */; };
+		D467FD0328E7277F007BA459 /* LGV_MeetingSDK_Test_Harness_UtilityClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = D467FD0228E7277F007BA459 /* LGV_MeetingSDK_Test_Harness_UtilityClasses.swift */; };
+		D467FD0528E7279E007BA459 /* LGV_MeetingSDK_Test_Harness_Prefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D467FD0428E7279E007BA459 /* LGV_MeetingSDK_Test_Harness_Prefs.swift */; };
 		D468D04228E493860077DB6C /* LGV_MeetingSDK_Test_Harness_Map_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D468D04028E493860077DB6C /* LGV_MeetingSDK_Test_Harness_Map_ViewController.swift */; };
 		D468D04328E493860077DB6C /* LGV_MeetingSDK_Test_Harness_TabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D468D04128E493860077DB6C /* LGV_MeetingSDK_Test_Harness_TabController.swift */; };
 		D468D04628E49E020077DB6C /* Accessibility.strings in Resources */ = {isa = PBXBuildFile; fileRef = D468D04428E49E020077DB6C /* Accessibility.strings */; };
@@ -76,7 +78,8 @@
 		D44AA17C28E23C5200AB0D85 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D44AA17F28E23C5200AB0D85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D44AA18128E23C5200AB0D85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D461ABBB28E4CDB100FB8D04 /* LGV_MeetingSDK_Test_Harness_UtilityClasses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LGV_MeetingSDK_Test_Harness_UtilityClasses.swift; path = Tests/LGV_MeetingSDK_Test_Harness/ViewControllers/LGV_MeetingSDK_Test_Harness_UtilityClasses.swift; sourceTree = SOURCE_ROOT; };
+		D467FD0228E7277F007BA459 /* LGV_MeetingSDK_Test_Harness_UtilityClasses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Test_Harness_UtilityClasses.swift; sourceTree = "<group>"; };
+		D467FD0428E7279E007BA459 /* LGV_MeetingSDK_Test_Harness_Prefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Test_Harness_Prefs.swift; sourceTree = "<group>"; };
 		D468D04028E493860077DB6C /* LGV_MeetingSDK_Test_Harness_Map_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Test_Harness_Map_ViewController.swift; sourceTree = "<group>"; };
 		D468D04128E493860077DB6C /* LGV_MeetingSDK_Test_Harness_TabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Test_Harness_TabController.swift; sourceTree = "<group>"; };
 		D468D04528E49E020077DB6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Accessibility.strings; sourceTree = "<group>"; };
@@ -107,6 +110,7 @@
 			files = (
 				D463D67D28E31C030001D78C /* RVS_Generic_Swift_Toolbox in Frameworks */,
 				D440A95028E48E1100909668 /* RVS_UIKit_Toolbox in Frameworks */,
+				D467FD0128E7272A007BA459 /* RVS_Persistent_Prefs in Frameworks */,
 				D4B46A5B28E24742004A203E /* LGV_MeetingSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,7 +273,8 @@
 			isa = PBXGroup;
 			children = (
 				D44AA17328E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness_AppSceneDelegate.swift */,
-				D461ABBB28E4CDB100FB8D04 /* LGV_MeetingSDK_Test_Harness_UtilityClasses.swift */,
+				D467FD0228E7277F007BA459 /* LGV_MeetingSDK_Test_Harness_UtilityClasses.swift */,
+				D467FD0428E7279E007BA459 /* LGV_MeetingSDK_Test_Harness_Prefs.swift */,
 			);
 			path = MainApp;
 			sourceTree = "<group>";
@@ -305,6 +310,7 @@
 			packageProductDependencies = (
 				D463D67C28E31C030001D78C /* RVS_Generic_Swift_Toolbox */,
 				D440A94F28E48E1100909668 /* RVS_UIKit_Toolbox */,
+				D467FD0028E7272A007BA459 /* RVS_Persistent_Prefs */,
 			);
 			productName = LGV_MeetingSDK_Test_Harness;
 			productReference = D44AA17128E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness.app */;
@@ -381,6 +387,7 @@
 			packageReferences = (
 				D463D67B28E31C030001D78C /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */,
 				D440A94E28E48E1100909668 /* XCRemoteSwiftPackageReference "RVS_UIKit_Toolbox" */,
+				D467FCFF28E7272A007BA459 /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */,
 			);
 			productRefGroup = D412C80328D3BEC500BAFC16 /* Products */;
 			projectDirPath = "";
@@ -471,11 +478,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D467FD0528E7279E007BA459 /* LGV_MeetingSDK_Test_Harness_Prefs.swift in Sources */,
 				D44AA17828E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness_Manual_ViewController.swift in Sources */,
 				D468D04328E493860077DB6C /* LGV_MeetingSDK_Test_Harness_TabController.swift in Sources */,
 				D468D04228E493860077DB6C /* LGV_MeetingSDK_Test_Harness_Map_ViewController.swift in Sources */,
 				D44AA17428E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness_AppSceneDelegate.swift in Sources */,
-				D461ABBC28E4CDB100FB8D04 /* LGV_MeetingSDK_Test_Harness_UtilityClasses.swift in Sources */,
+				D467FD0328E7277F007BA459 /* LGV_MeetingSDK_Test_Harness_UtilityClasses.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -879,6 +887,14 @@
 				minimumVersion = 1.10.2;
 			};
 		};
+		D467FCFF28E7272A007BA459 /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RiftValleySoftware/RVS_PersistentPrefs";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -891,6 +907,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D463D67B28E31C030001D78C /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */;
 			productName = RVS_Generic_Swift_Toolbox;
+		};
+		D467FD0028E7272A007BA459 /* RVS_Persistent_Prefs */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D467FCFF28E7272A007BA459 /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */;
+			productName = RVS_Persistent_Prefs;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
