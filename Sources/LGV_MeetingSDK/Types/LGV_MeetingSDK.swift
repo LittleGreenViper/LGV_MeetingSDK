@@ -181,16 +181,14 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
                 return "none"
                 
             case let .fixedRadius(centerLongLat, radiusInMeters):
-                return ".fixedRadius(centerLongLat: (latitude: \(centerLongLat.latitude), longitude: \(centerLongLat.longitude)), radiusInMeters: \(radiusInMeters)"
+                return ".fixedRadius(centerLongLat: (latitude: \(centerLongLat.latitude), longitude: \(centerLongLat.longitude)), radiusInMeters: \(radiusInMeters))"
                 
             case let .autoRadius(centerLongLat, minimumNumberOfResults, maxRadiusInMeters):
-                return ".fixedRadius(centerLongLat: (latitude: \(centerLongLat.latitude), longitude: \(centerLongLat.longitude)), minimumNumberOfResults: \(minimumNumberOfResults), maxRadiusInMeters: \(maxRadiusInMeters)"
+                return ".fixedRadius(centerLongLat: (latitude: \(centerLongLat.latitude), longitude: \(centerLongLat.longitude)), minimumNumberOfResults: \(minimumNumberOfResults), maxRadiusInMeters: \(maxRadiusInMeters))"
                 
             case let .meetingID(ids):
                 return ".meetingID(ids: \(ids.debugDescription)"
             }
-            
-            return "ERROR"
         }
     }
 
@@ -265,11 +263,51 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
             case let .distanceFrom(thisLocation):
                 return ".distanceFrom(latitude: \(thisLocation.latitude), longitude: \(thisLocation.longitude))"
             }
-            
-            return "ERROR"
+        }
+
+        /* ############################################################## */
+        /**
+         Used to make sure that we can only have one of each, regardless of associated values.
+         */
+        public var hashKey: String {
+            switch self {
+            case .none:
+                return "none"
+                
+            case .venueTypes:
+                return "venueTypes"
+
+            case .weekdays:
+                return "weekdays"
+
+            case .startTimeRange:
+                return "startTimeRange"
+
+            case .string:
+                return "string"
+
+            case .distanceFrom:
+                return "distanceFrom"
+            }
+        }
+    
+        /* ############################################################## */
+        /**
+         Equatable Conformance
+         */
+        public static func == (lhs: Self, rhs: Self) -> Bool {
+            return lhs.hashKey == rhs.hashKey
+        }
+
+        /* ############################################################## */
+        /**
+         Hashable Conformance
+         */
+        public func hash(into hasher: inout Hasher) {
+            hasher.combine(hashKey)
         }
     }
-
+    
     /* ################################################################################################################################## */
     // MARK: LGV_MeetingSDK_Additional_Info_Protocol Conformance
     /* ################################################################################################################################## */
@@ -330,18 +368,6 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
         meetings = inMeetings
         extraInfo = inExtraInfo
         refCon = inRefCon
-    }
-    
-    /* ############################################################## */
-    /**
-     CustomDebugStringConvertible Conformance
-     */
-    public var debugDescription: String {
-        "LGV_MeetingSDK_Meeting_Data_Set\n\textraInfo: \"" + extraInfo + "\"" +
-        "\n\trefCon: " + String(describing: refCon) +
-        "\n\tsearchType: " + searchType.debugDescription +
-        "\n\tsearchRefinements: " + searchRefinements.debugDescription +
-        "\n\tmeetings: " + meetings.debugDescription
     }
 }
 

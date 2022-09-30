@@ -100,12 +100,20 @@ public protocol LGV_MeetingSDK_Meeting_Data_Set_Protocol: AnyObject, LGV_Meeting
     var meetings: [LGV_MeetingSDK_Meeting_Protocol] { get set }
 }
 
+/* ###################################################################################################################################### */
+// MARK: CustomDebugStringConvertible Conformance
+/* ###################################################################################################################################### */
 extension LGV_MeetingSDK_Meeting_Data_Set_Protocol {
     /* ############################################################## */
     /**
+     CustomDebugStringConvertible Conformance
      */
-    var debugDescription: String {
-        
+    public var debugDescription: String {
+        "\nLGV_MeetingSDK_Meeting_Data_Set_Protocol\n\textraInfo: \"" + extraInfo + "\"" +
+        "\n\trefCon: " + String(describing: refCon) +
+        "\n\tsearchType: " + searchType.debugDescription +
+        "\n\tsearchRefinements: " + searchRefinements.debugDescription +
+        "\n\tmeetings: " + meetings.debugDescription
     }
 }
 

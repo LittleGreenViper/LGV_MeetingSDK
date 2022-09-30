@@ -153,7 +153,7 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
      */
     func searchCallbackHandler(_ inSearchResults: LGV_MeetingSDK_Meeting_Data_Set_Protocol?, _ inError: Error?) {
         print("We need to do something with this!")
-        print("\tSearch Results: \(String(describing: inSearchResults))")
+        print("Search Results: \(String(describing: inSearchResults))")
         print("\tError: \(String(describing: inError))")
         
         setTabBarEnablement()

@@ -105,18 +105,6 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
             extraInfo = inExtraInfo
             refCon = inRefCon
         }
-        
-        /* ############################################################## */
-        /**
-         CustomDebugStringConvertible Conformance
-         */
-        public var debugDescription: String {
-            "LGV_MeetingSDK_BMLT\n\textraInfo: \"" + extraInfo + "\"" +
-            "\n\trefCon: " + String(describing: refCon) +
-            "\n\tsearchType: " + searchType.debugDescription +
-            "\n\tsearchRefinements: " + searchRefinements.debugDescription +
-            "\n\tmeetings: " + meetings.debugDescription
-        }
     }
 
     /* ################################################################################################################################## */
