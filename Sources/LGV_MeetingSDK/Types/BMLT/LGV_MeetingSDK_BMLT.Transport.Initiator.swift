@@ -73,21 +73,25 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
                             }
                         } else if let error = error {
                             #if DEBUG
-                                print(String(format: "Server returned response code %d, and error %@", response.statusCode, error.localizedDescription))
+                                print(String(format: "Server returned status code %d, and error %@", response.statusCode, error.localizedDescription))
                             #endif
+                            inCompletion(nil, error)
                         } else {
                             #if DEBUG
-                                print(String(format: "Server returned error code %d", response.statusCode))
+                                print(String(format: "Server returned status code %d", response.statusCode))
                             #endif
+                            inCompletion(nil, nil)
                         }
                     } else if let error = error {
                         #if DEBUG
-                            print(String(format: "Server returned error %@", error.localizedDescription))
+                            print(String(format: "Server returned status code %d, and error %@", response.statusCode, error.localizedDescription))
                         #endif
+                        inCompletion(nil, error)
                     } else {
                         #if DEBUG
-                            print(String(format: "Server returned response code %d", response.statusCode))
+                            print(String(format: "Server returned status code %d", response.statusCode))
                         #endif
+                        inCompletion(nil, nil)
                     }
                 }
             }.resume()
