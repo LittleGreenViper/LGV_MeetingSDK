@@ -110,6 +110,12 @@ class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harnes
 
     /* ################################################################## */
     /**
+     This contains all the various controls.
+     */
+    @IBOutlet weak var controlsContainerView: UIView?
+    
+    /* ################################################################## */
+    /**
      This is the segmented switch that goes between fixed radius, and auto-radius, searches.
      */
     @IBOutlet weak var modeSelectionSegmentedControl: UISegmentedControl?
@@ -161,7 +167,7 @@ class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harnes
     /**
      This displays a "busy throbber." over the view.
      */
-    @IBOutlet weak var throbberView: UIView!
+    @IBOutlet weak var throbberView: UIView?
 }
 
 /* ###################################################################################################################################### */
@@ -191,8 +197,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
             throbberView?.isHidden = !newValue
             navigationController?.isNavigationBarHidden = newValue
             tabBarController?.tabBar.isHidden = newValue
-            modeSelectionSegmentedControl?.isHidden = newValue
-            autoSearchStackView?.isHidden = newValue
+            controlsContainerView?.isHidden = newValue
             mapContainerView?.isHidden = newValue
         }
     }
