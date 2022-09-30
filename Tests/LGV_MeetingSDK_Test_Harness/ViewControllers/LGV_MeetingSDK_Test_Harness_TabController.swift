@@ -153,6 +153,7 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
     /* ################################################################## */
     /**
      Called when the search bar button item has been hit.
+     **NB:** This may not be called in the main thread.
      
      - parameter inSearchResults: The search results (if any).
      - parameter inError: The error (if any)
@@ -161,9 +162,10 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
         print("We need to do something with this!")
         print("Search Results: \(String(describing: inSearchResults))")
         print("\tError: \(String(describing: inError))")
-        
-        mapViewController?.isBusy = false
-        setTabBarEnablement()
+        DispatchQueue.main.async { [weak self] in
+            self?.mapViewController?.isBusy = false
+            self?.setTabBarEnablement()
+        }
     }
     
     /* ################################################################## */
