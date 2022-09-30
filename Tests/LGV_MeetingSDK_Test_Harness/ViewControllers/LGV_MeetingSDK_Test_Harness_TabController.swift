@@ -175,10 +175,11 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
      - parameter: ignored.
      */
     @IBAction func searchBarButtonItemHit(_: Any) {
-        guard let sdk = sdk,
-              let searchData = searchData
+        mapViewController?.recalculateSearchParameters()
+        guard let searchType = searchData?.searchType,
+              let searchRefinements = searchData?.searchRefinements
         else { return }
         mapViewController?.isBusy = true
-        sdk.meetingSearch(type: searchData.searchType, refinements: searchData.searchRefinements, completion: searchCallbackHandler)
+        sdk?.meetingSearch(type: searchType, refinements: searchRefinements, completion: searchCallbackHandler)
     }
 }

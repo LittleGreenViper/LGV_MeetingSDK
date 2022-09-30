@@ -31,26 +31,66 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
      This executes a meeting search.
      
      - Parameters:
-        - type: Any search type that was specified.
-        - refinements: Any search refinements.
-        - completion: A completion function.
+     - type: Any search type that was specified.
+     - refinements: Any search refinements.
+     - completion: A completion function.
      */
     public func meetingSearch(type inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
                               refinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
                               completion inCompletion: @escaping MeetingSearchCallbackClosure) {
-        let urlRequest = (transport as? LGV_MeetingSDK_BMLT.Transport)?.ceateURLRequest(type: inSearchType, refinements: inSearchRefinements)
-        #if DEBUG
-                print("URL Request: \(urlRequest.debugDescription)")
-        #endif
-        let dataToParse = (transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse ?? Data()
-        (transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = nil
-        parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: dataToParse) { inParsedMeetings, inError in
-            if var parsedData = inParsedMeetings {
-                parsedData.extraInfo = urlRequest?.url?.absoluteString ?? ""
-                inCompletion(parsedData, inError)
-            } else {
-                inCompletion(nil, nil)
+        guard let urlRequest = (transport as? LGV_MeetingSDK_BMLT.Transport)?.ceateURLRequest(type: inSearchType, refinements: inSearchRefinements) else { return }
+#if DEBUG
+        print("URL Request: \(urlRequest.debugDescription)")
+#endif
+        // See if we have mock data.
+        if let dataToParse = (transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse {
+            (transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = nil
+            parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: dataToParse) { inParsedMeetings, inError in
+                if var parsedData = inParsedMeetings {
+                    parsedData.extraInfo = urlRequest.url?.absoluteString ?? ""
+                    inCompletion(parsedData, inError)
+                } else {
+                    inCompletion(nil, nil)
+                }
             }
+        } else {    // Otherwise, we need to execute an NSURLSession.
+            URLSession.shared.dataTask(with: urlRequest) { [weak self] data, response, error in
+                if nil == error,
+                   let response = response as? HTTPURLResponse {
+                    if 200 == response.statusCode {
+                        #if DEBUG
+                            print("Server returned success code 200")
+                        #endif
+                        if let data = data,
+                           "application/json" == response.mimeType {
+                            self?.parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: data) { inParsedMeetings, inError in
+                                if var parsedData = inParsedMeetings {
+                                    parsedData.extraInfo = urlRequest.url?.absoluteString ?? ""
+                                    inCompletion(parsedData, inError)
+                                } else {
+                                    inCompletion(nil, nil)
+                                }
+                            }
+                        } else if let error = error {
+                            #if DEBUG
+                                print(String(format: "Server returned response code %d, and error %@", response.statusCode, error.localizedDescription))
+                            #endif
+                        } else {
+                            #if DEBUG
+                                print(String(format: "Server returned error code %d", response.statusCode))
+                            #endif
+                        }
+                    } else if let error = error {
+                        #if DEBUG
+                            print(String(format: "Server returned error %@", error.localizedDescription))
+                        #endif
+                    } else {
+                        #if DEBUG
+                            print(String(format: "Server returned response code %d", response.statusCode))
+                        #endif
+                    }
+                }
+            }.resume()
         }
     }
 }

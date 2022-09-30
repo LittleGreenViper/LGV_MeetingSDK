@@ -214,7 +214,6 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapView?.delegate = self
         overrideUserInterfaceStyle = .light
 
         textInputLabel?.adjustsFontSizeToFitWidth = true
@@ -370,8 +369,6 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
               let bounds = mapContainerView?.bounds
         else { return }
         
-        let mapCenter = mapView.centerCoordinate
-        
         var requestedNumberOfMeetings = Self._defaultCount
         
         if let requestedNumberOfMeetingsText = textInputField?.text,
@@ -379,19 +376,16 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
             requestedNumberOfMeetings = count
         }
         
-        let topLeftCoordinate = mapView.convert(CGPoint(x: Self._insetInDisplayUnits, y: Self._insetInDisplayUnits), toCoordinateFrom: mapContainerView)
-        let bottomRightCoordinate = mapView.convert(CGPoint(x: bounds.size.width - (Self._insetInDisplayUnits * 2), y: bounds.size.height - (Self._insetInDisplayUnits * 2)), toCoordinateFrom: mapContainerView)
-        let metersPerMapPointTop = MKMetersPerMapPointAtLatitude(topLeftCoordinate.latitude)
-        let metersPerMapPointBottom = MKMetersPerMapPointAtLatitude(bottomRightCoordinate.latitude)
-        let topLeftMapPoint = MKMapPoint(topLeftCoordinate)
-        let bottomRightMapPoint = MKMapPoint(bottomRightCoordinate)
-        
-        let verticalMeters = (bottomRightMapPoint.y * metersPerMapPointBottom) - (topLeftMapPoint.y * metersPerMapPointTop)
-        let horizontalMeters = (bottomRightMapPoint.x * metersPerMapPointBottom) - (topLeftMapPoint.x * metersPerMapPointTop)
-        let radiusInMeters = min(verticalMeters, horizontalMeters) / 2
+        let centerLocation = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
+        let leftSideCoordinate = mapView.convert(CGPoint(x: Self._insetInDisplayUnits, y: (bounds.size.height / 2)), toCoordinateFrom: mapContainerView)
+        let leftCenterLocation = CLLocation(latitude: leftSideCoordinate.latitude, longitude: leftSideCoordinate.longitude)
+        let topLeftCoordinate = mapView.convert(CGPoint(x: (bounds.size.width / 2), y: Self._insetInDisplayUnits), toCoordinateFrom: mapContainerView)
+        let topCenterLocation = CLLocation(latitude: topLeftCoordinate.latitude, longitude: topLeftCoordinate.longitude)
 
+        let radiusInMeters = min(abs(centerLocation.distance(from: leftCenterLocation)), abs(centerLocation.distance(from: topCenterLocation))) / 2
+        
         if SwitchIndexes.fixedSearch.rawValue == modeSelectionSegmentedControl?.selectedSegmentIndex {
-            appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: .fixedRadius(centerLongLat: mapCenter, radiusInMeters: radiusInMeters))
+            appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: .fixedRadius(centerLongLat: mapView.centerCoordinate, radiusInMeters: radiusInMeters))
         } else {
             var maxRadius = Double.greatestFiniteMagnitude
             
@@ -399,7 +393,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
                 maxRadius = radiusInMeters
             }
             
-            appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: .autoRadius(centerLongLat: mapCenter, minimumNumberOfResults: UInt(requestedNumberOfMeetings), maxRadiusInMeters: maxRadius))
+            appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: .autoRadius(centerLongLat: mapView.centerCoordinate, minimumNumberOfResults: UInt(requestedNumberOfMeetings), maxRadiusInMeters: maxRadius))
         }
         
         (tabBarController as? LGV_MeetingSDK_Test_Harness_TabController)?.setTabBarEnablement()
@@ -444,32 +438,6 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
      - parameter: ignored.
      */
     @IBAction func textChanged(_: UITextField) {
-        recalculateSearchParameters()
-    }
-}
-
-/* ###################################################################################################################################### */
-// MARK: MKMapViewDelegate Conformance
-/* ###################################################################################################################################### */
-extension LGV_MeetingSDK_Test_Harness_Map_ViewController: MKMapViewDelegate {
-    /* ################################################################## */
-    /**
-     Called when the map region changes.
-     
-     - parameter: The map view (ignored).
-     - parameter regionDidChangeAnimated: True, if the change was animated.
-     */
-    func mapView(_: MKMapView, regionDidChangeAnimated: Bool) {
-        recalculateSearchParameters()
-    }
-    
-    /* ################################################################## */
-    /**
-     Called when the map's visible region changed.
-     
-     - parameter: The map view (ignored).
-     */
-    func mapViewDidChangeVisibleRegion(_: MKMapView) {
         recalculateSearchParameters()
     }
 }
