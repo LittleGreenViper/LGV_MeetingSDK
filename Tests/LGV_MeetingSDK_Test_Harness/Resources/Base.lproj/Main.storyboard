@@ -147,6 +147,23 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cfb-rN-Wdl">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="et2-hr-FQH">
+                                        <rect key="frame" x="185" y="412" width="20" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="et2-hr-FQH" secondAttribute="height" multiplier="1:1" id="SAe-5b-0Zz"/>
+                                        </constraints>
+                                        <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="et2-hr-FQH" firstAttribute="centerY" secondItem="cfb-rN-Wdl" secondAttribute="centerY" id="5L7-7t-P5O"/>
+                                    <constraint firstItem="et2-hr-FQH" firstAttribute="centerX" secondItem="cfb-rN-Wdl" secondAttribute="centerX" id="lng-rz-PWq"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="AccentColor"/>
@@ -154,6 +171,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="leading" secondItem="rpF-LV-ecg" secondAttribute="leading" id="2uH-MU-MQ1"/>
                             <constraint firstItem="xy6-aw-USG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="5wV-Qd-Iyw"/>
                             <constraint firstItem="ONp-by-476" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="6Vb-o3-Yq6"/>
+                            <constraint firstItem="cfb-rN-Wdl" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="A1g-23-F1D"/>
                             <constraint firstItem="cX6-RG-TvU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="12" id="Avr-NA-xAX"/>
                             <constraint firstAttribute="trailing" secondItem="xy6-aw-USG" secondAttribute="trailing" id="CHB-pA-0MP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ONp-by-476" secondAttribute="bottom" id="Jym-uL-myU"/>
@@ -162,13 +180,16 @@
                             <constraint firstItem="rpF-LV-ecg" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Tmf-Lt-y4I"/>
                             <constraint firstItem="cX6-RG-TvU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="cYi-Uu-oX0"/>
                             <constraint firstItem="rpF-LV-ecg" firstAttribute="top" secondItem="cX6-RG-TvU" secondAttribute="bottom" constant="8" id="ek0-HB-yjw"/>
+                            <constraint firstItem="cfb-rN-Wdl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="gYB-uM-p3v"/>
                             <constraint firstItem="ONp-by-476" firstAttribute="top" secondItem="rpF-LV-ecg" secondAttribute="bottom" constant="8" id="pEq-dL-Iuj"/>
                             <constraint firstItem="nHi-yR-yfO" firstAttribute="height" relation="lessThanOrEqual" secondItem="xy6-aw-USG" secondAttribute="height" multiplier="0.6" id="pjt-30-te0"/>
+                            <constraint firstAttribute="trailing" secondItem="cfb-rN-Wdl" secondAttribute="trailing" id="sTh-di-p1e"/>
                             <constraint firstItem="ONp-by-476" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-8" id="sjA-A3-MFt"/>
                             <constraint firstItem="nHi-yR-yfO" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="u7W-40-uCs"/>
                             <constraint firstItem="nHi-yR-yfO" firstAttribute="width" relation="lessThanOrEqual" secondItem="xy6-aw-USG" secondAttribute="width" multiplier="0.6" id="xzO-9I-rth"/>
                             <constraint firstItem="xy6-aw-USG" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="yyJ-Gh-6Z2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="cX6-RG-TvU" secondAttribute="trailing" constant="12" id="zQx-GW-NBM"/>
+                            <constraint firstAttribute="bottom" secondItem="cfb-rN-Wdl" secondAttribute="bottom" id="zX6-o0-gcn"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="SLUG-MAP-SEARCH-CONTROLLER" id="2Hn-A4-iNc">
@@ -183,6 +204,7 @@
                         <outlet property="modeSelectionSegmentedControl" destination="cX6-RG-TvU" id="iVc-5s-gOi"/>
                         <outlet property="textInputField" destination="Idm-2H-PSe" id="4Ap-9F-jWc"/>
                         <outlet property="textInputLabel" destination="5Yl-R7-Zf0" id="NSf-1u-jnJ"/>
+                        <outlet property="throbberView" destination="cfb-rN-Wdl" id="LO8-2L-RJC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

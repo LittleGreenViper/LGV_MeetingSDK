@@ -142,7 +142,7 @@ public protocol LGV_MeetingSDK_Protocol {
      - Parameters:
         - type: The main search type.
         - refinements: a set of search filter refinements.
-        - completion: The completion closure.
+        - completion: The completion closure. **NOTE:** This may be called in any thread!
      */
     func meetingSearch(type: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
                        refinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,

@@ -85,6 +85,12 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
      Returns true, if the search results tab should be enabled.
      */
     var isSearchResultsTabEnabled: Bool { !(searchData?.meetings ?? []).isEmpty }
+    
+    /* ################################################################## */
+    /**
+     Convenience accessor to the map view controller.
+     */
+    var mapViewController: LGV_MeetingSDK_Test_Harness_Map_ViewController? { viewControllers?[0] as? LGV_MeetingSDK_Test_Harness_Map_ViewController }
 }
 
 /* ###################################################################################################################################### */
@@ -156,6 +162,7 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
         print("Search Results: \(String(describing: inSearchResults))")
         print("\tError: \(String(describing: inError))")
         
+        mapViewController?.isBusy = false
         setTabBarEnablement()
     }
     
@@ -169,7 +176,7 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
         guard let sdk = sdk,
               let searchData = searchData
         else { return }
-        
+        mapViewController?.isBusy = true
         sdk.meetingSearch(type: searchData.searchType, refinements: searchData.searchRefinements, completion: searchCallbackHandler)
     }
 }

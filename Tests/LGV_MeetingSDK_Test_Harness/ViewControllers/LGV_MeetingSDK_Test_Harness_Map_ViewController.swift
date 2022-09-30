@@ -156,6 +156,12 @@ class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harnes
      The map view.
      */
     @IBOutlet weak var mapView: MKMapView?
+
+    /* ################################################################## */
+    /**
+     This displays a "busy throbber." over the view.
+     */
+    @IBOutlet weak var throbberView: UIView!
 }
 
 /* ###################################################################################################################################### */
@@ -173,6 +179,22 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         else { return false }
         
         return true
+    }
+    
+    /* ################################################################## */
+    /**
+     Used to hide and show the "busy throbber."
+     */
+    var isBusy: Bool {
+        get { !(throbberView?.isHidden ?? true) }
+        set {
+            throbberView?.isHidden = !newValue
+            navigationController?.isNavigationBarHidden = newValue
+            tabBarController?.tabBar.isHidden = newValue
+            modeSelectionSegmentedControl?.isHidden = newValue
+            autoSearchStackView?.isHidden = newValue
+            mapContainerView?.isHidden = newValue
+        }
     }
 }
 
