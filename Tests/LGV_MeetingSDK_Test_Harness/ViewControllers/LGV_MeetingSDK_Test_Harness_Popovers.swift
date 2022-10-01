@@ -53,12 +53,6 @@ extension LGV_MeetingSDK_Test_Harness_Base_Popover_ViewController {
 class LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController: LGV_MeetingSDK_Test_Harness_Base_Popover_ViewController {
     /* ################################################################## */
     /**
-     The desired width of the popover.
-     */
-    private static let _popoverWidth = CGFloat(300)
-    
-    /* ################################################################## */
-    /**
      The desired height of the popover.
      */
     private static let _popoverHeight = CGFloat(144)
@@ -122,7 +116,7 @@ extension LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController {
      The size that we'd like our popover to be.
      */
     override var preferredContentSize: CGSize {
-        get { CGSize(width: Self._popoverWidth, height: Self._popoverHeight) }
+        get { CGSize(width: appDelegateInstance?.window?.bounds.size.width ?? 3000, height: Self._popoverHeight) }
         set { super.preferredContentSize = newValue }
     }
     
