@@ -332,10 +332,29 @@
             </objects>
             <point key="canvasLocation" x="494" y="-771"/>
         </scene>
+        <!--MeetingSDK Test Harness Refinements Popover View Controller-->
+        <scene sceneID="C0v-P2-lBK">
+            <objects>
+                <viewController storyboardIdentifier="LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController" id="EU7-Xo-ygf" customClass="LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController" customModule="LGV_MeetingSDK_Test_Harness" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="G6l-uQ-xc1">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="474"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="LSv-bl-tlU"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="390" height="474"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IaS-y6-Ulo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-198.46153846153845" y="-13.507109004739336"/>
+        </scene>
     </scenes>
     <resources>
         <image name="BackgroundGradient" width="16" height="1024"/>
-        <image name="CenterImage" width="1024" height="1024"/>
+        <image name="CenterImage" width="320" height="318"/>
         <image name="list.bullet" catalog="system" width="128" height="87"/>
         <image name="mappin.and.ellipse" catalog="system" width="117" height="128"/>
         <namedColor name="AccentColor">

@@ -223,17 +223,19 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
     /**
      Called when the search bar button item has been hit.
      
-     - parameter: ignored.
+     - parameter inView: The bar button.
      */
-    @IBAction func searchBarButtonItemHit(_: Any) {
+    @IBAction func searchBarButtonItemHit(_ inBarButtonItem: UIBarButtonItem) {
         mapViewController?.recalculateSearchParameters()
-        guard let searchType = searchData?.searchType,
-              let searchRefinements = searchData?.searchRefinements
-        else { return }
-        
-        mapViewController?.isBusy = true
-        selectedIndex = TabIndexes.search.rawValue
-        sdk?.meetingSearch(type: searchType, refinements: searchRefinements, completion: searchCallbackHandler)
+        if let popoverController = storyboard?.instantiateViewController(identifier: "LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController") as? LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
+            popoverController.modalPresentationStyle = .popover
+            popoverController.tabController = self
+            popoverController.popoverPresentationController?.barButtonItem = inBarButtonItem
+            popoverController.popoverPresentationController?.delegate = self
+            popoverController.popoverPresentationController?.permittedArrowDirections = [.up]
+            
+            present(popoverController, animated: true)
+        }
     }
 }
 

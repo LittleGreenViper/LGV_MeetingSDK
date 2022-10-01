@@ -27,12 +27,27 @@ import RVS_UIKit_Toolbox
 /**
  This provides a base substrate, for the popovers.
  */
-class LGV_MeetingSDK_Test_Harness_Base_Popover_ViewController: LGV_MeetingSDK_Test_Harness_Base_ViewController { }
+class LGV_MeetingSDK_Test_Harness_Base_Popover_ViewController: LGV_MeetingSDK_Test_Harness_Base_ViewController {
+    /* ################################################################## */
+    /**
+     This is our main Tab controller.
+     */
+    private weak var _tabController: LGV_MeetingSDK_Test_Harness_TabController?
+}
 
 /* ###################################################################################################################################### */
 // MARK: Base Class Overrides
 /* ###################################################################################################################################### */
 extension LGV_MeetingSDK_Test_Harness_Base_Popover_ViewController {
+    /* ################################################################## */
+    /**
+     This is used to refer back to the main tab view controller.
+     */
+    override var tabController: LGV_MeetingSDK_Test_Harness_TabController? {
+        get { _tabController }
+        set { _tabController = newValue }
+    }
+
     /* ################################################################## */
     /**
      Called when the view hierarchy has loaded.
@@ -68,12 +83,6 @@ class LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController: LGV_Meeting
      This will be the Root Server selection Picker.
      */
     @IBOutlet weak var rootServerPickerView: UIPickerView?
-    
-    /* ################################################################## */
-    /**
-     This is our main Tab controller.
-     */
-    private weak var _tabController: LGV_MeetingSDK_Test_Harness_TabController?
 }
 
 /* ###################################################################################################################################### */
@@ -99,7 +108,7 @@ extension LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController {
             LGV_MeetingSDK_Test_Harness_Prefs().rootServerURLString = Self.rootServerList[newValue].rootURL
             guard let rootURL = Self.currentRootServer?.rootURL else { return }
             
-            _tabController?.setSDKToThisRootServerURL(rootURL)
+            tabController?.setSDKToThisRootServerURL(rootURL)
         }
     }
 }
@@ -108,15 +117,6 @@ extension LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController {
 // MARK: Base Class Overrides
 /* ###################################################################################################################################### */
 extension LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController {
-    /* ################################################################## */
-    /**
-     This is used to refer back to the main tab view controller.
-     */
-    override var tabController: LGV_MeetingSDK_Test_Harness_TabController? {
-        get { _tabController }
-        set { _tabController = newValue }
-    }
-    
     /* ################################################################## */
     /**
      The size that we'd like our popover to be.
@@ -198,4 +198,17 @@ extension LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController: UIPicke
  This popover allows selection of refinements, before a search.
  */
 class LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController: LGV_MeetingSDK_Test_Harness_Base_Popover_ViewController {
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func searchButtonHit(_: Any) {
+        guard let searchType = searchData?.searchType,
+              let searchRefinements = searchData?.searchRefinements,
+              let searchCallbackHandler = tabController?.searchCallbackHandler
+        else { return }
+        
+        tabController?.mapViewController?.isBusy = true
+        tabController?.selectedIndex = LGV_MeetingSDK_Test_Harness_TabController.TabIndexes.search.rawValue
+        tabController?.sdk?.meetingSearch(type: searchType, refinements: searchRefinements, completion: searchCallbackHandler)
+    }
 }
