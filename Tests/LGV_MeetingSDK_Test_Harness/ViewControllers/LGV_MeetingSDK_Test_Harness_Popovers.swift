@@ -35,6 +35,15 @@ class LGV_MeetingSDK_Test_Harness_Base_Popover_ViewController: LGV_MeetingSDK_Te
 extension LGV_MeetingSDK_Test_Harness_Base_Popover_ViewController {
     /* ################################################################## */
     /**
+     The size that we'd like our popover to be.
+     */
+    override var preferredContentSize: CGSize {
+        get { super.preferredContentSize }
+        set { super.preferredContentSize = newValue }
+    }
+    
+    /* ################################################################## */
+    /**
      Called when the view hierarchy has loaded.
      */
     override func viewDidLoad() {
