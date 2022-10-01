@@ -190,9 +190,34 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
                 return ".meetingID(ids: \(ids.debugDescription)"
             }
         }
+        
+        /* ############################################################################################################################## */
+        // MARK: Codable Conformance
+        /* ############################################################################################################################## */
+        /* ############################################################## */
+        /**
+         Returns the parameter storage index for the type.
+         
+         - parameter for: The case we are checking.
+         */
+        private static func _typeIndex(for inCase: Self) -> Int {
+            switch inCase {
+            case .none:
+                return 0
+                
+            case .fixedRadius:
+                return 1
+                
+            case .autoRadius:
+                return 2
+            
+            case .meetingID:
+                return 3
+            }
+        }
 
         /* ############################################################################################################################## */
-        // MARK: Coding Keys Enum (Codable Conformance)
+        // MARK: Coding Keys Enum
         /* ############################################################################################################################## */
         /**
          This enum defines the keys for the Codable protocol
@@ -234,29 +259,7 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
              */
             case ids
         }
-        
-        /* ############################################################## */
-        /**
-         Returns the parameter storage index for the type.
-         
-         - parameter for: The case we are checking.
-         */
-        private static func _typeIndex(for inCase: Self) -> Int {
-            switch inCase {
-            case .none:
-                return 0
-                
-            case .fixedRadius:
-                return 1
-                
-            case .autoRadius:
-                return 2
-            
-            case .meetingID:
-                return 3
-            }
-        }
-        
+
         /* ############################################################################################################################## */
         // MARK: Encodable Conformance
         /* ############################################################################################################################## */
@@ -442,6 +445,9 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
             hasher.combine(hashKey)
         }
         
+        /* ############################################################################################################################## */
+        // MARK: Codable Conformance
+        /* ############################################################################################################################## */
         /* ############################################################## */
         /**
          Returns the parameter storage index for the type.
@@ -471,7 +477,7 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
         }
 
         /* ############################################################################################################################## */
-        // MARK: Coding Keys Enum (Codable Conformance)
+        // MARK: Coding Keys Enum
         /* ############################################################################################################################## */
         /**
          This enum defines the keys for the Codable protocol
