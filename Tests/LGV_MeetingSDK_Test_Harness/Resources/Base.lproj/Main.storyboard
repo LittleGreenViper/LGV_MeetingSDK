@@ -16,6 +16,11 @@
             <objects>
                 <tabBarController id="8ga-0w-N4T" customClass="LGV_MeetingSDK_Test_Harness_TabController" customModule="LGV_MeetingSDK_Test_Harness" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="0K7-U1-bpR">
+                        <barButtonItem key="leftBarButtonItem" image="gear" catalog="system" id="rIW-Gm-svg">
+                            <connections>
+                                <segue destination="FIV-O9-2Ec" kind="show" id="SdM-3W-HUr"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="vIT-be-VmR">
                             <color key="tintColor" name="AccentColor"/>
                             <connections>
@@ -32,6 +37,7 @@
                     </tabBar>
                     <connections>
                         <outlet property="searchBarButtonItem" destination="vIT-be-VmR" id="K1s-ch-AVE"/>
+                        <outlet property="settingsBarButtonItem" destination="rIW-Gm-svg" id="kVa-wK-HKd"/>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="A66-25-OOO"/>
                         <segue destination="QoT-Tb-XZr" kind="relationship" relationship="viewControllers" id="9gO-g1-IJ6"/>
                     </connections>
@@ -278,10 +284,51 @@
             </objects>
             <point key="canvasLocation" x="494" y="-771"/>
         </scene>
+        <!--SLUG-RESULTS-CONTROLLER-->
+        <scene sceneID="Qwn-oQ-2R9">
+            <objects>
+                <viewController id="FIV-O9-2Ec" customClass="LGV_MeetingSDK_Test_Harness_Settings_ViewController" customModule="LGV_MeetingSDK_Test_Harness" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wrE-Lf-XkM">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BackgroundGradient" translatesAutoresizingMaskIntoConstraints="NO" id="PEW-KE-kMj">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.05000000074505806" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CenterImage" translatesAutoresizingMaskIntoConstraints="NO" id="sRy-DH-aDv">
+                                <rect key="frame" x="78" y="305" width="234" height="234"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="sRy-DH-aDv" secondAttribute="height" multiplier="1:1" id="dX4-PE-KIW"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="2Hv-fY-wY8"/>
+                        <color key="backgroundColor" name="AccentColor"/>
+                        <constraints>
+                            <constraint firstItem="PEW-KE-kMj" firstAttribute="leading" secondItem="wrE-Lf-XkM" secondAttribute="leading" id="1Kh-n7-EnP"/>
+                            <constraint firstItem="sRy-DH-aDv" firstAttribute="centerX" secondItem="wrE-Lf-XkM" secondAttribute="centerX" id="B9a-S6-Kmx"/>
+                            <constraint firstItem="PEW-KE-kMj" firstAttribute="top" secondItem="wrE-Lf-XkM" secondAttribute="top" id="DGA-PE-bgG"/>
+                            <constraint firstAttribute="trailing" secondItem="PEW-KE-kMj" secondAttribute="trailing" id="XIg-1U-LB3"/>
+                            <constraint firstAttribute="bottom" secondItem="PEW-KE-kMj" secondAttribute="bottom" id="aaR-C4-1hm"/>
+                            <constraint firstItem="sRy-DH-aDv" firstAttribute="width" relation="lessThanOrEqual" secondItem="PEW-KE-kMj" secondAttribute="width" multiplier="0.6" id="ali-XE-LPs"/>
+                            <constraint firstItem="sRy-DH-aDv" firstAttribute="height" relation="lessThanOrEqual" secondItem="PEW-KE-kMj" secondAttribute="height" multiplier="0.6" id="mqS-9a-QlS"/>
+                            <constraint firstItem="sRy-DH-aDv" firstAttribute="centerY" secondItem="wrE-Lf-XkM" secondAttribute="centerY" id="pDe-9V-AoU"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="SLUG-RESULTS-CONTROLLER" id="pvo-st-VGn">
+                        <imageReference key="image" image="list.bullet" catalog="system" symbolScale="large"/>
+                    </tabBarItem>
+                    <navigationItem key="navigationItem" id="Jhr-73-HJh"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8dj-rF-LWO" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2626" y="-771"/>
+        </scene>
     </scenes>
     <resources>
         <image name="BackgroundGradient" width="16" height="1024"/>
         <image name="CenterImage" width="320" height="318"/>
+        <image name="gear" catalog="system" width="128" height="122"/>
         <image name="list.bullet" catalog="system" width="128" height="87"/>
         <image name="mappin.and.ellipse" catalog="system" width="117" height="128"/>
         <namedColor name="AccentColor">

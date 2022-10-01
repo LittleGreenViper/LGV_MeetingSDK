@@ -56,6 +56,12 @@ class LGV_MeetingSDK_Test_Harness_TabController: UITabBarController {
      The Search Bar Button Item.
      */
     @IBOutlet weak var searchBarButtonItem: UIBarButtonItem?
+
+    /* ################################################################## */
+    /**
+     The Settings Bar Button Item.
+     */
+    @IBOutlet weak var settingsBarButtonItem: UIBarButtonItem!
 }
 
 /* ###################################################################################################################################### */
@@ -103,11 +109,7 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Set up our SDK.
-        if let rootServerURL = URL(string: LGV_MeetingSDK_Test_Harness_Prefs().rootServerURLString) {
-            sdk = LGV_MeetingSDK_BMLT(rootServerURL: rootServerURL)
-        }
-
+        delegate = self
         // Sets the tab bar colors (I like to be different).
         setColorsTo(normal: UIColor(named: "AccentColor"), selected: .lightGray, background: .clear)
         
@@ -136,6 +138,18 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
 extension LGV_MeetingSDK_Test_Harness_TabController {
     /* ################################################################## */
     /**
+     Establishes a new instance of the BMLT SDK, at the given Root Server URI.
+     
+     - parameter inRootServerURLString: The string representation of the root server to be used.
+     */
+    func setSDKToThisRootServerURL(_ inRootServerURLString: String) {
+        if let rootServerURL = URL(string: inRootServerURLString) {
+            sdk = LGV_MeetingSDK_BMLT(rootServerURL: rootServerURL)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
      Determines whether or not the results tab should be enabled.
      This also sets the search enablement (almost always allowed).
      */
@@ -148,6 +162,8 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
            TabIndexes.results.rawValue == selectedIndex {
             selectedIndex = TabIndexes.search.rawValue
         }
+        
+        settingsBarButtonItem?.isEnabled = TabIndexes.search.rawValue == selectedIndex
         
         saveState()
     }
@@ -173,7 +189,9 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
         
         guard !rootServerURLString.isEmpty else { return }
         
-        sdk?.rootServerURLString = rootServerURLString
+        // Set up our SDK.
+        setSDKToThisRootServerURL(rootServerURLString)
+
         mapViewController?.updateScreen()
         setTabBarEnablement()
     }
@@ -202,6 +220,7 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
             if !(inSearchResults?.meetings ?? []).isEmpty {
                 self?.selectedIndex = TabIndexes.results.rawValue
             }
+            self?.settingsBarButtonItem?.isEnabled = TabIndexes.search.rawValue == self?.selectedIndex
         }
     }
     
@@ -220,5 +239,21 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
         mapViewController?.isBusy = true
         selectedIndex = TabIndexes.search.rawValue
         sdk?.meetingSearch(type: searchType, refinements: searchRefinements, completion: searchCallbackHandler)
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: UITabBarControllerDelegate Conformance
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_TabController: UITabBarControllerDelegate {
+    /* ################################################################## */
+    /**
+     Called when the tab bar changes selection.
+     
+     - parameter The Tab Bar Controller: ignored.
+     - parameter didSelect: ignored.
+     */
+    func tabBarController( _: UITabBarController, didSelect: UIViewController ) {
+        setTabBarEnablement()
     }
 }
