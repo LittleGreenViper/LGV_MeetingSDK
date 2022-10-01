@@ -29,4 +29,12 @@ import RVS_UIKit_Toolbox
  This displays the manual search controller.
  */
 class LGV_MeetingSDK_Test_Harness_Results_ViewController: LGV_MeetingSDK_Test_Harness_Base_ViewController {
+    /* ################################################################## */
+    /**
+     Called when the view hierarchy has loaded.
+     */
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        overrideUserInterfaceStyle = .light
+    }
 }

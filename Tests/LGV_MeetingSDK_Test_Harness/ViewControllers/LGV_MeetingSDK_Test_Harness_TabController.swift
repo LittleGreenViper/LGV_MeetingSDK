@@ -103,9 +103,10 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        overrideUserInterfaceStyle = .light
         delegate = self
         // Sets the tab bar colors (I like to be different).
-        setColorsTo(normal: UIColor(named: "AccentColor"), selected: .lightGray, background: .clear)
+        setColorsTo(normal: UIColor(named: "AccentColor"), selected: .white, background: .clear)
         
         // Localize the names of the tabs.
         viewControllers?.forEach {
@@ -242,7 +243,7 @@ extension LGV_MeetingSDK_Test_Harness_TabController: UITabBarControllerDelegate 
      Called when the tab bar changes selection.
      
      - parameter The Tab Bar Controller: ignored.
-     - parameter didSelect: ignored.
+     - parameter didSelect: The new selection.
      */
     func tabBarController( _: UITabBarController, didSelect: UIViewController ) {
         setTabBarEnablement()

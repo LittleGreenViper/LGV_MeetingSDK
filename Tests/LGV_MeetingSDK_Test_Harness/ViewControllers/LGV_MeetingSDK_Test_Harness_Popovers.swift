@@ -35,16 +35,8 @@ class LGV_MeetingSDK_Test_Harness_Base_Popover_ViewController: LGV_MeetingSDK_Te
 extension LGV_MeetingSDK_Test_Harness_Base_Popover_ViewController {
     /* ################################################################## */
     /**
-     The size that we'd like our popover to be.
-     */
-    override var preferredContentSize: CGSize {
-        get { super.preferredContentSize }
-        set { super.preferredContentSize = newValue }
-    }
-    
-    /* ################################################################## */
-    /**
      Called when the view hierarchy has loaded.
+     We use this to select Dark Mode (always), since the screens are forced Light Mode.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +51,65 @@ extension LGV_MeetingSDK_Test_Harness_Base_Popover_ViewController {
  This popover allows selection of a new Root Server.
  */
 class LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController: LGV_MeetingSDK_Test_Harness_Base_Popover_ViewController {
+    /* ################################################################## */
+    /**
+     This will be the Root Server selection Picker.
+     */
+    @IBOutlet weak var rootServerPickerView: UIPickerView?
+}
+
+/* ###################################################################################################################################### */
+// MARK: Base Class Overrides
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController {
+    /* ################################################################## */
+    /**
+     The size that we'd like our popover to be.
+     */
+    override var preferredContentSize: CGSize {
+        get { super.preferredContentSize }
+        set { super.preferredContentSize = newValue }
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the view hierarchy has loaded.
+     */
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: UIPickerViewDataSource Conformance
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController: UIPickerViewDataSource {
+    /* ################################################################## */
+    /**
+     The number of components (always 1)
+     
+     - parameter in: The picker view instance (ignored).
+     
+     - return: 1 (always)
+     */
+    func numberOfComponents(in: UIPickerView) -> Int { 1 }
+    
+    /* ################################################################## */
+    /**
+     The number of rows in the component
+     
+     - parameter: The picker view instance (ignored).
+     - parameter numberOfRowsInComponent: The component we're checking (only one, so ignored).
+     
+     - returns: The number of rows (the number of Root Servers).
+     */
+    func pickerView(_: UIPickerView, numberOfRowsInComponent: Int) -> Int { 0 }
+}
+
+/* ###################################################################################################################################### */
+// MARK: UIPickerViewDelegate Conformance
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController: UIPickerViewDelegate {
 }
 
 /* ###################################################################################################################################### */
