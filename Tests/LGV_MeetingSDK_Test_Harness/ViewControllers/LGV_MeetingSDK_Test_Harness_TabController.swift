@@ -56,12 +56,6 @@ class LGV_MeetingSDK_Test_Harness_TabController: UITabBarController {
      The Search Bar Button Item.
      */
     @IBOutlet weak var searchBarButtonItem: UIBarButtonItem?
-
-    /* ################################################################## */
-    /**
-     The Settings Bar Button Item.
-     */
-    @IBOutlet weak var settingsBarButtonItem: UIBarButtonItem!
 }
 
 /* ###################################################################################################################################### */
@@ -163,8 +157,6 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
             selectedIndex = TabIndexes.search.rawValue
         }
         
-        settingsBarButtonItem?.isEnabled = TabIndexes.search.rawValue == selectedIndex
-        
         saveState()
     }
     
@@ -220,7 +212,6 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
             if !(inSearchResults?.meetings ?? []).isEmpty {
                 self?.selectedIndex = TabIndexes.results.rawValue
             }
-            self?.settingsBarButtonItem?.isEnabled = TabIndexes.search.rawValue == self?.selectedIndex
         }
     }
     

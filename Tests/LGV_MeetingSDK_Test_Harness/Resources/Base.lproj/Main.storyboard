@@ -16,11 +16,6 @@
             <objects>
                 <tabBarController id="8ga-0w-N4T" customClass="LGV_MeetingSDK_Test_Harness_TabController" customModule="LGV_MeetingSDK_Test_Harness" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="0K7-U1-bpR">
-                        <barButtonItem key="leftBarButtonItem" image="gear" catalog="system" id="rIW-Gm-svg">
-                            <connections>
-                                <segue destination="FIV-O9-2Ec" kind="show" id="SdM-3W-HUr"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="vIT-be-VmR">
                             <color key="tintColor" name="AccentColor"/>
                             <connections>
@@ -37,7 +32,6 @@
                     </tabBar>
                     <connections>
                         <outlet property="searchBarButtonItem" destination="vIT-be-VmR" id="K1s-ch-AVE"/>
-                        <outlet property="settingsBarButtonItem" destination="rIW-Gm-svg" id="kVa-wK-HKd"/>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="A66-25-OOO"/>
                         <segue destination="QoT-Tb-XZr" kind="relationship" relationship="viewControllers" id="9gO-g1-IJ6"/>
                     </connections>
@@ -64,10 +58,18 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="URE-Yh-bmx">
-                                <rect key="frame" x="8" y="91" width="374" height="70"/>
+                                <rect key="frame" x="8" y="91" width="374" height="100"/>
                                 <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Fx-Uv-Bsj">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="vrI-bk-l54"/>
+                                        </constraints>
+                                        <color key="tintColor" name="AccentColor"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    </button>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="cX6-RG-TvU">
-                                        <rect key="frame" x="45.666666666666657" y="0.0" width="283" height="32"/>
+                                        <rect key="frame" x="45.666666666666657" y="24" width="283" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="31" id="eP5-Wz-rZB"/>
                                         </constraints>
@@ -81,7 +83,7 @@
                                         </connections>
                                     </segmentedControl>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="rpF-LV-ecg">
-                                        <rect key="frame" x="0.0" y="39" width="374" height="31"/>
+                                        <rect key="frame" x="0.0" y="69" width="374" height="31"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="SLUG-MAX-COUNT-LABEL" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Yl-R7-Zf0">
                                                 <rect key="frame" x="0.0" y="0.0" width="154" height="31"/>
@@ -139,18 +141,21 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="rpF-LV-ecg" secondAttribute="trailing" id="4Bs-Zi-xqy"/>
-                                    <constraint firstItem="cX6-RG-TvU" firstAttribute="top" secondItem="URE-Yh-bmx" secondAttribute="top" id="8oh-aG-ifT"/>
+                                    <constraint firstItem="4Fx-Uv-Bsj" firstAttribute="leading" secondItem="URE-Yh-bmx" secondAttribute="leading" id="6oS-EO-4Zt"/>
+                                    <constraint firstAttribute="trailing" secondItem="4Fx-Uv-Bsj" secondAttribute="trailing" id="9dU-cn-Gdm"/>
+                                    <constraint firstItem="4Fx-Uv-Bsj" firstAttribute="top" secondItem="URE-Yh-bmx" secondAttribute="top" id="D8v-tF-Y8l"/>
                                     <constraint firstItem="cX6-RG-TvU" firstAttribute="centerX" secondItem="URE-Yh-bmx" secondAttribute="centerX" id="hYV-RO-HCX"/>
-                                    <constraint firstAttribute="height" constant="70" id="kjg-Fu-VLX"/>
+                                    <constraint firstAttribute="height" constant="100" id="kjg-Fu-VLX"/>
                                     <constraint firstItem="rpF-LV-ecg" firstAttribute="leading" secondItem="URE-Yh-bmx" secondAttribute="leading" id="r9m-pV-MqU"/>
+                                    <constraint firstItem="cX6-RG-TvU" firstAttribute="top" secondItem="4Fx-Uv-Bsj" secondAttribute="bottom" constant="4" id="vIl-Td-6e6"/>
                                     <constraint firstAttribute="bottom" secondItem="rpF-LV-ecg" secondAttribute="bottom" id="whG-ye-Mi6"/>
                                 </constraints>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="ONp-by-476">
-                                <rect key="frame" x="8" y="169" width="374" height="592"/>
+                                <rect key="frame" x="8" y="199" width="374" height="562"/>
                                 <subviews>
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" rotateEnabled="NO" pitchEnabled="NO" showsScale="YES" translatesAutoresizingMaskIntoConstraints="NO" id="371-6M-bjM">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="592"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="562"/>
                                         <standardMapConfiguration key="preferredConfiguration" elevationStyle="realistic"/>
                                     </mapView>
                                 </subviews>
@@ -220,6 +225,7 @@
                         <outlet property="maxRadiusLabelButton" destination="c8P-rS-YfM" id="PNW-Tn-EHx"/>
                         <outlet property="maxRadiusSwitch" destination="GqK-f5-9BF" id="kaW-lR-uHm"/>
                         <outlet property="modeSelectionSegmentedControl" destination="cX6-RG-TvU" id="iVc-5s-gOi"/>
+                        <outlet property="rootServerButton" destination="4Fx-Uv-Bsj" id="stm-EQ-RkJ"/>
                         <outlet property="textInputField" destination="Idm-2H-PSe" id="4Ap-9F-jWc"/>
                         <outlet property="textInputLabel" destination="5Yl-R7-Zf0" id="NSf-1u-jnJ"/>
                         <outlet property="throbberView" destination="cfb-rN-Wdl" id="LO8-2L-RJC"/>
@@ -284,51 +290,10 @@
             </objects>
             <point key="canvasLocation" x="494" y="-771"/>
         </scene>
-        <!--SLUG-RESULTS-CONTROLLER-->
-        <scene sceneID="Qwn-oQ-2R9">
-            <objects>
-                <viewController id="FIV-O9-2Ec" customClass="LGV_MeetingSDK_Test_Harness_Settings_ViewController" customModule="LGV_MeetingSDK_Test_Harness" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="wrE-Lf-XkM">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BackgroundGradient" translatesAutoresizingMaskIntoConstraints="NO" id="PEW-KE-kMj">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.05000000074505806" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CenterImage" translatesAutoresizingMaskIntoConstraints="NO" id="sRy-DH-aDv">
-                                <rect key="frame" x="78" y="305" width="234" height="234"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="sRy-DH-aDv" secondAttribute="height" multiplier="1:1" id="dX4-PE-KIW"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="2Hv-fY-wY8"/>
-                        <color key="backgroundColor" name="AccentColor"/>
-                        <constraints>
-                            <constraint firstItem="PEW-KE-kMj" firstAttribute="leading" secondItem="wrE-Lf-XkM" secondAttribute="leading" id="1Kh-n7-EnP"/>
-                            <constraint firstItem="sRy-DH-aDv" firstAttribute="centerX" secondItem="wrE-Lf-XkM" secondAttribute="centerX" id="B9a-S6-Kmx"/>
-                            <constraint firstItem="PEW-KE-kMj" firstAttribute="top" secondItem="wrE-Lf-XkM" secondAttribute="top" id="DGA-PE-bgG"/>
-                            <constraint firstAttribute="trailing" secondItem="PEW-KE-kMj" secondAttribute="trailing" id="XIg-1U-LB3"/>
-                            <constraint firstAttribute="bottom" secondItem="PEW-KE-kMj" secondAttribute="bottom" id="aaR-C4-1hm"/>
-                            <constraint firstItem="sRy-DH-aDv" firstAttribute="width" relation="lessThanOrEqual" secondItem="PEW-KE-kMj" secondAttribute="width" multiplier="0.6" id="ali-XE-LPs"/>
-                            <constraint firstItem="sRy-DH-aDv" firstAttribute="height" relation="lessThanOrEqual" secondItem="PEW-KE-kMj" secondAttribute="height" multiplier="0.6" id="mqS-9a-QlS"/>
-                            <constraint firstItem="sRy-DH-aDv" firstAttribute="centerY" secondItem="wrE-Lf-XkM" secondAttribute="centerY" id="pDe-9V-AoU"/>
-                        </constraints>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="SLUG-RESULTS-CONTROLLER" id="pvo-st-VGn">
-                        <imageReference key="image" image="list.bullet" catalog="system" symbolScale="large"/>
-                    </tabBarItem>
-                    <navigationItem key="navigationItem" id="Jhr-73-HJh"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8dj-rF-LWO" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2626" y="-771"/>
-        </scene>
     </scenes>
     <resources>
         <image name="BackgroundGradient" width="16" height="1024"/>
-        <image name="CenterImage" width="320" height="318"/>
-        <image name="gear" catalog="system" width="128" height="122"/>
+        <image name="CenterImage" width="1024" height="1024"/>
         <image name="list.bullet" catalog="system" width="128" height="87"/>
         <image name="mappin.and.ellipse" catalog="system" width="117" height="128"/>
         <namedColor name="AccentColor">

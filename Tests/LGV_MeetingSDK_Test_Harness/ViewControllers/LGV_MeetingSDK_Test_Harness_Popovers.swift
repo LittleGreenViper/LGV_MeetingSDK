@@ -16,12 +16,17 @@
  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
  CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-"SLUG-MAP-SEARCH-CONTROLLER"                                    =       "Map Search";
-"SLUG-RESULTS-CONTROLLER"                                       =       "Results";
-"SLUG-FIXED-NAME"                                               =       "Fixed Radius Search";
-"SLUG-AUTO-NAME"                                                =       "Auto Radius Search";
-"SLUG-MAX-COUNT-LABEL"                                          =       "Required Found:";
-"SLUG-MAX-RADIUS-BUTTON"                                        =       "Max Radius";
-"SLUG-SEARCH-BUTTON"                                            =       "Search";
-"SLUG-TOMATO-SERVER-NAME"                                       =       "Worldwide TOMATO Server";
-"SLUG-TOMATO-SERVER-URL"                                        =       "https://tomato.bmltenabled.org/main_server";
+
+import UIKit
+import LGV_MeetingSDK
+import RVS_Generic_Swift_Toolbox
+import RVS_UIKit_Toolbox
+import MapKit
+
+/* ###################################################################################################################################### */
+// MARK: - Set Server Popover View Controller Class -
+/* ###################################################################################################################################### */
+/**
+ */
+class LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController: UIViewController {
+}

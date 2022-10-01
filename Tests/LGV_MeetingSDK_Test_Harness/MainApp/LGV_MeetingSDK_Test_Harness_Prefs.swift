@@ -68,7 +68,7 @@ class LGV_MeetingSDK_Test_Harness_Prefs: RVS_PersistentPrefs {
      Defaults to the global TOMATO server.
      */
     var rootServerURLString: String {
-        get { values[Keys.rootServerURLString.rawValue] as? String ?? "https://tomato.bmltenabled.org/main_server" }
+        get { values[Keys.rootServerURLString.rawValue] as? String ?? "SLUG-TOMATO-SERVER-URL".localizedVariant }
         set { values[Keys.rootServerURLString.rawValue] = newValue }
     }
 }
