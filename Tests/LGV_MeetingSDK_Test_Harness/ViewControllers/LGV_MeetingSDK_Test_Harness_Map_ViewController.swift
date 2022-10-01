@@ -34,12 +34,6 @@ import MapKit
  The mask is attached to the map container, and allows the map to be moved around, under it.
  */
 class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harness_Base_ViewController {
-    /* ################################################################## */
-    /**
-     This describes one Root Server entity.
-     */
-    typealias RootServerEntity = (name: String, rootURL: String)
-
     /* ################################################################################################################################## */
     // MARK: Switch Index Enum
     /* ################################################################################################################################## */
@@ -207,36 +201,6 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
             mapContainerView?.isHidden = newValue
         }
     }
-    
-    /* ################################################################## */
-    /**
-     This reads in the Root Server list JSON file, slaps the tOMATO server URL to the beginning, sorts the rest by name, and returns it as an Array.
-     */
-    var rootServerList: [RootServerEntity] {
-        var ret = [RootServerEntity]()
-        if let filepath = Bundle.main.path(forResource: "rootServerList", ofType: "json") {
-            if let data = (try? String(contentsOfFile: filepath))?.data(using: .utf8),
-               let main_object = try? JSONSerialization.jsonObject(with: data, options: []) as? [[String: String]] {
-                main_object.forEach {
-                    if let name = $0["name"],
-                       let rootURL = $0["rootURL"] {
-                        ret.append(RootServerEntity(name: name, rootURL: rootURL))
-                    }
-                }
-            }
-        }
-        
-        ret = ret.sorted { $0.name < $1.name }
-        
-        ret.insert(RootServerEntity(name: "SLUG-TOMATO-SERVER-NAME".localizedVariant, rootURL: "SLUG-TOMATO-SERVER-URL".localizedVariant), at: 0)
-        return ret
-    }
-    
-    /* ################################################################## */
-    /**
-     This returns the currently selected Root Server entity.
-     */
-    var currentRootServer: RootServerEntity? { rootServerList.first { $0.rootURL == LGV_MeetingSDK_Test_Harness_Prefs().rootServerURLString } }
 }
 
 /* ###################################################################################################################################### */
@@ -448,7 +412,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
      This updates the screen to reflect the current state.
      */
     func updateScreen() {
-        rootServerButton?.setTitle(currentRootServer?.name ?? "ERROR", for: .normal)
+        rootServerButton?.setTitle(Self.currentRootServer?.name ?? "ERROR", for: .normal)
         if case let .autoRadius(_, numberOfResults, maximumRadiusInMeters) = searchData?.searchType {
             autoSearchStackView?.isHidden = false
             textInputField?.text = String(numberOfResults)
@@ -499,5 +463,22 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
      */
     @IBAction func textChanged(_: UITextField) {
         recalculateSearchParameters()
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the root server display button has been hit.
+     
+     - parameter inView: The button, as a view.
+     */
+    @IBAction func rootServerButtonHitHit(_ inView: UIView) {
+        if let popoverController = storyboard?.instantiateViewController(identifier: "LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController") as? LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController {
+            popoverController.modalPresentationStyle = .popover
+            popoverController.popoverPresentationController?.sourceView = inView
+            popoverController.popoverPresentationController?.delegate = self
+            popoverController.popoverPresentationController?.permittedArrowDirections = [.up]
+            
+            present(popoverController, animated: true)
+        }
     }
 }

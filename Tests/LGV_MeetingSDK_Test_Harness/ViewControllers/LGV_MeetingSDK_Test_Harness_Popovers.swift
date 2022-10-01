@@ -18,15 +18,45 @@
  */
 
 import UIKit
-import LGV_MeetingSDK
 import RVS_Generic_Swift_Toolbox
 import RVS_UIKit_Toolbox
-import MapKit
+
+/* ###################################################################################################################################### */
+// MARK: - Base Popover View Controller Class -
+/* ###################################################################################################################################### */
+/**
+ This provides a base substrate, for the popovers.
+ */
+class LGV_MeetingSDK_Test_Harness_Base_Popover_ViewController: LGV_MeetingSDK_Test_Harness_Base_ViewController { }
+
+/* ###################################################################################################################################### */
+// MARK: Base Class Overrides
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_Base_Popover_ViewController {
+    /* ################################################################## */
+    /**
+     Called when the view hierarchy has loaded.
+     */
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        overrideUserInterfaceStyle = .dark
+    }
+}
 
 /* ###################################################################################################################################### */
 // MARK: - Set Server Popover View Controller Class -
 /* ###################################################################################################################################### */
 /**
+ This popover allows selection of a new Root Server.
  */
-class LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController: UIViewController {
+class LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController: LGV_MeetingSDK_Test_Harness_Base_Popover_ViewController {
+}
+
+/* ###################################################################################################################################### */
+// MARK: - Select Refinements Popover View Controller Class -
+/* ###################################################################################################################################### */
+/**
+ This popover allows selection of refinements, before a search.
+ */
+class LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController: LGV_MeetingSDK_Test_Harness_Base_Popover_ViewController {
 }

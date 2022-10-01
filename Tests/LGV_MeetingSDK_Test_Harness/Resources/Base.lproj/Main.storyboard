@@ -8,6 +8,7 @@
         <capability name="Map view configurations" minToolsVersion="14.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -40,6 +41,25 @@
             </objects>
             <point key="canvasLocation" x="1548" y="-771"/>
         </scene>
+        <!--MeetingSDK Test Harness Set Server Popover View Controller-->
+        <scene sceneID="ePU-qG-2oB">
+            <objects>
+                <viewController storyboardIdentifier="LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController" keyboardType="off" id="Nrb-we-8gp" customClass="LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController" customModule="LGV_MeetingSDK_Test_Harness" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ggo-Qf-cP9">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="191"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="DoJ-yK-oNc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="390" height="191"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oCm-hM-6av" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-198.46153846153845" y="-363.62559241706157"/>
+        </scene>
         <!--SLUG-MAP-SEARCH-CONTROLLER-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -67,6 +87,9 @@
                                         </constraints>
                                         <color key="tintColor" name="AccentColor"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <connections>
+                                            <action selector="rootServerButtonHitHit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nLp-0b-ctY"/>
+                                        </connections>
                                     </button>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="cX6-RG-TvU">
                                         <rect key="frame" x="45.666666666666657" y="24" width="283" height="32"/>
@@ -299,5 +322,8 @@
         <namedColor name="AccentColor">
             <color red="0.31400001049041748" green="0.37999999523162842" blue="0.89399999380111694" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

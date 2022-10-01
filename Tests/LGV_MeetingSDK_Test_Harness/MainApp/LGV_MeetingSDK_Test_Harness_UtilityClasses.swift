@@ -123,12 +123,58 @@ extension MKCoordinateRegion {
  This is a base class for each of the tab view controllers.
  */
 class LGV_MeetingSDK_Test_Harness_Base_ViewController: UIViewController {
+    /* ################################################################## */
+    /**
+     This describes one Root Server entity.
+     */
+    typealias RootServerEntity = (name: String, rootURL: String)
+}
+
+/* ###################################################################################################################################### */
+// MARK: Class Computed Properties
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_Base_ViewController {
+    /* ################################################################## */
+    /**
+     This reads in the Root Server list JSON file, slaps the tOMATO server URL to the beginning, sorts the rest by name, and returns it as an Array.
+     */
+    class var rootServerList: [RootServerEntity] {
+        var ret = [RootServerEntity]()
+        if let filepath = Bundle.main.path(forResource: "rootServerList", ofType: "json") {
+            if let data = (try? String(contentsOfFile: filepath))?.data(using: .utf8),
+               let main_object = try? JSONSerialization.jsonObject(with: data, options: []) as? [[String: String]] {
+                main_object.forEach {
+                    if let name = $0["name"],
+                       let rootURL = $0["rootURL"] {
+                        ret.append(RootServerEntity(name: name, rootURL: rootURL))
+                    }
+                }
+            }
+        }
+        
+        ret = ret.sorted { $0.name < $1.name }
+        
+        ret.insert(RootServerEntity(name: "SLUG-TOMATO-SERVER-NAME".localizedVariant, rootURL: "SLUG-TOMATO-SERVER-URL".localizedVariant), at: 0)
+        return ret
+    }
+    
+    /* ################################################################## */
+    /**
+     This returns the currently selected Root Server entity.
+     */
+    class var currentRootServer: RootServerEntity? { rootServerList.first { $0.rootURL == LGV_MeetingSDK_Test_Harness_Prefs().rootServerURLString } }
 }
 
 /* ###################################################################################################################################### */
 // MARK: Computed Properties
 /* ###################################################################################################################################### */
 extension LGV_MeetingSDK_Test_Harness_Base_ViewController {
+    /* ################################################################## */
+    /**
+     This is used to refer back to the main tab view controller.
+     */
+    var tabController: LGV_MeetingSDK_Test_Harness_TabController? { tabBarController as? LGV_MeetingSDK_Test_Harness_TabController }
+
     /* ################################################################## */
     /**
      Convenience accessor for the app delegate instance.
@@ -158,4 +204,28 @@ extension LGV_MeetingSDK_Test_Harness_Base_ViewController {
         super.viewWillAppear(inAnimated)
         tabBarController?.navigationItem.title = tabBarItem?.title
     }
+}
+
+/* ###################################################################################################################################### */
+// MARK: UIPopoverPresentationControllerDelegate Conformance
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_Base_ViewController: UIPopoverPresentationControllerDelegate {
+    /* ################################################################## */
+    /**
+     Called to ask if there's any possibility of this being displayed in another way.
+     
+     - parameter for: The presentation controller we're talking about.
+     - returns: No way, Jose.
+     */
+    func adaptivePresentationStyle(for: UIPresentationController) -> UIModalPresentationStyle { .none }
+    
+    /* ################################################################## */
+    /**
+     Called to ask if there's any possibility of this being displayed in another way (when the screen is rotated).
+     
+     - parameter for: The presentation controller we're talking about.
+     - parameter traitCollection: The traits, describing the new orientation.
+     - returns: No way, Jose.
+     */
+    func adaptivePresentationStyle(for: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle { .none }
 }
