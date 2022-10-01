@@ -141,8 +141,8 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
         if let rootServerURL = URL(string: inRootServerURLString) {
             searchData?.meetings = []
             sdk = LGV_MeetingSDK_BMLT(rootServerURL: rootServerURL)
-            mapViewController?.updateScreen()
             setTabBarEnablement()
+            mapViewController?.updateScreen()
         }
     }
     
