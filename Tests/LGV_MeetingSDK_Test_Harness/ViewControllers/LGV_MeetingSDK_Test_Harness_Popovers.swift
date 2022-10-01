@@ -53,9 +53,56 @@ extension LGV_MeetingSDK_Test_Harness_Base_Popover_ViewController {
 class LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController: LGV_MeetingSDK_Test_Harness_Base_Popover_ViewController {
     /* ################################################################## */
     /**
+     The desired width of the popover.
+     */
+    private static let _popoverWidth = CGFloat(300)
+    
+    /* ################################################################## */
+    /**
+     The desired height of the popover.
+     */
+    private static let _popoverHeight = CGFloat(144)
+    
+    /* ################################################################## */
+    /**
      This will be the Root Server selection Picker.
      */
     @IBOutlet weak var rootServerPickerView: UIPickerView?
+    
+    /* ################################################################## */
+    /**
+     This is our main Tab controller.
+     */
+    private weak var _tabController: LGV_MeetingSDK_Test_Harness_TabController?
+}
+
+/* ###################################################################################################################################### */
+// MARK: Computed Properties
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController {
+    /* ################################################################## */
+    /**
+     The index of the currently selected Root Server
+     */
+    var indexOfSelectedRootServer: Int {
+        get {
+            let selected = LGV_MeetingSDK_Test_Harness_Prefs().rootServerURLString
+            
+            for rootServerEntity in Self.rootServerList.enumerated() where rootServerEntity.element.rootURL == selected {
+                return rootServerEntity.offset
+            }
+            
+            return 0
+        }
+        
+        set {
+            LGV_MeetingSDK_Test_Harness_Prefs().rootServerURLString = Self.rootServerList[newValue].rootURL
+            guard let rootURL = Self.currentRootServer?.rootURL else { return }
+            
+            _tabController?.setSDKToThisRootServerURL(rootURL)
+            _tabController?.mapViewController?.updateRootServerButtonTitle()
+        }
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -64,10 +111,19 @@ class LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController: LGV_Meeting
 extension LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController {
     /* ################################################################## */
     /**
+     This is used to refer back to the main tab view controller.
+     */
+    override var tabController: LGV_MeetingSDK_Test_Harness_TabController? {
+        get { _tabController }
+        set { _tabController = newValue }
+    }
+    
+    /* ################################################################## */
+    /**
      The size that we'd like our popover to be.
      */
     override var preferredContentSize: CGSize {
-        get { super.preferredContentSize }
+        get { CGSize(width: Self._popoverWidth, height: Self._popoverHeight) }
         set { super.preferredContentSize = newValue }
     }
     
@@ -77,6 +133,7 @@ extension LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        rootServerPickerView?.selectRow(indexOfSelectedRootServer, inComponent: 0, animated: true)
     }
 }
 
@@ -103,13 +160,36 @@ extension LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController: UIPicke
      
      - returns: The number of rows (the number of Root Servers).
      */
-    func pickerView(_: UIPickerView, numberOfRowsInComponent: Int) -> Int { 0 }
+    func pickerView(_: UIPickerView, numberOfRowsInComponent: Int) -> Int { Self.rootServerList.count }
 }
 
 /* ###################################################################################################################################### */
 // MARK: UIPickerViewDelegate Conformance
 /* ###################################################################################################################################### */
 extension LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController: UIPickerViewDelegate {
+    /* ################################################################## */
+    /**
+     The number of rows in the component
+     
+     - parameter: The picker view instance (ignored).
+     - parameter titleForRow: The row, for the selected Root Server.
+     - parameter forComponent: The component we're checking (only one, so ignored).
+     
+     - returns: A String, with the URL title.
+     */
+    func pickerView(_: UIPickerView, titleForRow inRow: Int, forComponent: Int ) -> String? { Self.rootServerList[inRow].name }
+    
+    /* ################################################################## */
+    /**
+     The number of rows in the component
+     
+     - parameter: The picker view instance (ignored).
+     - parameter titleForRow: The row, for the selected Root Server.
+     - parameter forComponent: The component we're checking (only one, so ignored).
+     */
+    func pickerView(_: UIPickerView, didSelectRow inRow: Int, inComponent: Int) {
+        indexOfSelectedRootServer = inRow
+    }
 }
 
 /* ###################################################################################################################################### */

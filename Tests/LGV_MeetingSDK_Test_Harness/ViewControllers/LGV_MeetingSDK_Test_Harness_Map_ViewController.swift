@@ -412,7 +412,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
      This updates the screen to reflect the current state.
      */
     func updateScreen() {
-        rootServerButton?.setTitle(Self.currentRootServer?.name ?? "ERROR", for: .normal)
+        updateRootServerButtonTitle()
         if case let .autoRadius(_, numberOfResults, maximumRadiusInMeters) = searchData?.searchType {
             autoSearchStackView?.isHidden = false
             textInputField?.text = String(numberOfResults)
@@ -421,6 +421,14 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
             autoSearchStackView?.isHidden = true
         }
         updateTheCircleOverlay()
+    }
+    
+    /* ################################################################## */
+    /**
+     This updates the title of the Root Server button, to match the current selection.
+     */
+    func updateRootServerButtonTitle() {
+        rootServerButton?.setTitle(Self.currentRootServer?.name ?? "ERROR", for: .normal)
     }
 }
 
@@ -474,6 +482,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
     @IBAction func rootServerButtonHitHit(_ inView: UIView) {
         if let popoverController = storyboard?.instantiateViewController(identifier: "LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController") as? LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController {
             popoverController.modalPresentationStyle = .popover
+            popoverController.tabController = tabController
             popoverController.popoverPresentationController?.sourceView = inView
             popoverController.popoverPresentationController?.delegate = self
             popoverController.popoverPresentationController?.permittedArrowDirections = [.up]

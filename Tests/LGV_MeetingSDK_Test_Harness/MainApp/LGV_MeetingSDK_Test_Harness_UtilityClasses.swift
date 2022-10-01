@@ -172,8 +172,9 @@ extension LGV_MeetingSDK_Test_Harness_Base_ViewController {
     /* ################################################################## */
     /**
      This is used to refer back to the main tab view controller.
+     The "@objc" lets it be overridden.
      */
-    var tabController: LGV_MeetingSDK_Test_Harness_TabController? { tabBarController as? LGV_MeetingSDK_Test_Harness_TabController }
+    @objc var tabController: LGV_MeetingSDK_Test_Harness_TabController? { tabBarController as? LGV_MeetingSDK_Test_Harness_TabController }
 
     /* ################################################################## */
     /**
