@@ -28,5 +28,5 @@ import RVS_UIKit_Toolbox
 /**
  This displays the manual search controller.
  */
-class LGV_MeetingSDK_Test_Harness_Manual_ViewController: LGV_MeetingSDK_Test_Harness_Base_ViewController {
+class LGV_MeetingSDK_Test_Harness_Results_ViewController: LGV_MeetingSDK_Test_Harness_Base_ViewController {
 }

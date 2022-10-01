@@ -223,10 +223,10 @@
             </objects>
             <point key="canvasLocation" x="1176.9230769230769" y="-36.255924170616112"/>
         </scene>
-        <!--SLUG-MANUAL-SEARCH-CONTROLLER-->
+        <!--SLUG-RESULTS-CONTROLLER-->
         <scene sceneID="EyV-R5-40R">
             <objects>
-                <viewController id="QoT-Tb-XZr" customClass="LGV_MeetingSDK_Test_Harness_Manual_ViewController" customModule="LGV_MeetingSDK_Test_Harness" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="QoT-Tb-XZr" customClass="LGV_MeetingSDK_Test_Harness_Results_ViewController" customModule="LGV_MeetingSDK_Test_Harness" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kxn-Oj-o3r">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -254,7 +254,7 @@
                             <constraint firstItem="Ggv-XA-PMa" firstAttribute="top" secondItem="kxn-Oj-o3r" secondAttribute="top" id="sAs-3b-cZe"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="SLUG-MANUAL-SEARCH-CONTROLLER" id="E31-zu-14d">
+                    <tabBarItem key="tabBarItem" title="SLUG-RESULTS-CONTROLLER" id="E31-zu-14d">
                         <imageReference key="image" image="list.bullet" catalog="system" symbolScale="large"/>
                     </tabBarItem>
                 </viewController>

@@ -17,7 +17,7 @@
  CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 "SLUG-MAP-SEARCH-CONTROLLER"                                    =       "This will display the Map Search Screen.";
-"SLUG-MANUAL-SEARCH-CONTROLLER"                                 =       "This will display the Manual Search Screen.";
+"SLUG-RESULTS-CONTROLLER"                                       =       "This will display the Search Results Screen.";
 "SLUG-MAX-COUNT-HINT"                                           =       "Enter the number of meetings that you want to find.";
-"SLUG-SEGMENTED-RADIUS-SWITCH-HINT"                             =       "This will display a screen for a fixed search radius or an auto-radius search, based on a number of meetings.";
+"SLUG-SEGMENTED-RADIUS-SWITCH-HINT"                             =       "This will display controls for a fixed search radius or an auto-radius search (which is based on a number of meetings).";
 "SLUG-MAX-RADIUS-BUTTON"                                        =       "If this is on, then the auto-radius will not exceed the selected radius.";

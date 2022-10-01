@@ -17,7 +17,7 @@
  CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 "SLUG-MAP-SEARCH-CONTROLLER"                                    =       "Map Search";
-"SLUG-MANUAL-SEARCH-CONTROLLER"                                 =       "Results";
+"SLUG-RESULTS-CONTROLLER"                                       =       "Results";
 "SLUG-FIXED-NAME"                                               =       "Fixed Radius Search";
 "SLUG-AUTO-NAME"                                                =       "Auto Radius Search";
 "SLUG-MAX-COUNT-LABEL"                                          =       "Required Found:";
