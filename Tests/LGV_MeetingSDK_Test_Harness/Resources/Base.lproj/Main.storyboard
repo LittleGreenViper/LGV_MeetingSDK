@@ -103,6 +103,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="vrI-bk-l54"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="tintColor" name="AccentColor"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <connections>
@@ -338,7 +339,7 @@
         <image name="list.bullet" catalog="system" width="128" height="87"/>
         <image name="mappin.and.ellipse" catalog="system" width="117" height="128"/>
         <namedColor name="AccentColor">
-            <color red="0.15800000727176666" green="0.74199998378753662" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.31400001049041748" green="0.37999999523162842" blue="0.89399999380111694" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
