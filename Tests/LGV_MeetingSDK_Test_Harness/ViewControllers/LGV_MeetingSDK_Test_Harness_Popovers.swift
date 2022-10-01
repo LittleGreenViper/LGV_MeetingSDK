@@ -100,7 +100,6 @@ extension LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController {
             guard let rootURL = Self.currentRootServer?.rootURL else { return }
             
             _tabController?.setSDKToThisRootServerURL(rootURL)
-            _tabController?.mapViewController?.updateRootServerButtonTitle()
         }
     }
 }
@@ -134,6 +133,16 @@ extension LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         rootServerPickerView?.selectRow(indexOfSelectedRootServer, inComponent: 0, animated: true)
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the view is about to appear.
+     
+     - parameter inAnimated: True, if the appearance is animated.
+     */
+    override func viewWillDisappear(_ inAnimated: Bool) {
+        super.viewWillDisappear(inAnimated)
     }
 }
 
