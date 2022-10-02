@@ -340,12 +340,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="474"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" id="Uyu-sm-nTi">
-                                <rect key="frame" x="15" y="44" width="356" height="413"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" id="Uyu-sm-nTi">
+                                <rect key="frame" x="15" y="44" width="356" height="370"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="8oC-0U-Usd" userLabel="Main Stack View">
-                                        <rect key="frame" x="0.0" y="0.0" width="358" height="81"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="8oC-0U-Usd" userLabel="Main Stack View">
+                                        <rect key="frame" x="0.0" y="0.0" width="358" height="219"/>
                                         <subviews>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="cjd-Lm-6L3">
                                                 <rect key="frame" x="0.0" y="0.0" width="358" height="32"/>
@@ -388,14 +388,14 @@
                                                     <constraint firstAttribute="bottom" secondItem="6td-QE-JPd" secondAttribute="bottom" id="lr3-Ag-NwK"/>
                                                 </constraints>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="9VT-eG-ekT" userLabel="Weekdays Stack View">
-                                                <rect key="frame" x="29" y="81" width="300" height="0.0"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H5f-Pm-hYl">
+                                                <rect key="frame" x="0.0" y="81" width="358" height="80"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1JP-MP-ccG" userLabel="Day 1">
-                                                        <rect key="frame" x="0.0" y="0.0" width="43" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="52.333333333333336" height="80"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aCC-0s-QZq" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
-                                                                <rect key="frame" x="0.0" y="0.0" width="43" height="43"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="52.333333333333336" height="52.333333333333336"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="aCC-0s-QZq" secondAttribute="height" multiplier="1:1" id="ReL-N7-aaD"/>
@@ -408,9 +408,9 @@
                                                                     <action selector="weekdayCheckboxChangedValue:" destination="EU7-Xo-ygf" eventType="valueChanged" id="c6r-MK-NAd"/>
                                                                 </connections>
                                                             </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ø" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="js5-gs-yga">
-                                                                <rect key="frame" x="0.0" y="47" width="43" height="20.333333333333329"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ø" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="js5-gs-yga">
+                                                                <rect key="frame" x="0.0" y="56.33333333333335" width="52.333333333333336" height="19.333333333333336"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -426,10 +426,10 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="J2o-gB-qBi" userLabel="Day 2">
-                                                        <rect key="frame" x="43" y="0.0" width="42.666666666666657" height="0.0"/>
+                                                        <rect key="frame" x="48.333333333333329" y="0.0" width="52.333333333333329" height="80"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sw4-i5-TJq" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
-                                                                <rect key="frame" x="0.0" y="0.0" width="42.666666666666664" height="43"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="52.333333333333336" height="52.333333333333336"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="Sw4-i5-TJq" secondAttribute="height" multiplier="1:1" id="Jyp-3G-keR"/>
@@ -442,9 +442,9 @@
                                                                     <action selector="weekdayCheckboxChangedValue:" destination="EU7-Xo-ygf" eventType="valueChanged" id="lSf-mM-Kor"/>
                                                                 </connections>
                                                             </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ø" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ztY-2g-xkL">
-                                                                <rect key="frame" x="0.0" y="47" width="42.666666666666664" height="20.333333333333329"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ø" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ztY-2g-xkL">
+                                                                <rect key="frame" x="0.0" y="56.33333333333335" width="52.333333333333336" height="19.333333333333336"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -460,10 +460,10 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="4Pq-Cs-yMx" userLabel="Day 3">
-                                                        <rect key="frame" x="85.666666666666657" y="0.0" width="43" height="0.0"/>
+                                                        <rect key="frame" x="96.666666666666671" y="0.0" width="52.333333333333329" height="80"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gMh-rJ-tJ6" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
-                                                                <rect key="frame" x="0.0" y="0.0" width="43" height="43"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="52.333333333333336" height="52.333333333333336"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="gMh-rJ-tJ6" secondAttribute="height" multiplier="1:1" id="jib-ZA-vjy"/>
@@ -476,9 +476,9 @@
                                                                     <action selector="weekdayCheckboxChangedValue:" destination="EU7-Xo-ygf" eventType="valueChanged" id="qJ0-H4-AYD"/>
                                                                 </connections>
                                                             </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ø" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NfT-wK-1dO">
-                                                                <rect key="frame" x="0.0" y="47" width="43" height="20.333333333333329"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ø" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="NfT-wK-1dO">
+                                                                <rect key="frame" x="0.0" y="56.33333333333335" width="52.333333333333336" height="19.333333333333336"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -494,10 +494,10 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="jJF-Ks-DRP" userLabel="Day 4">
-                                                        <rect key="frame" x="128.66666666666666" y="0.0" width="42.666666666666657" height="0.0"/>
+                                                        <rect key="frame" x="145" y="0.0" width="52" height="80"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mw8-QL-bpB" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
-                                                                <rect key="frame" x="0.0" y="0.0" width="42.666666666666664" height="43"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="52" height="52.333333333333336"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="mw8-QL-bpB" secondAttribute="height" multiplier="1:1" id="JPy-ad-JVh"/>
@@ -510,9 +510,9 @@
                                                                     <action selector="weekdayCheckboxChangedValue:" destination="EU7-Xo-ygf" eventType="valueChanged" id="g9T-F1-IsZ"/>
                                                                 </connections>
                                                             </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ø" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DqL-4Z-HaF">
-                                                                <rect key="frame" x="0.0" y="47" width="42.666666666666664" height="20.333333333333329"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ø" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="DqL-4Z-HaF">
+                                                                <rect key="frame" x="0.0" y="56.33333333333335" width="52" height="19.333333333333336"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -528,10 +528,10 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="AWd-1K-n0d" userLabel="Day 5">
-                                                        <rect key="frame" x="171.33333333333334" y="0.0" width="43" height="0.0"/>
+                                                        <rect key="frame" x="193" y="0.0" width="52.333333333333343" height="80"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cjE-Sm-04T" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
-                                                                <rect key="frame" x="0.0" y="0.0" width="43" height="43"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="52.333333333333336" height="52.333333333333336"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="cjE-Sm-04T" secondAttribute="height" multiplier="1:1" id="Wb7-m1-YwW"/>
@@ -544,9 +544,9 @@
                                                                     <action selector="weekdayCheckboxChangedValue:" destination="EU7-Xo-ygf" eventType="valueChanged" id="V6i-Zg-DGt"/>
                                                                 </connections>
                                                             </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ø" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4d5-C0-voD">
-                                                                <rect key="frame" x="0.0" y="47" width="43" height="20.333333333333329"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ø" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="4d5-C0-voD">
+                                                                <rect key="frame" x="0.0" y="56.33333333333335" width="52.333333333333336" height="19.333333333333336"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -562,10 +562,10 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="q5J-3V-Fqi" userLabel="Day 6">
-                                                        <rect key="frame" x="214.33333333333331" y="0.0" width="42.666666666666686" height="0.0"/>
+                                                        <rect key="frame" x="241.33333333333334" y="0.0" width="52.333333333333343" height="80"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xsa-w9-gKh" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
-                                                                <rect key="frame" x="0.0" y="0.0" width="42.666666666666664" height="43"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="52.333333333333336" height="52.333333333333336"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="Xsa-w9-gKh" secondAttribute="height" multiplier="1:1" id="2zX-mE-ylf"/>
@@ -578,9 +578,9 @@
                                                                     <action selector="weekdayCheckboxChangedValue:" destination="EU7-Xo-ygf" eventType="valueChanged" id="MBv-Si-aut"/>
                                                                 </connections>
                                                             </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ø" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sTU-aq-PWw">
-                                                                <rect key="frame" x="0.0" y="47" width="42.666666666666664" height="20.333333333333329"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ø" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="sTU-aq-PWw">
+                                                                <rect key="frame" x="0.0" y="56.33333333333335" width="52.333333333333336" height="19.333333333333336"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -596,10 +596,10 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="vD7-Px-6ZC" userLabel="Day 7">
-                                                        <rect key="frame" x="257" y="0.0" width="43" height="0.0"/>
+                                                        <rect key="frame" x="289.66666666666669" y="0.0" width="52.333333333333314" height="80"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HqT-uL-yCt" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
-                                                                <rect key="frame" x="0.0" y="0.0" width="43" height="43"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="52.333333333333336" height="52.333333333333336"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="HqT-uL-yCt" secondAttribute="height" multiplier="1:1" id="0i8-5m-y3i"/>
@@ -612,9 +612,9 @@
                                                                     <action selector="weekdayCheckboxChangedValue:" destination="EU7-Xo-ygf" eventType="valueChanged" id="Xut-KL-uhH"/>
                                                                 </connections>
                                                             </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ø" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4TG-t2-i1c">
-                                                                <rect key="frame" x="0.0" y="47" width="43" height="20.333333333333329"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ø" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="4TG-t2-i1c">
+                                                                <rect key="frame" x="0.0" y="56.33333333333335" width="52.333333333333336" height="19.333333333333336"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -630,47 +630,89 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="1JP-MP-ccG" firstAttribute="leading" secondItem="H5f-Pm-hYl" secondAttribute="leading" id="0ee-M8-fpU"/>
+                                                    <constraint firstItem="AWd-1K-n0d" firstAttribute="top" secondItem="H5f-Pm-hYl" secondAttribute="top" id="1l1-xQ-IyY"/>
+                                                    <constraint firstItem="jJF-Ks-DRP" firstAttribute="trailing" secondItem="AWd-1K-n0d" secondAttribute="leading" constant="4" id="3an-w0-cH2"/>
+                                                    <constraint firstItem="q5J-3V-Fqi" firstAttribute="trailing" secondItem="vD7-Px-6ZC" secondAttribute="leading" constant="4" id="5cL-W5-i31"/>
+                                                    <constraint firstItem="jJF-Ks-DRP" firstAttribute="top" secondItem="H5f-Pm-hYl" secondAttribute="top" id="8rP-n2-w2b"/>
+                                                    <constraint firstItem="4Pq-Cs-yMx" firstAttribute="top" secondItem="H5f-Pm-hYl" secondAttribute="top" id="BDE-bf-Vqq"/>
+                                                    <constraint firstAttribute="bottom" secondItem="AWd-1K-n0d" secondAttribute="bottom" id="BsG-aY-rgb"/>
+                                                    <constraint firstItem="q5J-3V-Fqi" firstAttribute="width" secondItem="1JP-MP-ccG" secondAttribute="width" id="Fsh-nQ-FoQ"/>
+                                                    <constraint firstItem="1JP-MP-ccG" firstAttribute="top" secondItem="H5f-Pm-hYl" secondAttribute="top" id="G3H-XR-Xdi"/>
+                                                    <constraint firstAttribute="bottom" secondItem="1JP-MP-ccG" secondAttribute="bottom" id="GAf-4c-ISw"/>
+                                                    <constraint firstAttribute="bottom" secondItem="vD7-Px-6ZC" secondAttribute="bottom" id="KVu-zy-J4c"/>
+                                                    <constraint firstItem="J2o-gB-qBi" firstAttribute="width" secondItem="1JP-MP-ccG" secondAttribute="width" id="Q4C-lb-ath"/>
+                                                    <constraint firstAttribute="bottom" secondItem="q5J-3V-Fqi" secondAttribute="bottom" id="VJu-HC-epx"/>
+                                                    <constraint firstAttribute="bottom" secondItem="jJF-Ks-DRP" secondAttribute="bottom" id="W8j-8G-S90"/>
+                                                    <constraint firstItem="4Pq-Cs-yMx" firstAttribute="width" secondItem="1JP-MP-ccG" secondAttribute="width" id="YAc-E6-J0b"/>
+                                                    <constraint firstAttribute="bottom" secondItem="J2o-gB-qBi" secondAttribute="bottom" id="Yqt-7v-Qqv"/>
+                                                    <constraint firstItem="q5J-3V-Fqi" firstAttribute="top" secondItem="H5f-Pm-hYl" secondAttribute="top" id="aFj-Sq-hYV"/>
+                                                    <constraint firstItem="AWd-1K-n0d" firstAttribute="trailing" secondItem="q5J-3V-Fqi" secondAttribute="leading" constant="4" id="aeN-oI-Dzu"/>
+                                                    <constraint firstAttribute="trailing" secondItem="vD7-Px-6ZC" secondAttribute="trailing" constant="16" id="as5-Vp-GHR"/>
+                                                    <constraint firstItem="J2o-gB-qBi" firstAttribute="trailing" secondItem="4Pq-Cs-yMx" secondAttribute="leading" constant="4" id="buS-J1-ZLf"/>
+                                                    <constraint firstItem="1JP-MP-ccG" firstAttribute="trailing" secondItem="J2o-gB-qBi" secondAttribute="leading" constant="4" id="gqc-bF-u3N"/>
+                                                    <constraint firstAttribute="height" constant="80" id="h9g-os-Fzy"/>
+                                                    <constraint firstItem="4Pq-Cs-yMx" firstAttribute="trailing" secondItem="jJF-Ks-DRP" secondAttribute="leading" constant="4" id="jSF-jo-L9n"/>
+                                                    <constraint firstItem="J2o-gB-qBi" firstAttribute="top" secondItem="H5f-Pm-hYl" secondAttribute="top" id="kRf-Ml-VFf"/>
+                                                    <constraint firstItem="vD7-Px-6ZC" firstAttribute="width" secondItem="1JP-MP-ccG" secondAttribute="width" id="lkZ-Za-4JX"/>
+                                                    <constraint firstAttribute="bottom" secondItem="4Pq-Cs-yMx" secondAttribute="bottom" id="pZh-MH-1Rl"/>
+                                                    <constraint firstItem="AWd-1K-n0d" firstAttribute="width" secondItem="1JP-MP-ccG" secondAttribute="width" id="r3u-0R-uuM"/>
+                                                    <constraint firstItem="vD7-Px-6ZC" firstAttribute="top" secondItem="H5f-Pm-hYl" secondAttribute="top" id="roq-d3-sdF"/>
+                                                    <constraint firstItem="jJF-Ks-DRP" firstAttribute="width" secondItem="1JP-MP-ccG" secondAttribute="width" id="soA-kP-UBp"/>
+                                                </constraints>
+                                            </view>
+                                            <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="9VT-eG-ekT" userLabel="Weekdays Stack View">
+                                                <rect key="frame" x="29" y="169" width="300" height="50"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstItem="AWd-1K-n0d" firstAttribute="top" secondItem="9VT-eG-ekT" secondAttribute="top" id="0h3-Ip-X54"/>
-                                                    <constraint firstAttribute="bottom" secondItem="4Pq-Cs-yMx" secondAttribute="bottom" id="6Y9-ix-AGp"/>
-                                                    <constraint firstItem="vD7-Px-6ZC" firstAttribute="top" secondItem="9VT-eG-ekT" secondAttribute="top" id="C0d-mT-vBU"/>
-                                                    <constraint firstAttribute="bottom" secondItem="q5J-3V-Fqi" secondAttribute="bottom" id="JCF-ZW-WeP"/>
-                                                    <constraint firstAttribute="bottom" secondItem="1JP-MP-ccG" secondAttribute="bottom" id="N1J-Ua-5DO"/>
-                                                    <constraint firstAttribute="bottom" secondItem="J2o-gB-qBi" secondAttribute="bottom" id="NpG-bX-cAo"/>
-                                                    <constraint firstItem="J2o-gB-qBi" firstAttribute="top" secondItem="9VT-eG-ekT" secondAttribute="top" id="Qee-qu-984"/>
-                                                    <constraint firstAttribute="bottom" secondItem="jJF-Ks-DRP" secondAttribute="bottom" id="SlZ-dB-pYR"/>
-                                                    <constraint firstItem="jJF-Ks-DRP" firstAttribute="top" secondItem="9VT-eG-ekT" secondAttribute="top" id="TOJ-DA-6bY"/>
-                                                    <constraint firstAttribute="bottom" secondItem="vD7-Px-6ZC" secondAttribute="bottom" id="Wv1-MV-CIb"/>
-                                                    <constraint firstItem="4Pq-Cs-yMx" firstAttribute="top" secondItem="9VT-eG-ekT" secondAttribute="top" id="aTf-mA-F9P"/>
-                                                    <constraint firstAttribute="bottom" secondItem="AWd-1K-n0d" secondAttribute="bottom" id="wOa-1d-aFd"/>
                                                     <constraint firstAttribute="width" constant="300" id="xKp-CC-vdL"/>
-                                                    <constraint firstItem="q5J-3V-Fqi" firstAttribute="top" secondItem="9VT-eG-ekT" secondAttribute="top" id="xgZ-BN-mZm"/>
-                                                    <constraint firstItem="1JP-MP-ccG" firstAttribute="top" secondItem="9VT-eG-ekT" secondAttribute="top" id="xjK-eE-gup"/>
                                                 </constraints>
                                             </stackView>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="H5f-Pm-hYl" secondAttribute="trailing" id="0Lg-qF-yFf"/>
+                                            <constraint firstItem="H5f-Pm-hYl" firstAttribute="leading" secondItem="8oC-0U-Usd" secondAttribute="leading" id="VHH-9m-zAz"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" name="AccentColor"/>
                                 <constraints>
                                     <constraint firstItem="8oC-0U-Usd" firstAttribute="trailing" secondItem="Zcn-S1-nxP" secondAttribute="trailing" id="C4U-kA-QkZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="8oC-0U-Usd" secondAttribute="bottom" constant="148" id="J8e-33-HOG"/>
                                     <constraint firstItem="8oC-0U-Usd" firstAttribute="top" secondItem="Zcn-S1-nxP" secondAttribute="top" id="Qen-6X-j16"/>
                                     <constraint firstItem="8oC-0U-Usd" firstAttribute="leading" secondItem="Zcn-S1-nxP" secondAttribute="leading" id="Ytc-RC-rdh"/>
+                                    <constraint firstItem="ITv-Ij-qmd" firstAttribute="bottom" secondItem="8oC-0U-Usd" secondAttribute="bottom" placeholder="YES" id="awg-vo-oFm"/>
                                     <constraint firstItem="8oC-0U-Usd" firstAttribute="width" secondItem="Uyu-sm-nTi" secondAttribute="width" id="bF2-Lj-ouK"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="Zcn-S1-nxP"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="ITv-Ij-qmd"/>
                             </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P00-iT-Qnf">
+                                <rect key="frame" x="16" y="269" width="358" height="189"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="3pY-qq-HR4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="SLUG-SEARCH-BUTTON-TITLE"/>
+                                <connections>
+                                    <action selector="searchButtonHit:" destination="EU7-Xo-ygf" eventType="touchUpInside" id="lHu-GM-nFu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LSv-bl-tlU"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="LSv-bl-tlU" firstAttribute="bottom" secondItem="Uyu-sm-nTi" secondAttribute="bottom" constant="16" id="HUi-tP-544"/>
+                            <constraint firstItem="P00-iT-Qnf" firstAttribute="top" secondItem="Uyu-sm-nTi" secondAttribute="bottom" id="NEr-aM-9rr"/>
+                            <constraint firstItem="LSv-bl-tlU" firstAttribute="bottom" secondItem="P00-iT-Qnf" secondAttribute="bottom" constant="16" id="UvC-uY-CT7"/>
                             <constraint firstItem="LSv-bl-tlU" firstAttribute="trailing" secondItem="Uyu-sm-nTi" secondAttribute="trailing" constant="16" id="XBh-4V-xUU"/>
+                            <constraint firstItem="P00-iT-Qnf" firstAttribute="leading" secondItem="LSv-bl-tlU" secondAttribute="leading" constant="16" id="eOQ-vA-OUU"/>
                             <constraint firstItem="Uyu-sm-nTi" firstAttribute="top" secondItem="LSv-bl-tlU" secondAttribute="top" id="j8x-ed-cvg"/>
                             <constraint firstItem="Uyu-sm-nTi" firstAttribute="leading" secondItem="LSv-bl-tlU" secondAttribute="leading" constant="16" id="ocd-9T-Pkz"/>
+                            <constraint firstItem="LSv-bl-tlU" firstAttribute="trailing" secondItem="P00-iT-Qnf" secondAttribute="trailing" constant="16" id="wLC-Xa-UOh"/>
                         </constraints>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
@@ -693,6 +735,7 @@
                         <outlet property="day7Checkbox" destination="HqT-uL-yCt" id="ANd-24-p8C"/>
                         <outlet property="day7Label" destination="4TG-t2-i1c" id="UHn-nB-ssf"/>
                         <outlet property="fromTimeTextField" destination="6td-QE-JPd" id="zv6-0O-mSF"/>
+                        <outlet property="searchButton" destination="P00-iT-Qnf" id="9ip-fd-EQR"/>
                         <outlet property="startTimeSegmentedControl" destination="cjd-Lm-6L3" id="XAv-mF-CAg"/>
                         <outlet property="timeConstraintsStackView" destination="p22-zh-Wpr" id="Sea-4X-LqS"/>
                         <outlet property="toTimeTextField" destination="f60-IH-gHW" id="oYa-EJ-Lw8"/>
@@ -709,7 +752,7 @@
         <image name="list.bullet" catalog="system" width="128" height="87"/>
         <image name="mappin.and.ellipse" catalog="system" width="117" height="128"/>
         <namedColor name="AccentColor">
-            <color red="0.15800000727176666" green="0.74199998378753662" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.31400001049041748" green="0.37999999523162842" blue="0.89399999380111694" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

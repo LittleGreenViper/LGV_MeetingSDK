@@ -309,6 +309,11 @@ class LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController: LGV_Meetin
     /**
      */
     @IBOutlet weak var startTimeSegmentedControl: UISegmentedControl?
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var searchButton: UIButton?
 }
 
 /* ###################################################################################################################################### */
@@ -324,6 +329,23 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         for segmentIndex in (0..<(startTimeSegmentedControl?.numberOfSegments ?? 0)) {
             startTimeSegmentedControl?.setTitle(startTimeSegmentedControl?.titleForSegment(at: segmentIndex)?.localizedVariant, forSegmentAt: segmentIndex)
         }
+
+        startTimeSegmentedControl?.accessibilityHint = "SLUG-TIME-RANGE-SEGMENTED-SWITCH".accessibilityLocalizedVariant
+        fromTimeTextField?.accessibilityHint = "SLUG-TIME-RANGE-LOWER".accessibilityLocalizedVariant
+        toTimeTextField?.accessibilityHint = "SLUG-TIME-RANGE-UPPER".accessibilityLocalizedVariant
+
+        searchButton?.titleLabel?.adjustsFontSizeToFitWidth = true
+        searchButton?.titleLabel?.minimumScaleFactor = 0.5
+        searchButton?.accessibilityHint = searchButton?.title(for: .normal)?.accessibilityLocalizedVariant
+        searchButton?.setTitle(searchButton?.title(for: .normal)?.localizedVariant, for: .normal)
+        
+        day1Label?.text = Calendar.current.shortWeekdaySymbols[0]
+        day2Label?.text = Calendar.current.shortWeekdaySymbols[1]
+        day3Label?.text = Calendar.current.shortWeekdaySymbols[2]
+        day4Label?.text = Calendar.current.shortWeekdaySymbols[3]
+        day5Label?.text = Calendar.current.shortWeekdaySymbols[4]
+        day6Label?.text = Calendar.current.shortWeekdaySymbols[5]
+        day7Label?.text = Calendar.current.shortWeekdaySymbols[6]
         
         setUpUI()
     }
@@ -355,7 +377,8 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
                 }
                 
             case let .weekdays(weekdays):
-                if !weekdays.isEmpty {
+                if !weekdays.isEmpty,
+                   7 > weekdays.count {
                     day1Checkbox?.isOn = false
                     day2Checkbox?.isOn = false
                     day3Checkbox?.isOn = false
@@ -363,8 +386,36 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
                     day5Checkbox?.isOn = false
                     day6Checkbox?.isOn = false
                     day7Checkbox?.isOn = false
-                    weekdays.forEach { weekdayIndex in
-                        
+                    weekdays.forEach { weekday in
+                        var weekdayIndex = weekday.rawValue - Calendar.current.firstWeekday
+                        if 0 > weekdayIndex {
+                            weekdayIndex += 7
+                        }
+                        switch weekdayIndex {
+                        case 0:
+                            day1Checkbox?.isOn = true
+                            
+                        case 1:
+                            day2Checkbox?.isOn = true
+                            
+                        case 2:
+                            day3Checkbox?.isOn = true
+                            
+                        case 3:
+                            day4Checkbox?.isOn = true
+                            
+                        case 4:
+                            day5Checkbox?.isOn = true
+                            
+                        case 5:
+                            day6Checkbox?.isOn = true
+                            
+                        case 6:
+                            day7Checkbox?.isOn = true
+                            
+                        default:
+                            break
+                        }
                     }
                 }
                 
@@ -417,5 +468,6 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: searchType, searchRefinements: searchRefinements)
         tabController?.selectedIndex = LGV_MeetingSDK_Test_Harness_TabController.TabIndexes.search.rawValue
         tabController?.sdk?.meetingSearch(type: searchType, refinements: searchRefinements, completion: searchCallbackHandler)
+        dismiss(animated: true)
     }
 }

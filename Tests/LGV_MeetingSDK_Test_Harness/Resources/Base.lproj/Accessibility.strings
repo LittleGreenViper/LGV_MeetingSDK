@@ -22,3 +22,7 @@
 "SLUG-SEGMENTED-RADIUS-SWITCH-HINT"                             =       "This will display controls for a fixed search radius or an auto-radius search (which is based on a number of meetings).";
 "SLUG-MAX-RADIUS-BUTTON"                                        =       "If this is on, then the auto-radius will not exceed the selected radius.";
 "SLUG-ROOT-SERVER-BUTTON-HINT"                                  =       "Th name of the currently selected BMLT Root Server. Select this button to be presented by a popover, to change the Root Server.";
+"SLUG-SEARCH-BUTTON-TITLE"                                      =       "If this is selected, the search will begin. Simply close the popover to cancel.";
+"SLUG-TIME-RANGE-SEGMENTED-SWITCH"                              =       "If you want to look for meetings that start within a specific time range, setting this will make a couple of text boxes appear, where you can enter a time range.";
+"SLUG-TIME-RANGE-LOWER"                                         =       "Enter the minimum start time, in military time, here.";
+"SLUG-TIME-RANGE-UPPER"                                         =       "Enter the maximum start time, in military time, here.";

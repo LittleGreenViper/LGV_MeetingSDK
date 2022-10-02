@@ -27,3 +27,4 @@
 "SLUG-TOMATO-SERVER-URL"                                        =       "https://tomato.bmltenabled.org/main_server";
 "SLUG-ANY-TIME"                                                 =       "Any Time";
 "SLUG-CONSTRAINED-TIME"                                         =       "Start Time Range";
+"SLUG-SEARCH-BUTTON-TITLE"                                      =       "Search for Meetings";
