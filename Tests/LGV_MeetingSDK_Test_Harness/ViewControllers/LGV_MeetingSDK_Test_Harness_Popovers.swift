@@ -272,24 +272,38 @@ class LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController: LGV_Meetin
     /* ################################################################## */
     /**
      */
-    @IBOutlet weak var fromTimeTextField: UITextField!
+    @IBOutlet weak var timeConstraintsStackView: UIStackView?
 
     /* ################################################################## */
     /**
      */
-    @IBOutlet weak var toTimeTextField: UITextField!
+    @IBOutlet weak var fromTimeTextField: UITextField?
 
-    @IBOutlet weak var timeConstraintsStackView: UIStackView!
     /* ################################################################## */
     /**
      */
-    @IBOutlet weak var startTimeSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var toTimeTextField: UITextField?
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var startTimeSegmentedControl: UISegmentedControl?
 }
 
 /* ###################################################################################################################################### */
 // MARK: Base Class Overrides
 /* ###################################################################################################################################### */
 extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
+    /* ################################################################## */
+    /**
+     Called when the view hierarchy has loaded and initialized.
+     */
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        for segmentIndex in (0..<(startTimeSegmentedControl?.numberOfSegments ?? 0)) {
+            startTimeSegmentedControl?.setTitle(startTimeSegmentedControl?.titleForSegment(at: segmentIndex)?.localizedVariant, forSegmentAt: segmentIndex)
+        }
+    }
 }
 
 /* ###################################################################################################################################### */
