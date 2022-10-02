@@ -21,6 +21,7 @@ import UIKit
 import RVS_Generic_Swift_Toolbox
 import RVS_UIKit_Toolbox
 import RVS_Checkbox
+import LGV_MeetingSDK
 
 /* ###################################################################################################################################### */
 // MARK: - Base Popover View Controller Class -
@@ -199,6 +200,26 @@ extension LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController: UIPicke
  This popover allows selection of refinements, before a search.
  */
 class LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController: LGV_MeetingSDK_Test_Harness_Base_Popover_ViewController {
+    /* ################################################################################################################################## */
+    // MARK: Segment Index Enum
+    /* ################################################################################################################################## */
+    /**
+     The indexes of our segmented switch.
+     */
+    enum SegmentIndexes: Int {
+        /* ############################################################## */
+        /**
+         Any start time.
+         */
+        case anyTime
+        
+        /* ############################################################## */
+        /**
+         Start time must fall within a certain range.
+         */
+        case timeRange
+    }
+    
     /* ################################################################## */
     /**
      */
@@ -303,6 +324,63 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         for segmentIndex in (0..<(startTimeSegmentedControl?.numberOfSegments ?? 0)) {
             startTimeSegmentedControl?.setTitle(startTimeSegmentedControl?.titleForSegment(at: segmentIndex)?.localizedVariant, forSegmentAt: segmentIndex)
         }
+        
+        setUpUI()
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Instance Methods
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
+    /* ################################################################## */
+    /**
+     This sets up the UI, according to the current search data refinements.
+     */
+    func setUpUI() {
+        guard let searchRefinements = searchData?.searchRefinements else { return }
+        day1Checkbox?.isOn = true
+        day2Checkbox?.isOn = true
+        day3Checkbox?.isOn = true
+        day4Checkbox?.isOn = true
+        day5Checkbox?.isOn = true
+        day6Checkbox?.isOn = true
+        day7Checkbox?.isOn = true
+        startTimeSegmentedControl?.selectedSegmentIndex = SegmentIndexes.anyTime.rawValue
+        searchRefinements.forEach { refinement in
+            switch refinement {
+            case let .startTimeRange(startRange):
+                if !startRange.isEmpty {
+                    startTimeSegmentedControl?.selectedSegmentIndex = SegmentIndexes.timeRange.rawValue
+                }
+                
+            case let .weekdays(weekdays):
+                if !weekdays.isEmpty {
+                    day1Checkbox?.isOn = false
+                    day2Checkbox?.isOn = false
+                    day3Checkbox?.isOn = false
+                    day4Checkbox?.isOn = false
+                    day5Checkbox?.isOn = false
+                    day6Checkbox?.isOn = false
+                    day7Checkbox?.isOn = false
+                    weekdays.forEach { weekdayIndex in
+                        
+                    }
+                }
+                
+            default:
+                break
+            }
+        }
+        
+        timeConstraintsStackView?.isHidden = SegmentIndexes.anyTime.rawValue == startTimeSegmentedControl?.selectedSegmentIndex
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    var calculatedSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>? {
+        nil
     }
 }
 
@@ -322,7 +400,8 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
     /* ################################################################## */
     /**
      */
-    @IBAction func startTimeSegmentedControlChanged(_ sender: UISegmentedControl) {
+    @IBAction func startTimeSegmentedControlChanged(_ inStartTimeSegmentedControl: UISegmentedControl) {
+        timeConstraintsStackView?.isHidden = SegmentIndexes.anyTime.rawValue == inStartTimeSegmentedControl.selectedSegmentIndex
     }
 
     /* ################################################################## */
@@ -330,11 +409,12 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
      */
     @IBAction func searchButtonHit(_: Any) {
         guard let searchType = searchData?.searchType,
-              let searchRefinements = searchData?.searchRefinements,
+              let searchRefinements = calculatedSearchRefinements,
               let searchCallbackHandler = tabController?.searchCallbackHandler
         else { return }
         
         tabController?.mapViewController?.isBusy = true
+        appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: searchType, searchRefinements: searchRefinements)
         tabController?.selectedIndex = LGV_MeetingSDK_Test_Harness_TabController.TabIndexes.search.rawValue
         tabController?.sdk?.meetingSearch(type: searchType, refinements: searchRefinements, completion: searchCallbackHandler)
     }
