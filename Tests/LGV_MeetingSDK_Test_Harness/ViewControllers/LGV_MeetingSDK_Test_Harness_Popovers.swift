@@ -34,76 +34,6 @@ class LGV_MeetingSDK_Test_Harness_Base_Popover_ViewController: LGV_MeetingSDK_Te
      This is our main Tab controller.
      */
     private weak var _tabController: LGV_MeetingSDK_Test_Harness_TabController?
-
-    /* ################################################################## */
-    /**
-     */
-    @IBOutlet weak var day1Checkbox: RVS_Checkbox?
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBOutlet weak var day1Label: UILabel?
-
-    /* ################################################################## */
-    /**
-     */
-    @IBOutlet weak var day2Checkbox: RVS_Checkbox?
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBOutlet weak var day2Label: UILabel?
-
-    /* ################################################################## */
-    /**
-     */
-    @IBOutlet weak var day3Checkbox: RVS_Checkbox?
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBOutlet weak var day3Label: UILabel?
-
-    /* ################################################################## */
-    /**
-     */
-    @IBOutlet weak var day4Checkbox: RVS_Checkbox?
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBOutlet weak var day4Label: UILabel?
-
-    /* ################################################################## */
-    /**
-     */
-    @IBOutlet weak var day5Checkbox: RVS_Checkbox?
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBOutlet weak var day5Label: UILabel?
-
-    /* ################################################################## */
-    /**
-     */
-    @IBOutlet weak var day6Checkbox: RVS_Checkbox?
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBOutlet weak var day6Label: UILabel?
-
-    /* ################################################################## */
-    /**
-     */
-    @IBOutlet weak var day7Checkbox: RVS_Checkbox?
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBOutlet weak var day7Label: UILabel?
 }
 
 /* ###################################################################################################################################### */
@@ -208,20 +138,6 @@ extension LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController {
 }
 
 /* ###################################################################################################################################### */
-// MARK: Callbacks
-/* ###################################################################################################################################### */
-extension LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController {
-    /* ################################################################## */
-    /**
-     Called when one of the weekday checkboxes changes value.
-     
-     - parameter inCheckbox: The checkbox that was hit.
-     */
-    @IBAction func weekdayCheckboxChangedValue(_ inCheckbox: RVS_Checkbox) {
-    }
-}
-
-/* ###################################################################################################################################### */
 // MARK: UIPickerViewDataSource Conformance
 /* ###################################################################################################################################### */
 extension LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController: UIPickerViewDataSource {
@@ -283,6 +199,118 @@ extension LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController: UIPicke
  This popover allows selection of refinements, before a search.
  */
 class LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController: LGV_MeetingSDK_Test_Harness_Base_Popover_ViewController {
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var day1Checkbox: RVS_Checkbox?
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var day1Label: UILabel?
+
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var day2Checkbox: RVS_Checkbox?
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var day2Label: UILabel?
+
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var day3Checkbox: RVS_Checkbox?
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var day3Label: UILabel?
+
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var day4Checkbox: RVS_Checkbox?
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var day4Label: UILabel?
+
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var day5Checkbox: RVS_Checkbox?
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var day5Label: UILabel?
+
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var day6Checkbox: RVS_Checkbox?
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var day6Label: UILabel?
+
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var day7Checkbox: RVS_Checkbox?
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var day7Label: UILabel?
+
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var fromTimeTextField: UITextField!
+
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var toTimeTextField: UITextField!
+
+    @IBOutlet weak var timeConstraintsStackView: UIStackView!
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var startTimeSegmentedControl: UISegmentedControl!
+}
+
+/* ###################################################################################################################################### */
+// MARK: Base Class Overrides
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
+}
+
+/* ###################################################################################################################################### */
+// MARK: Callbacks
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
+    /* ################################################################## */
+    /**
+     Called when one of the weekday checkboxes changes value.
+     
+     - parameter inCheckbox: The checkbox that was hit.
+     */
+    @IBAction func weekdayCheckboxChangedValue(_ inCheckbox: RVS_Checkbox) {
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func startTimeSegmentedControlChanged(_ sender: UISegmentedControl) {
+    }
+
     /* ################################################################## */
     /**
      */

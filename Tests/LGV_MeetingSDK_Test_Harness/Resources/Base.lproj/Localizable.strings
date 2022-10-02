@@ -25,3 +25,5 @@
 "SLUG-SEARCH-BUTTON"                                            =       "Search";
 "SLUG-TOMATO-SERVER-NAME"                                       =       "Worldwide TOMATO Server";
 "SLUG-TOMATO-SERVER-URL"                                        =       "https://tomato.bmltenabled.org/main_server";
+"SLUG-ANY-TIME"                                                 =       "Any Time";
+"SLUG-CONSTRAINED-TIME"                                         =       "Start Time Range";
