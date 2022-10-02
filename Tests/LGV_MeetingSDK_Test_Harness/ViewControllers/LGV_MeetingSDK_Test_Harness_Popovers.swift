@@ -470,6 +470,24 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
     var calculatedSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>? {
         var ret: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = []
         
+        if SegmentIndexes.timeRange.rawValue == startTimeSegmentedControl?.selectedSegmentIndex,
+           let startValueText = fromTimeTextField?.text,
+           let startTimeAsInt = Int(startValueText),
+           (0..<2360).contains(startTimeAsInt),
+           let endValueText = toTimeTextField?.text,
+           let endTimeAsInt = Int(endValueText),
+           (0..<2360).contains(endTimeAsInt),
+           endTimeAsInt > startTimeAsInt {
+            let startHours = startTimeAsInt / 100
+            let startMinutes = startTimeAsInt - (startHours * 100)
+            let endHours = endTimeAsInt / 100
+            let endMinutes = endTimeAsInt - (startHours * 100)
+            let lowerBound = TimeInterval((startHours * 60 * 60) + (startMinutes * 60))
+            let upperBound = TimeInterval((endHours * 60 * 60) + (endMinutes * 60))
+            
+            ret.insert(.startTimeRange(lowerBound...upperBound))
+        }
+        
         var weekdays: Set<LGV_MeetingSDK_Meeting_Data_Set.Weekdays> = []
         
         if day1Checkbox?.isOn ?? false,
