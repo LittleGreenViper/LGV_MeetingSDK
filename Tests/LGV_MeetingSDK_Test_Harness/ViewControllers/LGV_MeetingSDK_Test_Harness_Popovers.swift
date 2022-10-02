@@ -339,13 +339,16 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         searchButton?.accessibilityHint = searchButton?.title(for: .normal)?.accessibilityLocalizedVariant
         searchButton?.setTitle(searchButton?.title(for: .normal)?.localizedVariant, for: .normal)
         
-        day1Label?.text = Calendar.current.shortWeekdaySymbols[0]
-        day2Label?.text = Calendar.current.shortWeekdaySymbols[1]
-        day3Label?.text = Calendar.current.shortWeekdaySymbols[2]
-        day4Label?.text = Calendar.current.shortWeekdaySymbols[3]
-        day5Label?.text = Calendar.current.shortWeekdaySymbols[4]
-        day6Label?.text = Calendar.current.shortWeekdaySymbols[5]
-        day7Label?.text = Calendar.current.shortWeekdaySymbols[6]
+        let shortWeekdaySymbols = Calendar.current.shortWeekdaySymbols
+        
+        let weekdayIndexes: [Int] = (0..<7).map { localizeWeedayIndex($0) }
+        day1Label?.text = shortWeekdaySymbols[weekdayIndexes[0]]
+        day2Label?.text = shortWeekdaySymbols[weekdayIndexes[1]]
+        day3Label?.text = shortWeekdaySymbols[weekdayIndexes[2]]
+        day4Label?.text = shortWeekdaySymbols[weekdayIndexes[3]]
+        day5Label?.text = shortWeekdaySymbols[weekdayIndexes[4]]
+        day6Label?.text = shortWeekdaySymbols[weekdayIndexes[5]]
+        day7Label?.text = shortWeekdaySymbols[weekdayIndexes[6]]
         
         setUpUI()
     }
@@ -355,6 +358,42 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
 // MARK: Instance Methods
 /* ###################################################################################################################################### */
 extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
+    /* ################################################################## */
+    /**
+     This adjusts the selection to match the week start (localization).
+     
+     - parameter inWeekdayIndex: The 0-based index of the selected weekday, in the current locale.
+     
+     - returns: The adjusted weekday index, in the 0 = Sunday locale.
+     */
+    func normalizeWeekdayIndex(_ inWeekdayIndex: Int) -> Int {
+        var weekdayIndex = (inWeekdayIndex - 1) + Calendar.current.firstWeekday
+        
+        if 6 < weekdayIndex {
+            weekdayIndex -= 7
+        }
+        
+        return weekdayIndex
+    }
+    
+    /* ################################################################## */
+    /**
+     This adjusts the selection to match the week start (localization).
+     
+     - parameter inWeekdayIndex: The 0-based index of the selected weekday, in the 0 = Sunday locale.
+     
+     - returns: The adjusted weekday index, with 0 being the week start day.
+     */
+    func localizeWeedayIndex(_ inWeekdayIndex: Int) -> Int {
+        var weekdayIndex = Calendar.current.firstWeekday + inWeekdayIndex
+        
+        if 7 < weekdayIndex {
+            weekdayIndex -= 7
+        }
+        
+        return weekdayIndex - 1
+    }
+    
     /* ################################################################## */
     /**
      This sets up the UI, according to the current search data refinements.
@@ -387,10 +426,7 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
                     day6Checkbox?.isOn = false
                     day7Checkbox?.isOn = false
                     weekdays.forEach { weekday in
-                        var weekdayIndex = weekday.rawValue - Calendar.current.firstWeekday
-                        if 0 > weekdayIndex {
-                            weekdayIndex += 7
-                        }
+                        let weekdayIndex = localizeWeedayIndex(weekday.rawValue)
                         switch weekdayIndex {
                         case 0:
                             day1Checkbox?.isOn = true
@@ -429,9 +465,54 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
     
     /* ################################################################## */
     /**
+     This scans the UI elements, and creates a search refinement set, based on them.
      */
     var calculatedSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>? {
-        nil
+        var ret: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = []
+        
+        var weekdays: Set<LGV_MeetingSDK_Meeting_Data_Set.Weekdays> = []
+        
+        if day1Checkbox?.isOn ?? false,
+           let weekday = LGV_MeetingSDK_Meeting_Data_Set.Weekdays(rawValue: normalizeWeekdayIndex(0) + 1) {
+            weekdays.insert(weekday)
+        }
+        
+        if day2Checkbox?.isOn ?? false,
+           let weekday = LGV_MeetingSDK_Meeting_Data_Set.Weekdays(rawValue: normalizeWeekdayIndex(1) + 1) {
+            weekdays.insert(weekday)
+        }
+        
+        if day3Checkbox?.isOn ?? false,
+           let weekday = LGV_MeetingSDK_Meeting_Data_Set.Weekdays(rawValue: normalizeWeekdayIndex(2) + 1) {
+            weekdays.insert(weekday)
+        }
+        
+        if day4Checkbox?.isOn ?? false,
+           let weekday = LGV_MeetingSDK_Meeting_Data_Set.Weekdays(rawValue: normalizeWeekdayIndex(3) + 1) {
+            weekdays.insert(weekday)
+        }
+        
+        if day5Checkbox?.isOn ?? false,
+           let weekday = LGV_MeetingSDK_Meeting_Data_Set.Weekdays(rawValue: normalizeWeekdayIndex(4) + 1) {
+            weekdays.insert(weekday)
+        }
+        
+        if day6Checkbox?.isOn ?? false,
+           let weekday = LGV_MeetingSDK_Meeting_Data_Set.Weekdays(rawValue: normalizeWeekdayIndex(5) + 1) {
+            weekdays.insert(weekday)
+        }
+        
+        if day7Checkbox?.isOn ?? false,
+           let weekday = LGV_MeetingSDK_Meeting_Data_Set.Weekdays(rawValue: normalizeWeekdayIndex(6) + 1) {
+            weekdays.insert(weekday)
+        }
+
+        if !weekdays.isEmpty,
+           7 > weekdays.count {
+            ret.insert(.weekdays(weekdays))
+        }
+        
+        return ret
     }
 }
 
