@@ -441,15 +441,6 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
 extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
     /* ################################################################## */
     /**
-     Called when one of the weekday checkboxes changes value.
-     
-     - parameter inCheckbox: The checkbox that was hit.
-     */
-    @IBAction func weekdayCheckboxChangedValue(_ inCheckbox: RVS_Checkbox) {
-    }
-    
-    /* ################################################################## */
-    /**
      */
     @IBAction func startTimeSegmentedControlChanged(_ inStartTimeSegmentedControl: UISegmentedControl) {
         timeConstraintsStackView?.isHidden = SegmentIndexes.anyTime.rawValue == inStartTimeSegmentedControl.selectedSegmentIndex
