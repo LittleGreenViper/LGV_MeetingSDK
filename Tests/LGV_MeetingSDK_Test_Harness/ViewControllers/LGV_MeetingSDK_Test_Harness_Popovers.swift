@@ -222,6 +222,18 @@ class LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController: LGV_Meetin
     
     /* ################################################################## */
     /**
+     The desired width of the popover (as wide as possible).
+     */
+    private static let _popoverWidth = CGFloat(300)
+    
+    /* ################################################################## */
+    /**
+     The desired height of the popover.
+     */
+    private static let _popoverHeight = CGFloat(350)
+    
+    /* ################################################################## */
+    /**
      */
     @IBOutlet weak var day1Checkbox: RVS_Checkbox?
     
@@ -347,6 +359,15 @@ class LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController: LGV_Meetin
 extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
     /* ################################################################## */
     /**
+     The size that we'd like our popover to be.
+     */
+    override var preferredContentSize: CGSize {
+        get { CGSize(width: Self._popoverWidth, height: Self._popoverHeight) }
+        set { super.preferredContentSize = newValue }
+    }
+    
+    /* ################################################################## */
+    /**
      Called when the view hierarchy has loaded and initialized.
      */
     override func viewDidLoad() {
@@ -356,15 +377,12 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         }
 
         startTimeSegmentedControl?.accessibilityHint = "SLUG-TIME-RANGE-SEGMENTED-SWITCH".accessibilityLocalizedVariant
+        fromStepper?.accessibilityHint = "SLUG-TIME-RANGE-LOWER".accessibilityLocalizedVariant
+        toStepper?.accessibilityHint = "SLUG-TIME-RANGE-UPPER".accessibilityLocalizedVariant
         fromTimeLabel?.accessibilityHint = "SLUG-TIME-RANGE-LOWER".accessibilityLocalizedVariant
         toTimeLabel?.accessibilityHint = "SLUG-TIME-RANGE-UPPER".accessibilityLocalizedVariant
 
         searchTextTextField?.placeholder = searchTextTextField?.placeholder?.localizedVariant
-        
-        searchButton?.titleLabel?.adjustsFontSizeToFitWidth = true
-        searchButton?.titleLabel?.minimumScaleFactor = 0.5
-        searchButton?.accessibilityHint = searchButton?.title(for: .normal)?.accessibilityLocalizedVariant
-        searchButton?.setTitle(searchButton?.title(for: .normal)?.localizedVariant, for: .normal)
         
         let shortWeekdaySymbols = Calendar.current.shortWeekdaySymbols
         
@@ -377,6 +395,19 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         day6Label?.text = shortWeekdaySymbols[weekdayIndexes[5]]
         day7Label?.text = shortWeekdaySymbols[weekdayIndexes[6]]
         
+        relateToMeSwitch?.accessibilityHint = relateToMeLabelButton?.title(for: .normal)?.accessibilityLocalizedVariant
+        
+        relateToMeLabelButton?.titleLabel?.adjustsFontSizeToFitWidth = true
+        relateToMeLabelButton?.titleLabel?.minimumScaleFactor = 0.5
+        relateToMeLabelButton?.titleLabel?.textAlignment = .left
+        relateToMeLabelButton?.accessibilityHint = relateToMeLabelButton?.title(for: .normal)?.accessibilityLocalizedVariant
+        relateToMeLabelButton?.setTitle(relateToMeLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
+
+        searchButton?.titleLabel?.adjustsFontSizeToFitWidth = true
+        searchButton?.titleLabel?.minimumScaleFactor = 0.5
+        searchButton?.accessibilityHint = searchButton?.title(for: .normal)?.accessibilityLocalizedVariant
+        searchButton?.setTitle(searchButton?.title(for: .normal)?.localizedVariant, for: .normal)
+
         setUpUI()
     }
 }
@@ -423,10 +454,9 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
     
     /* ################################################################## */
     /**
-     This sets up the UI, according to the current search data refinements.
+     This sets up the UI, as defaults.
      */
     func setUpUI() {
-        guard let searchRefinements = searchData?.searchRefinements else { return }
         day1Checkbox?.isOn = true
         day2Checkbox?.isOn = true
         day3Checkbox?.isOn = true
@@ -435,69 +465,19 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         day6Checkbox?.isOn = true
         day7Checkbox?.isOn = true
         startTimeSegmentedControl?.selectedSegmentIndex = SegmentIndexes.anyTime.rawValue
-        searchRefinements.forEach { refinement in
-            switch refinement {
-            case let .startTimeRange(startRange):
-                if !startRange.isEmpty {
-                    startTimeSegmentedControl?.selectedSegmentIndex = SegmentIndexes.timeRange.rawValue
-                    timeConstraintsStackView?.isHidden = false
-                    fromTimeLabel?.text = String(format: "%04d", startRange.lowerBound)
-                    fromStepper?.minimumValue = 0
-                    fromStepper?.value = Double(startRange.lowerBound)
-                    toStepper?.minimumValue = startRange.lowerBound + (fromStepper?.stepValue ?? 0)
-                    toTimeLabel?.text = String(format: "%04d", startRange.upperBound)
-                    fromStepper?.maximumValue = startRange.upperBound - (toStepper?.stepValue ?? 0)
-                    toStepper?.value = Double(startRange.upperBound)
-                } else {
-                    timeConstraintsStackView?.isHidden = false
-                }
-                
-            case let .weekdays(weekdays):
-                if !weekdays.isEmpty,
-                   7 > weekdays.count {
-                    day1Checkbox?.isOn = false
-                    day2Checkbox?.isOn = false
-                    day3Checkbox?.isOn = false
-                    day4Checkbox?.isOn = false
-                    day5Checkbox?.isOn = false
-                    day6Checkbox?.isOn = false
-                    day7Checkbox?.isOn = false
-                    weekdays.forEach { weekday in
-                        let weekdayIndex = localizeWeedayIndex(weekday.rawValue)
-                        switch weekdayIndex {
-                        case 0:
-                            day1Checkbox?.isOn = true
-                            
-                        case 1:
-                            day2Checkbox?.isOn = true
-                            
-                        case 2:
-                            day3Checkbox?.isOn = true
-                            
-                        case 3:
-                            day4Checkbox?.isOn = true
-                            
-                        case 4:
-                            day5Checkbox?.isOn = true
-                            
-                        case 5:
-                            day6Checkbox?.isOn = true
-                            
-                        case 6:
-                            day7Checkbox?.isOn = true
-                            
-                        default:
-                            break
-                        }
-                    }
-                }
-                
-            default:
-                break
-            }
-        }
-        
-        timeConstraintsStackView?.isHidden = SegmentIndexes.anyTime.rawValue == startTimeSegmentedControl?.selectedSegmentIndex
+        timeConstraintsStackView?.isHidden = true
+        fromTimeLabel?.text = "0000"
+        toTimeLabel?.text = "2400"
+        fromStepper?.minimumValue = 0
+        fromStepper?.maximumValue = 1435
+        fromStepper?.stepValue = 5
+        fromStepper?.value = 0
+        toStepper?.minimumValue = 5
+        toStepper?.maximumValue = 1440
+        toStepper?.stepValue = 5
+        toStepper?.value = 1440
+        searchTextTextField?.text = ""
+        relateToMeSwitch?.isOn = false
     }
     
     /* ################################################################## */
@@ -508,21 +488,13 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         var ret: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = []
         
         if SegmentIndexes.timeRange.rawValue == startTimeSegmentedControl?.selectedSegmentIndex,
-           let startValueText = fromTimeLabel?.text,
-           let startTimeAsInt = Int(startValueText),
-           (0..<2360).contains(startTimeAsInt),
-           let endValueText = toTimeLabel?.text,
-           let endTimeAsInt = Int(endValueText),
-           (0..<2360).contains(endTimeAsInt),
-           endTimeAsInt > startTimeAsInt {
-            let startHours = startTimeAsInt / 100
-            let startMinutes = startTimeAsInt - (startHours * 100)
-            let endHours = endTimeAsInt / 100
-            let endMinutes = endTimeAsInt - (startHours * 100)
-            let lowerBound = TimeInterval((startHours * 60 * 60) + (startMinutes * 60))
-            let upperBound = TimeInterval((endHours * 60 * 60) + (endMinutes * 60))
+           let startTime = fromStepper?.value,
+           let endTime = toStepper?.value,
+           (0..<1436).contains(startTime),
+           endTime > startTime,
+           (startTime..<1441).contains(endTime) {
             
-            ret.insert(.startTimeRange(lowerBound...upperBound))
+            ret.insert(.startTimeRange(TimeInterval(startTime * 60)...TimeInterval(endTime * 60)))
         }
         
         var weekdays: Set<LGV_MeetingSDK_Meeting_Data_Set.Weekdays> = []
@@ -567,6 +539,16 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
             ret.insert(.weekdays(weekdays))
         }
         
+        if let searchString = searchTextTextField?.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+           !searchString.isEmpty {
+            ret.insert(.string(searchString: searchString))
+        }
+        
+        if relateToMeSwitch?.isOn ?? false,
+           let myLocation = LGV_MeetingSDK_Test_Harness_TabController.currentLocation {
+            ret.insert(.distanceFrom(thisLocation: myLocation))
+        }
+        
         return ret
     }
 }
@@ -578,47 +560,21 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
     /* ################################################################## */
     /**
      */
-    @IBAction func fromStepperChanged(_ inStepper: UIStepper) {
-        let hours = Int(inStepper.value) / 100
-        let minutes = Int(inStepper.value) - (hours * 100)
+    @IBAction func stepperChanged(_ inStepper: UIStepper) {
+        let hours = Int(inStepper.value / 60)
+        let minutes = Int(inStepper.value) - (hours * 60)
         
-        guard let currentFromTimeText = fromTimeLabel?.text,
-              let currentFromTime = Int(currentFromTimeText)
-        else { return }
+        let value = Double(max(0, min(1440, (hours * 60) + minutes)))
         
-        let newValue = (hours * 100) + minutes
+        let displayedValue = String(format: "%02d%02d", hours, minutes)
         
-        if newValue < currentFromTime {
-            
+        if inStepper == fromStepper {
+            fromTimeLabel?.text = displayedValue
+            toStepper?.minimumValue = max(0, value + inStepper.stepValue)
         } else {
-            
+            toTimeLabel?.text = displayedValue
+            fromStepper?.maximumValue = max(1435, value - inStepper.stepValue)
         }
-        
-        fromTimeLabel?.text = String(format: "%04d", Int(newValue))
-        toStepper?.minimumValue = Double(newValue + Int(inStepper.stepValue))
-    }
-    
-    /* ################################################################## */
-    /**
-     */
-    @IBAction func toStepperChanged(_ inStepper: UIStepper) {
-        let hours = Int(inStepper.value) / 100
-        let minutes = Int(inStepper.value) - (hours * 100)
-        
-        guard let currentToTimeText = toTimeLabel?.text,
-              let currentToTime = Int(currentToTimeText)
-        else { return }
-        
-        let newValue = (hours * 100) + minutes
-        
-        if newValue < currentToTime {
-            
-        } else {
-            
-        }
-
-        toTimeLabel?.text = String(format: "%04d", Int(newValue))
-        fromStepper?.maximumValue = Double(newValue - Int(inStepper.stepValue))
     }
     
     /* ################################################################## */
@@ -628,8 +584,6 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         if inControl is UIButton {
             relateToMeSwitch?.setOn(!(relateToMeSwitch?.isOn ?? true), animated: true)
             relateToMeSwitch?.sendActions(for: .valueChanged)
-        } else {
-            
         }
     }
 
@@ -637,18 +591,7 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
     /**
      */
     @IBAction func startTimeSegmentedControlChanged(_ inStartTimeSegmentedControl: UISegmentedControl) {
-        if SegmentIndexes.timeRange.rawValue == inStartTimeSegmentedControl.selectedSegmentIndex {
-            timeConstraintsStackView?.isHidden = false
-            fromTimeLabel?.text = "0000"
-            fromStepper?.minimumValue = 0
-            fromStepper?.value = 0
-            toStepper?.minimumValue = 0
-            toTimeLabel?.text = "2400"
-            fromStepper?.maximumValue = 2355
-            toStepper?.value = 2400
-        } else {
-            timeConstraintsStackView?.isHidden = false
-        }
+        timeConstraintsStackView?.isHidden = SegmentIndexes.anyTime.rawValue == inStartTimeSegmentedControl.selectedSegmentIndex
     }
 
     /* ################################################################## */

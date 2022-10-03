@@ -26,3 +26,4 @@
 "SLUG-TIME-RANGE-SEGMENTED-SWITCH"                              =       "If you want to look for meetings that start within a specific time range, setting this will make a couple of text boxes appear, where you can enter a time range.";
 "SLUG-TIME-RANGE-LOWER"                                         =       "Enter the minimum start time, in military time, here.";
 "SLUG-TIME-RANGE-UPPER"                                         =       "Enter the maximum start time, in military time, here.";
+"SLUG-RELATE-TO-ME-LABEL"                                       =       "If this switch is on, then all distances will be relative to your current location.";

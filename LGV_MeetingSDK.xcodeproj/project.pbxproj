@@ -13,6 +13,7 @@
 		D41EE90828DE2C4500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EE90728DE2C4500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Parser.swift */; };
 		D41EE90A28DE2CD500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Initiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EE90928DE2CD500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Initiator.swift */; };
 		D43DD68928E227E50075047D /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D43DD68828E227E50075047D /* Warnings.xcconfig */; };
+		D43FF95228EB303900333387 /* infoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D43FF95028EB303900333387 /* infoPlist.strings */; };
 		D440A95028E48E1100909668 /* RVS_UIKit_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D440A94F28E48E1100909668 /* RVS_UIKit_Toolbox */; };
 		D442316328E0BB7900BB3B70 /* SearchResponse-03.json in Resources */ = {isa = PBXBuildFile; fileRef = D442316228E0BB7900BB3B70 /* SearchResponse-03.json */; };
 		D44AA17428E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness_AppSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AA17328E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness_AppSceneDelegate.swift */; };
@@ -74,6 +75,7 @@
 		D41EE90728DE2C4500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_BMLT.Transport.Parser.swift; sourceTree = "<group>"; };
 		D41EE90928DE2CD500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Initiator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_BMLT.Transport.Initiator.swift; sourceTree = "<group>"; };
 		D43DD68828E227E50075047D /* Warnings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Warnings.xcconfig; path = Meta/Warnings.xcconfig; sourceTree = "<group>"; };
+		D43FF95128EB303900333387 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/infoPlist.strings; sourceTree = "<group>"; };
 		D442316228E0BB7900BB3B70 /* SearchResponse-03.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-03.json"; sourceTree = "<group>"; };
 		D44AA17128E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LGV_MeetingSDK_Test_Harness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D44AA17328E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness_AppSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Test_Harness_AppSceneDelegate.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 			children = (
 				D4B46A6328E2481E004A203E /* Localizable.strings */,
 				D468D04428E49E020077DB6C /* Accessibility.strings */,
+				D43FF95028EB303900333387 /* infoPlist.strings */,
 				D44E333F28E86224004C9F6F /* rootServerList.json */,
 				D44AA17928E23C5100AB0D85 /* Main.storyboard */,
 				D44AA17C28E23C5200AB0D85 /* Assets.xcassets */,
@@ -418,6 +421,7 @@
 				D44E334028E86224004C9F6F /* rootServerList.json in Resources */,
 				D44AA18028E23C5200AB0D85 /* LaunchScreen.storyboard in Resources */,
 				D4B46A6528E2481E004A203E /* Localizable.strings in Resources */,
+				D43FF95228EB303900333387 /* infoPlist.strings in Resources */,
 				D44AA17D28E23C5200AB0D85 /* Assets.xcassets in Resources */,
 				D44AA17B28E23C5100AB0D85 /* Main.storyboard in Resources */,
 				D468D04628E49E020077DB6C /* Accessibility.strings in Resources */,
@@ -544,6 +548,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		D43FF95028EB303900333387 /* infoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D43FF95128EB303900333387 /* Base */,
+			);
+			name = infoPlist.strings;
+			sourceTree = "<group>";
+		};
 		D44AA17928E23C5100AB0D85 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -706,6 +718,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Tests/LGV_MeetingSDK_Test_Harness/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "SLUG-LOCATION-PRIVACY-STATEMENT";
+				INFOPLIST_KEY_NSLocationUsageDescription = "SLUG-LOCATION-PRIVACY-STATEMENT";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "SLUG-LOCATION-PRIVACY-STATEMENT";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -736,6 +751,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Tests/LGV_MeetingSDK_Test_Harness/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "SLUG-LOCATION-PRIVACY-STATEMENT";
+				INFOPLIST_KEY_NSLocationUsageDescription = "SLUG-LOCATION-PRIVACY-STATEMENT";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "SLUG-LOCATION-PRIVACY-STATEMENT";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

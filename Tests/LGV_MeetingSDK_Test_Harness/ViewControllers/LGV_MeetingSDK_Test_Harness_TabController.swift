@@ -21,6 +21,7 @@ import UIKit
 import LGV_MeetingSDK
 import RVS_Generic_Swift_Toolbox
 import RVS_UIKit_Toolbox
+import CoreLocation
 
 /* ###################################################################################################################################### */
 // MARK: - Tab Controller Class -
@@ -49,8 +50,24 @@ class LGV_MeetingSDK_Test_Harness_TabController: UITabBarController {
         case results
     }
     
+    /* ################################################################## */
+    /**
+     This holds the actual SDK instance that we're testing.
+     */
     var sdk: LGV_MeetingSDK_BMLT?
     
+    /* ################################################################## */
+    /**
+     This will hold our location manager.
+     */
+    private var _locationManager: CLLocationManager?
+    
+    /* ################################################################## */
+    /**
+     This is the center of the last location-based search. Nil, if the last search was not location-based.
+     */
+    static var currentLocation: CLLocationCoordinate2D?
+
     /* ################################################################## */
     /**
      The Search Bar Button Item.
@@ -113,6 +130,8 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
             $0.tabBarItem?.accessibilityHint = $0.tabBarItem?.title?.accessibilityLocalizedVariant
             $0.tabBarItem?.title = $0.tabBarItem?.title?.localizedVariant
         }
+        
+        startLookingUpMyLocation()
     }
     
     /* ################################################################## */
@@ -190,6 +209,19 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
 
         mapViewController?.updateScreen()
         setTabBarEnablement()
+    }
+    
+    /* ################################################################## */
+    /**
+     This simply starts looking for where the user is at.
+     */
+    func startLookingUpMyLocation() {
+        _locationManager?.stopUpdatingLocation()
+        Self.currentLocation = nil
+        _locationManager = CLLocationManager()
+        _locationManager?.delegate = self
+        _locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+        _locationManager?.startUpdatingLocation()
     }
 }
 
@@ -277,4 +309,25 @@ extension LGV_MeetingSDK_Test_Harness_TabController: UIPopoverPresentationContro
      - returns: No way, Jose.
      */
     func adaptivePresentationStyle(for: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle { .none }
+}
+
+/* ###################################################################################################################################### */
+// MARK: CLLocationManagerDelegate Conformance
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_TabController: CLLocationManagerDelegate {
+    /* ################################################################## */
+    /**
+     Callback to handle found locations.
+     
+     - parameter inManager: The Location Manager object that had the event.
+     - parameter didUpdateLocations: an array of updated locations.
+     */
+    func locationManager(_ inManager: CLLocationManager, didUpdateLocations inLocations: [CLLocation]) {
+        inManager.stopUpdatingLocation()
+        for location in inLocations where 1.0 > location.timestamp.timeIntervalSinceNow {
+            Self.currentLocation = location.coordinate
+            break
+        }
+        _locationManager = nil
+    }
 }

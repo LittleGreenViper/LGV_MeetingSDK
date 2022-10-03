@@ -374,10 +374,10 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="2355" stepValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="glS-IX-3uf">
+                                                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="86100" stepValue="300" translatesAutoresizingMaskIntoConstraints="NO" id="glS-IX-3uf">
                                                                 <rect key="frame" x="0.0" y="34" width="94" height="190"/>
                                                                 <connections>
-                                                                    <action selector="fromStepperChanged:" destination="EU7-Xo-ygf" eventType="valueChanged" id="0uZ-GR-Jp5"/>
+                                                                    <action selector="stepperChanged:" destination="EU7-Xo-ygf" eventType="valueChanged" id="tUR-hm-eur"/>
                                                                 </connections>
                                                             </stepper>
                                                         </subviews>
@@ -406,10 +406,10 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2400" minimumValue="5" maximumValue="2400" stepValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="gBG-Gs-P15">
+                                                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="86400" minimumValue="300" maximumValue="86400" stepValue="300" translatesAutoresizingMaskIntoConstraints="NO" id="gBG-Gs-P15">
                                                                 <rect key="frame" x="0.0" y="34" width="94" height="190"/>
                                                                 <connections>
-                                                                    <action selector="toStepperChanged:" destination="EU7-Xo-ygf" eventType="valueChanged" id="osX-FR-hT1"/>
+                                                                    <action selector="stepperChanged:" destination="EU7-Xo-ygf" eventType="valueChanged" id="VUW-Xz-DGy"/>
                                                                 </connections>
                                                             </stepper>
                                                         </subviews>
@@ -702,6 +702,8 @@
                                                 <subviews>
                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="gMj-0B-qwm" customClass="LGV_MeetingSDK_Test_Harness_CustomUISwitch" customModule="LGV_MeetingSDK_Test_Harness" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                                        <color key="onTintColor" name="AccentColor"/>
+                                                        <color key="thumbTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <connections>
                                                             <action selector="relateToMeHit:" destination="EU7-Xo-ygf" eventType="valueChanged" id="Kcg-Nr-i86"/>
                                                         </connections>
