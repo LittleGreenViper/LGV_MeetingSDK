@@ -361,7 +361,7 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
     /**
      OPTIONAL - The distance of this meetings from the search.
      */
-    var distanceInMeters: CLLocationDistance { get }
+    var distanceInMeters: CLLocationDistance { get set }
 
     /* ################################################################## */
     /**

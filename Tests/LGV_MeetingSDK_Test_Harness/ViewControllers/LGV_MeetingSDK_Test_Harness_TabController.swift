@@ -215,10 +215,19 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
     /**
      This simply starts looking for where the user is at.
      */
-    func startLookingUpMyLocation() {
+    func stopLookingUpMyLocation() {
         _locationManager?.stopUpdatingLocation()
         Self.currentLocation = nil
+    }
+    
+    /* ################################################################## */
+    /**
+     This simply starts looking for where the user is at.
+     */
+    func startLookingUpMyLocation() {
+        stopLookingUpMyLocation()
         _locationManager = CLLocationManager()
+        _locationManager?.requestWhenInUseAuthorization()
         _locationManager?.delegate = self
         _locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         _locationManager?.startUpdatingLocation()
@@ -323,7 +332,7 @@ extension LGV_MeetingSDK_Test_Harness_TabController: CLLocationManagerDelegate {
      - parameter didUpdateLocations: an array of updated locations.
      */
     func locationManager(_ inManager: CLLocationManager, didUpdateLocations inLocations: [CLLocation]) {
-        inManager.stopUpdatingLocation()
+        stopLookingUpMyLocation()
         for location in inLocations where 1.0 > location.timestamp.timeIntervalSinceNow {
             Self.currentLocation = location.coordinate
             break

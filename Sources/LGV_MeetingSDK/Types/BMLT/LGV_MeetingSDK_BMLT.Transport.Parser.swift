@@ -466,16 +466,30 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
                 searchCenter = CLLocation(latitude: centerLongLat.latitude, longitude: centerLongLat.longitude)
             }
             
+            let formats = Self._convert(theseFormats: formatsObject)
+            
+            var distanceFrom: CLLocation?
+            
             // We can specify a "distance from here" in refinements, and that trumps a search center, for distances. It can also add distances to otherwise unmeasured meetings.
             for refinement in inSearchRefinements.enumerated() {
                 if case let .distanceFrom(thisLocation) = refinement.element {
-                    searchCenter = CLLocation(latitude: thisLocation.latitude, longitude: thisLocation.longitude)
+                    distanceFrom = CLLocation(latitude: thisLocation.latitude, longitude: thisLocation.longitude)
                     break
                 }
             }
             
-            let formats = Self._convert(theseFormats: formatsObject)
-            let meetings = Self._refineMeetings(_convert(theseMeetings: meetingsObject, andTheseFormats: formats, searchCenter: searchCenter), searchType: inSearchType, searchRefinements: inSearchRefinements)
+            let meetings = Self._refineMeetings(_convert(theseMeetings: meetingsObject, andTheseFormats: formats, searchCenter: searchCenter), searchType: inSearchType, searchRefinements: inSearchRefinements).map {
+                var meeting = $0
+                
+                if let distanceFrom = distanceFrom,
+                   let meetingCoords = meeting.locationCoords {
+                    let meetingLocation = CLLocation(latitude: meetingCoords.latitude, longitude: meetingCoords.longitude)
+                    meeting.distanceInMeters = distanceFrom.distance(from: meetingLocation)
+                }
+                
+                return meeting
+            }
+            
             let meetingData = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: meetings)
 
             inCompletion(meetingData, nil)

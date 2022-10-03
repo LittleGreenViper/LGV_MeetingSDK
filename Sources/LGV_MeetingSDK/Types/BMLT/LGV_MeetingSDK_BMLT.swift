@@ -343,7 +343,7 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
         /**
          The distance of this meeting, from the search center, or a specified "distance from" refinement.
          */
-        public let distanceInMeters: CLLocationDistance
+        public var distanceInMeters: CLLocationDistance
 
         /* ################################################################## */
         /**
