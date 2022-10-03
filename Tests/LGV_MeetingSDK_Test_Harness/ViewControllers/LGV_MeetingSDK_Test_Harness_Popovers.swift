@@ -541,6 +541,13 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
     /* ################################################################## */
     /**
      */
+    @IBAction func timeTextChanged(_ inTimeEditTextField: UITextField) {
+        guard SegmentIndexes.timeRange.rawValue == startTimeSegmentedControl?.selectedSegmentIndex else { return }
+    }
+
+    /* ################################################################## */
+    /**
+     */
     @IBAction func startTimeSegmentedControlChanged(_ inStartTimeSegmentedControl: UISegmentedControl) {
         timeConstraintsStackView?.isHidden = SegmentIndexes.anyTime.rawValue == inStartTimeSegmentedControl.selectedSegmentIndex
     }
