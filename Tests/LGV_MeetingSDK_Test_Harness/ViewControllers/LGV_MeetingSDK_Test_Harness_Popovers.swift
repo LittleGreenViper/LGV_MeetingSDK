@@ -289,6 +289,11 @@ class LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController: LGV_Meetin
     /**
      */
     @IBOutlet weak var day7Label: UILabel?
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var startTimeSegmentedControl: UISegmentedControl?
 
     /* ################################################################## */
     /**
@@ -298,17 +303,37 @@ class LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController: LGV_Meetin
     /* ################################################################## */
     /**
      */
-    @IBOutlet weak var fromTimeTextField: UITextField?
+    @IBOutlet weak var fromTimeLabel: UILabel?
 
     /* ################################################################## */
     /**
      */
-    @IBOutlet weak var toTimeTextField: UITextField?
+    @IBOutlet weak var fromStepper: UIStepper?
     
     /* ################################################################## */
     /**
      */
-    @IBOutlet weak var startTimeSegmentedControl: UISegmentedControl?
+    @IBOutlet weak var toTimeLabel: UILabel?
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var toStepper: UIStepper?
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var searchTextTextField: UITextField?
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var relateToMeSwitch: LGV_MeetingSDK_Test_Harness_CustomUISwitch?
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var relateToMeLabelButton: UIButton?
     
     /* ################################################################## */
     /**
@@ -331,9 +356,11 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         }
 
         startTimeSegmentedControl?.accessibilityHint = "SLUG-TIME-RANGE-SEGMENTED-SWITCH".accessibilityLocalizedVariant
-        fromTimeTextField?.accessibilityHint = "SLUG-TIME-RANGE-LOWER".accessibilityLocalizedVariant
-        toTimeTextField?.accessibilityHint = "SLUG-TIME-RANGE-UPPER".accessibilityLocalizedVariant
+        fromTimeLabel?.accessibilityHint = "SLUG-TIME-RANGE-LOWER".accessibilityLocalizedVariant
+        toTimeLabel?.accessibilityHint = "SLUG-TIME-RANGE-UPPER".accessibilityLocalizedVariant
 
+        searchTextTextField?.placeholder = searchTextTextField?.placeholder?.localizedVariant
+        
         searchButton?.titleLabel?.adjustsFontSizeToFitWidth = true
         searchButton?.titleLabel?.minimumScaleFactor = 0.5
         searchButton?.accessibilityHint = searchButton?.title(for: .normal)?.accessibilityLocalizedVariant
@@ -413,6 +440,16 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
             case let .startTimeRange(startRange):
                 if !startRange.isEmpty {
                     startTimeSegmentedControl?.selectedSegmentIndex = SegmentIndexes.timeRange.rawValue
+                    timeConstraintsStackView?.isHidden = false
+                    fromTimeLabel?.text = String(format: "%04d", startRange.lowerBound)
+                    fromStepper?.minimumValue = 0
+                    fromStepper?.value = Double(startRange.lowerBound)
+                    toStepper?.minimumValue = startRange.lowerBound + (fromStepper?.stepValue ?? 0)
+                    toTimeLabel?.text = String(format: "%04d", startRange.upperBound)
+                    fromStepper?.maximumValue = startRange.upperBound - (toStepper?.stepValue ?? 0)
+                    toStepper?.value = Double(startRange.upperBound)
+                } else {
+                    timeConstraintsStackView?.isHidden = false
                 }
                 
             case let .weekdays(weekdays):
@@ -471,10 +508,10 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         var ret: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = []
         
         if SegmentIndexes.timeRange.rawValue == startTimeSegmentedControl?.selectedSegmentIndex,
-           let startValueText = fromTimeTextField?.text,
+           let startValueText = fromTimeLabel?.text,
            let startTimeAsInt = Int(startValueText),
            (0..<2360).contains(startTimeAsInt),
-           let endValueText = toTimeTextField?.text,
+           let endValueText = toTimeLabel?.text,
            let endTimeAsInt = Int(endValueText),
            (0..<2360).contains(endTimeAsInt),
            endTimeAsInt > startTimeAsInt {
@@ -541,15 +578,66 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
     /* ################################################################## */
     /**
      */
-    @IBAction func timeTextChanged(_ inTimeEditTextField: UITextField) {
-        guard SegmentIndexes.timeRange.rawValue == startTimeSegmentedControl?.selectedSegmentIndex else { return }
+    @IBAction func stepperChanged(_ inStepper: UIStepper) {
+        var hours = Int(inStepper.value) / 100
+        var minutes = Int(inStepper.value) - (hours * 100)
+        
+        if 59 < minutes {
+            minutes = 0
+            hours += 1
+        }
+        
+        if 24 < hours {
+            hours = 24
+            minutes = 0
+        }
+        
+        let newValue = (hours * 100) + minutes
+        
+        guard let currentFromTimeText = fromTimeLabel?.text,
+              let currentFromTime = Int(currentFromTimeText),
+              let currentToTimeText = toTimeLabel?.text,
+              let currentToTime = Int(currentToTimeText),
+              (currentFromTime...currentToTime).contains(newValue)
+        else { return }
+        
+        if inStepper == fromStepper {
+            fromTimeLabel?.text = String(format: "%04d", Int(newValue))
+            toStepper?.minimumValue = Double(newValue + Int(inStepper.stepValue))
+        } else {
+            toTimeLabel?.text = String(format: "%04d", Int(newValue))
+            fromStepper?.maximumValue = Double(newValue - Int(inStepper.stepValue))
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func relateToMeHit(_ inControl: UIControl) {
+        if inControl is UIButton {
+            relateToMeSwitch?.setOn(!(relateToMeSwitch?.isOn ?? true), animated: true)
+            relateToMeSwitch?.sendActions(for: .valueChanged)
+        } else {
+            
+        }
     }
 
     /* ################################################################## */
     /**
      */
     @IBAction func startTimeSegmentedControlChanged(_ inStartTimeSegmentedControl: UISegmentedControl) {
-        timeConstraintsStackView?.isHidden = SegmentIndexes.anyTime.rawValue == inStartTimeSegmentedControl.selectedSegmentIndex
+        if SegmentIndexes.timeRange.rawValue == inStartTimeSegmentedControl.selectedSegmentIndex {
+            timeConstraintsStackView?.isHidden = false
+            fromTimeLabel?.text = "0000"
+            fromStepper?.minimumValue = 0
+            fromStepper?.value = 0
+            toStepper?.minimumValue = 0
+            toTimeLabel?.text = "2400"
+            fromStepper?.maximumValue = 2355
+            toStepper?.value = 2400
+        } else {
+            timeConstraintsStackView?.isHidden = false
+        }
     }
 
     /* ################################################################## */

@@ -28,3 +28,5 @@
 "SLUG-ANY-TIME"                                                 =       "Any Time";
 "SLUG-CONSTRAINED-TIME"                                         =       "Start Time Range";
 "SLUG-SEARCH-BUTTON-TITLE"                                      =       "Search for Meetings";
+"SLUG-STRING-SEARCH-PLACEHOLDER"                                =       "Enter A Search String";
+"SLUG-RELATE-TO-ME-LABEL"                                       =       "Distance to My Location";
