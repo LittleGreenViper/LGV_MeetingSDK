@@ -377,7 +377,7 @@
                                                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="2355" stepValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="glS-IX-3uf">
                                                                 <rect key="frame" x="0.0" y="34" width="94" height="190"/>
                                                                 <connections>
-                                                                    <action selector="stepperChanged:" destination="EU7-Xo-ygf" eventType="valueChanged" id="hVP-vx-Tvx"/>
+                                                                    <action selector="fromStepperChanged:" destination="EU7-Xo-ygf" eventType="valueChanged" id="0uZ-GR-Jp5"/>
                                                                 </connections>
                                                             </stepper>
                                                         </subviews>
@@ -409,7 +409,7 @@
                                                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2400" minimumValue="5" maximumValue="2400" stepValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="gBG-Gs-P15">
                                                                 <rect key="frame" x="0.0" y="34" width="94" height="190"/>
                                                                 <connections>
-                                                                    <action selector="stepperChanged:" destination="EU7-Xo-ygf" eventType="valueChanged" id="ldD-ll-yTs"/>
+                                                                    <action selector="toStepperChanged:" destination="EU7-Xo-ygf" eventType="valueChanged" id="osX-FR-hT1"/>
                                                                 </connections>
                                                             </stepper>
                                                         </subviews>

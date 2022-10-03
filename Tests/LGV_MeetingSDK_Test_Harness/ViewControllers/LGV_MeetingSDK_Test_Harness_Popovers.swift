@@ -578,36 +578,47 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
     /* ################################################################## */
     /**
      */
-    @IBAction func stepperChanged(_ inStepper: UIStepper) {
-        var hours = Int(inStepper.value) / 100
-        var minutes = Int(inStepper.value) - (hours * 100)
+    @IBAction func fromStepperChanged(_ inStepper: UIStepper) {
+        let hours = Int(inStepper.value) / 100
+        let minutes = Int(inStepper.value) - (hours * 100)
         
-        if 59 < minutes {
-            minutes = 0
-            hours += 1
-        }
-        
-        if 24 < hours {
-            hours = 24
-            minutes = 0
-        }
+        guard let currentFromTimeText = fromTimeLabel?.text,
+              let currentFromTime = Int(currentFromTimeText)
+        else { return }
         
         let newValue = (hours * 100) + minutes
         
-        guard let currentFromTimeText = fromTimeLabel?.text,
-              let currentFromTime = Int(currentFromTimeText),
-              let currentToTimeText = toTimeLabel?.text,
-              let currentToTime = Int(currentToTimeText),
-              (currentFromTime...currentToTime).contains(newValue)
+        if newValue < currentFromTime {
+            
+        } else {
+            
+        }
+        
+        fromTimeLabel?.text = String(format: "%04d", Int(newValue))
+        toStepper?.minimumValue = Double(newValue + Int(inStepper.stepValue))
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func toStepperChanged(_ inStepper: UIStepper) {
+        let hours = Int(inStepper.value) / 100
+        let minutes = Int(inStepper.value) - (hours * 100)
+        
+        guard let currentToTimeText = toTimeLabel?.text,
+              let currentToTime = Int(currentToTimeText)
         else { return }
         
-        if inStepper == fromStepper {
-            fromTimeLabel?.text = String(format: "%04d", Int(newValue))
-            toStepper?.minimumValue = Double(newValue + Int(inStepper.stepValue))
+        let newValue = (hours * 100) + minutes
+        
+        if newValue < currentToTime {
+            
         } else {
-            toTimeLabel?.text = String(format: "%04d", Int(newValue))
-            fromStepper?.maximumValue = Double(newValue - Int(inStepper.stepValue))
+            
         }
+
+        toTimeLabel?.text = String(format: "%04d", Int(newValue))
+        fromStepper?.maximumValue = Double(newValue - Int(inStepper.stepValue))
     }
     
     /* ################################################################## */
