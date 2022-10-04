@@ -280,6 +280,20 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
     
     /* ################################################################## */
     /**
+     Called just before the screen appears.
+     
+     We use this to update the search type.
+     
+     - parameter inAnimated: True, if the appearance is animated.
+     */
+    override func viewWillAppear(_ inAnimated: Bool) {
+        super.viewWillAppear(inAnimated)
+        tabController?.searchBarButtonItem?.isEnabled = true
+        recalculateSearchParameters()
+    }
+    
+    /* ################################################################## */
+    /**
      Called when the search bar button item has been hit.
      
      - parameter: The bar button (ignored).

@@ -99,6 +99,27 @@ class LGV_MeetingSDK_Test_Harness_Results_ViewController: LGV_MeetingSDK_Test_Ha
 }
 
 /* ###################################################################################################################################### */
+// MARK: Instance Methods
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
+    /* ################################################################## */
+    /**
+     */
+    func checkSelection() {
+        if let meetings = appDelegateInstance?.searchData?.meetings {
+            if let selectedRowIndexes = resulsTableView?.indexPathsForSelectedRows,
+               !meetings.isEmpty {
+                let ids = selectedRowIndexes.map { meetings[$0.row].id }
+                appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: .meetingID(ids: ids), meetings: meetings)
+                tabController?.searchBarButtonItem?.isEnabled = !ids.isEmpty
+            } else {
+                tabController?.searchBarButtonItem?.isEnabled = false
+            }
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: Base Class Overrides
 /* ###################################################################################################################################### */
 extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
@@ -121,7 +142,9 @@ extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
         super.viewWillAppear(inAnimated)
         let newBarButton = UIBarButtonItem(title: "SLUG-EDIT-BUTTON-TEXT".localizedVariant, style: .plain, target: self, action: #selector(startEditMode))
         editBarButtonItem = newBarButton
+        tabController?.searchBarButtonItem?.isEnabled = false
         tabController?.navigationItem.rightBarButtonItems?.append(newBarButton)
+        checkSelection()
     }
     
     /* ################################################################## */
@@ -165,6 +188,7 @@ extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
         editBarButtonItem?.action = #selector(startEditMode)
         resulsTableView?.isEditing = false
         resulsTableView?.reloadData()
+        tabController?.searchBarButtonItem?.isEnabled = false
     }
 }
 
@@ -204,23 +228,23 @@ extension LGV_MeetingSDK_Test_Harness_Results_ViewController: UITableViewDataSou
 extension LGV_MeetingSDK_Test_Harness_Results_ViewController: UITableViewDelegate {
     /* ################################################################## */
     /**
-     This sets up (and handles) right-swipes.
+     Called when the user selects a row.
      
      - parameter inTableView: The table view.
-     - parameter leadingSwipeActionsConfigurationForRowAt: The IndexPath of the row we are swiping.
+     - parameter didSelectRowAt: The IndexPath of the row we are selecting.
      */
-    func tableView(_ inTableView: UITableView, leadingSwipeActionsConfigurationForRowAt inIndexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        nil
+    func tableView(_ inTableView: UITableView, didSelectRowAt inIndexPath: IndexPath) {
+        checkSelection()
     }
-
+    
     /* ################################################################## */
     /**
-     This sets up (and handles) left-swipes.
+     Called when the user deselects a row.
      
      - parameter inTableView: The table view.
-     - parameter trailingSwipeActionsConfigurationForRowAt: The IndexPath of the row we are swiping.
+     - parameter didDeselectRowAt: The IndexPath of the row we are un-selecting.
      */
-    func tableView(_ inTableView: UITableView, trailingSwipeActionsConfigurationForRowAt inIndexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        nil
+    func tableView(_ inTableView: UITableView, didDeselectRowAt inIndexPath: IndexPath) {
+        checkSelection()
     }
 }
