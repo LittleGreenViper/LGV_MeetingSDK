@@ -249,6 +249,19 @@ extension LGV_MeetingSDK_Test_Harness_Base_ViewController {
 }
 
 /* ###################################################################################################################################### */
+// MARK: Override Targets
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_Base_ViewController {
+    /* ################################################################## */
+    /**
+     Called when the search bar button item has been hit.
+     
+     - parameter inBarButtonItem: The bar button.
+     */
+    @objc func searchBarButtonItemHit(_ inBarButtonItem: UIBarButtonItem) { }
+}
+
+/* ###################################################################################################################################### */
 // MARK: UIPopoverPresentationControllerDelegate Conformance
 /* ###################################################################################################################################### */
 extension LGV_MeetingSDK_Test_Harness_Base_ViewController: UIPopoverPresentationControllerDelegate {

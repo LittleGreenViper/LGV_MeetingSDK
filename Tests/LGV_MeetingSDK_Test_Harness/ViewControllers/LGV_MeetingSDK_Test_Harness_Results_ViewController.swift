@@ -74,6 +74,9 @@ extension LGV_MeetingSDK_Test_Harness_Results_TableViewCell {
         } else {
             addressLabel?.text = meetingObject.simpleLocationText
         }
+        
+        selectedBackgroundView = UIView(frame: bounds)
+        selectedBackgroundView?.backgroundColor = .white.withAlphaComponent(0.15)
     }
 }
 
@@ -88,6 +91,11 @@ class LGV_MeetingSDK_Test_Harness_Results_ViewController: LGV_MeetingSDK_Test_Ha
     /**
      */
     @IBOutlet weak var resulsTableView: UITableView?
+    
+    /* ################################################################## */
+    /**
+     */
+    weak var editBarButtonItem: UIBarButtonItem?
 }
 
 /* ###################################################################################################################################### */
@@ -102,6 +110,35 @@ extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
         super.viewDidLoad()
         overrideUserInterfaceStyle = .light
     }
+    
+    /* ################################################################## */
+    /**
+     Called when the view is going to appear.
+     
+     - parameter inAnimated: True, if the appearance is to be animated.
+     */
+    override func viewWillAppear(_ inAnimated: Bool) {
+        super.viewWillAppear(inAnimated)
+        let newBarButton = UIBarButtonItem(title: "SLUG-EDIT-BUTTON-TEXT".localizedVariant, style: .plain, target: self, action: #selector(startEditMode))
+        editBarButtonItem = newBarButton
+        tabController?.navigationItem.rightBarButtonItems?.append(newBarButton)
+    }
+    
+    /* ################################################################## */
+    /**
+     Called when the view is going to disappear.
+     
+     - parameter inAnimated: True, if the disappearance is to be animated.
+     */
+    override func viewWillDisappear(_ inAnimated: Bool) {
+        super.viewWillDisappear(inAnimated)
+        guard let items = tabController?.navigationItem.rightBarButtonItems else { return }
+        endEditMode()
+        for item in items.enumerated() where item.element == editBarButtonItem {
+            tabController?.navigationItem.rightBarButtonItems?.remove(at: item.offset)
+            break
+        }
+    }
 }
 
 /* ###################################################################################################################################### */
@@ -111,22 +148,24 @@ extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
     /* ################################################################## */
     /**
      */
-    func startEditMode() {
-        
+    @objc func startEditMode(_ inBarButtonItem: UIBarButtonItem! = nil) {
+        editBarButtonItem?.title = "SLUG-CANCEL-BUTTON-TEXT".localizedVariant
+        editBarButtonItem?.target = self
+        editBarButtonItem?.action = #selector(endEditMode)
+        resulsTableView?.isEditing = true
+        resulsTableView?.reloadData()
     }
     
     /* ################################################################## */
     /**
      */
-    func endEditMode() {
-        
+    @objc func endEditMode(_ inBarButtonItem: UIBarButtonItem! = nil) {
+        editBarButtonItem?.title = "SLUG-EDIT-BUTTON-TEXT".localizedVariant
+        editBarButtonItem?.target = self
+        editBarButtonItem?.action = #selector(startEditMode)
+        resulsTableView?.isEditing = false
+        resulsTableView?.reloadData()
     }
-}
-
-/* ###################################################################################################################################### */
-// MARK: Instance Methods
-/* ###################################################################################################################################### */
-extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
 }
 
 /* ###################################################################################################################################### */
@@ -136,7 +175,15 @@ extension LGV_MeetingSDK_Test_Harness_Results_ViewController: UITableViewDataSou
     /* ################################################################## */
     /**
      */
-    func tableView(_ inTableView: UITableView, numberOfRowsInSection inSection: Int) -> Int { appDelegateInstance?.searchData?.meetings.count ?? 0 }
+    func tableView(_: UITableView, numberOfRowsInSection: Int) -> Int {
+        let ret = appDelegateInstance?.searchData?.meetings.count ?? 0
+        
+        if 0 == ret {
+            resulsTableView?.isEditing = false
+        }
+        
+        return ret
+    }
     
     /* ################################################################## */
     /**
@@ -155,5 +202,25 @@ extension LGV_MeetingSDK_Test_Harness_Results_ViewController: UITableViewDataSou
 // MARK: UITableViewDelegate Conformance
 /* ###################################################################################################################################### */
 extension LGV_MeetingSDK_Test_Harness_Results_ViewController: UITableViewDelegate {
-    
+    /* ################################################################## */
+    /**
+     This sets up (and handles) right-swipes.
+     
+     - parameter inTableView: The table view.
+     - parameter leadingSwipeActionsConfigurationForRowAt: The IndexPath of the row we are swiping.
+     */
+    func tableView(_ inTableView: UITableView, leadingSwipeActionsConfigurationForRowAt inIndexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        nil
+    }
+
+    /* ################################################################## */
+    /**
+     This sets up (and handles) left-swipes.
+     
+     - parameter inTableView: The table view.
+     - parameter trailingSwipeActionsConfigurationForRowAt: The IndexPath of the row we are swiping.
+     */
+    func tableView(_ inTableView: UITableView, trailingSwipeActionsConfigurationForRowAt inIndexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        nil
+    }
 }

@@ -277,6 +277,16 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         super.viewDidLayoutSubviews()
         updateScreen()
     }
+    
+    /* ################################################################## */
+    /**
+     Called when the search bar button item has been hit.
+     
+     - parameter: The bar button (ignored).
+     */
+    override func searchBarButtonItemHit(_: UIBarButtonItem) {
+        recalculateSearchParameters()
+    }
 }
 
 /* ###################################################################################################################################### */

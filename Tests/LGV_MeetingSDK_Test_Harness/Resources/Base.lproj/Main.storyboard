@@ -307,7 +307,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vvw-px-uBa">
-                                                    <rect key="frame" x="0.0" y="4" width="56" height="56"/>
+                                                    <rect key="frame" x="4" y="4" width="56" height="56"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8Qe-Vs-eSs">
                                                             <rect key="frame" x="4" y="4" width="48" height="21"/>
@@ -345,7 +345,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NA Meeting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="fd8-tc-CLl">
-                                                    <rect key="frame" x="60" y="4" width="298" height="21"/>
+                                                    <rect key="frame" x="64" y="4" width="290" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="w9Z-Ps-Ura"/>
                                                     </constraints>
@@ -354,7 +354,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address of Meeting" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ZeR-ka-xKJ">
-                                                    <rect key="frame" x="60" y="29" width="298" height="31"/>
+                                                    <rect key="frame" x="64" y="29" width="290" height="31"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -368,10 +368,10 @@
                                                 <constraint firstAttribute="bottom" secondItem="ZeR-ka-xKJ" secondAttribute="bottom" constant="4" id="IgH-vO-wb2"/>
                                                 <constraint firstItem="ZeR-ka-xKJ" firstAttribute="leading" secondItem="Vvw-px-uBa" secondAttribute="trailing" constant="4" id="Ss7-2K-vgo"/>
                                                 <constraint firstItem="Vvw-px-uBa" firstAttribute="top" secondItem="sBT-Tp-y1R" secondAttribute="top" constant="4" id="ef0-9y-vad"/>
-                                                <constraint firstAttribute="trailing" secondItem="ZeR-ka-xKJ" secondAttribute="trailing" id="flh-jf-NHz"/>
+                                                <constraint firstAttribute="trailing" secondItem="ZeR-ka-xKJ" secondAttribute="trailing" constant="4" id="flh-jf-NHz"/>
                                                 <constraint firstItem="fd8-tc-CLl" firstAttribute="top" secondItem="sBT-Tp-y1R" secondAttribute="top" constant="4" id="kUR-uA-g4z"/>
-                                                <constraint firstItem="Vvw-px-uBa" firstAttribute="leading" secondItem="sBT-Tp-y1R" secondAttribute="leading" id="qjJ-M0-wlD"/>
-                                                <constraint firstAttribute="trailing" secondItem="fd8-tc-CLl" secondAttribute="trailing" id="wFZ-hw-HCL"/>
+                                                <constraint firstItem="Vvw-px-uBa" firstAttribute="leading" secondItem="sBT-Tp-y1R" secondAttribute="leading" constant="4" id="qjJ-M0-wlD"/>
+                                                <constraint firstAttribute="trailing" secondItem="fd8-tc-CLl" secondAttribute="trailing" constant="4" id="wFZ-hw-HCL"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

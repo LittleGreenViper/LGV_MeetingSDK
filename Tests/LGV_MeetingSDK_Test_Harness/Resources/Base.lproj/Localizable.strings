@@ -36,3 +36,5 @@
 "SLUG-HYBRID-VENUE-TYPE"                                        =       "Hybrid";
 "SLUG-SEARCH-BUTTON-TITLE"                                      =       "Search for Meetings";
 "SLUG-VIRTUAL-ONLY-TEXT"                                        =       "Virtual-Only Meeting";
+"SLUG-EDIT-BUTTON-TEXT"                                         =       "Edit";
+"SLUG-CANCEL-BUTTON-TEXT"                                       =       "Cancel";
