@@ -64,11 +64,15 @@ extension LGV_MeetingSDK_Test_Harness_Results_TableViewCell {
      */
     override func layoutSubviews() {
         super.layoutSubviews()
-        meetingNameLabel?.text = meetingObject?.name
-        if .virtualOnly == meetingObject?.meetingType {
+        guard let meetingObject = meetingObject else { return }
+        let shortWeekdaySymbols = Calendar.current.shortWeekdaySymbols
+        weekdayLabel?.text = shortWeekdaySymbols[Int.localizeWeedayIndex(meetingObject.weekdayIndex - 1)]
+        startTimeLabel?.text = String(format: "%04d", meetingObject.meetingStartTime)
+        meetingNameLabel?.text = meetingObject.name
+        if .virtualOnly == meetingObject.meetingType {
             addressLabel?.text = "SLUG-VIRTUAL-ONLY-TEXT".localizedVariant
         } else {
-            addressLabel?.text = meetingObject?.simpleLocationText
+            addressLabel?.text = meetingObject.simpleLocationText
         }
     }
 }

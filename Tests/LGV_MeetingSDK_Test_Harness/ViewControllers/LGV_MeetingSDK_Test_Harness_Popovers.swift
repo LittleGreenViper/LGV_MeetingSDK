@@ -201,12 +201,12 @@ extension LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController: UIPicke
  */
 class LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController: LGV_MeetingSDK_Test_Harness_Base_Popover_ViewController {
     /* ################################################################################################################################## */
-    // MARK: Segment Index Enum
+    // MARK: Start Time Segment Index Enum
     /* ################################################################################################################################## */
     /**
-     The indexes of our segmented switch.
+     The indexes of our time range segmented switch.
      */
-    enum SegmentIndexes: Int {
+    enum StartTimeSegmentIndexes: Int {
         /* ############################################################## */
         /**
          Any start time.
@@ -220,6 +220,26 @@ class LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController: LGV_Meetin
         case timeRange
     }
     
+    /* ################################################################################################################################## */
+    // MARK: Venue Type Segment Index Enum
+    /* ################################################################################################################################## */
+    /**
+     The indexes of our venue type segmented switch.
+     */
+    enum VenueTypeSegmentIndexes: Int {
+        /* ############################################################## */
+        /**
+         Any venue.
+         */
+        case anyVenue
+        
+        /* ############################################################## */
+        /**
+         Choose venue type[s].
+         */
+        case selectedVenues
+    }
+    
     /* ################################################################## */
     /**
      The desired width of the popover (as wide as possible).
@@ -230,7 +250,7 @@ class LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController: LGV_Meetin
     /**
      The desired height of the popover.
      */
-    private static let _popoverHeight = CGFloat(350)
+    private static let _popoverHeight = CGFloat(454)
     
     /* ################################################################## */
     /**
@@ -350,6 +370,46 @@ class LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController: LGV_Meetin
     /* ################################################################## */
     /**
      */
+    @IBOutlet weak var venueTypeSegmentedControl: UISegmentedControl?
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var venueTypeView: UIView?
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var physicalVenueTypeCheckbox: RVS_Checkbox?
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var physicalVenueTypeLabel: UILabel?
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var virtualVenueTypeCheckbox: RVS_Checkbox?
+    
+    /* ################################################################## */
+    /**
+     */
+   @IBOutlet weak var virtualVenueTypeLabel: UILabel?
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var hybridVenueTypeCheckbox: RVS_Checkbox?
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var hybridVenueTypeLabel: UILabel?
+    
+    /* ################################################################## */
+    /**
+     */
     @IBOutlet weak var searchButton: UIButton?
 }
 
@@ -386,7 +446,7 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         
         let shortWeekdaySymbols = Calendar.current.shortWeekdaySymbols
         
-        let weekdayIndexes: [Int] = (0..<7).map { localizeWeedayIndex($0) }
+        let weekdayIndexes: [Int] = (0..<7).map { Int.localizeWeedayIndex($0) }
         day1Label?.text = shortWeekdaySymbols[weekdayIndexes[0]]
         day2Label?.text = shortWeekdaySymbols[weekdayIndexes[1]]
         day3Label?.text = shortWeekdaySymbols[weekdayIndexes[2]]
@@ -402,7 +462,15 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         relateToMeLabelButton?.titleLabel?.textAlignment = .left
         relateToMeLabelButton?.accessibilityHint = relateToMeLabelButton?.title(for: .normal)?.accessibilityLocalizedVariant
         relateToMeLabelButton?.setTitle(relateToMeLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
-
+        
+        for segmentIndex in (0..<(venueTypeSegmentedControl?.numberOfSegments ?? 0)) {
+            venueTypeSegmentedControl?.setTitle(venueTypeSegmentedControl?.titleForSegment(at: segmentIndex)?.localizedVariant, forSegmentAt: segmentIndex)
+        }
+        
+        physicalVenueTypeLabel?.text = physicalVenueTypeLabel?.text?.localizedVariant
+        virtualVenueTypeLabel?.text = virtualVenueTypeLabel?.text?.localizedVariant
+        hybridVenueTypeLabel?.text = hybridVenueTypeLabel?.text?.localizedVariant
+        
         searchButton?.titleLabel?.adjustsFontSizeToFitWidth = true
         searchButton?.titleLabel?.minimumScaleFactor = 0.5
         searchButton?.accessibilityHint = searchButton?.title(for: .normal)?.accessibilityLocalizedVariant
@@ -418,42 +486,6 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
 extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
     /* ################################################################## */
     /**
-     This adjusts the selection to match the week start (localization).
-     
-     - parameter inWeekdayIndex: The 0-based index of the selected weekday, in the current locale.
-     
-     - returns: The adjusted weekday index, in the 0 = Sunday locale.
-     */
-    func normalizeWeekdayIndex(_ inWeekdayIndex: Int) -> Int {
-        var weekdayIndex = (inWeekdayIndex - 1) + Calendar.current.firstWeekday
-        
-        if 6 < weekdayIndex {
-            weekdayIndex -= 7
-        }
-        
-        return weekdayIndex
-    }
-    
-    /* ################################################################## */
-    /**
-     This adjusts the selection to match the week start (localization).
-     
-     - parameter inWeekdayIndex: The 0-based index of the selected weekday, in the 0 = Sunday locale.
-     
-     - returns: The adjusted weekday index, with 0 being the week start day.
-     */
-    func localizeWeedayIndex(_ inWeekdayIndex: Int) -> Int {
-        var weekdayIndex = Calendar.current.firstWeekday + inWeekdayIndex
-        
-        if 7 < weekdayIndex {
-            weekdayIndex -= 7
-        }
-        
-        return weekdayIndex - 1
-    }
-    
-    /* ################################################################## */
-    /**
      This sets up the UI, as defaults.
      */
     func setUpUI() {
@@ -464,7 +496,7 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         day5Checkbox?.isOn = true
         day6Checkbox?.isOn = true
         day7Checkbox?.isOn = true
-        startTimeSegmentedControl?.selectedSegmentIndex = SegmentIndexes.anyTime.rawValue
+        startTimeSegmentedControl?.selectedSegmentIndex = StartTimeSegmentIndexes.anyTime.rawValue
         timeConstraintsStackView?.isHidden = true
         fromTimeLabel?.text = "0000"
         toTimeLabel?.text = "2400"
@@ -478,6 +510,8 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         toStepper?.value = 1440
         searchTextTextField?.text = ""
         relateToMeSwitch?.isOn = false
+        venueTypeSegmentedControl?.selectedSegmentIndex = VenueTypeSegmentIndexes.anyVenue.rawValue
+        venueTypeView?.isHidden = true
     }
     
     /* ################################################################## */
@@ -487,7 +521,7 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
     var calculatedSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>? {
         var ret: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = []
         
-        if SegmentIndexes.timeRange.rawValue == startTimeSegmentedControl?.selectedSegmentIndex,
+        if StartTimeSegmentIndexes.timeRange.rawValue == startTimeSegmentedControl?.selectedSegmentIndex,
            let startTime = fromStepper?.value,
            let endTime = toStepper?.value,
            (0..<1436).contains(startTime),
@@ -500,37 +534,37 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         var weekdays: Set<LGV_MeetingSDK_Meeting_Data_Set.Weekdays> = []
         
         if day1Checkbox?.isOn ?? false,
-           let weekday = LGV_MeetingSDK_Meeting_Data_Set.Weekdays(rawValue: normalizeWeekdayIndex(0) + 1) {
+           let weekday = LGV_MeetingSDK_Meeting_Data_Set.Weekdays(rawValue: Int.normalizeWeekdayIndex(0) + 1) {
             weekdays.insert(weekday)
         }
         
         if day2Checkbox?.isOn ?? false,
-           let weekday = LGV_MeetingSDK_Meeting_Data_Set.Weekdays(rawValue: normalizeWeekdayIndex(1) + 1) {
+           let weekday = LGV_MeetingSDK_Meeting_Data_Set.Weekdays(rawValue: Int.normalizeWeekdayIndex(1) + 1) {
             weekdays.insert(weekday)
         }
         
         if day3Checkbox?.isOn ?? false,
-           let weekday = LGV_MeetingSDK_Meeting_Data_Set.Weekdays(rawValue: normalizeWeekdayIndex(2) + 1) {
+           let weekday = LGV_MeetingSDK_Meeting_Data_Set.Weekdays(rawValue: Int.normalizeWeekdayIndex(2) + 1) {
             weekdays.insert(weekday)
         }
         
         if day4Checkbox?.isOn ?? false,
-           let weekday = LGV_MeetingSDK_Meeting_Data_Set.Weekdays(rawValue: normalizeWeekdayIndex(3) + 1) {
+           let weekday = LGV_MeetingSDK_Meeting_Data_Set.Weekdays(rawValue: Int.normalizeWeekdayIndex(3) + 1) {
             weekdays.insert(weekday)
         }
         
         if day5Checkbox?.isOn ?? false,
-           let weekday = LGV_MeetingSDK_Meeting_Data_Set.Weekdays(rawValue: normalizeWeekdayIndex(4) + 1) {
+           let weekday = LGV_MeetingSDK_Meeting_Data_Set.Weekdays(rawValue: Int.normalizeWeekdayIndex(4) + 1) {
             weekdays.insert(weekday)
         }
         
         if day6Checkbox?.isOn ?? false,
-           let weekday = LGV_MeetingSDK_Meeting_Data_Set.Weekdays(rawValue: normalizeWeekdayIndex(5) + 1) {
+           let weekday = LGV_MeetingSDK_Meeting_Data_Set.Weekdays(rawValue: Int.normalizeWeekdayIndex(5) + 1) {
             weekdays.insert(weekday)
         }
         
         if day7Checkbox?.isOn ?? false,
-           let weekday = LGV_MeetingSDK_Meeting_Data_Set.Weekdays(rawValue: normalizeWeekdayIndex(6) + 1) {
+           let weekday = LGV_MeetingSDK_Meeting_Data_Set.Weekdays(rawValue: Int.normalizeWeekdayIndex(6) + 1) {
             weekdays.insert(weekday)
         }
 
@@ -547,6 +581,22 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         if relateToMeSwitch?.isOn ?? false,
            let myLocation = LGV_MeetingSDK_Test_Harness_TabController.currentLocation {
             ret.insert(.distanceFrom(thisLocation: myLocation))
+        }
+        
+        if VenueTypeSegmentIndexes.anyVenue.rawValue != venueTypeSegmentedControl?.selectedSegmentIndex,
+           physicalVenueTypeCheckbox?.isOn ?? false || virtualVenueTypeCheckbox?.isOn ?? false || hybridVenueTypeCheckbox?.isOn ?? false {
+            var venueTypes = Set<LGV_MeetingSDK_VenueType_Enum>()
+            if physicalVenueTypeCheckbox?.isOn ?? false {
+                venueTypes.insert(.inPersonOnly)
+            }
+            if virtualVenueTypeCheckbox?.isOn ?? false {
+                venueTypes.insert(.virtualOnly)
+            }
+            if hybridVenueTypeCheckbox?.isOn ?? false {
+                venueTypes.insert(.hybrid)
+            }
+            
+            ret.insert(.venueTypes(venueTypes))
         }
         
         return ret
@@ -591,7 +641,14 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
     /**
      */
     @IBAction func startTimeSegmentedControlChanged(_ inStartTimeSegmentedControl: UISegmentedControl) {
-        timeConstraintsStackView?.isHidden = SegmentIndexes.anyTime.rawValue == inStartTimeSegmentedControl.selectedSegmentIndex
+        timeConstraintsStackView?.isHidden = StartTimeSegmentIndexes.anyTime.rawValue == inStartTimeSegmentedControl.selectedSegmentIndex
+    }
+
+    /* ################################################################## */
+    /**
+     */
+    @IBAction func venueTypeSegmentedControlChanged(_ inVenueTypeSegmentedControl: UISegmentedControl) {
+        venueTypeView?.isHidden = VenueTypeSegmentIndexes.anyVenue.rawValue == inVenueTypeSegmentedControl.selectedSegmentIndex
     }
 
     /* ################################################################## */

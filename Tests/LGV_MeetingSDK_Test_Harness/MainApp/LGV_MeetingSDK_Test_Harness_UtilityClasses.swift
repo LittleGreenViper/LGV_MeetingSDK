@@ -24,6 +24,47 @@ import RVS_UIKit_Toolbox
 import MapKit
 
 /* ###################################################################################################################################### */
+// MARK: Static Int Functions
+/* ###################################################################################################################################### */
+extension Int {
+    /* ################################################################## */
+    /**
+     This adjusts the selection to match the week start (localization).
+     
+     - parameter inWeekdayIndex: The 0-based index of the selected weekday, in the current locale.
+     
+     - returns: The adjusted weekday index, in the 0 = Sunday locale.
+     */
+    static func normalizeWeekdayIndex(_ inWeekdayIndex: Int) -> Int {
+        var weekdayIndex = (inWeekdayIndex - 1) + Calendar.current.firstWeekday
+        
+        if 6 < weekdayIndex {
+            weekdayIndex -= 7
+        }
+        
+        return weekdayIndex
+    }
+    
+    /* ################################################################## */
+    /**
+     This adjusts the selection to match the week start (localization).
+     
+     - parameter inWeekdayIndex: The 0-based index of the selected weekday, in the 0 = Sunday locale.
+     
+     - returns: The adjusted weekday index, with 0 being the week start day.
+     */
+    static func localizeWeedayIndex(_ inWeekdayIndex: Int) -> Int {
+        var weekdayIndex = Calendar.current.firstWeekday + inWeekdayIndex
+        
+        if 7 < weekdayIndex {
+            weekdayIndex -= 7
+        }
+        
+        return weekdayIndex - 1
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - Special Switch That Has A Thumb That Changes Color -
 /* ###################################################################################################################################### */
 /**

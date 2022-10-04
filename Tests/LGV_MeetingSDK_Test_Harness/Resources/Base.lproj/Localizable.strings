@@ -27,7 +27,12 @@
 "SLUG-TOMATO-SERVER-URL"                                        =       "https://tomato.bmltenabled.org/main_server";
 "SLUG-ANY-TIME"                                                 =       "Any Time";
 "SLUG-CONSTRAINED-TIME"                                         =       "Start Time Range";
-"SLUG-SEARCH-BUTTON-TITLE"                                      =       "Search for Meetings";
 "SLUG-STRING-SEARCH-PLACEHOLDER"                                =       "Enter A Search String";
 "SLUG-RELATE-TO-ME-LABEL"                                       =       "Distance to My Location";
+"SLUG-VENUE-ANY"                                                =       "Any Type";
+"SLUG-VENUE-PICK"                                               =       "Selected Type";
+"SLUG-PHYSICAL-VENUE-TYPE"                                      =       "In-Person";
+"SLUG-VIRTUAL-VENUE-TYPE"                                       =       "Virtual";
+"SLUG-HYBRID-VENUE-TYPE"                                        =       "Hybrid";
+"SLUG-SEARCH-BUTTON-TITLE"                                      =       "Search for Meetings";
 "SLUG-VIRTUAL-ONLY-TEXT"                                        =       "Virtual-Only Meeting";
