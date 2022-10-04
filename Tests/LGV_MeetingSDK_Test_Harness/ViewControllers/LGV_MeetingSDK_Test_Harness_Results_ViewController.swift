@@ -23,6 +23,57 @@ import RVS_Generic_Swift_Toolbox
 import RVS_UIKit_Toolbox
 
 /* ###################################################################################################################################### */
+// MARK: - Each Search Result Table Row -
+/* ###################################################################################################################################### */
+/**
+ This class defines a custom table cell for each row of the results table.
+ */
+class LGV_MeetingSDK_Test_Harness_Results_TableViewCell: UITableViewCell {
+    /* ################################################################## */
+    /**
+     */
+    var meetingObject: LGV_MeetingSDK_Meeting_Protocol?
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var weekdayLabel: UILabel?
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var startTimeLabel: UILabel?
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var meetingNameLabel: UILabel?
+    
+    /* ################################################################## */
+    /**
+     */
+    @IBOutlet weak var addressLabel: UILabel?
+}
+
+/* ###################################################################################################################################### */
+// MARK: Base Class Overrides
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_Results_TableViewCell {
+    /* ################################################################## */
+    /**
+     */
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        meetingNameLabel?.text = meetingObject?.name
+        if .virtualOnly == meetingObject?.meetingType {
+            addressLabel?.text = "SLUG-VIRTUAL-ONLY-TEXT".localizedVariant
+        } else {
+            addressLabel?.text = meetingObject?.simpleLocationText
+        }
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - Manual Search View Controller Class -
 /* ###################################################################################################################################### */
 /**
@@ -31,10 +82,74 @@ import RVS_UIKit_Toolbox
 class LGV_MeetingSDK_Test_Harness_Results_ViewController: LGV_MeetingSDK_Test_Harness_Base_ViewController {
     /* ################################################################## */
     /**
+     */
+    @IBOutlet weak var resulsTableView: UITableView?
+}
+
+/* ###################################################################################################################################### */
+// MARK: Base Class Overrides
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
+    /* ################################################################## */
+    /**
      Called when the view hierarchy has loaded.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
         overrideUserInterfaceStyle = .light
     }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Callbacks
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
+    /* ################################################################## */
+    /**
+     */
+    func startEditMode() {
+        
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func endEditMode() {
+        
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Instance Methods
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
+}
+
+/* ###################################################################################################################################### */
+// MARK: UITableViewDataSource Conformance
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_Results_ViewController: UITableViewDataSource {
+    /* ################################################################## */
+    /**
+     */
+    func tableView(_ inTableView: UITableView, numberOfRowsInSection inSection: Int) -> Int { appDelegateInstance?.searchData?.meetings.count ?? 0 }
+    
+    /* ################################################################## */
+    /**
+     */
+    func tableView(_ inTableView: UITableView, cellForRowAt inIndexPath: IndexPath) -> UITableViewCell {
+        if let meeting = appDelegateInstance?.searchData?.meetings[inIndexPath.row],
+           let cell = inTableView.dequeueReusableCell(withIdentifier: "LGV_MeetingSDK_Test_Harness_Results_TableViewCell") as? LGV_MeetingSDK_Test_Harness_Results_TableViewCell {
+            cell.meetingObject = meeting
+            return cell
+        }
+        return UITableViewCell()
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: UITableViewDelegate Conformance
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Test_Harness_Results_ViewController: UITableViewDelegate {
+    
 }

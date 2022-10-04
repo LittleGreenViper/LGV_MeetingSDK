@@ -340,6 +340,12 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
      **NOTE:** This may not be useful, if the meeting does not have a timezone.
      */
     var meetingLocalTimezone: TimeZone { get }
+    
+    /* ################################################################## */
+    /**
+     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - This gives a "summarized" location. If the meeting is virtual-only, this will be nil.
+     */
+    var simpleLocationText: String? { get }
 
     /* ################################################################## */
     /**
@@ -356,7 +362,7 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
      OPTIONAL - The name for this meeting.
      */
     var name: String { get }
-    
+
     /* ################################################################## */
     /**
      OPTIONAL - The distance of this meetings from the search.
@@ -391,12 +397,13 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
      Default figures out the meeting type, based on what venues are available.
      */
     var meetingType: LGV_MeetingSDK_VenueType_Enum {
-        if nil != self.physicalLocation,
-           nil != self.virtualMeetingInfo {
+        let hasPhysicalLocation = nil != physicalLocation && nil != physicalLocation?.postalAddress && !(physicalLocation?.postalAddress.street ?? "").isEmpty
+        if hasPhysicalLocation,
+           nil != virtualMeetingInfo {
             return .hybrid
-        } else if nil != self.physicalLocation {
+        } else if hasPhysicalLocation {
             return .inPersonOnly
-        } else if nil != self.virtualMeetingInfo {
+        } else if nil != virtualMeetingInfo {
             return .virtualOnly
         }
         
@@ -463,7 +470,31 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
         
         return nil
     }
-    
+
+    /* ################################################################## */
+    /**
+     Default mines the physical location for a postal address, and uses that.
+     */
+    var simpleLocationText: String? {
+        guard let postalAddress = physicalLocation?.postalAddress,
+              !postalAddress.street.isEmpty,
+              !postalAddress.city.isEmpty,
+              !postalAddress.state.isEmpty
+        else { return nil }
+        
+        var ret = postalAddress.street + " " + postalAddress.city + " " + postalAddress.state
+        
+        if !postalAddress.postalCode.isEmpty {
+            ret += " " + postalAddress.postalCode
+        }
+        
+        if let venueName = physicalLocation?.name {
+            ret = venueName + " " + ret
+        }
+
+        return ret
+    }
+
     /* ################################################################## */
     /**
      By default, this calculates and returns the date of a repeating weekly meeting, and returns the next time the meeting will gather, after now.

@@ -294,6 +294,100 @@
                                     <constraint firstAttribute="width" secondItem="98P-07-AU7" secondAttribute="height" multiplier="1:1" id="58a-Jg-9cI"/>
                                 </constraints>
                             </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" indicatorStyle="white" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="64" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="hXQ-va-fQB">
+                                <rect key="frame" x="16" y="91" width="358" height="670"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LGV_MeetingSDK_Test_Harness_Results_TableViewCell" id="8Cb-9K-Oqg" customClass="LGV_MeetingSDK_Test_Harness_Results_TableViewCell" customModule="LGV_MeetingSDK_Test_Harness" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="358" height="64"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8Cb-9K-Oqg" id="sBT-Tp-y1R">
+                                            <rect key="frame" x="0.0" y="0.0" width="358" height="64"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vvw-px-uBa">
+                                                    <rect key="frame" x="0.0" y="4" width="56" height="56"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8Qe-Vs-eSs">
+                                                            <rect key="frame" x="4" y="4" width="48" height="21"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="21" id="oYd-ag-FND"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2400" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ze6-3C-ATD">
+                                                            <rect key="frame" x="4" y="31" width="48" height="21"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="21" id="5rw-bM-qrk"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="ze6-3C-ATD" secondAttribute="bottom" constant="4" id="57s-XP-vsM"/>
+                                                        <constraint firstItem="8Qe-Vs-eSs" firstAttribute="top" secondItem="Vvw-px-uBa" secondAttribute="top" constant="4" id="5mP-pl-kbS"/>
+                                                        <constraint firstAttribute="trailing" secondItem="8Qe-Vs-eSs" secondAttribute="trailing" constant="4" id="5mv-33-K4J"/>
+                                                        <constraint firstItem="ze6-3C-ATD" firstAttribute="leading" secondItem="Vvw-px-uBa" secondAttribute="leading" constant="4" id="Mdi-Iu-8AL"/>
+                                                        <constraint firstAttribute="width" secondItem="Vvw-px-uBa" secondAttribute="height" multiplier="1:1" id="kq1-S1-0xG"/>
+                                                        <constraint firstItem="8Qe-Vs-eSs" firstAttribute="leading" secondItem="Vvw-px-uBa" secondAttribute="leading" constant="4" id="pwW-VQ-YAF"/>
+                                                        <constraint firstAttribute="trailing" secondItem="ze6-3C-ATD" secondAttribute="trailing" constant="4" id="s6y-gk-bDM"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NA Meeting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="fd8-tc-CLl">
+                                                    <rect key="frame" x="60" y="4" width="298" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="w9Z-Ps-Ura"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address of Meeting" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ZeR-ka-xKJ">
+                                                    <rect key="frame" x="60" y="29" width="298" height="31"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="ZeR-ka-xKJ" firstAttribute="top" secondItem="fd8-tc-CLl" secondAttribute="bottom" constant="4" id="33Q-bs-irO"/>
+                                                <constraint firstAttribute="bottom" secondItem="Vvw-px-uBa" secondAttribute="bottom" constant="4" id="6wW-aG-B0G"/>
+                                                <constraint firstItem="fd8-tc-CLl" firstAttribute="leading" secondItem="Vvw-px-uBa" secondAttribute="trailing" constant="4" id="Adw-35-GUq"/>
+                                                <constraint firstAttribute="bottom" secondItem="ZeR-ka-xKJ" secondAttribute="bottom" constant="4" id="IgH-vO-wb2"/>
+                                                <constraint firstItem="ZeR-ka-xKJ" firstAttribute="leading" secondItem="Vvw-px-uBa" secondAttribute="trailing" constant="4" id="Ss7-2K-vgo"/>
+                                                <constraint firstItem="Vvw-px-uBa" firstAttribute="top" secondItem="sBT-Tp-y1R" secondAttribute="top" constant="4" id="ef0-9y-vad"/>
+                                                <constraint firstAttribute="trailing" secondItem="ZeR-ka-xKJ" secondAttribute="trailing" id="flh-jf-NHz"/>
+                                                <constraint firstItem="fd8-tc-CLl" firstAttribute="top" secondItem="sBT-Tp-y1R" secondAttribute="top" constant="4" id="kUR-uA-g4z"/>
+                                                <constraint firstItem="Vvw-px-uBa" firstAttribute="leading" secondItem="sBT-Tp-y1R" secondAttribute="leading" id="qjJ-M0-wlD"/>
+                                                <constraint firstAttribute="trailing" secondItem="fd8-tc-CLl" secondAttribute="trailing" id="wFZ-hw-HCL"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="addressLabel" destination="ZeR-ka-xKJ" id="d06-QY-1Ag"/>
+                                            <outlet property="meetingNameLabel" destination="fd8-tc-CLl" id="Ocy-4S-tyl"/>
+                                            <outlet property="startTimeLabel" destination="ze6-3C-ATD" id="dhq-s8-Pl1"/>
+                                            <outlet property="weekdayLabel" destination="8Qe-Vs-eSs" id="0Yk-nn-PR4"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="QoT-Tb-XZr" id="h8e-0T-ht9"/>
+                                    <outlet property="delegate" destination="QoT-Tb-XZr" id="Qpk-RV-Bg0"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="yhi-qG-8B3"/>
                         <color key="backgroundColor" name="AccentColor"/>
@@ -303,7 +397,11 @@
                             <constraint firstItem="98P-07-AU7" firstAttribute="height" relation="lessThanOrEqual" secondItem="Ggv-XA-PMa" secondAttribute="height" multiplier="0.6" id="DwE-Jy-K9C"/>
                             <constraint firstItem="Ggv-XA-PMa" firstAttribute="leading" secondItem="kxn-Oj-o3r" secondAttribute="leading" id="EBz-VO-n4w"/>
                             <constraint firstItem="98P-07-AU7" firstAttribute="width" relation="lessThanOrEqual" secondItem="Ggv-XA-PMa" secondAttribute="width" multiplier="0.6" id="EVz-fZ-gkp"/>
+                            <constraint firstItem="hXQ-va-fQB" firstAttribute="bottom" secondItem="yhi-qG-8B3" secondAttribute="bottom" id="QQE-z3-USn"/>
+                            <constraint firstItem="yhi-qG-8B3" firstAttribute="trailing" secondItem="hXQ-va-fQB" secondAttribute="trailing" constant="16" id="TOU-0z-P7H"/>
                             <constraint firstItem="98P-07-AU7" firstAttribute="centerX" secondItem="kxn-Oj-o3r" secondAttribute="centerX" id="XjW-Ma-XvS"/>
+                            <constraint firstItem="hXQ-va-fQB" firstAttribute="top" secondItem="yhi-qG-8B3" secondAttribute="top" id="ZLI-2L-4HH"/>
+                            <constraint firstItem="hXQ-va-fQB" firstAttribute="leading" secondItem="yhi-qG-8B3" secondAttribute="leading" constant="16" id="f2w-vp-ghV"/>
                             <constraint firstAttribute="trailing" secondItem="Ggv-XA-PMa" secondAttribute="trailing" id="rhB-d3-lth"/>
                             <constraint firstItem="Ggv-XA-PMa" firstAttribute="top" secondItem="kxn-Oj-o3r" secondAttribute="top" id="sAs-3b-cZe"/>
                         </constraints>
@@ -311,10 +409,13 @@
                     <tabBarItem key="tabBarItem" title="SLUG-RESULTS-CONTROLLER" id="E31-zu-14d">
                         <imageReference key="image" image="list.bullet" catalog="system" symbolScale="large"/>
                     </tabBarItem>
+                    <connections>
+                        <outlet property="resulsTableView" destination="hXQ-va-fQB" id="STD-sU-cOZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Sp-D8-o1w" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1928" y="-36"/>
+            <point key="canvasLocation" x="1927.6923076923076" y="-36.255924170616112"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="SfH-vL-Xnm">
@@ -807,7 +908,7 @@
         <image name="list.bullet" catalog="system" width="128" height="87"/>
         <image name="mappin.and.ellipse" catalog="system" width="117" height="128"/>
         <namedColor name="AccentColor">
-            <color red="0.15800000727176666" green="0.74199998378753662" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.31400001049041748" green="0.37999999523162842" blue="0.89399999380111694" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
