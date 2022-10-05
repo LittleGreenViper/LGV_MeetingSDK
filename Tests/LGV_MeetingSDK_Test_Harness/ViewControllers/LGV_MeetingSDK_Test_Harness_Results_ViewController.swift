@@ -139,7 +139,7 @@ extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
      */
     override func viewWillAppear(_ inAnimated: Bool) {
         super.viewWillAppear(inAnimated)
-        let newBarButton = UIBarButtonItem(title: "SLUG-EDIT-BUTTON-TEXT".localizedVariant, style: .plain, target: self, action: #selector(startEditMode))
+        let newBarButton = UIBarButtonItem(title: "ERROR", style: .plain, target: self, action: #selector(startEditMode))
         editBarButtonItem = newBarButton
         tabController?.navigationItem.rightBarButtonItems?.append(newBarButton)
     }
@@ -193,6 +193,7 @@ extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
      */
     @objc func startEditMode(_ inBarButtonItem: UIBarButtonItem! = nil) {
         editBarButtonItem?.title = "SLUG-CANCEL-BUTTON-TEXT".localizedVariant
+        editBarButtonItem?.accessibilityHint = "SLUG-CANCEL-BUTTON-TEXT".accessibilityLocalizedVariant
         editBarButtonItem?.target = self
         editBarButtonItem?.action = #selector(endEditMode)
         resulsTableView?.isEditing = true
@@ -204,6 +205,7 @@ extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
      */
     @objc func endEditMode(_ inBarButtonItem: UIBarButtonItem! = nil) {
         editBarButtonItem?.title = "SLUG-EDIT-BUTTON-TEXT".localizedVariant
+        editBarButtonItem?.accessibilityHint = "SLUG-EDIT-BUTTON-TEXT".accessibilityLocalizedVariant
         editBarButtonItem?.target = self
         editBarButtonItem?.action = #selector(startEditMode)
         resulsTableView?.isEditing = false

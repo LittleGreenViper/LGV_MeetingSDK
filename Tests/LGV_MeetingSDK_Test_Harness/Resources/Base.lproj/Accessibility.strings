@@ -27,3 +27,5 @@
 "SLUG-TIME-RANGE-LOWER"                                         =       "Enter the minimum start time, in military time, here.";
 "SLUG-TIME-RANGE-UPPER"                                         =       "Enter the maximum start time, in military time, here.";
 "SLUG-RELATE-TO-ME-LABEL"                                       =       "If this switch is on, then all distances will be relative to your current location.";
+"SLUG-EDIT-BUTTON-TEXT"                                         =       "Selecting this, will put the table into Edit Mode, where you can select individual meetings, to be explicitly found in a new search.";
+"SLUG-CANCEL-BUTTON-TEXT"                                       =       "Selecting this, will cancel the Edit Mode, and forget the selected meetings.";
