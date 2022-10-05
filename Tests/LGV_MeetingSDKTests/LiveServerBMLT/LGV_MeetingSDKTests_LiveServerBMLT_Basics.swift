@@ -457,4 +457,171 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Basics: XCTestCase {
             XCTAssertTrue((2...6).contains($0.weekdayIndex))
         }
     }
+    
+    /* ################################################################## */
+    /**
+     This tests for the venue type refinement filter.
+     */
+    func testAutoRadiusSearchVenueType() {
+        var expectation: XCTestExpectation
+        
+        expectation = XCTestExpectation(description: "Callback never occurred.")
+        
+        setup()
+        
+        var searchResults: LGV_MeetingSDK_Meeting_Data_Set_Protocol?
+        
+        testSDK?.meetingSearch(type: .autoRadius(centerLongLat: testLocationCenter, minimumNumberOfResults: 20, maxRadiusInMeters: Double.greatestFiniteMagnitude), refinements: [.venueTypes([.inPersonOnly])], completion: { inData, inError in
+            guard nil == inError else {
+                print("Auto Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            searchResults = inData
+            
+            expectation.fulfill()
+        })
+        
+        wait(for: [expectation], timeout: 10)
+        
+        searchResults?.meetings.forEach {
+            XCTAssertEqual($0.meetingType, .inPersonOnly)
+        }
+        
+        searchResults = nil
+
+        expectation = XCTestExpectation(description: "Callback never occurred.")
+        
+        testSDK?.meetingSearch(type: .autoRadius(centerLongLat: testLocationCenter, minimumNumberOfResults: 20, maxRadiusInMeters: Double.greatestFiniteMagnitude), refinements: [.venueTypes([.virtualOnly])], completion: { inData, inError in
+            guard nil == inError else {
+                print("Auto Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            searchResults = inData
+            
+            expectation.fulfill()
+        })
+        
+        wait(for: [expectation], timeout: 10)
+        
+        searchResults?.meetings.forEach {
+            XCTAssertEqual($0.meetingType, .virtualOnly)
+        }
+        
+        searchResults = nil
+
+        expectation = XCTestExpectation(description: "Callback never occurred.")
+        
+        testSDK?.meetingSearch(type: .autoRadius(centerLongLat: testLocationCenter, minimumNumberOfResults: 20, maxRadiusInMeters: Double.greatestFiniteMagnitude), refinements: [.venueTypes([.hybrid])], completion: { inData, inError in
+            guard nil == inError else {
+                print("Auto Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            searchResults = inData
+            
+            expectation.fulfill()
+        })
+        
+        wait(for: [expectation], timeout: 10)
+        
+        searchResults?.meetings.forEach {
+            XCTAssertEqual($0.meetingType, .hybrid)
+        }
+
+        searchResults = nil
+
+        expectation = XCTestExpectation(description: "Callback never occurred.")
+        
+        testSDK?.meetingSearch(type: .autoRadius(centerLongLat: testLocationCenter, minimumNumberOfResults: 20, maxRadiusInMeters: Double.greatestFiniteMagnitude), refinements: [.venueTypes([.virtualOnly, .inPersonOnly])], completion: { inData, inError in
+            guard nil == inError else {
+                print("Auto Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            searchResults = inData
+            
+            expectation.fulfill()
+        })
+        
+        wait(for: [expectation], timeout: 10)
+        
+        searchResults?.meetings.forEach {
+            XCTAssertNotEqual($0.meetingType, .hybrid)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This tests the weekday refinement filter.
+     */
+    func testFixedRadiusSearchStartTimeRange() {
+        var expectation: XCTestExpectation
+        
+        expectation = XCTestExpectation(description: "Callback never occurred.")
+        
+        setup()
+        
+        var searchResults: LGV_MeetingSDK_Meeting_Data_Set_Protocol?
+        
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 10000), refinements: [.startTimeRange((0...1159))], completion: { inData, inError in
+            guard nil == inError else {
+                print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            searchResults = inData
+            
+            expectation.fulfill()
+        })
+        
+        wait(for: [expectation], timeout: 20)
+        
+        searchResults?.meetings.forEach {
+            XCTAssertLessThanOrEqual(1159, $0.meetingStartTime)
+        }
+
+        searchResults = nil
+
+        expectation = XCTestExpectation(description: "Callback never occurred.")
+        
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 10000), refinements: [.startTimeRange((1200...1800))], completion: { inData, inError in
+            guard nil == inError else {
+                print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            searchResults = inData
+            
+            expectation.fulfill()
+        })
+        
+        wait(for: [expectation], timeout: 20)
+        
+        searchResults?.meetings.forEach {
+            XCTAssertTrue((1200...1800).contains($0.meetingStartTime))
+        }
+
+        searchResults = nil
+
+        expectation = XCTestExpectation(description: "Callback never occurred.")
+        
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 10000), refinements: [.startTimeRange((1801...2400))], completion: { inData, inError in
+            guard nil == inError else {
+                print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            searchResults = inData
+            
+            expectation.fulfill()
+        })
+        
+        wait(for: [expectation], timeout: 20)
+        
+        searchResults?.meetings.forEach {
+            XCTAssertTrue((1801...2400).contains($0.meetingStartTime))
+        }
+    }
 }
