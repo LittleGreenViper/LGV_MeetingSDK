@@ -132,7 +132,7 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Basics: XCTestCase {
             expectation.fulfill()
         })
         
-        wait(for: [expectation], timeout: 10)
+        wait(for: [expectation], timeout: 30)
         
         XCTAssertGreaterThanOrEqual(searchResults?.meetings.count ?? 0, 10)  // 10 is an approximate target. We may often get more.
         
@@ -151,7 +151,7 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Basics: XCTestCase {
             expectation.fulfill()
         })
         
-        wait(for: [expectation], timeout: 10)
+        wait(for: [expectation], timeout: 30)
         
         XCTAssertGreaterThanOrEqual(searchResults?.meetings.count ?? 0, 20)
         
@@ -170,7 +170,7 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Basics: XCTestCase {
             expectation.fulfill()
         })
         
-        wait(for: [expectation], timeout: 20)
+        wait(for: [expectation], timeout: 30)
         
         XCTAssertTrue(searchResults?.meetings.isEmpty ?? false)
         
@@ -189,7 +189,7 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Basics: XCTestCase {
             expectation.fulfill()
         })
         
-        wait(for: [expectation], timeout: 20)
+        wait(for: [expectation], timeout: 30)
         
         XCTAssertFalse(searchResults?.meetings.isEmpty ?? true)
         
@@ -212,7 +212,7 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Basics: XCTestCase {
             expectation.fulfill()
         })
         
-        wait(for: [expectation], timeout: 20)
+        wait(for: [expectation], timeout: 30)
         
         XCTAssertFalse(searchResults?.meetings.isEmpty ?? true)
         
@@ -245,7 +245,7 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Basics: XCTestCase {
             expectation.fulfill()
         })
         
-        wait(for: [expectation], timeout: 10)
+        wait(for: [expectation], timeout: 30)
         
         XCTAssertFalse(searchResults?.meetings.isEmpty ?? true)
     }

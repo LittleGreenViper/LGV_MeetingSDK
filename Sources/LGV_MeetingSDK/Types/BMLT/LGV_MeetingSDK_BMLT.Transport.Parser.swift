@@ -492,8 +492,6 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
                    let meetingCoords = meeting.locationCoords {
                     let meetingLocation = CLLocation(latitude: meetingCoords.latitude, longitude: meetingCoords.longitude)
                     meeting.distanceInMeters = distanceFrom.distance(from: meetingLocation)
-                } else {
-                    meeting.distanceInMeters = Double.greatestFiniteMagnitude
                 }
                 
                 return meeting
