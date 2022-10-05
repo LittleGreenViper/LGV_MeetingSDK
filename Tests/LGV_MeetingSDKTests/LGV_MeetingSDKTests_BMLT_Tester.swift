@@ -100,7 +100,7 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
      */
     func setup() {
         // This is a real URL for the TOMATO worldwide server. It's just here, for reference, if we need a real server, while developing: https://tomato.bmltenabled.org/main_server
-        guard let rootServerURL = URL(string: "https://tomato.bmltenabled.org/main_server") // LGV_MeetingSDK_BMLT.Transport.testingRootServerURL
+        guard let rootServerURL = LGV_MeetingSDK_BMLT.Transport.testingRootServerURL
         else {
             XCTFail("This should not happen.")
             return

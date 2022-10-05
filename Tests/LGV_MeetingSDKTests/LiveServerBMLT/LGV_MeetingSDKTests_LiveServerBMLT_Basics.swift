@@ -72,4 +72,39 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Basics: XCTestCase {
      This is the BMLT-specific instance.
      */
     var testSDK: LGV_MeetingSDK_BMLT?
+    
+    /* ################################################################## */
+    /**
+     This tests the basic setup of the BMLT SDK class.
+     */
+    func setup() {
+        // This is a real URL for the TOMATO worldwide server. It's just here, for reference, if we need a real server, while developing: https://tomato.bmltenabled.org/main_server
+        guard let rootServerURL = organizationTransportServerURL
+        else {
+            XCTFail("This should not happen.")
+            return
+        }
+        testSDK = LGV_MeetingSDK_BMLT(rootServerURL: rootServerURL)
+        
+        XCTAssert(testSDK?.organization is LGV_MeetingSDK_Generic_Organization)
+        XCTAssert(testSDK?.organization?.transport?.organization is LGV_MeetingSDK_Generic_Organization)
+        XCTAssertEqual(testSDK?.organization?.transport?.baseURL, rootServerURL)
+    }
+    
+    /* ################################################################## */
+    /**
+     This tests the basic setup of the BMLT SDK class.
+     */
+    func testSetup() {
+        setup()
+        XCTAssert(testSDK?.organization?.sdkInstance === testSDK)
+        XCTAssert(testSDK?.organization?.transport?.sdkInstance === testSDK)
+        XCTAssert(testSDK?.organization?.transport is LGV_MeetingSDK_BMLT.Transport)
+        XCTAssert(testSDK?.organization?.transport?.initiator is LGV_MeetingSDK_BMLT.Transport.Initiator)
+        XCTAssert(testSDK?.organization?.transport?.initiator?.parser is LGV_MeetingSDK_BMLT.Transport.Parser)
+        XCTAssertEqual(testSDK?.organization?.organizationKey, organizationKey)
+        XCTAssertEqual(testSDK?.organization?.organizationName, organizationName)
+        XCTAssertEqual(testSDK?.organization?.organizationDescription, organizationDescription)
+        XCTAssertEqual(testSDK?.organization?.organizationURL, organizationURL)
+    }
 }
