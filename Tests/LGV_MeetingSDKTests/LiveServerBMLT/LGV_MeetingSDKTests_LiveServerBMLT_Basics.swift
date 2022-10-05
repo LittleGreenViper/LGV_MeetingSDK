@@ -249,4 +249,212 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Basics: XCTestCase {
         
         XCTAssertFalse(searchResults?.meetings.isEmpty ?? true)
     }
+    
+    /* ################################################################## */
+    /**
+     This tests the basic setup of the BMLT SDK class.
+     */
+    func testSimpleFixedRadiusSearchOnCertainDays() {
+        var expectation: XCTestExpectation
+        
+        expectation = XCTestExpectation(description: "Callback never occurred.")
+        
+        setup()
+        
+        var searchResults: LGV_MeetingSDK_Meeting_Data_Set_Protocol?
+        
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.sunday])], completion: { inData, inError in
+            guard nil == inError else {
+                print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            searchResults = inData
+
+            expectation.fulfill()
+        })
+        
+        wait(for: [expectation], timeout: 20)
+
+        XCTAssertFalse(searchResults?.meetings.isEmpty ?? true)
+        searchResults?.meetings.forEach {
+            XCTAssertEqual(1, $0.weekdayIndex)
+        }
+
+        searchResults = nil
+
+        expectation = XCTestExpectation(description: "Callback never occurred.")
+        
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.monday])], completion: { inData, inError in
+            guard nil == inError else {
+                print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            searchResults = inData
+
+            expectation.fulfill()
+        })
+        
+        wait(for: [expectation], timeout: 20)
+
+        XCTAssertFalse(searchResults?.meetings.isEmpty ?? true)
+        searchResults?.meetings.forEach {
+            XCTAssertEqual(2, $0.weekdayIndex)
+        }
+
+        searchResults = nil
+
+        expectation = XCTestExpectation(description: "Callback never occurred.")
+        
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.tuesday])], completion: { inData, inError in
+            guard nil == inError else {
+                print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            searchResults = inData
+
+            expectation.fulfill()
+        })
+        
+        wait(for: [expectation], timeout: 20)
+
+        XCTAssertFalse(searchResults?.meetings.isEmpty ?? true)
+        searchResults?.meetings.forEach {
+            XCTAssertEqual(3, $0.weekdayIndex)
+        }
+
+        searchResults = nil
+
+        expectation = XCTestExpectation(description: "Callback never occurred.")
+        
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.wednesday])], completion: { inData, inError in
+            guard nil == inError else {
+                print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            searchResults = inData
+
+            expectation.fulfill()
+        })
+        
+        wait(for: [expectation], timeout: 20)
+
+        XCTAssertFalse(searchResults?.meetings.isEmpty ?? true)
+        searchResults?.meetings.forEach {
+            XCTAssertEqual(4, $0.weekdayIndex)
+        }
+
+        searchResults = nil
+
+        expectation = XCTestExpectation(description: "Callback never occurred.")
+        
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.thursday])], completion: { inData, inError in
+            guard nil == inError else {
+                print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            searchResults = inData
+
+            expectation.fulfill()
+        })
+        
+        wait(for: [expectation], timeout: 20)
+
+        XCTAssertFalse(searchResults?.meetings.isEmpty ?? true)
+        searchResults?.meetings.forEach {
+            XCTAssertEqual(5, $0.weekdayIndex)
+        }
+
+        searchResults = nil
+
+        expectation = XCTestExpectation(description: "Callback never occurred.")
+        
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.friday])], completion: { inData, inError in
+            guard nil == inError else {
+                print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            searchResults = inData
+
+            expectation.fulfill()
+        })
+        
+        wait(for: [expectation], timeout: 20)
+
+        XCTAssertFalse(searchResults?.meetings.isEmpty ?? true)
+        searchResults?.meetings.forEach {
+            XCTAssertEqual(6, $0.weekdayIndex)
+        }
+
+        searchResults = nil
+
+        expectation = XCTestExpectation(description: "Callback never occurred.")
+        
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.saturday])], completion: { inData, inError in
+            guard nil == inError else {
+                print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            searchResults = inData
+
+            expectation.fulfill()
+        })
+        
+        wait(for: [expectation], timeout: 20)
+
+        XCTAssertFalse(searchResults?.meetings.isEmpty ?? true)
+        searchResults?.meetings.forEach {
+            XCTAssertEqual(7, $0.weekdayIndex)
+        }
+        
+        searchResults = nil
+
+        expectation = XCTestExpectation(description: "Callback never occurred.")
+        
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.saturday, .sunday])], completion: { inData, inError in
+            guard nil == inError else {
+                print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            searchResults = inData
+            
+            expectation.fulfill()
+        })
+        
+        wait(for: [expectation], timeout: 10)
+        
+        XCTAssertFalse(searchResults?.meetings.isEmpty ?? true)
+        searchResults?.meetings.forEach {
+            XCTAssertTrue($0.weekdayIndex == 1 || $0.weekdayIndex == 7)
+        }
+        
+        searchResults = nil
+
+        expectation = XCTestExpectation(description: "Callback never occurred.")
+        
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.monday, .thursday, .tuesday, .friday, .wednesday])], completion: { inData, inError in
+            guard nil == inError else {
+                print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            searchResults = inData
+            
+            expectation.fulfill()
+        })
+        
+        wait(for: [expectation], timeout: 10)
+        
+        XCTAssertFalse(searchResults?.meetings.isEmpty ?? true)
+        searchResults?.meetings.forEach {
+            XCTAssertTrue((2...6).contains($0.weekdayIndex))
+        }
+    }
 }
