@@ -254,161 +254,193 @@ class LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController: LGV_Meetin
     
     /* ################################################################## */
     /**
+     The checkbox for the first weekday.
      */
     @IBOutlet weak var day1Checkbox: RVS_Checkbox?
     
     /* ################################################################## */
     /**
+     The label for the first weekday.
      */
     @IBOutlet weak var day1Label: UILabel?
 
     /* ################################################################## */
     /**
+     The checkbox for the second weekday.
      */
     @IBOutlet weak var day2Checkbox: RVS_Checkbox?
     
     /* ################################################################## */
     /**
+     The label for the second weekday.
      */
     @IBOutlet weak var day2Label: UILabel?
 
     /* ################################################################## */
     /**
+     The checkbox for the third weekday.
      */
     @IBOutlet weak var day3Checkbox: RVS_Checkbox?
     
     /* ################################################################## */
     /**
+     The label for the third weekday.
      */
     @IBOutlet weak var day3Label: UILabel?
 
     /* ################################################################## */
     /**
+     The checkbox for the fourth weekday.
      */
     @IBOutlet weak var day4Checkbox: RVS_Checkbox?
     
     /* ################################################################## */
     /**
+     The label for the fourth weekday.
      */
     @IBOutlet weak var day4Label: UILabel?
 
     /* ################################################################## */
     /**
+     The checkbox for the fifth weekday.
      */
     @IBOutlet weak var day5Checkbox: RVS_Checkbox?
     
     /* ################################################################## */
     /**
+     The label for the fifth weekday.
      */
     @IBOutlet weak var day5Label: UILabel?
 
     /* ################################################################## */
     /**
+     The checkbox for the sixth weekday.
      */
     @IBOutlet weak var day6Checkbox: RVS_Checkbox?
     
     /* ################################################################## */
     /**
+     The label for the sixth weekday.
      */
     @IBOutlet weak var day6Label: UILabel?
 
     /* ################################################################## */
     /**
+     The checkbox for the seventh weekday.
      */
     @IBOutlet weak var day7Checkbox: RVS_Checkbox?
     
     /* ################################################################## */
     /**
+     The label for the seventh weekday.
      */
     @IBOutlet weak var day7Label: UILabel?
     
     /* ################################################################## */
     /**
+     The segmented control that determines whether or not we will specify a start time range.
      */
     @IBOutlet weak var startTimeSegmentedControl: UISegmentedControl?
 
     /* ################################################################## */
     /**
+     The stack view that contains the text items and steppers for our start time range.
      */
     @IBOutlet weak var timeConstraintsStackView: UIStackView?
 
     /* ################################################################## */
     /**
+     The label that displays the lower bound of the range (in military time).
      */
     @IBOutlet weak var fromTimeLabel: UILabel?
 
     /* ################################################################## */
     /**
+     The stepper that increments or decrements the lower bound.
      */
     @IBOutlet weak var fromStepper: UIStepper?
     
     /* ################################################################## */
     /**
+     The label that displays the upper bound of the range (in military time).
      */
     @IBOutlet weak var toTimeLabel: UILabel?
     
     /* ################################################################## */
     /**
+     The stepper that increments or decrements the upper bound.
      */
     @IBOutlet weak var toStepper: UIStepper?
     
     /* ################################################################## */
     /**
+     The text field for entering a text search filter.
      */
     @IBOutlet weak var searchTextTextField: UITextField?
     
     /* ################################################################## */
     /**
+     The switch that says "relate the locations to me."
      */
     @IBOutlet weak var relateToMeSwitch: LGV_MeetingSDK_Test_Harness_CustomUISwitch?
     
     /* ################################################################## */
     /**
+     The "label" for the above (It's really a button).
      */
     @IBOutlet weak var relateToMeLabelButton: UIButton?
     
     /* ################################################################## */
     /**
+     The segmented control that determines whether or not we will be choosing a venue type.
      */
     @IBOutlet weak var venueTypeSegmentedControl: UISegmentedControl?
     
     /* ################################################################## */
     /**
+     The view that holds the venue type checkboxes.
      */
     @IBOutlet weak var venueTypeView: UIView?
     
     /* ################################################################## */
     /**
+     The checkbox for the phyiscal meeting location.
      */
     @IBOutlet weak var physicalVenueTypeCheckbox: RVS_Checkbox?
     
     /* ################################################################## */
     /**
+     The label for the phyiscal meeting location.
      */
     @IBOutlet weak var physicalVenueTypeLabel: UILabel?
     
     /* ################################################################## */
     /**
+     The checkbox for the virtual meeting location.
      */
     @IBOutlet weak var virtualVenueTypeCheckbox: RVS_Checkbox?
     
     /* ################################################################## */
     /**
+     The label for the virtual meeting location.
      */
    @IBOutlet weak var virtualVenueTypeLabel: UILabel?
     
     /* ################################################################## */
     /**
+     The checkbox for the hybrid meeting location.
      */
     @IBOutlet weak var hybridVenueTypeCheckbox: RVS_Checkbox?
     
     /* ################################################################## */
     /**
-     */
+     The label for the hybrid meeting location.
+    */
     @IBOutlet weak var hybridVenueTypeLabel: UILabel?
     
     /* ################################################################## */
     /**
+     The button for executing a search.
      */
     @IBOutlet weak var searchButton: UIButton?
 }
@@ -584,7 +616,8 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         }
         
         if VenueTypeSegmentIndexes.anyVenue.rawValue != venueTypeSegmentedControl?.selectedSegmentIndex,
-           physicalVenueTypeCheckbox?.isOn ?? false || virtualVenueTypeCheckbox?.isOn ?? false || hybridVenueTypeCheckbox?.isOn ?? false {
+           physicalVenueTypeCheckbox?.isOn ?? false || virtualVenueTypeCheckbox?.isOn ?? false || hybridVenueTypeCheckbox?.isOn ?? false,
+           !(physicalVenueTypeCheckbox?.isOn ?? false && virtualVenueTypeCheckbox?.isOn ?? false && hybridVenueTypeCheckbox?.isOn ?? false) {
             var venueTypes = Set<LGV_MeetingSDK_VenueType_Enum>()
             if physicalVenueTypeCheckbox?.isOn ?? false {
                 venueTypes.insert(.inPersonOnly)
@@ -609,6 +642,9 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
 extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
     /* ################################################################## */
     /**
+     Called when one of the start time range steppers is hit.
+     
+     - parameter inStepper: The control that was hit.
      */
     @IBAction func stepperChanged(_ inStepper: UIStepper) {
         let hours = Int(inStepper.value / 60)
@@ -629,16 +665,22 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
     
     /* ################################################################## */
     /**
+     Called when the button "label" for the "Relate to Me" switch is hit.
+     
+     We use this to toggle the switch.
+     
+     - parameter: The button (ignored).
      */
-    @IBAction func relateToMeHit(_ inControl: UIControl) {
-        if inControl is UIButton {
-            relateToMeSwitch?.setOn(!(relateToMeSwitch?.isOn ?? true), animated: true)
-            relateToMeSwitch?.sendActions(for: .valueChanged)
-        }
+    @IBAction func relateToMeHit(_: Any) {
+        relateToMeSwitch?.setOn(!(relateToMeSwitch?.isOn ?? true), animated: true)
+        relateToMeSwitch?.sendActions(for: .valueChanged)
     }
 
     /* ################################################################## */
     /**
+     Called when the segmented control for the start time range is hit.
+     
+     - parameter inStartTimeSegmentedControl: The start time segmented control.
      */
     @IBAction func startTimeSegmentedControlChanged(_ inStartTimeSegmentedControl: UISegmentedControl) {
         timeConstraintsStackView?.isHidden = StartTimeSegmentIndexes.anyTime.rawValue == inStartTimeSegmentedControl.selectedSegmentIndex
@@ -646,6 +688,9 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
 
     /* ################################################################## */
     /**
+     Called when the segmented control for the venue type is hit.
+     
+     - parameter inStartTimeSegmentedControl: The venue type segmented control.
      */
     @IBAction func venueTypeSegmentedControlChanged(_ inVenueTypeSegmentedControl: UISegmentedControl) {
         venueTypeView?.isHidden = VenueTypeSegmentIndexes.anyVenue.rawValue == inVenueTypeSegmentedControl.selectedSegmentIndex
@@ -653,6 +698,9 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
 
     /* ################################################################## */
     /**
+     Called when the search button is hit.
+     
+     - parameter: ignored.
      */
     @IBAction func searchButtonHit(_: Any) {
         guard let searchType = searchData?.searchType,

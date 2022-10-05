@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>_convert(theseMeetings:andTheseFormats:searchCenter:) Instance Method Reference</title>
+    <title>VirtualVenue Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../../../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../../../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Method/_convert(theseMeetings:andTheseFormats:searchCenter:)" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Struct/VirtualVenue" class="dashAnchor"></a>
 
-    <a title="_convert(theseMeetings:andTheseFormats:searchCenter:) Instance Method Reference"></a>
+    <a title="VirtualVenue Structure Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../../../../index.html"> Reference</a>
       <img class="carat" src="../../../../img/carat.png" alt=""/>
-      _convert(theseMeetings:andTheseFormats:searchCenter:) Instance Method Reference
+      VirtualVenue Structure Reference
     </p>
 
     <div class="content-wrapper">
@@ -157,8 +157,8 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>_convert(theseMeetings:andTheseFormats:searchCenter:)</h1>
-            <p>This converts &ldquo;raw&rdquo; (String Dictionary) meeting objects, into actual Swift structs.</p>
+            <h1>VirtualVenue</h1>
+            <p>This is a concrete implementation of the venue struct.</p>
 
           </div>
         </section>
@@ -171,8 +171,8 @@
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Function/decimalOnly(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">decimalOnly(_:<wbr>)</a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/">description</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -180,7 +180,121 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This simply strips out all non-decimal characters in the string, leaving only valid decimal digits.</p>
+                        <p>This describes the meeting venue (i.e. &ldquo;Video,&rdquo; &ldquo;Zoom,&rdquo; &ldquo;Audio-Only,&rdquo; &ldquo;Phone,&rdquo; etc.).</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/timeZone" class="dashAnchor"></a>
+                    <a class="token" href="#/">timeZone</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The local timezone for the meeting.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/url" class="dashAnchor"></a>
+                    <a class="token" href="#/">url</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>If the meeting has a URI, that is available here.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/meetingID" class="dashAnchor"></a>
+                    <a class="token" href="#/">meetingID</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>If the meeting has a separate meeting ID, that is available here, as a String.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/password" class="dashAnchor"></a>
+                    <a class="token" href="#/">password</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>If the meeting has a separate meeting password, that is available here, as a String.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/extraInfo" class="dashAnchor"></a>
+                    <a class="token" href="#/">extraInfo</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Any additional information.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/init(description:timeZone:url:meetingID:password:extraInfo:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">init(description:<wbr>timeZone:<wbr>url:<wbr>meetingID:<wbr>password:<wbr>extraInfo:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Default initializer.</p>
 
                       </div>
                     </section>
@@ -194,7 +308,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-09-26)</p>
+      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-10-05)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

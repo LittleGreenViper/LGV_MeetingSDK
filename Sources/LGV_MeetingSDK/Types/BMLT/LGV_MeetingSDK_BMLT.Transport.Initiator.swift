@@ -31,9 +31,9 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
      This executes a meeting search.
      
      - Parameters:
-     - type: Any search type that was specified.
-     - refinements: Any search refinements.
-     - completion: A completion function.
+        - type: Any search type that was specified.
+        - refinements: Any search refinements.
+        - completion: A completion function.
      */
     public func meetingSearch(type inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
                               refinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,

@@ -31,26 +31,31 @@ import RVS_UIKit_Toolbox
 class LGV_MeetingSDK_Test_Harness_Results_TableViewCell: UITableViewCell {
     /* ################################################################## */
     /**
+     The meeting that is being represented by this cell.
      */
     var meetingObject: LGV_MeetingSDK_Meeting_Protocol?
     
     /* ################################################################## */
     /**
+     The label that displays the day of the week.
      */
     @IBOutlet weak var weekdayLabel: UILabel?
     
     /* ################################################################## */
     /**
+     The label that displays the start time.
      */
     @IBOutlet weak var startTimeLabel: UILabel?
     
     /* ################################################################## */
     /**
+     The label that displays the meeting name.
      */
     @IBOutlet weak var meetingNameLabel: UILabel?
     
     /* ################################################################## */
     /**
+     The label that displays the physical address of the meeting.
      */
     @IBOutlet weak var addressLabel: UILabel?
 }
@@ -61,6 +66,8 @@ class LGV_MeetingSDK_Test_Harness_Results_TableViewCell: UITableViewCell {
 extension LGV_MeetingSDK_Test_Harness_Results_TableViewCell {
     /* ################################################################## */
     /**
+     Called as the cell is about to lay out everything.
+     We use this to initialize everything.
      */
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -89,11 +96,14 @@ extension LGV_MeetingSDK_Test_Harness_Results_TableViewCell {
 class LGV_MeetingSDK_Test_Harness_Results_ViewController: LGV_MeetingSDK_Test_Harness_Base_ViewController {
     /* ################################################################## */
     /**
+     The table that displays the results.
      */
     @IBOutlet weak var resulsTableView: UITableView?
     
     /* ################################################################## */
     /**
+     The bar button item that displays our edit button.
+     **NOTE:** This is displayed in the Tab Controller NavBar Item; not ours.
      */
     weak var editBarButtonItem: UIBarButtonItem?
 }
@@ -104,13 +114,15 @@ class LGV_MeetingSDK_Test_Harness_Results_ViewController: LGV_MeetingSDK_Test_Ha
 extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
     /* ################################################################## */
     /**
+     This looks at the current selection, and enables/disables the search bar button, accordingly.
      */
     func checkSelection() {
         if let meetings = appDelegateInstance?.searchData?.meetings {
-            if let selectedRowIndexes = resulsTableView?.indexPathsForSelectedRows,
+            if resulsTableView?.isEditing ?? false,
+               let selectedRowIndexes = resulsTableView?.indexPathsForSelectedRows,
                !meetings.isEmpty {
                 let ids = selectedRowIndexes.map { meetings[$0.row].id }
-                tabController?.searchBarButtonItem?.isEnabled = !ids.isEmpty && (resulsTableView?.isEditing ?? false)
+                tabController?.searchBarButtonItem?.isEnabled = !ids.isEmpty
             } else {
                 tabController?.searchBarButtonItem?.isEnabled = false
             }
@@ -173,6 +185,10 @@ extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
     
     /* ################################################################## */
     /**
+     Called when the search bar button is hit. The Tab Controller calls this, first, to handle any issues.
+     We use it to populate the Search Type with an ID search.
+     
+     - parameter: The Bar Button Item (ignored).
      */
     override func searchBarButtonItemHit(_: UIBarButtonItem) {
         if let meetings = appDelegateInstance?.searchData?.meetings,
@@ -190,8 +206,11 @@ extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
 extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
     /* ################################################################## */
     /**
+     Called when the edit bar button item is hit.
+     
+     - parameter: The Bar Button Item (ignored).
      */
-    @objc func startEditMode(_ inBarButtonItem: UIBarButtonItem! = nil) {
+    @objc func startEditMode(_: UIBarButtonItem! = nil) {
         editBarButtonItem?.title = "SLUG-CANCEL-BUTTON-TEXT".localizedVariant
         editBarButtonItem?.accessibilityHint = "SLUG-CANCEL-BUTTON-TEXT".accessibilityLocalizedVariant
         editBarButtonItem?.target = self
@@ -202,8 +221,11 @@ extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
     
     /* ################################################################## */
     /**
+     Called when the cancel Bar Button Item is hit.
+     
+     - parameter: The Bar Button Item (ignored).
      */
-    @objc func endEditMode(_ inBarButtonItem: UIBarButtonItem! = nil) {
+    @objc func endEditMode(_: UIBarButtonItem! = nil) {
         editBarButtonItem?.title = "SLUG-EDIT-BUTTON-TEXT".localizedVariant
         editBarButtonItem?.accessibilityHint = "SLUG-EDIT-BUTTON-TEXT".accessibilityLocalizedVariant
         editBarButtonItem?.target = self
@@ -215,6 +237,7 @@ extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
     
     /* ################################################################## */
     /**
+     Forces the table to update, and scrolls to the top.
      */
     func updateUI() {
         endEditMode()
@@ -230,6 +253,12 @@ extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
 extension LGV_MeetingSDK_Test_Harness_Results_ViewController: UITableViewDataSource {
     /* ################################################################## */
     /**
+     Returns the number of rows.
+     
+     - parameter: The table instance (ignored).
+     - parameter numberOfRowsInSection: The section index (also ignored).
+     
+     - returns: The number of rows (the number of found meetings).
      */
     func tableView(_: UITableView, numberOfRowsInSection: Int) -> Int {
         let ret = appDelegateInstance?.searchData?.meetings.count ?? 0
@@ -246,6 +275,12 @@ extension LGV_MeetingSDK_Test_Harness_Results_ViewController: UITableViewDataSou
     
     /* ################################################################## */
     /**
+     Makes one meeting row.
+     
+     - parameter inTableView: The table asking for the row.
+     - parameter cellForRowAt: The IndexPath of the requested row.
+     
+     - returns: A new meeting cell.
      */
     func tableView(_ inTableView: UITableView, cellForRowAt inIndexPath: IndexPath) -> UITableViewCell {
         if let meeting = appDelegateInstance?.searchData?.meetings[inIndexPath.row],

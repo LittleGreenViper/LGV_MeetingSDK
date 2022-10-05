@@ -166,11 +166,11 @@
           <div class="section-content">
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Meeting%20Struct"></a>
-                <a name="//apple_ref/swift/Section/Meeting Struct" class="dashAnchor"></a>
+                <a name="/Physical%20Location%20Struct"></a>
+                <a name="//apple_ref/swift/Section/Physical Location Struct" class="dashAnchor"></a>
                 <div class="section-name-container">
-                  <a class="section-name-link" href="#/Meeting%20Struct"></a>
-                  <h3 class="section-name"><span>Meeting Struct</span>
+                  <a class="section-name-link" href="#/Physical%20Location%20Struct"></a>
+                  <h3 class="section-name"><span>Physical Location Struct</span>
 </h3>
                 </div>
               </div>
@@ -194,6 +194,38 @@
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Virtual%20Location%20Struct"></a>
+                <a name="//apple_ref/swift/Section/Virtual Location Struct" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Virtual%20Location%20Struct"></a>
+                  <h3 class="section-name"><span>Virtual Location Struct</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Struct/VirtualLocation" class="dashAnchor"></a>
+                    <a class="token" href="#/">VirtualLocation</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                        <a href="../../Classes/LGV_MeetingSDK_BMLT/Meeting/VirtualLocation.html" class="slightly-smaller">See more</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -207,7 +239,27 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>The meeting&rsquo;s physical location (if any).</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/_virtualLocation" class="dashAnchor"></a>
+                    <a class="token" href="#/">_virtualLocation</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The meeting&rsquo;s virtual information (if any).</p>
+
                       </div>
                     </section>
                   </div>
@@ -225,7 +277,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>The organization to which this meeting belongs.</p>
+
                       </div>
                     </section>
                   </div>
@@ -243,7 +296,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>A unique ID for this meeting (within the organization).</p>
+
                       </div>
                     </section>
                   </div>
@@ -261,7 +315,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>The name of the meeting.</p>
+
                       </div>
                     </section>
                   </div>
@@ -279,7 +334,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Any comments and/or additional information.</p>
+
                       </div>
                     </section>
                   </div>
@@ -297,7 +353,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>The duration of the meeting, in seconds.</p>
+
                       </div>
                     </section>
                   </div>
@@ -315,7 +372,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The distance of this meeting, from the search center.</p>
+                        <p>The distance of this meeting, from the search center, or a specified &ldquo;distance from&rdquo; refinement.</p>
 
                       </div>
                     </section>
@@ -334,7 +391,10 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>The 1-based weekday instance.</p>
+
+<p><strong>NOTE:</strong> This is always 1 -&gt; Sunday, 7 -&gt; Saturday, regardless of when the week starts in the device locale.</p>
+
                       </div>
                     </section>
                   </div>
@@ -352,7 +412,10 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>The start time of the meeting, in miltary time (HHMM).</p>
+
+<p><strong>NOTE:</strong> 0000 is midnight (this morning), and 2400 is midnight (tonight).</p>
+
                       </div>
                     </section>
                   </div>
@@ -370,7 +433,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Any formats that apply to this meeting.</p>
+
                       </div>
                     </section>
                   </div>
@@ -388,7 +452,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Accessor for the physical location.</p>
+
                       </div>
                     </section>
                   </div>
@@ -406,7 +471,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Accessor for the virtual information.</p>
+
                       </div>
                     </section>
                   </div>
@@ -415,8 +481,8 @@
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Method/init(organization:id:name:weekdayIndex:meetingStartTime:extraInfo:meetingDuration:distance:formats:physicalLocation:virtualMeetingInfo:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">init(organization:<wbr>id:<wbr>name:<wbr>weekdayIndex:<wbr>meetingStartTime:<wbr>extraInfo:<wbr>meetingDuration:<wbr>distance:<wbr>formats:<wbr>physicalLocation:<wbr>virtualMeetingInfo:<wbr>)</a>
+                    <a name="//apple_ref/swift/Method/init(organization:id:weekdayIndex:meetingStartTime:name:extraInfo:meetingDuration:distanceInMeters:formats:physicalLocation:virtualMeetingInfo:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">init(organization:<wbr>id:<wbr>weekdayIndex:<wbr>meetingStartTime:<wbr>name:<wbr>extraInfo:<wbr>meetingDuration:<wbr>distanceInMeters:<wbr>formats:<wbr>physicalLocation:<wbr>virtualMeetingInfo:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -424,7 +490,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Default initializer.</p>
+
                       </div>
                     </section>
                   </div>
@@ -437,7 +504,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-09-26)</p>
+      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-10-05)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

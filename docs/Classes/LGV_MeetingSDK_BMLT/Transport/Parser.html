@@ -216,11 +216,11 @@ We declare the stored property private, and specific to the class, so we can wea
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/BMLT%20Parser%20Extension"></a>
-                <a name="//apple_ref/swift/Section/BMLT Parser Extension" class="dashAnchor"></a>
+                <a name="/BMLT%20Parser%20Extension%20%28Static%20Utility%20Methods%29"></a>
+                <a name="//apple_ref/swift/Section/BMLT Parser Extension (Static Utility Methods)" class="dashAnchor"></a>
                 <div class="section-name-container">
-                  <a class="section-name-link" href="#/BMLT%20Parser%20Extension"></a>
-                  <h3 class="section-name"><span>BMLT Parser Extension</span>
+                  <a class="section-name-link" href="#/BMLT%20Parser%20Extension%20%28Static%20Utility%20Methods%29"></a>
+                  <h3 class="section-name"><span>BMLT Parser Extension (Static Utility Methods)</span>
 </h3>
                 </div>
               </div>
@@ -229,8 +229,8 @@ We declare the stored property private, and specific to the class, so we can wea
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Method/_convert(theseFormats:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">_convert(theseFormats:<wbr>)</a>
+                    <a name="//apple_ref/swift/Method/_isThisString(_:withinThisString:options:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">_isThisString(_:<wbr>withinThisString:<wbr>options:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -238,7 +238,7 @@ We declare the stored property private, and specific to the class, so we can wea
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This converts &ldquo;raw&rdquo; (String Dictionary) meeting objects, into actual Swift structs.</p>
+                        <p>This allows us to find if a string contains another string.</p>
 
                       </div>
                     </section>
@@ -248,8 +248,8 @@ We declare the stored property private, and specific to the class, so we can wea
                   <div>
                     <code>
                     <a name="/"></a>
-                    <a name="//apple_ref/swift/Method/_convert(theseMeetings:andTheseFormats:searchCenter:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">_convert(theseMeetings:<wbr>andTheseFormats:<wbr>searchCenter:<wbr>)</a>
+                    <a name="//apple_ref/swift/Method/_cleanURI(urlString:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">_cleanURI(urlString:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -257,9 +257,47 @@ We declare the stored property private, and specific to the class, so we can wea
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This converts &ldquo;raw&rdquo; (String Dictionary) meeting objects, into actual Swift structs.</p>
+                        <p>&ldquo;Cleans&rdquo; a URI.</p>
 
-                        <a href="../../../Classes/LGV_MeetingSDK_BMLT/Transport/Parser/_convert%28theseMeetings%3AandTheseFormats%3AsearchCenter%3A%29.html" class="slightly-smaller">See more</a>
+                        <a href="../../../Classes/LGV_MeetingSDK_BMLT/Transport/Parser/_cleanURI%28urlString%3A%29.html" class="slightly-smaller">See more</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/_decimalOnly(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">_decimalOnly(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This simply strips out all non-decimal characters in the string, leaving only valid decimal digits.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/_convert(thisDataToAVirtualLocation:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">_convert(thisDataToAVirtualLocation:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates (or not) a virtual location, based on the provided meeting details.</p>
+
                       </div>
                     </section>
                   </div>
@@ -287,6 +325,91 @@ We declare the stored property private, and specific to the class, so we can wea
                   <div>
                     <code>
                     <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/_convert(theseFormats:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">_convert(theseFormats:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This converts &ldquo;raw&rdquo; (String Dictionary) meeting objects, into actual Swift structs.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/_refineMeetings(_:searchType:searchRefinements:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">_refineMeetings(_:<wbr>searchType:<wbr>searchRefinements:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Yeah, this is a big, ugly function, with lots of cyclomatic complexity.</p>
+
+<p>Deal with it. It works great.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Instance%20Utility%20Methods"></a>
+                <a name="//apple_ref/swift/Section/Instance Utility Methods" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Instance%20Utility%20Methods"></a>
+                  <h3 class="section-name"><span>Instance Utility Methods</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/_convert(theseMeetings:andTheseFormats:searchCenter:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">_convert(theseMeetings:<wbr>andTheseFormats:<wbr>searchCenter:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This converts &ldquo;raw&rdquo; (String Dictionary) meeting objects, into actual Swift structs.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/LGV_MeetingSDK_Parser_Protocol%20Conformance"></a>
+                <a name="//apple_ref/swift/Section/LGV_MeetingSDK_Parser_Protocol Conformance" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/LGV_MeetingSDK_Parser_Protocol%20Conformance"></a>
+                  <h3 class="section-name"><span>LGV_MeetingSDK_Parser_Protocol Conformance</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
                     <a name="//apple_ref/swift/Method/parseThis(searchType:searchRefinements:data:completion:)" class="dashAnchor"></a>
                     <a class="token" href="#/">parseThis(searchType:<wbr>searchRefinements:<wbr>data:<wbr>completion:<wbr>)</a>
                     </code>
@@ -310,7 +433,7 @@ We declare the stored property private, and specific to the class, so we can wea
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-09-26)</p>
+      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-10-05)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

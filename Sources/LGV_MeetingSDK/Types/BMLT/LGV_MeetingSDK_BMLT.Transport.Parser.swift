@@ -32,6 +32,8 @@ internal extension CLLocationCoordinate2D {
 
     /* ################################################################## */
     /**
+     Compares two locations for "equality."
+     
      - parameter inComp: A location (long and lat), to which we are comparing ourselves.
      - parameter precisionInMeters: This is an optional precision (slop area), in meters. If left out, then the match must be exact.
      
@@ -127,6 +129,8 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser {
     
     /* ################################################################## */
     /**
+     Creates (or not) a virtual location, based on the provided meeting details.
+     
      - parameter theseMeetings: The Dictionary that represents this meeting.
      - returns: A new virtual location instance.
      */
@@ -169,6 +173,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser {
     /* ################################################################## */
     /**
      This converts "raw" (String Dictionary) meeting objects, into actual Swift structs.
+     
      - parameter theseMeetings: The Dictionary of String Dictionaries that represent the parsed JSON object for the meetings.
      - returns: A new physical location instance.
      */
@@ -218,6 +223,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser {
     /* ################################################################## */
     /**
      This converts "raw" (String Dictionary) meeting objects, into actual Swift structs.
+     
      - parameter theseFormats: The Dictionary of String Dictionaries that represent the parsed JSON object for the formats.
      - returns: An Array of parsed and initialized format instances.
      */
@@ -447,10 +453,11 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
     /**
      REQUIRED - This parses data, and returns meetings.
      
-     - parameter searchType (OPTIONAL): This is the search specification main search type. Default is .none.
-     - parameter searchRefinements (OPTIONAL): This is the search specification additional filters. Default is .none.
-     - parameter data: The unparsed data, from the transport. It should consist of a meeting data set.
-     - parameter completion: A callback, for when the parse is complete.
+     - Parameters:
+        - searchType (OPTIONAL): This is the search specification main search type. Default is .none.
+        - searchRefinements (OPTIONAL): This is the search specification additional filters. Default is .none.
+        - data: The unparsed data, from the transport. It should consist of a meeting data set.
+        - completion: A callback, for when the parse is complete.
      */
     public func parseThis(searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints = .none,
                           searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = [],

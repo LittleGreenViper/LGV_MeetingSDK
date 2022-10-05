@@ -365,12 +365,12 @@
                       <div class="abstract">
                         <p>OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - Returns an optional DateComponents object, with the time of the meeting. Nil, if one-time event.</p>
 
-<p><strong>NOTE:</strong> This will not allow &ldquo;2400&rdquo; to be indicative of midnight. 2359 is the max.</p>
+<p><strong>NOTE:</strong> This will not allow &ldquo;2400&rdquo; to be indicative of midnight. 23:59:59 is returned, if the meeting specifies &ldquo;2400.&rdquo;</p>
 
                       </div>
                       <h4>Default Implementation</h4>
                       <div class="default_impl abstract">
-                        <p>Default returns an optional DateComponents object, with the time of the meeting. This will not allow &ldquo;2400&rdquo; to be indicative of midnight. 2359 is the max.</p>
+                        <p>Default returns an optional DateComponents object, with the time of the meeting. This will not allow &ldquo;2400&rdquo; to be indicative of midnight. 23:59:59 is returned, if the meeting specifies &ldquo;2400.&rdquo;</p>
 
                       </div>
                     </section>
@@ -398,6 +398,33 @@
                       <h4>Default Implementation</h4>
                       <div class="default_impl abstract">
                         <p>Default returns an optional DateComponents object, with the weekday and time of the meeting. Returns nil, if the meeting weekday and/or start time is invalid.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/startTimeInSeconds" class="dashAnchor"></a>
+                    <a class="token" href="#/">startTimeInSeconds</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The start time, in seconds.</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Default simply calculates the start time from the components of the military time.</p>
 
                       </div>
                     </section>
@@ -519,6 +546,33 @@
                   <div>
                     <code>
                     <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/simpleLocationText" class="dashAnchor"></a>
+                    <a class="token" href="#/">simpleLocationText</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - This gives a &ldquo;summarized&rdquo; location. If the meeting is virtual-only, this will be nil.</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Default mines the physical location for a postal address, and uses that.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
                     <a name="//apple_ref/swift/Property/nextStartDate" class="dashAnchor"></a>
                     <a class="token" href="#/">nextStartDate</a>
                     </code>
@@ -531,7 +585,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>OPTIONAL -. The next meeting (from now) will start on this date (time).</p>
+                        <p>OPTIONAL - The next meeting (from now) will start on this date (time).</p>
 
 <p>If this is a one-time event, then this will be the only indicator of the meeting start time/date.</p>
 
@@ -691,7 +745,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-09-26)</p>
+      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-10-05)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
