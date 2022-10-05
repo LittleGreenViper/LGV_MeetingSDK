@@ -454,7 +454,7 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Tests: XCTestCase {
         
         let centerDistance = CLLocation(latitude: testLocationCenter.latitude, longitude: testLocationCenter.longitude).distance(from: CLLocation(latitude: montaukLighthouse.latitude, longitude: montaukLighthouse.longitude))
         
-        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 10000), refinements: [], completion: { inData, inError in
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.distanceFrom(thisLocation: montaukLighthouse)], completion: { inData, inError in
             guard nil == inError else {
                 print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -468,8 +468,8 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Tests: XCTestCase {
         wait(for: [expectation], timeout: 20)
         
         searchResults?.meetings.forEach {
-            XCTAssertGreaterThanOrEqual(centerDistance + 5000, $0.distanceInMeters)
-            XCTAssertLessThanOrEqual(centerDistance - 5000, $0.distanceInMeters)
+            XCTAssertGreaterThanOrEqual(centerDistance + 1000, $0.distanceInMeters)
+            XCTAssertLessThanOrEqual(centerDistance - 1000, $0.distanceInMeters)
         }
     }
 }
