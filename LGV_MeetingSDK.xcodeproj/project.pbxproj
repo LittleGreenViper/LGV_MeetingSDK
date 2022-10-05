@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D408FBFD28EE2F88007542A2 /* LGV_MeetingSDKTests_LiveServerBMLT_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D408FBFC28EE2F88007542A2 /* LGV_MeetingSDKTests_LiveServerBMLT_Tests.swift */; };
 		D411540928E8B5A80037635F /* LGV_MeetingSDK_Test_Harness_Popovers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D411540828E8B5A80037635F /* LGV_MeetingSDK_Test_Harness_Popovers.swift */; };
 		D41EE90328DE294700A8ED53 /* LGV_MeetingSDKTests_BMLT_Tester.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EE90228DE294700A8ED53 /* LGV_MeetingSDKTests_BMLT_Tester.swift */; };
 		D41EE90628DE2BD100A8ED53 /* LGV_MeetingSDK_BMLT.Transport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EE90528DE2BD000A8ED53 /* LGV_MeetingSDK_BMLT.Transport.swift */; };
@@ -69,6 +70,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D408FBFC28EE2F88007542A2 /* LGV_MeetingSDKTests_LiveServerBMLT_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDKTests_LiveServerBMLT_Tests.swift; sourceTree = "<group>"; };
 		D411540828E8B5A80037635F /* LGV_MeetingSDK_Test_Harness_Popovers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Test_Harness_Popovers.swift; sourceTree = "<group>"; };
 		D412C80528D3BEC500BAFC16 /* LGV_MeetingSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK.swift; sourceTree = "<group>"; };
 		D41EE90228DE294700A8ED53 /* LGV_MeetingSDKTests_BMLT_Tester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDKTests_BMLT_Tester.swift; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				D4BBF5AF28EDD6DB00F3BFF1 /* LGV_MeetingSDKTests_LiveServerBMLT_Basics.swift */,
+				D408FBFC28EE2F88007542A2 /* LGV_MeetingSDKTests_LiveServerBMLT_Tests.swift */,
 			);
 			path = LiveServerBMLT;
 			sourceTree = "<group>";
@@ -524,6 +527,7 @@
 			files = (
 				D41EE90328DE294700A8ED53 /* LGV_MeetingSDKTests_BMLT_Tester.swift in Sources */,
 				D4BBF5B028EDD6DB00F3BFF1 /* LGV_MeetingSDKTests_LiveServerBMLT_Basics.swift in Sources */,
+				D408FBFD28EE2F88007542A2 /* LGV_MeetingSDKTests_LiveServerBMLT_Tests.swift in Sources */,
 				D4A6EC7B28DB4B3900B3E660 /* LGV_MeetingSDKTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
