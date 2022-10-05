@@ -110,8 +110,7 @@ extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
             if let selectedRowIndexes = resulsTableView?.indexPathsForSelectedRows,
                !meetings.isEmpty {
                 let ids = selectedRowIndexes.map { meetings[$0.row].id }
-                appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: .meetingID(ids: ids), meetings: meetings)
-                tabController?.searchBarButtonItem?.isEnabled = !ids.isEmpty
+                tabController?.searchBarButtonItem?.isEnabled = !ids.isEmpty && (resulsTableView?.isEditing ?? false)
             } else {
                 tabController?.searchBarButtonItem?.isEnabled = false
             }
@@ -142,11 +141,20 @@ extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
         super.viewWillAppear(inAnimated)
         let newBarButton = UIBarButtonItem(title: "SLUG-EDIT-BUTTON-TEXT".localizedVariant, style: .plain, target: self, action: #selector(startEditMode))
         editBarButtonItem = newBarButton
-        tabController?.searchBarButtonItem?.isEnabled = false
         tabController?.navigationItem.rightBarButtonItems?.append(newBarButton)
-        checkSelection()
     }
     
+    /* ################################################################## */
+    /**
+     Called when the view has appeared.
+     
+     - parameter inAnimated: True, if the appearance is to be animated.
+     */
+    override func viewDidAppear(_ inAnimated: Bool) {
+        super.viewDidAppear(inAnimated)
+        endEditMode()
+    }
+
     /* ################################################################## */
     /**
      Called when the view is going to disappear.
@@ -160,6 +168,18 @@ extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
         for item in items.enumerated() where item.element == editBarButtonItem {
             tabController?.navigationItem.rightBarButtonItems?.remove(at: item.offset)
             break
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    override func searchBarButtonItemHit(_: UIBarButtonItem) {
+        if let meetings = appDelegateInstance?.searchData?.meetings,
+           let selectedRowIndexes = resulsTableView?.indexPathsForSelectedRows,
+           !meetings.isEmpty {
+            let ids = selectedRowIndexes.map { meetings[$0.row].id }
+            appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: .meetingID(ids: ids))
         }
     }
 }
@@ -176,7 +196,7 @@ extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
         editBarButtonItem?.target = self
         editBarButtonItem?.action = #selector(endEditMode)
         resulsTableView?.isEditing = true
-        resulsTableView?.reloadData()
+        checkSelection()
     }
     
     /* ################################################################## */
@@ -189,6 +209,16 @@ extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
         resulsTableView?.isEditing = false
         resulsTableView?.reloadData()
         tabController?.searchBarButtonItem?.isEnabled = false
+    }
+    
+    /* ################################################################## */
+    /**
+     */
+    func updateUI() {
+        endEditMode()
+        if !(searchData?.meetings.isEmpty ?? true) {
+            resulsTableView?.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+        }
     }
 }
 
@@ -204,6 +234,9 @@ extension LGV_MeetingSDK_Test_Harness_Results_ViewController: UITableViewDataSou
         
         if 0 == ret {
             resulsTableView?.isEditing = false
+            tabController?.searchBarButtonItem?.isEnabled = false
+        } else {
+            tabController?.searchBarButtonItem?.isEnabled = (resulsTableView?.isEditing ?? false)
         }
         
         return ret

@@ -256,6 +256,7 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
             self?.setTabBarEnablement()
             if !(inSearchResults?.meetings ?? []).isEmpty {
                 self?.selectedIndex = TabIndexes.results.rawValue
+                (self?.selectedViewController as? LGV_MeetingSDK_Test_Harness_Results_ViewController)?.updateUI()
             }
         }
     }
