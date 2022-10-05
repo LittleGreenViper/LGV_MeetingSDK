@@ -23,7 +23,7 @@
         <a class="header-link" href="../../../../index.html">
           LGV_MeetingSDK Doumentation
         </a>
-         (0% documented)
+         (100% documented)
       </p>
     
       <div class="header-col--secondary">
@@ -158,8 +158,38 @@
         <section class="section">
           <div class="section-content top-matter">
             <h1>_cleanURI(urlString:)</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">_cleanURI</span><span class="p">(</span><span class="n">urlString</span> <span class="nv">inURLString</span><span class="p">:</span> <span class="kt">String</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                </div>
+              </div>
             <p>&ldquo;Cleans&rdquo; a URI.</p>
 
+              <div>
+                <h4>Parameters</h4>
+                <table class="graybox">
+                  <tbody>
+                      <tr>
+                        <td>
+                          <code>
+                          <em>urlString</em>
+                          </code>
+                        </td>
+                        <td>
+                          <div>
+                            <p>The URL, as a String. It can be optional.</p>
+                          </div>
+                        </td>
+                      </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <h4>Return Value</h4>
+                <p>an optional String. This is the given URI, &ldquo;cleaned up&rdquo; (&ldquo;https://&rdquo; or &ldquo;tel:&rdquo; may be prefixed)</p>
+              </div>
           </div>
         </section>
 
@@ -170,9 +200,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC5_BMLTC9TransportC6ParserC9_cleanURI33_CC80533848E28F7C4D39C331571B40A0LL9urlStringSSSgAK_tFZ6stringL__10beginsWithSbSS_SStF"></a>
                     <a name="//apple_ref/swift/Function/string(_:beginsWith:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">string(_:<wbr>beginsWith:<wbr>)</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC5_BMLTC9TransportC6ParserC9_cleanURI33_CC80533848E28F7C4D39C331571B40A0LL9urlStringSSSgAK_tFZ6stringL__10beginsWithSbSS_SStF">string(_:<wbr>beginsWith:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -182,6 +212,49 @@
                       <div class="abstract">
                         <p>This tests a string to see if a given substring is present at the start.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">string</span><span class="p">(</span><span class="n">_</span> <span class="nv">inString</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">beginsWith</span> <span class="nv">inSubstring</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inString</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The string to test.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inSubstring</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The substring to test for.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>true, if the string begins with the given substring.</p>
                       </div>
                     </section>
                   </div>
@@ -195,7 +268,7 @@
     </div>
     <section class="footer">
       <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-10-05)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
 </html>

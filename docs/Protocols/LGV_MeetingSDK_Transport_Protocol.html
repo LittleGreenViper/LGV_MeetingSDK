@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           LGV_MeetingSDK Doumentation
         </a>
-         (0% documented)
+         (100% documented)
       </p>
     
       <div class="header-col--secondary">
@@ -158,6 +158,13 @@
         <section class="section">
           <div class="section-content top-matter">
             <h1>LGV_MeetingSDK_Transport_Protocol</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">LGV_MeetingSDK_Transport_Protocol</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
+
+                </div>
+              </div>
             <p>This defines requirements for a loosely-coupled transport layer.</p>
 
           </div>
@@ -170,9 +177,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC19_Transport_ProtocolP9initiatorAA0a1_bc17_SearchInitiator_E0_pSgvp"></a>
                     <a name="//apple_ref/swift/Property/initiator" class="dashAnchor"></a>
-                    <a class="token" href="#/">initiator</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC19_Transport_ProtocolP9initiatorAA0a1_bc17_SearchInitiator_E0_pSgvp">initiator</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -183,15 +190,23 @@
                         <p>REQUIRED - The initiator, for creating search commands.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">initiator</span><span class="p">:</span> <span class="kt"><a href="../Protocols/LGV_MeetingSDK_SearchInitiator_Protocol.html">LGV_MeetingSDK_SearchInitiator_Protocol</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC19_Transport_ProtocolP12organizationAA0a1_bc14_Organization_d1_E0_pSgvp"></a>
                     <a name="//apple_ref/swift/Property/organization" class="dashAnchor"></a>
-                    <a class="token" href="#/">organization</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC19_Transport_ProtocolP12organizationAA0a1_bc14_Organization_d1_E0_pSgvp">organization</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -202,15 +217,23 @@
                         <p>REQUIRED - The transport organization to which this instance is assigned. It should generally be declared weak.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">organization</span><span class="p">:</span> <span class="kt"><a href="../Protocols/LGV_MeetingSDK_Organization_Transport_Protocol.html">LGV_MeetingSDK_Organization_Transport_Protocol</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC19_Transport_ProtocolP11sdkInstanceA2ACSgvp"></a>
                     <a name="//apple_ref/swift/Property/sdkInstance" class="dashAnchor"></a>
-                    <a class="token" href="#/">sdkInstance</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC19_Transport_ProtocolP11sdkInstanceA2ACSgvp">sdkInstance</a>
                     </code>
                       <span class="declaration-note">
                         Default implementation
@@ -229,15 +252,23 @@
                         <p>The default simply returns the organization&rsquo;s SDK instance.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">sdkInstance</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_MeetingSDK.html">LGV_MeetingSDK</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC19_Transport_ProtocolP7baseURL10Foundation0G0VSgvp"></a>
                     <a name="//apple_ref/swift/Property/baseURL" class="dashAnchor"></a>
-                    <a class="token" href="#/">baseURL</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC19_Transport_ProtocolP7baseURL10Foundation0G0VSgvp">baseURL</a>
                     </code>
                       <span class="declaration-note">
                         Default implementation
@@ -256,6 +287,14 @@
                         <p>Default is nil.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">baseURL</span><span class="p">:</span> <span class="kt">URL</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -268,7 +307,7 @@
     </div>
     <section class="footer">
       <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-10-05)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
 </html>

@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           LGV_MeetingSDK Doumentation
         </a>
-         (0% documented)
+         (100% documented)
       </p>
     
       <div class="header-col--secondary">
@@ -158,6 +158,13 @@
         <section class="section">
           <div class="section-content top-matter">
             <h1>LGV_MeetingSDK_Meeting_Protocol</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">LGV_MeetingSDK_Meeting_Protocol</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/LGV_MeetingSDK_Additional_Info_Protocol.html">LGV_MeetingSDK_Additional_Info_Protocol</a></span></code></pre>
+
+                </div>
+              </div>
             <p>Each meeting instance will present itself as conforming to this protocol.</p>
 
           </div>
@@ -170,9 +177,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP12organizationAA0a1_bc14_Organization_D0_pSgvp"></a>
                     <a name="//apple_ref/swift/Property/organization" class="dashAnchor"></a>
-                    <a class="token" href="#/">organization</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP12organizationAA0a1_bc14_Organization_D0_pSgvp">organization</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -183,15 +190,23 @@
                         <p>REQUIRED - The meeting organization.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">organization</span><span class="p">:</span> <span class="kt"><a href="../Protocols/LGV_MeetingSDK_Organization_Protocol.html">LGV_MeetingSDK_Organization_Protocol</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP2ids6UInt64Vvp"></a>
                     <a name="//apple_ref/swift/Property/id" class="dashAnchor"></a>
-                    <a class="token" href="#/">id</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP2ids6UInt64Vvp">id</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -204,15 +219,23 @@
 <p><strong>NOTE:</strong> This is positive, and 1-based. 0 is an error.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">UInt64</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP12weekdayIndexSivp"></a>
                     <a name="//apple_ref/swift/Property/weekdayIndex" class="dashAnchor"></a>
-                    <a class="token" href="#/">weekdayIndex</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP12weekdayIndexSivp">weekdayIndex</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -222,10 +245,18 @@
                       <div class="abstract">
                         <p>REQUIRED - The repeating weekday for the meeting (1-based, with 1 being Sunday, and 7 being Saturday).</p>
 
-<p>If this is 0, then the meeting is considered to be a one-time event, and the <code><a href="../Protocols/LGV_MeetingSDK_Meeting_Protocol.html#/meetingStartTime">meetingStartTime</a></code> property should be ignored (<code>nextMeetingStartsOn</code> will have the start time and day).</p>
+<p>If this is 0, then the meeting is considered to be a one-time event, and the <code><a href="../Protocols/LGV_MeetingSDK_Meeting_Protocol.html#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP16meetingStartTimeSivp">meetingStartTime</a></code> property should be ignored (<code>nextMeetingStartsOn</code> will have the start time and day).</p>
 
 <p><strong>NOTE:</strong> 1 is Sunday, regardless of the current region week start day.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">weekdayIndex</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -233,9 +264,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP16meetingStartTimeSivp"></a>
                     <a name="//apple_ref/swift/Property/meetingStartTime" class="dashAnchor"></a>
-                    <a class="token" href="#/">meetingStartTime</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP16meetingStartTimeSivp">meetingStartTime</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -256,15 +287,23 @@
 <p>The <code>nextMeetingStartsOn</code> property will have the absolute time, in any case.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">meetingStartTime</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP16physicalLocationAA0a1_bc1_b10_Physical_D0_pSgvp"></a>
                     <a name="//apple_ref/swift/Property/physicalLocation" class="dashAnchor"></a>
-                    <a class="token" href="#/">physicalLocation</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP16physicalLocationAA0a1_bc1_b10_Physical_D0_pSgvp">physicalLocation</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -274,8 +313,16 @@
                       <div class="abstract">
                         <p>REQUIRED - If the meeting has a physical presence, this will have the location. Nil, if no physical location.</p>
 
-<p><strong>NOTE:</strong> If this is not provided, then <code><a href="../Protocols/LGV_MeetingSDK_Meeting_Protocol.html#/virtualMeetingInfo">virtualMeetingInfo</a></code> should be provided.</p>
+<p><strong>NOTE:</strong> If this is not provided, then <code><a href="../Protocols/LGV_MeetingSDK_Meeting_Protocol.html#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP07virtualB4InfoAA0a1_bc1_b9_Virtual_D0_pSgvp">virtualMeetingInfo</a></code> should be provided.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">physicalLocation</span><span class="p">:</span> <span class="kt"><a href="../Protocols/LGV_MeetingSDK_Meeting_Physical_Protocol.html">LGV_MeetingSDK_Meeting_Physical_Protocol</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -283,9 +330,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP07virtualB4InfoAA0a1_bc1_b9_Virtual_D0_pSgvp"></a>
                     <a name="//apple_ref/swift/Property/virtualMeetingInfo" class="dashAnchor"></a>
-                    <a class="token" href="#/">virtualMeetingInfo</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP07virtualB4InfoAA0a1_bc1_b9_Virtual_D0_pSgvp">virtualMeetingInfo</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -295,8 +342,16 @@
                       <div class="abstract">
                         <p>REQUIRED - If the meeting has a virtual presence, this will have that information. Nil, if no virtual meeting.</p>
 
-<p><strong>NOTE:</strong> If this is not provided, then <code><a href="../Protocols/LGV_MeetingSDK_Meeting_Protocol.html#/physicalLocation">physicalLocation</a></code> should be provided.</p>
+<p><strong>NOTE:</strong> If this is not provided, then <code><a href="../Protocols/LGV_MeetingSDK_Meeting_Protocol.html#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP16physicalLocationAA0a1_bc1_b10_Physical_D0_pSgvp">physicalLocation</a></code> should be provided.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">virtualMeetingInfo</span><span class="p">:</span> <span class="kt"><a href="../Protocols/LGV_MeetingSDK_Meeting_Virtual_Protocol.html">LGV_MeetingSDK_Meeting_Virtual_Protocol</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -304,9 +359,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP7formatsSayAA0a1_bc8_Format_D0_pGvp"></a>
                     <a name="//apple_ref/swift/Property/formats" class="dashAnchor"></a>
-                    <a class="token" href="#/">formats</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP7formatsSayAA0a1_bc8_Format_D0_pGvp">formats</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -317,15 +372,23 @@
                         <p>REQUIRED - If the meeting has formats, then this contains a list of them. Empty, if no formats.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">formats</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/LGV_MeetingSDK_Format_Protocol.html">LGV_MeetingSDK_Format_Protocol</a></span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP11meetingTypeAA0a1_bc6_VenueF5_EnumOvp"></a>
                     <a name="//apple_ref/swift/Property/meetingType" class="dashAnchor"></a>
-                    <a class="token" href="#/">meetingType</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP11meetingTypeAA0a1_bc6_VenueF5_EnumOvp">meetingType</a>
                     </code>
                       <span class="declaration-note">
                         Default implementation
@@ -344,15 +407,23 @@
                         <p>Default figures out the meeting type, based on what venues are available.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">meetingType</span><span class="p">:</span> <span class="kt"><a href="../Enums/LGV_MeetingSDK_VenueType_Enum.html">LGV_MeetingSDK_VenueType_Enum</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP9startTime10Foundation14DateComponentsVSgvp"></a>
                     <a name="//apple_ref/swift/Property/startTime" class="dashAnchor"></a>
-                    <a class="token" href="#/">startTime</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP9startTime10Foundation14DateComponentsVSgvp">startTime</a>
                     </code>
                       <span class="declaration-note">
                         Default implementation
@@ -373,15 +444,23 @@
                         <p>Default returns an optional DateComponents object, with the time of the meeting. This will not allow &ldquo;2400&rdquo; to be indicative of midnight. 23:59:59 is returned, if the meeting specifies &ldquo;2400.&rdquo;</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">startTime</span><span class="p">:</span> <span class="kt">DateComponents</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP15startTimeAndDay10Foundation14DateComponentsVSgvp"></a>
                     <a name="//apple_ref/swift/Property/startTimeAndDay" class="dashAnchor"></a>
-                    <a class="token" href="#/">startTimeAndDay</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP15startTimeAndDay10Foundation14DateComponentsVSgvp">startTimeAndDay</a>
                     </code>
                       <span class="declaration-note">
                         Default implementation
@@ -400,15 +479,23 @@
                         <p>Default returns an optional DateComponents object, with the weekday and time of the meeting. Returns nil, if the meeting weekday and/or start time is invalid.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">startTimeAndDay</span><span class="p">:</span> <span class="kt">DateComponents</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP18startTimeInSecondsSdSgvp"></a>
                     <a name="//apple_ref/swift/Property/startTimeInSeconds" class="dashAnchor"></a>
-                    <a class="token" href="#/">startTimeInSeconds</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP18startTimeInSecondsSdSgvp">startTimeInSeconds</a>
                     </code>
                       <span class="declaration-note">
                         Default implementation
@@ -427,15 +514,23 @@
                         <p>Default simply calculates the start time from the components of the military time.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">startTimeInSeconds</span><span class="p">:</span> <span class="kt">TimeInterval</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP17durationInMinutesSivp"></a>
                     <a name="//apple_ref/swift/Property/durationInMinutes" class="dashAnchor"></a>
-                    <a class="token" href="#/">durationInMinutes</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP17durationInMinutesSivp">durationInMinutes</a>
                     </code>
                       <span class="declaration-note">
                         Default implementation
@@ -454,15 +549,23 @@
                         <p>Default simply divides the seconds duration into minutes.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">durationInMinutes</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP20adjustedWeekdayIndexSivp"></a>
                     <a name="//apple_ref/swift/Property/adjustedWeekdayIndex" class="dashAnchor"></a>
-                    <a class="token" href="#/">adjustedWeekdayIndex</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP20adjustedWeekdayIndexSivp">adjustedWeekdayIndex</a>
                     </code>
                       <span class="declaration-note">
                         Default implementation
@@ -481,15 +584,23 @@
                         <p>Default returns the adjusted weekday. Note that this should only be used, when accounting for different week starts.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">adjustedWeekdayIndex</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP14locationCoordsSo22CLLocationCoordinate2DVSgvp"></a>
                     <a name="//apple_ref/swift/Property/locationCoords" class="dashAnchor"></a>
-                    <a class="token" href="#/">locationCoords</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP14locationCoordsSo22CLLocationCoordinate2DVSgvp">locationCoords</a>
                     </code>
                       <span class="declaration-note">
                         Default implementation
@@ -510,15 +621,23 @@
                         <p>Default gets the coordinates from the physical location. May be nil, or an invalid location.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">locationCoords</span><span class="p">:</span> <span class="kt">CLLocationCoordinate2D</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP20meetingLocalTimezone10Foundation8TimeZoneVvp"></a>
                     <a name="//apple_ref/swift/Property/meetingLocalTimezone" class="dashAnchor"></a>
-                    <a class="token" href="#/">meetingLocalTimezone</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP20meetingLocalTimezone10Foundation8TimeZoneVvp">meetingLocalTimezone</a>
                     </code>
                       <span class="declaration-note">
                         Default implementation
@@ -539,15 +658,23 @@
                         <p>Default tries to get the timezone from the physical address first, then the virtual, and failing that, our local timezone.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">meetingLocalTimezone</span><span class="p">:</span> <span class="kt">TimeZone</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP18simpleLocationTextSSSgvp"></a>
                     <a name="//apple_ref/swift/Property/simpleLocationText" class="dashAnchor"></a>
-                    <a class="token" href="#/">simpleLocationText</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP18simpleLocationTextSSSgvp">simpleLocationText</a>
                     </code>
                       <span class="declaration-note">
                         Default implementation
@@ -566,15 +693,23 @@
                         <p>Default mines the physical location for a postal address, and uses that.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">simpleLocationText</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP13nextStartDate10Foundation0G0VSgvp"></a>
                     <a name="//apple_ref/swift/Property/nextStartDate" class="dashAnchor"></a>
-                    <a class="token" href="#/">nextStartDate</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP13nextStartDate10Foundation0G0VSgvp">nextStartDate</a>
                     </code>
                       <span class="declaration-note">
                         Default implementation
@@ -599,15 +734,23 @@
 <p>If the meeting is not a recurring weekly meeting, this should be implemented by the conforming class.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">nextStartDate</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP4nameSSvp"></a>
                     <a name="//apple_ref/swift/Property/name" class="dashAnchor"></a>
-                    <a class="token" href="#/">name</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP4nameSSvp">name</a>
                     </code>
                       <span class="declaration-note">
                         Default implementation
@@ -626,15 +769,23 @@
                         <p>Default is an empty String.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP16distanceInMetersSdvp"></a>
                     <a name="//apple_ref/swift/Property/distanceInMeters" class="dashAnchor"></a>
-                    <a class="token" href="#/">distanceInMeters</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP16distanceInMetersSdvp">distanceInMeters</a>
                     </code>
                       <span class="declaration-note">
                         Default implementation
@@ -653,15 +804,23 @@
                         <p>Default is maximum value of the float.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">distanceInMeters</span><span class="p">:</span> <span class="kt">CLLocationDistance</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP15meetingDurationSdvp"></a>
                     <a name="//apple_ref/swift/Property/meetingDuration" class="dashAnchor"></a>
-                    <a class="token" href="#/">meetingDuration</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP15meetingDurationSdvp">meetingDuration</a>
                     </code>
                       <span class="declaration-note">
                         Default implementation
@@ -680,15 +839,23 @@
                         <p>Default is 0</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">meetingDuration</span><span class="p">:</span> <span class="kt">TimeInterval</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP8commentsSSvp"></a>
                     <a name="//apple_ref/swift/Property/comments" class="dashAnchor"></a>
-                    <a class="token" href="#/">comments</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP8commentsSSvp">comments</a>
                     </code>
                       <span class="declaration-note">
                         Default implementation
@@ -707,15 +874,23 @@
                         <p>Default is an Empty String</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">comments</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP10meetingURI10Foundation3URLVSgvp"></a>
                     <a name="//apple_ref/swift/Property/meetingURI" class="dashAnchor"></a>
-                    <a class="token" href="#/">meetingURI</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP10meetingURI10Foundation3URLVSgvp">meetingURI</a>
                     </code>
                       <span class="declaration-note">
                         Default implementation
@@ -734,6 +909,14 @@
                         <p>Default is Nil</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">meetingURI</span><span class="p">:</span> <span class="kt">URL</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -746,7 +929,7 @@
     </div>
     <section class="footer">
       <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-10-05)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
 </html>

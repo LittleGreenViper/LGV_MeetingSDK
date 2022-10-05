@@ -23,7 +23,7 @@
         <a class="header-link" href="../../index.html">
           LGV_MeetingSDK Doumentation
         </a>
-         (0% documented)
+         (100% documented)
       </p>
     
       <div class="header-col--secondary">
@@ -158,6 +158,13 @@
         <section class="section">
           <div class="section-content top-matter">
             <h1>SearchConstraints</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">SearchConstraints</span> <span class="p">:</span> <span class="kt">CustomDebugStringConvertible</span><span class="p">,</span> <span class="kt">Codable</span></code></pre>
+
+                </div>
+              </div>
             <p>These are enums that describe the &ldquo;main&rdquo; search parameters.</p>
 
           </div>
@@ -170,9 +177,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_Data_SetC17SearchConstraintsO4noneyA2EmF"></a>
                     <a name="//apple_ref/swift/Element/none" class="dashAnchor"></a>
-                    <a class="token" href="#/">none</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_Data_SetC17SearchConstraintsO4noneyA2EmF">none</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -183,15 +190,23 @@
                         <p>No search constraints.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="k">none</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_Data_SetC17SearchConstraintsO11fixedRadiusyAESo22CLLocationCoordinate2DV_SdtcAEmF"></a>
                     <a name="//apple_ref/swift/Element/fixedRadius(centerLongLat:radiusInMeters:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">fixedRadius(centerLongLat:<wbr>radiusInMeters:<wbr>)</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_Data_SetC17SearchConstraintsO11fixedRadiusyAESo22CLLocationCoordinate2DV_SdtcAEmF">fixedRadius(centerLongLat:<wbr>radiusInMeters:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -202,15 +217,23 @@
                         <p>This means that the search will sweep up every meeting within <code>radiusInMeters</code> meters of <code>centerLongLat</code>.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">fixedRadius</span><span class="p">(</span><span class="nv">centerLongLat</span><span class="p">:</span> <span class="kt">CLLocationCoordinate2D</span><span class="p">,</span> <span class="nv">radiusInMeters</span><span class="p">:</span> <span class="kt">CLLocationDistance</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_Data_SetC17SearchConstraintsO10autoRadiusyAESo22CLLocationCoordinate2DV_SuSdtcAEmF"></a>
                     <a name="//apple_ref/swift/Element/autoRadius(centerLongLat:minimumNumberOfResults:maxRadiusInMeters:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">autoRadius(centerLongLat:<wbr>minimumNumberOfResults:<wbr>maxRadiusInMeters:<wbr>)</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_Data_SetC17SearchConstraintsO10autoRadiusyAESo22CLLocationCoordinate2DV_SuSdtcAEmF">autoRadius(centerLongLat:<wbr>minimumNumberOfResults:<wbr>maxRadiusInMeters:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -222,15 +245,23 @@
 We deliberately do not specify the &ldquo;width&rdquo; of these &ldquo;rings,&rdquo; because the server may have its own ideas. A conformant implementation of the initiator could be used to allow the width to be specified.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">autoRadius</span><span class="p">(</span><span class="nv">centerLongLat</span><span class="p">:</span> <span class="kt">CLLocationCoordinate2D</span><span class="p">,</span> <span class="nv">minimumNumberOfResults</span><span class="p">:</span> <span class="kt">UInt</span><span class="p">,</span> <span class="nv">maxRadiusInMeters</span><span class="p">:</span> <span class="kt">CLLocationDistance</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_Data_SetC17SearchConstraintsO9meetingIDyAESays6UInt64VG_tcAEmF"></a>
                     <a name="//apple_ref/swift/Element/meetingID(ids:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">meetingID(ids:<wbr>)</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_Data_SetC17SearchConstraintsO9meetingIDyAESays6UInt64VG_tcAEmF">meetingID(ids:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -242,15 +273,23 @@ We deliberately do not specify the &ldquo;width&rdquo; of these &ldquo;rings,&rd
 <strong>NOTE:</strong> If this is chosen, then <code><a href="../../Classes/LGV_MeetingSDK_Meeting_Data_Set/Search_Refinements.html">Search_Refinements</a></code> are ignored.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">meetingID</span><span class="p">(</span><span class="nv">ids</span><span class="p">:</span> <span class="p">[</span><span class="kt">UInt64</span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_Data_SetC17SearchConstraintsO16debugDescriptionSSvp"></a>
                     <a name="//apple_ref/swift/Property/debugDescription" class="dashAnchor"></a>
-                    <a class="token" href="#/">debugDescription</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_Data_SetC17SearchConstraintsO16debugDescriptionSSvp">debugDescription</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -260,6 +299,14 @@ We deliberately do not specify the &ldquo;width&rdquo; of these &ldquo;rings,&rd
                       <div class="abstract">
                         <p>CustomDebugStringConvertible Conformance</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">debugDescription</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -280,9 +327,9 @@ We deliberately do not specify the &ldquo;width&rdquo; of these &ldquo;rings,&rd
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_Data_SetC17SearchConstraintsO10_typeIndex33_58CEEDD05D222FCCC7D54AE67FB9C6FELL3forSiAE_tFZ"></a>
                     <a name="//apple_ref/swift/Method/_typeIndex(for:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">_typeIndex(for:<wbr>)</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_Data_SetC17SearchConstraintsO10_typeIndex33_58CEEDD05D222FCCC7D54AE67FB9C6FELL3forSiAE_tFZ">_typeIndex(for:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -292,6 +339,33 @@ We deliberately do not specify the &ldquo;width&rdquo; of these &ldquo;rings,&rd
                       <div class="abstract">
                         <p>Returns the parameter storage index for the type.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">_typeIndex</span><span class="p">(</span><span class="k">for</span> <span class="nv">inCase</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>for</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The case we are checking.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -312,9 +386,9 @@ We deliberately do not specify the &ldquo;width&rdquo; of these &ldquo;rings,&rd
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_Data_SetC17SearchConstraintsO10CodingKeysO"></a>
                     <a name="//apple_ref/swift/Enum/CodingKeys" class="dashAnchor"></a>
-                    <a class="token" href="#/">CodingKeys</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_Data_SetC17SearchConstraintsO10CodingKeysO">CodingKeys</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -325,6 +399,14 @@ We deliberately do not specify the &ldquo;width&rdquo; of these &ldquo;rings,&rd
                         <p>This enum defines the keys for the Codable protocol</p>
 
                         <a href="../../Classes/LGV_MeetingSDK_Meeting_Data_Set/SearchConstraints/CodingKeys.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">CodingKeys</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">CodingKey</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -345,9 +427,9 @@ We deliberately do not specify the &ldquo;width&rdquo; of these &ldquo;rings,&rd
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_Data_SetC17SearchConstraintsO6encode2toys7Encoder_p_tKF"></a>
                     <a name="//apple_ref/swift/Method/encode(to:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">encode(to:<wbr>)</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_Data_SetC17SearchConstraintsO6encode2toys7Encoder_p_tKF">encode(to:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -357,6 +439,33 @@ We deliberately do not specify the &ldquo;width&rdquo; of these &ldquo;rings,&rd
                       <div class="abstract">
                         <p>Stores the state into an Encoder.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">encode</span><span class="p">(</span><span class="n">to</span> <span class="nv">inEncoder</span><span class="p">:</span> <span class="kt">Encoder</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>to</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Encoder instance that will hold the data.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -377,9 +486,9 @@ We deliberately do not specify the &ldquo;width&rdquo; of these &ldquo;rings,&rd
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B9_Data_SetC17SearchConstraintsO4fromAEs7Decoder_p_tKcfc"></a>
                     <a name="//apple_ref/swift/Method/init(from:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">init(from:<wbr>)</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B9_Data_SetC17SearchConstraintsO4fromAEs7Decoder_p_tKcfc">init(from:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -389,6 +498,33 @@ We deliberately do not specify the &ldquo;width&rdquo; of these &ldquo;rings,&rd
                       <div class="abstract">
                         <p>Initializes from a decoder.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">from</span> <span class="nv">inDecoder</span><span class="p">:</span> <span class="kt">Decoder</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>from</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Decoder instance that has our state.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -402,7 +538,7 @@ We deliberately do not specify the &ldquo;width&rdquo; of these &ldquo;rings,&rd
     </div>
     <section class="footer">
       <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-10-05)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
 </html>

@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           LGV_MeetingSDK Doumentation
         </a>
-         (0% documented)
+         (100% documented)
       </p>
     
       <div class="header-col--secondary">
@@ -158,6 +158,13 @@
         <section class="section">
           <div class="section-content top-matter">
             <h1>LGV_MeetingSDK_Protocol</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">LGV_MeetingSDK_Protocol</span></code></pre>
+
+                </div>
+              </div>
             <p>This defines the requirements for the main SDK instance.</p>
 
           </div>
@@ -170,9 +177,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC9_ProtocolP12organizationAA0a1_bc24_Organization_Transport_D0_pSgvp"></a>
                     <a name="//apple_ref/swift/Property/organization" class="dashAnchor"></a>
-                    <a class="token" href="#/">organization</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC9_ProtocolP12organizationAA0a1_bc24_Organization_Transport_D0_pSgvp">organization</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -183,15 +190,23 @@
                         <p>REQUIRED - The search organization. This needs to be the &ldquo;transport&rdquo; version of the organization.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">organization</span><span class="p">:</span> <span class="kt"><a href="../Protocols/LGV_MeetingSDK_Organization_Transport_Protocol.html">LGV_MeetingSDK_Organization_Transport_Protocol</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC9_ProtocolP10lastSearchAA0a1_bc1_B9_Data_SetCSgvp"></a>
                     <a name="//apple_ref/swift/Property/lastSearch" class="dashAnchor"></a>
-                    <a class="token" href="#/">lastSearch</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC9_ProtocolP10lastSearchAA0a1_bc1_B9_Data_SetCSgvp">lastSearch</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -202,15 +217,23 @@
                         <p>REQUIRED - The &ldquo;cached&rdquo; last search. It may be nil (no last search cached).</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">lastSearch</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_MeetingSDK_Meeting_Data_Set.html">LGV_MeetingSDK_Meeting_Data_Set</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC9_ProtocolP13meetingSearch4type11refinements10completionyAA0a1_bc1_B9_Data_SetC0F11ConstraintsO_ShyAI0F12_RefinementsOGyAA0a1_bc1_b1_j1_k1_D0_pSg_s5Error_pSgtctF"></a>
                     <a name="//apple_ref/swift/Method/meetingSearch(type:refinements:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">meetingSearch(type:<wbr>refinements:<wbr>completion:<wbr>)</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC9_ProtocolP13meetingSearch4type11refinements10completionyAA0a1_bc1_B9_Data_SetC0F11ConstraintsO_ShyAI0F12_RefinementsOGyAA0a1_bc1_b1_j1_k1_D0_pSg_s5Error_pSgtctF">meetingSearch(type:<wbr>refinements:<wbr>completion:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Default implementation
@@ -229,6 +252,59 @@
                         <p>Default runs, using the built-in organization-&gt;transport-&gt;initiator method.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">meetingSearch</span><span class="p">(</span><span class="nv">type</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_MeetingSDK_Meeting_Data_Set.html">LGV_MeetingSDK_Meeting_Data_Set</a></span><span class="o">.</span><span class="kt">SearchConstraints</span><span class="p">,</span>
+                   <span class="nv">refinements</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt"><a href="../Classes/LGV_MeetingSDK_Meeting_Data_Set.html">LGV_MeetingSDK_Meeting_Data_Set</a></span><span class="o">.</span><span class="kt">Search_Refinements</span><span class="o">&gt;</span><span class="p">,</span>
+                   <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Protocols/LGV_MeetingSDK_SearchInitiator_Protocol.html">LGV_MeetingSDK_SearchInitiator_Protocol</a></span><span class="o">.</span><span class="kt">MeetingSearchCallbackClosure</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>type</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The main search type.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>refinements</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a set of search filter refinements.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The completion closure. <strong>NOTE:</strong> This may be called in any thread, and it is escaping (should capture arguments).</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -241,7 +317,7 @@
     </div>
     <section class="footer">
       <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-10-05)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
 </html>

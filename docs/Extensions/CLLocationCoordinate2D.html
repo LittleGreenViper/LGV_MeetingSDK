@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           LGV_MeetingSDK Doumentation
         </a>
-         (0% documented)
+         (100% documented)
       </p>
     
       <div class="header-col--secondary">
@@ -161,7 +161,10 @@
               <div class="declaration">
                 <div class="language">
                   
-                  
+                  <pre class="highlight swift"><code><span class="kd">internal</span> <span class="kd">extension</span> <span class="kt">CLLocationCoordinate2D</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">CLLocationCoordinate2D</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">CLLocationCoordinate2D</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+
                 </div>
               </div>
             
@@ -175,9 +178,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:So22CLLocationCoordinate2DV14LGV_MeetingSDKE7isValidSbvp"></a>
                     <a name="//apple_ref/swift/Property/isValid" class="dashAnchor"></a>
-                    <a class="token" href="#/">isValid</a>
+                    <a class="token" href="#/s:So22CLLocationCoordinate2DV14LGV_MeetingSDKE7isValidSbvp">isValid</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -187,15 +190,27 @@
                       <div class="abstract">
                         
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">isValid</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True, if the location is valid. This allows some &ldquo;slop&rdquo; around the Prime Meridian/Equator point.</p>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:So22CLLocationCoordinate2DV14LGV_MeetingSDKE9isEqualTo_17precisionInMetersSbAB_SdtF"></a>
                     <a name="//apple_ref/swift/Method/isEqualTo(_:precisionInMeters:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">isEqualTo(_:<wbr>precisionInMeters:<wbr>)</a>
+                    <a class="token" href="#/s:So22CLLocationCoordinate2DV14LGV_MeetingSDKE9isEqualTo_17precisionInMetersSbAB_SdtF">isEqualTo(_:<wbr>precisionInMeters:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -205,6 +220,49 @@
                       <div class="abstract">
                         <p>Compares two locations for &ldquo;equality.&rdquo;</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">isEqualTo</span><span class="p">(</span><span class="n">_</span> <span class="nv">inComp</span><span class="p">:</span> <span class="kt">CLLocationCoordinate2D</span><span class="p">,</span> <span class="n">precisionInMeters</span> <span class="nv">inPrecisionInMeters</span><span class="p">:</span> <span class="kt">CLLocationDistance</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inComp</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A location (long and lat), to which we are comparing ourselves.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>precisionInMeters</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>This is an optional precision (slop area), in meters. If left out, then the match must be exact.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True, if the locations are equal, according to the given precision.</p>
                       </div>
                     </section>
                   </div>
@@ -225,9 +283,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:So22CLLocationCoordinate2DV14LGV_MeetingSDKE4hash4intoys6HasherVz_tF"></a>
                     <a name="//apple_ref/swift/Method/hash(into:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">hash(into:<wbr>)</a>
+                    <a class="token" href="#/s:So22CLLocationCoordinate2DV14LGV_MeetingSDKE4hash4intoys6HasherVz_tF">hash(into:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -237,6 +295,33 @@
                       <div class="abstract">
                         <p>This hashes the two double values.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">hash</span><span class="p">(</span><span class="n">into</span> <span class="nv">inHasher</span><span class="p">:</span> <span class="k">inout</span> <span class="kt">Hasher</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>into</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The mutable property that receives the hash.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -257,9 +342,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:So22CLLocationCoordinate2DV14LGV_MeetingSDKE2eeoiySbAB_ABtFZ"></a>
                     <a name="//apple_ref/swift/Method/==(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">==(_:<wbr>_:<wbr>)</a>
+                    <a class="token" href="#/s:So22CLLocationCoordinate2DV14LGV_MeetingSDKE2eeoiySbAB_ABtFZ">==(_:<wbr>_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -269,6 +354,49 @@
                       <div class="abstract">
                         <p>They need to both be equal.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">CLLocationCoordinate2D</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">CLLocationCoordinate2D</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>lhs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The left-hand side of the comparison.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>rhs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The right-hand side of the comparison.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True, if they are equal.</p>
                       </div>
                     </section>
                   </div>
@@ -282,7 +410,7 @@
     </div>
     <section class="footer">
       <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-10-05)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
 </html>

@@ -23,7 +23,7 @@
         <a class="header-link" href="../../../index.html">
           LGV_MeetingSDK Doumentation
         </a>
-         (0% documented)
+         (100% documented)
       </p>
     
       <div class="header-col--secondary">
@@ -161,7 +161,9 @@
               <div class="declaration">
                 <div class="language">
                   
-                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Parser</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt"><a href="../../../Classes/LGV_MeetingSDK_BMLT.html">LGV_MeetingSDK_BMLT</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/LGV_MeetingSDK_BMLT/Transport.html">Transport</a></span><span class="o">.</span><span class="kt">Parser</span><span class="p">:</span> <span class="kt"><a href="../../../Protocols/LGV_MeetingSDK_Parser_Protocol.html">LGV_MeetingSDK_Parser_Protocol</a></span></code></pre>
+
                 </div>
               </div>
             <p>This is the parser. Most functionality will be in the extension.</p>
@@ -176,9 +178,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC5_BMLTC9TransportC6ParserC10_initiator33_012C575C5E65FDDD8107FE2431EA1CE6LLAE9InitiatorCSgvp"></a>
                     <a name="//apple_ref/swift/Property/_initiator" class="dashAnchor"></a>
-                    <a class="token" href="#/">_initiator</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC5_BMLTC9TransportC6ParserC10_initiator33_012C575C5E65FDDD8107FE2431EA1CE6LLAE9InitiatorCSgvp">_initiator</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -190,15 +192,23 @@
 We declare the stored property private, and specific to the class, so we can weakly reference it.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">_initiator</span><span class="p">:</span> <span class="kt"><a href="../../../Classes/LGV_MeetingSDK_BMLT/Transport/Initiator.html">Initiator</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC5_BMLTC9TransportC6ParserC9initiatorAA0a1_bC25_SearchInitiator_Protocol_pSgvp"></a>
                     <a name="//apple_ref/swift/Property/initiator" class="dashAnchor"></a>
-                    <a class="token" href="#/">initiator</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC5_BMLTC9TransportC6ParserC9initiatorAA0a1_bC25_SearchInitiator_Protocol_pSgvp">initiator</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -208,6 +218,14 @@ We declare the stored property private, and specific to the class, so we can wea
                       <div class="abstract">
                         <p>The initiator, for creating search commands.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">initiator</span><span class="p">:</span> <span class="kt"><a href="../../../Protocols/LGV_MeetingSDK_SearchInitiator_Protocol.html">LGV_MeetingSDK_SearchInitiator_Protocol</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -228,9 +246,9 @@ We declare the stored property private, and specific to the class, so we can wea
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC5_BMLTC9TransportC6ParserC13_isThisString33_CC80533848E28F7C4D39C331571B40A0LL_06withinhI07optionsSbSS_SSSo22NSStringCompareOptionsVtFZ"></a>
                     <a name="//apple_ref/swift/Method/_isThisString(_:withinThisString:options:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">_isThisString(_:<wbr>withinThisString:<wbr>options:<wbr>)</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC5_BMLTC9TransportC6ParserC13_isThisString33_CC80533848E28F7C4D39C331571B40A0LL_06withinhI07optionsSbSS_SSSo22NSStringCompareOptionsVtFZ">_isThisString(_:<wbr>withinThisString:<wbr>options:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -241,15 +259,58 @@ We declare the stored property private, and specific to the class, so we can wea
                         <p>This allows us to find if a string contains another string.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">_isThisString</span><span class="p">(</span><span class="n">_</span> <span class="nv">inString</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">withinThisString</span> <span class="nv">inMainString</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">options</span> <span class="nv">inOptions</span><span class="p">:</span> <span class="kt">String</span><span class="o">.</span><span class="kt">CompareOptions</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="n">caseInsensitive</span><span class="p">,</span> <span class="o">.</span><span class="n">diacriticInsensitive</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inString</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The string we&rsquo;re looking for.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>withinThisString</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The string we&rsquo;re looking through.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True, if the string contains the other String.</p>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC5_BMLTC9TransportC6ParserC9_cleanURI33_CC80533848E28F7C4D39C331571B40A0LL9urlStringSSSgAK_tFZ"></a>
                     <a name="//apple_ref/swift/Method/_cleanURI(urlString:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">_cleanURI(urlString:<wbr>)</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC5_BMLTC9TransportC6ParserC9_cleanURI33_CC80533848E28F7C4D39C331571B40A0LL9urlStringSSSgAK_tFZ">_cleanURI(urlString:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -261,15 +322,46 @@ We declare the stored property private, and specific to the class, so we can wea
 
                         <a href="../../../Classes/LGV_MeetingSDK_BMLT/Transport/Parser/_cleanURI%28urlString%3A%29.html" class="slightly-smaller">See more</a>
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">_cleanURI</span><span class="p">(</span><span class="n">urlString</span> <span class="nv">inURLString</span><span class="p">:</span> <span class="kt">String</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>urlString</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL, as a String. It can be optional.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>an optional String. This is the given URI, &ldquo;cleaned up&rdquo; (&ldquo;https://&rdquo; or &ldquo;tel:&rdquo; may be prefixed)</p>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC5_BMLTC9TransportC6ParserC12_decimalOnly33_CC80533848E28F7C4D39C331571B40A0LLyS2SFZ"></a>
                     <a name="//apple_ref/swift/Method/_decimalOnly(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">_decimalOnly(_:<wbr>)</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC5_BMLTC9TransportC6ParserC12_decimalOnly33_CC80533848E28F7C4D39C331571B40A0LLyS2SFZ">_decimalOnly(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -280,15 +372,46 @@ We declare the stored property private, and specific to the class, so we can wea
                         <p>This simply strips out all non-decimal characters in the string, leaving only valid decimal digits.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">_decimalOnly</span><span class="p">(</span><span class="n">_</span> <span class="nv">inString</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inString</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The string to be &ldquo;decimated.&rdquo;</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A String, with all the non-decimal characters stripped.</p>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC5_BMLTC9TransportC6ParserC8_convert33_CC80533848E28F7C4D39C331571B40A0LL26thisDataToAVirtualLocationAC0B0V07VirtualT0VSgSDyS2SG_tFZ"></a>
                     <a name="//apple_ref/swift/Method/_convert(thisDataToAVirtualLocation:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">_convert(thisDataToAVirtualLocation:<wbr>)</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC5_BMLTC9TransportC6ParserC8_convert33_CC80533848E28F7C4D39C331571B40A0LL26thisDataToAVirtualLocationAC0B0V07VirtualT0VSgSDyS2SG_tFZ">_convert(thisDataToAVirtualLocation:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -299,15 +422,46 @@ We declare the stored property private, and specific to the class, so we can wea
                         <p>Creates (or not) a virtual location, based on the provided meeting details.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">_convert</span><span class="p">(</span><span class="n">thisDataToAVirtualLocation</span> <span class="nv">inMeetingData</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../../Classes/LGV_MeetingSDK_BMLT.html">LGV_MeetingSDK_BMLT</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/LGV_MeetingSDK_BMLT/Meeting.html">Meeting</a></span><span class="o">.</span><span class="kt">VirtualLocation</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>theseMeetings</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Dictionary that represents this meeting.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new virtual location instance.</p>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC5_BMLTC9TransportC6ParserC8_convert33_CC80533848E28F7C4D39C331571B40A0LL27thisDataToAPhysicalLocationAC0B0V08PhysicalT0VSgSDyS2SG_tFZ"></a>
                     <a name="//apple_ref/swift/Method/_convert(thisDataToAPhysicalLocation:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">_convert(thisDataToAPhysicalLocation:<wbr>)</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC5_BMLTC9TransportC6ParserC8_convert33_CC80533848E28F7C4D39C331571B40A0LL27thisDataToAPhysicalLocationAC0B0V08PhysicalT0VSgSDyS2SG_tFZ">_convert(thisDataToAPhysicalLocation:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -318,15 +472,46 @@ We declare the stored property private, and specific to the class, so we can wea
                         <p>This converts &ldquo;raw&rdquo; (String Dictionary) meeting objects, into actual Swift structs.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">_convert</span><span class="p">(</span><span class="n">thisDataToAPhysicalLocation</span> <span class="nv">inMeetingData</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../../Classes/LGV_MeetingSDK_BMLT.html">LGV_MeetingSDK_BMLT</a></span><span class="o">.</span><span class="kt"><a href="../../../Classes/LGV_MeetingSDK_BMLT/Meeting.html">Meeting</a></span><span class="o">.</span><span class="kt">PhysicalLocation</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>theseMeetings</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Dictionary of String Dictionaries that represent the parsed JSON object for the meetings.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new physical location instance.</p>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC5_BMLTC9TransportC6ParserC8_convert33_CC80533848E28F7C4D39C331571B40A0LL12theseFormatsSDys6UInt64VAA0a1_bC16_Format_Protocol_pGSaySDyS2SGG_tFZ"></a>
                     <a name="//apple_ref/swift/Method/_convert(theseFormats:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">_convert(theseFormats:<wbr>)</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC5_BMLTC9TransportC6ParserC8_convert33_CC80533848E28F7C4D39C331571B40A0LL12theseFormatsSDys6UInt64VAA0a1_bC16_Format_Protocol_pGSaySDyS2SGG_tFZ">_convert(theseFormats:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -337,15 +522,46 @@ We declare the stored property private, and specific to the class, so we can wea
                         <p>This converts &ldquo;raw&rdquo; (String Dictionary) meeting objects, into actual Swift structs.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">_convert</span><span class="p">(</span><span class="n">theseFormats</span> <span class="nv">inJSONParsedFormats</span><span class="p">:</span> <span class="p">[[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">UInt64</span> <span class="p">:</span> <span class="kt"><a href="../../../Protocols/LGV_MeetingSDK_Format_Protocol.html">LGV_MeetingSDK_Format_Protocol</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>theseFormats</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Dictionary of String Dictionaries that represent the parsed JSON object for the formats.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An Array of parsed and initialized format instances.</p>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC5_BMLTC9TransportC6ParserC15_refineMeetings33_CC80533848E28F7C4D39C331571B40A0LL_10searchType0Q11RefinementsSayAA0a1_bc1_B9_Protocol_pGAM_AA0a1_bc1_B9_Data_SetC17SearchConstraintsOShyAO0w1_S0OGtFZ"></a>
                     <a name="//apple_ref/swift/Method/_refineMeetings(_:searchType:searchRefinements:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">_refineMeetings(_:<wbr>searchType:<wbr>searchRefinements:<wbr>)</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC5_BMLTC9TransportC6ParserC15_refineMeetings33_CC80533848E28F7C4D39C331571B40A0LL_10searchType0Q11RefinementsSayAA0a1_bc1_B9_Protocol_pGAM_AA0a1_bc1_B9_Data_SetC17SearchConstraintsOShyAO0w1_S0OGtFZ">_refineMeetings(_:<wbr>searchType:<wbr>searchRefinements:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -357,6 +573,63 @@ We declare the stored property private, and specific to the class, so we can wea
 
 <p>Deal with it. It works great.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">_refineMeetings</span><span class="p">(</span><span class="n">_</span> <span class="nv">inMeetings</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../../../Protocols/LGV_MeetingSDK_Meeting_Protocol.html">LGV_MeetingSDK_Meeting_Protocol</a></span><span class="p">],</span>
+                                    <span class="n">searchType</span> <span class="nv">inSearchType</span><span class="p">:</span> <span class="kt"><a href="../../../Classes/LGV_MeetingSDK_Meeting_Data_Set.html">LGV_MeetingSDK_Meeting_Data_Set</a></span><span class="o">.</span><span class="kt">SearchConstraints</span><span class="p">,</span>
+                                    <span class="n">searchRefinements</span> <span class="nv">inSearchRefinements</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt"><a href="../../../Classes/LGV_MeetingSDK_Meeting_Data_Set.html">LGV_MeetingSDK_Meeting_Data_Set</a></span><span class="o">.</span><span class="kt">Search_Refinements</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../../../Protocols/LGV_MeetingSDK_Meeting_Protocol.html">LGV_MeetingSDK_Meeting_Protocol</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inMeetings</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The meeting array to be filtered.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>searchType</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>This is the search specification main search type.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>searchRefinements</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>This is the search specification additional filters.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The refined meeting array.</p>
                       </div>
                     </section>
                   </div>
@@ -377,9 +650,9 @@ We declare the stored property private, and specific to the class, so we can wea
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC5_BMLTC9TransportC6ParserC8_convert33_CC80533848E28F7C4D39C331571B40A0LL13theseMeetings15andTheseFormats12searchCenterSayAA0a1_bc1_B9_Protocol_pGSaySDyS2SGG_SDys6UInt64VAA0a1_bc8_Format_W0_pGSo10CLLocationCtF"></a>
                     <a name="//apple_ref/swift/Method/_convert(theseMeetings:andTheseFormats:searchCenter:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">_convert(theseMeetings:<wbr>andTheseFormats:<wbr>searchCenter:<wbr>)</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC5_BMLTC9TransportC6ParserC8_convert33_CC80533848E28F7C4D39C331571B40A0LL13theseMeetings15andTheseFormats12searchCenterSayAA0a1_bc1_B9_Protocol_pGSaySDyS2SGG_SDys6UInt64VAA0a1_bc8_Format_W0_pGSo10CLLocationCtF">_convert(theseMeetings:<wbr>andTheseFormats:<wbr>searchCenter:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -389,6 +662,49 @@ We declare the stored property private, and specific to the class, so we can wea
                       <div class="abstract">
                         <p>This converts &ldquo;raw&rdquo; (String Dictionary) meeting objects, into actual Swift structs.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">_convert</span><span class="p">(</span><span class="n">theseMeetings</span> <span class="nv">inJSONParsedMeetings</span><span class="p">:</span> <span class="p">[[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">]],</span> <span class="n">andTheseFormats</span> <span class="nv">inFormats</span><span class="p">:</span> <span class="p">[</span><span class="kt">UInt64</span> <span class="p">:</span> <span class="kt"><a href="../../../Protocols/LGV_MeetingSDK_Format_Protocol.html">LGV_MeetingSDK_Format_Protocol</a></span><span class="p">],</span> <span class="n">searchCenter</span> <span class="nv">inSearchCenter</span><span class="p">:</span> <span class="kt">CLLocation</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../../../Protocols/LGV_MeetingSDK_Meeting_Protocol.html">LGV_MeetingSDK_Meeting_Protocol</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>theseMeetings</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Dictionary of String Dictionaries that represent the parsed JSON object for the meetings.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>andTheseFormats</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Dictionary of parsed formats.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An Array of parsed and initialized meeting instances.</p>
                       </div>
                     </section>
                   </div>
@@ -409,9 +725,9 @@ We declare the stored property private, and specific to the class, so we can wea
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC5_BMLTC9TransportC6ParserC9parseThis10searchType0I11Refinements4data10completionyAA0a1_bc1_B9_Data_SetC17SearchConstraintsO_ShyAN0p1_K0OG10Foundation0N0VyAA0a1_bc1_b1_n1_O9_Protocol_pSg_s5Error_pSgtctF"></a>
                     <a name="//apple_ref/swift/Method/parseThis(searchType:searchRefinements:data:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">parseThis(searchType:<wbr>searchRefinements:<wbr>data:<wbr>completion:<wbr>)</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC5_BMLTC9TransportC6ParserC9parseThis10searchType0I11Refinements4data10completionyAA0a1_bc1_B9_Data_SetC17SearchConstraintsO_ShyAN0p1_K0OG10Foundation0N0VyAA0a1_bc1_b1_n1_O9_Protocol_pSg_s5Error_pSgtctF">parseThis(searchType:<wbr>searchRefinements:<wbr>data:<wbr>completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -421,6 +737,48 @@ We declare the stored property private, and specific to the class, so we can wea
                       <div class="abstract">
                         <p>REQUIRED - This parses data, and returns meetings.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">parseThis</span><span class="p">(</span><span class="n">searchType</span> <span class="nv">inSearchType</span><span class="p">:</span> <span class="kt"><a href="../../../Classes/LGV_MeetingSDK_Meeting_Data_Set.html">LGV_MeetingSDK_Meeting_Data_Set</a></span><span class="o">.</span><span class="kt">SearchConstraints</span> <span class="o">=</span> <span class="o">.</span><span class="k">none</span><span class="p">,</span>
+                      <span class="n">searchRefinements</span> <span class="nv">inSearchRefinements</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt"><a href="../../../Classes/LGV_MeetingSDK_Meeting_Data_Set.html">LGV_MeetingSDK_Meeting_Data_Set</a></span><span class="o">.</span><span class="kt">Search_Refinements</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">[],</span>
+                      <span class="n">data</span> <span class="nv">inData</span><span class="p">:</span> <span class="kt">Data</span><span class="p">,</span>
+                      <span class="n">completion</span> <span class="nv">inCompletion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../../../Protocols/LGV_MeetingSDK_SearchInitiator_Protocol.html">LGV_MeetingSDK_SearchInitiator_Protocol</a></span><span class="o">.</span><span class="kt">MeetingSearchCallbackClosure</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>data</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The unparsed data, from the transport. It should consist of a meeting data set.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A callback, for when the parse is complete.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -434,7 +792,7 @@ We declare the stored property private, and specific to the class, so we can wea
     </div>
     <section class="footer">
       <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-10-05)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
 </html>

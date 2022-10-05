@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           LGV_MeetingSDK Doumentation
         </a>
-         (0% documented)
+         (100% documented)
       </p>
     
       <div class="header-col--secondary">
@@ -158,6 +158,13 @@
         <section class="section">
           <div class="section-content top-matter">
             <h1>LGV_MeetingSDK_Organization_Protocol</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">LGV_MeetingSDK_Organization_Protocol</span> <span class="p">:</span> <span class="kt">AnyObject</span><span class="p">,</span> <span class="kt"><a href="../Protocols/LGV_MeetingSDK_Additional_Info_Protocol.html">LGV_MeetingSDK_Additional_Info_Protocol</a></span></code></pre>
+
+                </div>
+              </div>
             <p>Each meeting is given/managed by an organization (AA, NA, etc.). This defines the associated organization.</p>
 
           </div>
@@ -170,9 +177,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC22_Organization_ProtocolP15organizationKeySSvp"></a>
                     <a name="//apple_ref/swift/Property/organizationKey" class="dashAnchor"></a>
-                    <a class="token" href="#/">organizationKey</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC22_Organization_ProtocolP15organizationKeySSvp">organizationKey</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -185,15 +192,23 @@
 <p>This should be unique in the execution environment.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">organizationKey</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC22_Organization_ProtocolP11sdkInstanceA2ACSgvp"></a>
                     <a name="//apple_ref/swift/Property/sdkInstance" class="dashAnchor"></a>
-                    <a class="token" href="#/">sdkInstance</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC22_Organization_ProtocolP11sdkInstanceA2ACSgvp">sdkInstance</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -204,15 +219,23 @@
                         <p>REQUIRED - The SDK instance to which this organization is assigned. This should generally be declared weak.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">sdkInstance</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_MeetingSDK.html">LGV_MeetingSDK</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC22_Organization_ProtocolP16organizationNameSSvp"></a>
                     <a name="//apple_ref/swift/Property/organizationName" class="dashAnchor"></a>
-                    <a class="token" href="#/">organizationName</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC22_Organization_ProtocolP16organizationNameSSvp">organizationName</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -223,15 +246,23 @@
                         <p>REQUIRED - The name for this organization (a short descriptive string).</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">organizationName</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC22_Organization_ProtocolP23organizationDescriptionSSSgvp"></a>
                     <a name="//apple_ref/swift/Property/organizationDescription" class="dashAnchor"></a>
-                    <a class="token" href="#/">organizationDescription</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC22_Organization_ProtocolP23organizationDescriptionSSSgvp">organizationDescription</a>
                     </code>
                       <span class="declaration-note">
                         Default implementation
@@ -250,15 +281,23 @@
                         <p>Default is nil.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">organizationDescription</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC22_Organization_ProtocolP15organizationURL10Foundation0G0VSgvp"></a>
                     <a name="//apple_ref/swift/Property/organizationURL" class="dashAnchor"></a>
-                    <a class="token" href="#/">organizationURL</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC22_Organization_ProtocolP15organizationURL10Foundation0G0VSgvp">organizationURL</a>
                     </code>
                       <span class="declaration-note">
                         Default implementation
@@ -277,6 +316,14 @@
                         <p>Default is nil.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">organizationURL</span><span class="p">:</span> <span class="kt">URL</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -289,7 +336,7 @@
     </div>
     <section class="footer">
       <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-10-05)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
 </html>

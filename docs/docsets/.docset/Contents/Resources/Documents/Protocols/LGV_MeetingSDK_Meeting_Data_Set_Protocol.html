@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           LGV_MeetingSDK Doumentation
         </a>
-         (0% documented)
+         (100% documented)
       </p>
     
       <div class="header-col--secondary">
@@ -158,6 +158,13 @@
         <section class="section">
           <div class="section-content top-matter">
             <h1>LGV_MeetingSDK_Meeting_Data_Set_Protocol</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">LGV_MeetingSDK_Meeting_Data_Set_Protocol</span> <span class="p">:</span> <span class="kt">AnyObject</span><span class="p">,</span> <span class="kt"><a href="../Protocols/LGV_MeetingSDK_Additional_Info_Protocol.html">LGV_MeetingSDK_Additional_Info_Protocol</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/LGV_MeetingSDK_RefCon_Protocol.html">LGV_MeetingSDK_RefCon_Protocol</a></span><span class="p">,</span> <span class="kt">CustomDebugStringConvertible</span></code></pre>
+
+                </div>
+              </div>
             <p>This defines a protocol, containing a &ldquo;found set&rdquo; of meeting data.
 It is defined for a class, so it can be referenced (possibly weakly), in order to avoid data duplication.</p>
 
@@ -171,9 +178,9 @@ It is defined for a class, so it can be referenced (possibly weakly), in order t
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B18_Data_Set_ProtocolP10searchTypeAA0a1_bc1_b1_d1_E0C17SearchConstraintsOvp"></a>
                     <a name="//apple_ref/swift/Property/searchType" class="dashAnchor"></a>
-                    <a class="token" href="#/">searchType</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B18_Data_Set_ProtocolP10searchTypeAA0a1_bc1_b1_d1_E0C17SearchConstraintsOvp">searchType</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -184,15 +191,23 @@ It is defined for a class, so it can be referenced (possibly weakly), in order t
                         <p>REQUIRED - This is the search specification main search type.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">searchType</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_MeetingSDK_Meeting_Data_Set.html">LGV_MeetingSDK_Meeting_Data_Set</a></span><span class="o">.</span><span class="kt">SearchConstraints</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B18_Data_Set_ProtocolP17searchRefinementsShyAA0a1_bc1_b1_d1_E0C07Search_H0OGvp"></a>
                     <a name="//apple_ref/swift/Property/searchRefinements" class="dashAnchor"></a>
-                    <a class="token" href="#/">searchRefinements</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B18_Data_Set_ProtocolP17searchRefinementsShyAA0a1_bc1_b1_d1_E0C07Search_H0OGvp">searchRefinements</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -203,15 +218,23 @@ It is defined for a class, so it can be referenced (possibly weakly), in order t
                         <p>REQUIRED - This is the search specification additional filters.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">searchRefinements</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt"><a href="../Classes/LGV_MeetingSDK_Meeting_Data_Set.html">LGV_MeetingSDK_Meeting_Data_Set</a></span><span class="o">.</span><span class="kt">Search_Refinements</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B18_Data_Set_ProtocolP8meetingsSayAA0a1_bc1_b1_F0_pGvp"></a>
                     <a name="//apple_ref/swift/Property/meetings" class="dashAnchor"></a>
-                    <a class="token" href="#/">meetings</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B18_Data_Set_ProtocolP8meetingsSayAA0a1_bc1_b1_F0_pGvp">meetings</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -221,6 +244,14 @@ It is defined for a class, so it can be referenced (possibly weakly), in order t
                       <div class="abstract">
                         <p>REQUIRED - This contains any found meetings. It may be empty (no meetings found).</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">meetings</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/LGV_MeetingSDK_Meeting_Protocol.html">LGV_MeetingSDK_Meeting_Protocol</a></span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -241,9 +272,9 @@ It is defined for a class, so it can be referenced (possibly weakly), in order t
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bc1_B18_Data_Set_ProtocolPAAE16debugDescriptionSSvp"></a>
                     <a name="//apple_ref/swift/Property/debugDescription" class="dashAnchor"></a>
-                    <a class="token" href="#/">debugDescription</a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_B18_Data_Set_ProtocolPAAE16debugDescriptionSSvp">debugDescription</a>
                     </code>
                       <span class="declaration-note">
                         Extension method
@@ -257,6 +288,14 @@ It is defined for a class, so it can be referenced (possibly weakly), in order t
                         <p>CustomDebugStringConvertible Conformance</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">debugDescription</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -269,7 +308,7 @@ It is defined for a class, so it can be referenced (possibly weakly), in order t
     </div>
     <section class="footer">
       <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-10-05)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
 </html>
