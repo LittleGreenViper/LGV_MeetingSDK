@@ -220,4 +220,33 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Basics: XCTestCase {
             XCTAssertLessThanOrEqual($0.distanceInMeters, 1600)
         }
     }
+    
+    /* ################################################################## */
+    /**
+     This tests the basic setup of the BMLT SDK class.
+     */
+    func testSimpleFixedRadiusSearch() {
+        var expectation: XCTestExpectation
+        
+        expectation = XCTestExpectation(description: "Callback never occurred.")
+        
+        setup()
+        
+        var searchResults: LGV_MeetingSDK_Meeting_Data_Set_Protocol?
+        
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [], completion: { inData, inError in
+            guard nil == inError else {
+                print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                return
+            }
+            
+            searchResults = inData
+            
+            expectation.fulfill()
+        })
+        
+        wait(for: [expectation], timeout: 10)
+        
+        XCTAssertFalse(searchResults?.meetings.isEmpty ?? true)
+    }
 }
