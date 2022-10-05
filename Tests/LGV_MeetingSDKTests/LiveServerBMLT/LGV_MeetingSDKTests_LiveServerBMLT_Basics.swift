@@ -252,7 +252,7 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Basics: XCTestCase {
     
     /* ################################################################## */
     /**
-     This tests the basic setup of the BMLT SDK class.
+     This tests the weekday refinement filter.
      */
     func testSimpleFixedRadiusSearchOnCertainDays() {
         var expectation: XCTestExpectation
