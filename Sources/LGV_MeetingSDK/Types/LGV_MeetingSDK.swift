@@ -60,6 +60,80 @@ extension CLLocationCoordinate2D: Equatable {
  */
 open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Protocol {
     /* ################################################################################################################################## */
+    // MARK: Top Level Error Enum
+    /* ################################################################################################################################## */
+    /**
+     This enum is based on the Swift [`Error`](https://developer.apple.com/documentation/swift/error) protocol, and "wraps" more specific errors. It provides the general error categories.
+     */
+    public enum Error: Swift.Error, CaseIterable, CustomDebugStringConvertible {
+        /* ############################################################## */
+        /**
+         Error in the primary search type definition or interpretation.
+         */
+        case searchTypeError(error: Swift.Error?)
+        
+        /* ############################################################## */
+        /**
+         Error in the search refinements definition or interpretation.
+         */
+        case searchRefinementsError(error: Swift.Error?)
+        
+        /* ############################################################## */
+        /**
+         Error in communicating with the source server.
+         */
+        case communicationError(error: Swift.Error?)
+        
+        /* ############################################################## */
+        /**
+         Error parsing the returned meeting data.
+         */
+        case parsingError(error: Swift.Error?)
+        
+        /* ############################################################## */
+        /**
+         All other errors.
+         */
+        case generalError(error: Swift.Error?)
+        
+        /* ############################################################## */
+        /**
+         Returns empty variants of each case.
+         */
+        public static var allCases: [Error] {
+            [searchTypeError(error: nil),
+             searchRefinementsError(error: nil),
+             communicationError(error: nil),
+             parsingError(error: nil),
+             generalError(error: nil)
+            ]
+        }
+        
+        /* ############################################################## */
+        /**
+         Returns a detailed, hierarchical debug description string.
+         */
+        public var debugDescription: String {
+            switch self {
+            case let .searchTypeError(error):
+                return "searchTypeError(\(String(describing: error))"
+                
+            case let .searchRefinementsError(error):
+                return "searchRefinementsError(\(String(describing: error))"
+                
+            case let .communicationError(error):
+                return "communicationError(\(String(describing: error))"
+                
+            case let .parsingError(error):
+                return "communicationError(\(String(describing: error))"
+
+            case let .generalError(error):
+                return "generalError(\(String(describing: error))"
+            }
+        }
+    }
+    
+    /* ################################################################################################################################## */
     // MARK: Search Initiator Additional Refinements Weekdays Enum
     /* ################################################################################################################################## */
     /**
