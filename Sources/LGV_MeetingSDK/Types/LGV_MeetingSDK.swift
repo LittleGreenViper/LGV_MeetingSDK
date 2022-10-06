@@ -66,29 +66,117 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
      This enum is based on the Swift [`Error`](https://developer.apple.com/documentation/swift/error) protocol, and "wraps" more specific errors. It provides the general error categories.
      */
     public enum Error: Swift.Error, CaseIterable, CustomDebugStringConvertible {
+        /* ############################################################################################################################## */
+        // MARK: Search Type Error Enum
+        /* ############################################################################################################################## */
+        /**
+         This enum is based on the Swift [`Error`](https://developer.apple.com/documentation/swift/error) protocol. It provides errors specific to the interpretation of the main search type.
+         */
+        public enum SearchTypeError: Swift.Error, CaseIterable, CustomDebugStringConvertible {
+            /* ########################################################## */
+            /**
+             CaseIterable Conformance
+             Returns empty variants of each case.
+             */
+            public static var allCases: [Error] { [] }
+            
+            /* ########################################################## */
+            /**
+             CustomDebugStringConvertible Conformance
+             Returns a detailed, hierarchical debug description string.
+             */
+            public var debugDescription: String { "" }
+        }
+        
+        /* ############################################################################################################################## */
+        // MARK: Search Refinements Error Enum
+        /* ############################################################################################################################## */
+        /**
+         This enum is based on the Swift [`Error`](https://developer.apple.com/documentation/swift/error) protocol. It provides errors specific to the interpretation of the search refinements.
+         */
+        public enum SearchRefinementsError: Swift.Error, CaseIterable, CustomDebugStringConvertible {
+            /* ########################################################## */
+            /**
+             CaseIterable Conformance
+             Returns empty variants of each case.
+             */
+            public static var allCases: [Error] { [] }
+            
+            /* ########################################################## */
+            /**
+             CustomDebugStringConvertible Conformance
+             Returns a detailed, hierarchical debug description string.
+             */
+            public var debugDescription: String { "" }
+        }
+        
+        /* ############################################################################################################################## */
+        // MARK: Communications Error Enum
+        /* ############################################################################################################################## */
+        /**
+         This enum is based on the Swift [`Error`](https://developer.apple.com/documentation/swift/error) protocol. It provides errors specific to communication with the source server.
+         */
+        public enum CommunicationError: Swift.Error, CaseIterable, CustomDebugStringConvertible {
+            /* ########################################################## */
+            /**
+             CaseIterable Conformance
+             Returns empty variants of each case.
+             */
+            public static var allCases: [Error] { [] }
+            
+            /* ########################################################## */
+            /**
+             CustomDebugStringConvertible Conformance
+             Returns a detailed, hierarchical debug description string.
+             */
+            public var debugDescription: String { "" }
+        }
+        
+        /* ############################################################################################################################## */
+        // MARK: Parser Error Enum
+        /* ############################################################################################################################## */
+        /**
+         This enum is based on the Swift [`Error`](https://developer.apple.com/documentation/swift/error) protocol. It provides errors specific to parsing the returned data.
+         */
+        public enum ParserError: Swift.Error, CaseIterable, CustomDebugStringConvertible {
+            /* ########################################################## */
+            /**
+             CaseIterable Conformance
+             Returns empty variants of each case.
+             */
+            public static var allCases: [Error] { [] }
+            
+            /* ########################################################## */
+            /**
+             CustomDebugStringConvertible Conformance
+             Returns a detailed, hierarchical debug description string.
+             */
+            public var debugDescription: String { "" }
+        }
+
         /* ############################################################## */
         /**
          Error in the primary search type definition or interpretation.
          */
-        case searchTypeError(error: Swift.Error?)
+        case searchTypeError(error: SearchTypeError?)
         
         /* ############################################################## */
         /**
          Error in the search refinements definition or interpretation.
          */
-        case searchRefinementsError(error: Swift.Error?)
+        case searchRefinementsError(error: SearchRefinementsError?)
         
         /* ############################################################## */
         /**
          Error in communicating with the source server.
          */
-        case communicationError(error: Swift.Error?)
+        case communicationError(error: CommunicationError?)
         
         /* ############################################################## */
         /**
          Error parsing the returned meeting data.
          */
-        case parsingError(error: Swift.Error?)
+        case parsingError(error: ParserError?)
         
         /* ############################################################## */
         /**
@@ -98,6 +186,7 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
         
         /* ############################################################## */
         /**
+         CaseIterable Conformance
          Returns empty variants of each case.
          */
         public static var allCases: [Error] {
@@ -111,21 +200,22 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
         
         /* ############################################################## */
         /**
+         CustomDebugStringConvertible Conformance
          Returns a detailed, hierarchical debug description string.
          */
         public var debugDescription: String {
             switch self {
             case let .searchTypeError(error):
-                return "searchTypeError(\(String(describing: error))"
+                return "searchTypeError(\(error?.debugDescription ?? ""))"
                 
             case let .searchRefinementsError(error):
-                return "searchRefinementsError(\(String(describing: error))"
+                return "searchRefinementsError(\(error?.debugDescription ?? ""))"
                 
             case let .communicationError(error):
-                return "communicationError(\(String(describing: error))"
+                return "communicationError(\(error?.debugDescription ?? ""))"
                 
             case let .parsingError(error):
-                return "communicationError(\(String(describing: error))"
+                return "parsingError(\(error?.debugDescription ?? ""))"
 
             case let .generalError(error):
                 return "generalError(\(String(describing: error))"
@@ -241,7 +331,6 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
         /* ############################################################## */
         /**
          This is a very basic Array of individual meeting IDs.
-         **NOTE:** If this is chosen, then `Search_Refinements` are ignored.
          */
         case meetingID(ids: [UInt64])
         
