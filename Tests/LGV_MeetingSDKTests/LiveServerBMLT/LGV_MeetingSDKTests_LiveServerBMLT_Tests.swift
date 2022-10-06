@@ -27,41 +27,7 @@ import CoreLocation
 /**
  This tests the BMLT SDK, but using a connection to the "live" TOMATO server.
  */
-final class LGV_MeetingSDKTests_LiveServerBMLT_Tests: XCTestCase {
-    /* ################################################################################################################################## */
-    // MARK: Class Setup
-    /* ################################################################################################################################## */
-    /* ################################################################## */
-    /**
-     The coordinates we'll use for our searches (Central Park, NYC).
-     */
-    let testLocationCenter = CLLocationCoordinate2D(latitude: 40.7812, longitude: -73.9665)
-
-    /* ################################################################## */
-    /**
-     The URL to use for the test organization.
-     */
-    let organizationTransportServerURL = URL(string: "https://tomato.bmltenabled.org/main_server")
-    
-    /* ################################################################## */
-    /**
-     This is the BMLT-specific instance.
-     */
-    var testSDK: LGV_MeetingSDK_BMLT?
-    
-    /* ################################################################## */
-    /**
-     This tests the basic setup of the BMLT SDK class.
-     */
-    func setup() {
-        guard let rootServerURL = organizationTransportServerURL
-        else {
-            XCTFail("This should not happen.")
-            return
-        }
-        testSDK = LGV_MeetingSDK_BMLT(rootServerURL: rootServerURL)
-    }
-
+final class LGV_MeetingSDKTests_LiveServerBMLT_Tests: LGV_MeetingSDKTests_BMLT_Base {
     /* ################################################################## */
     /**
      This tests the weekday refinement filter.

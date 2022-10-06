@@ -27,70 +27,7 @@ import CoreLocation
 /**
  This tests the BMLT SDK, but using a connection to the "live" TOMATO server.
  */
-final class LGV_MeetingSDKTests_LiveServerBMLT_Basics: XCTestCase {
-    /* ################################################################################################################################## */
-    // MARK: Class Setup
-    /* ################################################################################################################################## */
-    /* ################################################################## */
-    /**
-     The coordinates we'll use for our searches (Central Park, NYC).
-     */
-    let testLocationCenter = CLLocationCoordinate2D(latitude: 40.7812, longitude: -73.9665)
-    
-    /* ################################################################## */
-    /**
-     The organization key to use for the test organization.
-     */
-    let organizationKey: String = "BMLT"
-    
-    /* ################################################################## */
-    /**
-     The name to use for the test organization.
-     */
-    let organizationName: String = "BMLT-Enabled"
-    
-    /* ################################################################## */
-    /**
-     The description to use for the test organization.
-     */
-    let organizationDescription = "BMLT-Enabled is an independent, non-profit management entity for the Basic Meeting List Toolbox Initiative."
-    
-    /* ################################################################## */
-    /**
-     The URL to use for the test organization.
-     */
-    let organizationURL = URL(string: "https://bmlt.app")
-    
-    /* ################################################################## */
-    /**
-     The URL to use for the test organization.
-     */
-    let organizationTransportServerURL = URL(string: "https://tomato.bmltenabled.org/main_server")
-    
-    /* ################################################################## */
-    /**
-     This is the BMLT-specific instance.
-     */
-    var testSDK: LGV_MeetingSDK_BMLT?
-    
-    /* ################################################################## */
-    /**
-     This tests the basic setup of the BMLT SDK class.
-     */
-    func setup() {
-        // This is a real URL for the TOMATO worldwide server. It's just here, for reference, if we need a real server, while developing: https://tomato.bmltenabled.org/main_server
-        guard let rootServerURL = organizationTransportServerURL
-        else {
-            XCTFail("This should not happen.")
-            return
-        }
-        testSDK = LGV_MeetingSDK_BMLT(rootServerURL: rootServerURL)
-        
-        XCTAssert(testSDK?.organization is LGV_MeetingSDK_Generic_Organization)
-        XCTAssert(testSDK?.organization?.transport?.organization is LGV_MeetingSDK_Generic_Organization)
-        XCTAssertEqual(testSDK?.organization?.transport?.baseURL, rootServerURL)
-    }
-    
+final class LGV_MeetingSDKTests_LiveServerBMLT_Basics: LGV_MeetingSDKTests_BMLT_Base {
     /* ################################################################## */
     /**
      This tests the basic setup of the BMLT SDK class.

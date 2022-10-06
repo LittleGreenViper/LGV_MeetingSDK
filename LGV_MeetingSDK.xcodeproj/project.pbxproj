@@ -36,6 +36,7 @@
 		D477C00C28E1F4B200B29654 /* SearchResponse-07.json in Resources */ = {isa = PBXBuildFile; fileRef = D477C00B28E1F4B200B29654 /* SearchResponse-07.json */; };
 		D47A4B5528D9F47D00B17823 /* LGV_MeetingSDK_Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A4B5428D9F47D00B17823 /* LGV_MeetingSDK_Protocols.swift */; };
 		D498E52828DD21DA00312432 /* LGV_MeetingSDK_BMLT.swift in Sources */ = {isa = PBXBuildFile; fileRef = D498E52728DD21DA00312432 /* LGV_MeetingSDK_BMLT.swift */; };
+		D4A0C3F428EEFEB60005E3B9 /* LGV_MeetingSDKTests_BMLT_Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A0C3F328EEFEB60005E3B9 /* LGV_MeetingSDKTests_BMLT_Base.swift */; };
 		D4A1065F28E9141400588D94 /* RVS_Checkbox in Frameworks */ = {isa = PBXBuildFile; productRef = D4A1065E28E9141400588D94 /* RVS_Checkbox */; };
 		D4A6EC7B28DB4B3900B3E660 /* LGV_MeetingSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A6EC7A28DB4B3900B3E660 /* LGV_MeetingSDKTests.swift */; };
 		D4A6EC7C28DB4B3900B3E660 /* LGV_MeetingSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A985A828D3C0A7007D75E4 /* LGV_MeetingSDK.a */; platformFilters = (ios, macos, ); };
@@ -100,6 +101,7 @@
 		D477C00B28E1F4B200B29654 /* SearchResponse-07.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-07.json"; sourceTree = "<group>"; };
 		D47A4B5428D9F47D00B17823 /* LGV_MeetingSDK_Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Protocols.swift; sourceTree = "<group>"; };
 		D498E52728DD21DA00312432 /* LGV_MeetingSDK_BMLT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_BMLT.swift; sourceTree = "<group>"; };
+		D4A0C3F328EEFEB60005E3B9 /* LGV_MeetingSDKTests_BMLT_Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDKTests_BMLT_Base.swift; sourceTree = "<group>"; };
 		D4A6EC7828DB4B3900B3E660 /* LGV_MeetingSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LGV_MeetingSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4A6EC7A28DB4B3900B3E660 /* LGV_MeetingSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDKTests.swift; sourceTree = "<group>"; };
 		D4A6EC8528DB68BA00B3E660 /* LGV_MeetingSDK_Organization_Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDK_Organization_Protocol.swift; sourceTree = "<group>"; };
@@ -312,6 +314,7 @@
 		D4BBF5AE28EDD69E00F3BFF1 /* LiveServerBMLT */ = {
 			isa = PBXGroup;
 			children = (
+				D4A0C3F328EEFEB60005E3B9 /* LGV_MeetingSDKTests_BMLT_Base.swift */,
 				D4BBF5AF28EDD6DB00F3BFF1 /* LGV_MeetingSDKTests_LiveServerBMLT_Basics.swift */,
 				D408FBFC28EE2F88007542A2 /* LGV_MeetingSDKTests_LiveServerBMLT_Tests.swift */,
 			);
@@ -526,6 +529,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D41EE90328DE294700A8ED53 /* LGV_MeetingSDKTests_BMLT_Tester.swift in Sources */,
+				D4A0C3F428EEFEB60005E3B9 /* LGV_MeetingSDKTests_BMLT_Base.swift in Sources */,
 				D4BBF5B028EDD6DB00F3BFF1 /* LGV_MeetingSDKTests_LiveServerBMLT_Basics.swift in Sources */,
 				D408FBFD28EE2F88007542A2 /* LGV_MeetingSDKTests_LiveServerBMLT_Tests.swift in Sources */,
 				D4A6EC7B28DB4B3900B3E660 /* LGV_MeetingSDKTests.swift in Sources */,
