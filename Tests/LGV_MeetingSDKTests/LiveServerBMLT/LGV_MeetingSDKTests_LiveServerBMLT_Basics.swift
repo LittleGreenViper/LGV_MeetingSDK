@@ -185,5 +185,9 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Basics: LGV_MeetingSDKTests_BMLT_
         wait(for: [expectation], timeout: 30)
         
         XCTAssertFalse(searchResults?.meetings.isEmpty ?? true)
+        
+        searchResults?.meetings.forEach {
+            XCTAssertLessThanOrEqual($0.distanceInMeters, 1000)
+        }
     }
 }
