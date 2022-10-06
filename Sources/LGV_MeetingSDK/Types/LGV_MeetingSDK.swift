@@ -206,16 +206,16 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
         public var debugDescription: String {
             switch self {
             case let .searchTypeError(error):
-                return "searchTypeError(\(error?.debugDescription ?? ""))"
+                return "searchTypeError\(nil != error ? "(" + (error?.debugDescription ?? "") + ")" : "")"
                 
             case let .searchRefinementsError(error):
-                return "searchRefinementsError(\(error?.debugDescription ?? ""))"
+                return "searchRefinementsError\(nil != error ? "(" + (error?.debugDescription ?? "") + ")" : "")"
                 
             case let .communicationError(error):
-                return "communicationError(\(error?.debugDescription ?? ""))"
+                return "communicationError\(nil != error ? "(" + (error?.debugDescription ?? "") + ")" : "")"
                 
             case let .parsingError(error):
-                return "parsingError(\(error?.debugDescription ?? ""))"
+                return "parsingError\(nil != error ? "(" + (error?.debugDescription ?? "") + ")" : "")"
 
             case let .generalError(error):
                 return "generalError(\(String(describing: error))"
