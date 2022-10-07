@@ -57,7 +57,37 @@ class LGV_MeetingSDKTests_LiveServerBMLT_Threaded_Tests: LGV_MeetingSDKTests_BML
     /* ################################################################## */
     /**
      */
-    func testIsEmpty() {
-        print("Root Server List: \(Self.rootServerList)")
+    func testAllRootServersSimultaneously() {
+        var expectation: XCTestExpectation
+        
+        expectation = XCTestExpectation(description: "Callback never occurred.")
+
+        var sdkInstances = [LGV_MeetingSDK_BMLT]()
+        for server in Self.rootServerList {
+            let serverName = server.name
+            if let serverURL = URL(string: server.rootURL) {
+                let sdkInstance = LGV_MeetingSDK_BMLT(rootServerURL: serverURL)
+                sdkInstance.organization?.organizationName = serverName
+                sdkInstance.organization?.organizationURL = serverURL
+                sdkInstances.append(sdkInstance)
+            }
+        }
+        
+        XCTAssertFalse(sdkInstances.isEmpty)
+        expectation.expectedFulfillmentCount = sdkInstances.count
+        
+        sdkInstances.forEach {
+            $0.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [], completion: { inData, inError in
+                guard nil == inError else {
+                    print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
+                    return
+                }
+
+                expectation.fulfill()
+            })
+        }
+        
+        wait(for: [expectation], timeout: 30)
+        print("Done!")
     }
 }

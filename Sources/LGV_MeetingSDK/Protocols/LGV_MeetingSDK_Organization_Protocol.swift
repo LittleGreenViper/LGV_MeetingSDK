@@ -32,7 +32,7 @@ public protocol LGV_MeetingSDK_Organization_Protocol: LGV_MeetingSDK_Additional_
      
      This should be unique in the execution environment.
      */
-    var organizationKey: String { get }
+    var organizationKey: String { get set }
     
     /* ################################################################## */
     /**
@@ -44,19 +44,19 @@ public protocol LGV_MeetingSDK_Organization_Protocol: LGV_MeetingSDK_Additional_
     /**
      REQUIRED - The name for this organization (a short descriptive string).
      */
-    var organizationName: String { get }
+    var organizationName: String { get set }
     
     /* ################################################################## */
     /**
      REQUIRED - The longer description for this organization. May be nil.
      */
-    var organizationDescription: String? { get }
+    var organizationDescription: String? { get set }
     
     /* ################################################################## */
     /**
      OPTIONAL - The URL for this organization. May be nil.
      */
-    var organizationURL: URL? { get }
+    var organizationURL: URL? { get set }
 }
 
 /* ###################################################################################################################################### */

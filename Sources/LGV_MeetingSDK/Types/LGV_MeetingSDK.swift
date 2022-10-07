@@ -944,13 +944,19 @@ public class LGV_MeetingSDK_Generic_Organization: LGV_MeetingSDK_Organization_Tr
     /**
      This is the accessor for the description private property.
      */
-    public var organizationDescription: String? { _organizationDescription }
+    public var organizationDescription: String? {
+        get { _organizationDescription }
+        set { _organizationDescription = newValue }
+    }
 
     /* ################################################################## */
     /**
      This is the accessor for the URL private property.
      */
-    public var organizationURL: URL? { _organizationURL }
+    public var organizationURL: URL? {
+        get { _organizationURL }
+        set { _organizationURL = newValue }
+    }
     
     /* ################################################################## */
     /**
