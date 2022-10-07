@@ -78,7 +78,12 @@ class LGV_MeetingSDKTests_BMLT_Base: XCTestCase {
      This is the URL for the server that actually handles the area we are testing.
      */
     let specificServerURL = URL(string: "https://bmlt.newyorkna.org/main_server/")
-    
+}
+
+/* ###################################################################################################################################### */
+// MARK: Instance Methods
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDKTests_BMLT_Base {
     /* ################################################################## */
     /**
      This tests the basic setup of the BMLT SDK class.

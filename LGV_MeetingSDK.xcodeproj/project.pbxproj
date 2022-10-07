@@ -13,7 +13,6 @@
 		D41EE90628DE2BD100A8ED53 /* LGV_MeetingSDK_BMLT.Transport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EE90528DE2BD000A8ED53 /* LGV_MeetingSDK_BMLT.Transport.swift */; };
 		D41EE90828DE2C4500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EE90728DE2C4500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Parser.swift */; };
 		D41EE90A28DE2CD500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Initiator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EE90928DE2CD500A8ED53 /* LGV_MeetingSDK_BMLT.Transport.Initiator.swift */; };
-		D43DD68928E227E50075047D /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D43DD68828E227E50075047D /* Warnings.xcconfig */; };
 		D43FF95228EB303900333387 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D43FF95028EB303900333387 /* InfoPlist.strings */; };
 		D440A95028E48E1100909668 /* RVS_UIKit_Toolbox in Frameworks */ = {isa = PBXBuildFile; productRef = D440A94F28E48E1100909668 /* RVS_UIKit_Toolbox */; };
 		D442316328E0BB7900BB3B70 /* SearchResponse-03.json in Resources */ = {isa = PBXBuildFile; fileRef = D442316228E0BB7900BB3B70 /* SearchResponse-03.json */; };
@@ -47,6 +46,8 @@
 		D4B20DE128DFAB2600643A20 /* SearchResponse-00.json in Resources */ = {isa = PBXBuildFile; fileRef = D4B20DDC28DFAB0200643A20 /* SearchResponse-00.json */; };
 		D4B20DE228DFAB2600643A20 /* SearchResponse-01.json in Resources */ = {isa = PBXBuildFile; fileRef = D4B20DDD28DFAB0200643A20 /* SearchResponse-01.json */; };
 		D4B20DE328DFAB2600643A20 /* SearchResponse-02.json in Resources */ = {isa = PBXBuildFile; fileRef = D4B20DDB28DFAB0200643A20 /* SearchResponse-02.json */; };
+		D4B2F1E728F085E900713C6B /* LGV_MeetingSDKTests_LiveServerBMLT_Threaded_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B2F1E628F085E900713C6B /* LGV_MeetingSDKTests_LiveServerBMLT_Threaded_Tests.swift */; };
+		D4B2F1E828F0894C00713C6B /* rootServerList.json in Resources */ = {isa = PBXBuildFile; fileRef = D44E333F28E86224004C9F6F /* rootServerList.json */; };
 		D4B46A5B28E24742004A203E /* LGV_MeetingSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4A985A828D3C0A7007D75E4 /* LGV_MeetingSDK.a */; };
 		D4B46A6528E2481E004A203E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4B46A6328E2481E004A203E /* Localizable.strings */; };
 		D4BBF5B028EDD6DB00F3BFF1 /* LGV_MeetingSDKTests_LiveServerBMLT_Basics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BBF5AF28EDD6DB00F3BFF1 /* LGV_MeetingSDKTests_LiveServerBMLT_Basics.swift */; };
@@ -111,6 +112,7 @@
 		D4B20DDB28DFAB0200643A20 /* SearchResponse-02.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-02.json"; sourceTree = "<group>"; };
 		D4B20DDC28DFAB0200643A20 /* SearchResponse-00.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-00.json"; sourceTree = "<group>"; };
 		D4B20DDD28DFAB0200643A20 /* SearchResponse-01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SearchResponse-01.json"; sourceTree = "<group>"; };
+		D4B2F1E628F085E900713C6B /* LGV_MeetingSDKTests_LiveServerBMLT_Threaded_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LGV_MeetingSDKTests_LiveServerBMLT_Threaded_Tests.swift; sourceTree = "<group>"; };
 		D4B46A6428E2481E004A203E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4BBF5AB28EDD18D00F3BFF1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D4BBF5AC28EDD1FA00F3BFF1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -317,6 +319,7 @@
 				D4A0C3F328EEFEB60005E3B9 /* LGV_MeetingSDKTests_BMLT_Base.swift */,
 				D4BBF5AF28EDD6DB00F3BFF1 /* LGV_MeetingSDKTests_LiveServerBMLT_Basics.swift */,
 				D408FBFC28EE2F88007542A2 /* LGV_MeetingSDKTests_LiveServerBMLT_Tests.swift */,
+				D4B2F1E628F085E900713C6B /* LGV_MeetingSDKTests_LiveServerBMLT_Threaded_Tests.swift */,
 			);
 			path = LiveServerBMLT;
 			sourceTree = "<group>";
@@ -454,7 +457,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4B20DE128DFAB2600643A20 /* SearchResponse-00.json in Resources */,
-				D43DD68928E227E50075047D /* Warnings.xcconfig in Resources */,
+				D4B2F1E828F0894C00713C6B /* rootServerList.json in Resources */,
 				D4E43CE428E35C30003378CE /* SearchResponse-08.json in Resources */,
 				D4B20DE228DFAB2600643A20 /* SearchResponse-01.json in Resources */,
 				D4B20DE328DFAB2600643A20 /* SearchResponse-02.json in Resources */,
@@ -533,6 +536,7 @@
 				D4BBF5B028EDD6DB00F3BFF1 /* LGV_MeetingSDKTests_LiveServerBMLT_Basics.swift in Sources */,
 				D408FBFD28EE2F88007542A2 /* LGV_MeetingSDKTests_LiveServerBMLT_Tests.swift in Sources */,
 				D4A6EC7B28DB4B3900B3E660 /* LGV_MeetingSDKTests.swift in Sources */,
+				D4B2F1E728F085E900713C6B /* LGV_MeetingSDKTests_LiveServerBMLT_Threaded_Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
