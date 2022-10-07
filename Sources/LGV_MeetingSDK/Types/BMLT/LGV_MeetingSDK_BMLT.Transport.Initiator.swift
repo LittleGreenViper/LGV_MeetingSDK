@@ -55,6 +55,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
             }
         } else {    // Otherwise, we need to execute an NSURLSession data task.
             URLSession.shared.dataTask(with: urlRequest) { [weak self] data, response, error in
+                let emptyResponse = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements)
                 if nil == error,
                    let response = response as? HTTPURLResponse {
                     if 200 == response.statusCode {
@@ -68,30 +69,30 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
                                     parsedData.extraInfo = urlRequest.url?.absoluteString ?? ""
                                     inCompletion(parsedData, inError)
                                 } else {
-                                    inCompletion(nil, nil)
+                                    inCompletion(emptyResponse, nil)
                                 }
                             }
                         } else if let error = error {
                             #if DEBUG
                                 print(String(format: "Server returned status code %d, and error %@", response.statusCode, error.localizedDescription))
                             #endif
-                            inCompletion(nil, error)
+                            inCompletion(emptyResponse, error)
                         } else {
                             #if DEBUG
                                 print(String(format: "Server returned status code %d", response.statusCode))
                             #endif
-                            inCompletion(nil, nil)
+                            inCompletion(emptyResponse, nil)
                         }
                     } else if let error = error {
                         #if DEBUG
                             print(String(format: "Server returned status code %d, and error %@", response.statusCode, error.localizedDescription))
                         #endif
-                        inCompletion(nil, error)
+                        inCompletion(emptyResponse, error)
                     } else {
                         #if DEBUG
                             print(String(format: "Server returned status code %d", response.statusCode))
                         #endif
-                        inCompletion(nil, nil)
+                        inCompletion(emptyResponse, nil)
                     }
                 } else if let error = error {
                     #if DEBUG
@@ -101,17 +102,17 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
                             print(String(format: "Server returned error: %@", error.localizedDescription))
                         }
                     #endif
-                    inCompletion(nil, error)
+                    inCompletion(emptyResponse, error)
                 } else if let response = response as? HTTPURLResponse {
                     #if DEBUG
                         print(String(format: "Server returned response: %@", response.debugDescription))
                     #endif
-                    inCompletion(nil, nil)
+                    inCompletion(emptyResponse, nil)
                 } else {
                     #if DEBUG
                         print("Unkown Response Condition!")
                     #endif
-                    inCompletion(nil, nil)
+                    inCompletion(emptyResponse, nil)
                 }
             }.resume()
         }

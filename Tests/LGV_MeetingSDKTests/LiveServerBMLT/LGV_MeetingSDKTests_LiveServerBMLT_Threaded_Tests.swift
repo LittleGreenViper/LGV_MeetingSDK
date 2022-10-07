@@ -19,6 +19,7 @@
 
 import XCTest
 import LGV_MeetingSDK
+import CoreLocation
 
 /* ###################################################################################################################################### */
 // MARK: - Simultaneous Threaded Call BMLT Tests -
@@ -32,6 +33,12 @@ class LGV_MeetingSDKTests_LiveServerBMLT_Threaded_Tests: LGV_MeetingSDKTests_BML
      This describes one Root Server entity.
      */
     typealias RootServerEntity = (name: String, rootURL: String)
+    
+    /* ################################################################## */
+    /**
+     The coordinates for Newark, New Jersey (means we'll hit a couple of servers).
+     */
+    let newarkCoordinates = CLLocationCoordinate2D(latitude: 40.7357, longitude: -74.1724)
 
     /* ################################################################## */
     /**
@@ -56,6 +63,9 @@ class LGV_MeetingSDKTests_LiveServerBMLT_Threaded_Tests: LGV_MeetingSDKTests_BML
     
     /* ################################################################## */
     /**
+     This loads the Root Server list, then runs through each server, sending the same request.
+     
+     It makes sure that all the servers respond (most will not have any response).
      */
     func testAllRootServersSimultaneously() {
         var expectation: XCTestExpectation
@@ -78,7 +88,7 @@ class LGV_MeetingSDKTests_LiveServerBMLT_Threaded_Tests: LGV_MeetingSDKTests_BML
         var searchResults = [String: LGV_MeetingSDK_Meeting_Data_Set_Protocol?]()
 
         sdkInstances.forEach { sdkInstance in
-            sdkInstance.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [], completion: { inData, inError in
+            sdkInstance.meetingSearch(type: .fixedRadius(centerLongLat: newarkCoordinates, radiusInMeters: 20000), refinements: [], completion: { inData, inError in
                 XCTAssertNil(inError)
                 if let data = inData,
                    let name = sdkInstance.organization?.organizationName {
@@ -88,12 +98,44 @@ class LGV_MeetingSDKTests_LiveServerBMLT_Threaded_Tests: LGV_MeetingSDKTests_BML
             })
         }
         
-        wait(for: [expectation], timeout: 60)
+        wait(for: [expectation], timeout: 5)
         print("Returned Meetings:")
         
         searchResults.forEach {
             print("\tServer: \($0.key)")
             print("\t\tMeetings: \($0.value?.meetings.debugDescription ?? "ERROR")")
+        }
+    }
+
+    /* ################################################################## */
+    /**
+     This loads the Root Server list, then runs through each server, sending the same request.
+     
+     It makes sure that all the servers respond (most will not have any response).
+     */
+    func testTOMATO() {
+        var expectation: XCTestExpectation
+        
+        expectation = XCTestExpectation(description: "Callback never occurred.")
+
+        guard let url = worldwideAggregatorServerURL else {
+            XCTFail("No Valid Root Server!")
+            return
+        }
+        
+        let sdkInstance = LGV_MeetingSDK_BMLT(rootServerURL: url)
+        var searchResults: LGV_MeetingSDK_Meeting_Data_Set_Protocol?
+
+        sdkInstance.meetingSearch(type: .fixedRadius(centerLongLat: newarkCoordinates, radiusInMeters: 20000), refinements: [], completion: { inData, inError in
+            XCTAssertNil(inError)
+            searchResults = inData
+            expectation.fulfill()
+        })
+        
+        wait(for: [expectation], timeout: 5)
+        
+        searchResults?.meetings.forEach {
+            print($0)
         }
     }
 }
