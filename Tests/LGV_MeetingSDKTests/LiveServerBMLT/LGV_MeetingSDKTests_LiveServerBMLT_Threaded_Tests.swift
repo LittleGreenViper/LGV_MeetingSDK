@@ -75,19 +75,25 @@ class LGV_MeetingSDKTests_LiveServerBMLT_Threaded_Tests: LGV_MeetingSDKTests_BML
         
         XCTAssertFalse(sdkInstances.isEmpty)
         expectation.expectedFulfillmentCount = sdkInstances.count
-        
-        sdkInstances.forEach {
-            $0.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [], completion: { inData, inError in
-                guard nil == inError else {
-                    print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
-                    return
-                }
+        var searchResults = [String: LGV_MeetingSDK_Meeting_Data_Set_Protocol?]()
 
+        sdkInstances.forEach { sdkInstance in
+            sdkInstance.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [], completion: { inData, inError in
+                XCTAssertNil(inError)
+                if let data = inData,
+                   let name = sdkInstance.organization?.organizationName {
+                    searchResults[name] = data
+                }
                 expectation.fulfill()
             })
         }
         
-        wait(for: [expectation], timeout: 30)
-        print("Done!")
+        wait(for: [expectation], timeout: 60)
+        print("Returned Meetings:")
+        
+        searchResults.forEach {
+            print("\tServer: \($0.key)")
+            print("\t\tMeetings: \($0.value?.meetings.debugDescription ?? "ERROR")")
+        }
     }
 }
