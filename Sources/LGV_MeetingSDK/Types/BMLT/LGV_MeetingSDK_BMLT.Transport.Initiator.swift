@@ -94,20 +94,19 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
                         inCompletion(nil, nil)
                     }
                 } else if let error = error {
-                    if let response = response as? HTTPURLResponse {
-                        #if DEBUG
-                            print(String(format: "Server returned response: %@", response.debugDescription))
-                        #endif
-                    }
                     #if DEBUG
-                        print(String(format: "Server returned error: %@", error.localizedDescription))
+                        if let response = response as? HTTPURLResponse {
+                            print(String(format: "Server returned error: %@, and response: %@", error.localizedDescription, response.debugDescription))
+                        } else {
+                            print(String(format: "Server returned error: %@", error.localizedDescription))
+                        }
                     #endif
                     inCompletion(nil, error)
                 } else if let response = response as? HTTPURLResponse {
                     #if DEBUG
                         print(String(format: "Server returned response: %@", response.debugDescription))
                     #endif
-                    inCompletion(nil, error)
+                    inCompletion(nil, nil)
                 } else {
                     #if DEBUG
                         print("Unkown Response Condition!")
