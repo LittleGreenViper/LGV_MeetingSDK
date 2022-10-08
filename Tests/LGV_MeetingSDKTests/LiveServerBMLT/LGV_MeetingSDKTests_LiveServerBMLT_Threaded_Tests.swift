@@ -109,9 +109,7 @@ class LGV_MeetingSDKTests_LiveServerBMLT_Threaded_Tests: LGV_MeetingSDKTests_BML
 
     /* ################################################################## */
     /**
-     This loads the Root Server list, then runs through each server, sending the same request.
-     
-     It makes sure that all the servers respond (most will not have any response).
+     This tests just the TOMATO server, with the same search criteria.
      */
     func testTOMATO() {
         var expectation: XCTestExpectation

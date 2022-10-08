@@ -67,50 +67,6 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
      */
     public enum Error: Swift.Error, CaseIterable, CustomDebugStringConvertible {
         /* ############################################################################################################################## */
-        // MARK: Search Type Error Enum
-        /* ############################################################################################################################## */
-        /**
-         This enum is based on the Swift [`Error`](https://developer.apple.com/documentation/swift/error) protocol. It provides errors specific to the interpretation of the main search type.
-         */
-        public enum SearchTypeError: Swift.Error, CaseIterable, CustomDebugStringConvertible {
-            /* ########################################################## */
-            /**
-             CaseIterable Conformance
-             Returns empty variants of each case.
-             */
-            public static var allCases: [Error] { [] }
-            
-            /* ########################################################## */
-            /**
-             CustomDebugStringConvertible Conformance
-             Returns a detailed, hierarchical debug description string.
-             */
-            public var debugDescription: String { "" }
-        }
-        
-        /* ############################################################################################################################## */
-        // MARK: Search Refinements Error Enum
-        /* ############################################################################################################################## */
-        /**
-         This enum is based on the Swift [`Error`](https://developer.apple.com/documentation/swift/error) protocol. It provides errors specific to the interpretation of the search refinements.
-         */
-        public enum SearchRefinementsError: Swift.Error, CaseIterable, CustomDebugStringConvertible {
-            /* ########################################################## */
-            /**
-             CaseIterable Conformance
-             Returns empty variants of each case.
-             */
-            public static var allCases: [Error] { [] }
-            
-            /* ########################################################## */
-            /**
-             CustomDebugStringConvertible Conformance
-             Returns a detailed, hierarchical debug description string.
-             */
-            public var debugDescription: String { "" }
-        }
-        
-        /* ############################################################################################################################## */
         // MARK: Communications Error Enum
         /* ############################################################################################################################## */
         /**
@@ -153,18 +109,6 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
              */
             public var debugDescription: String { "" }
         }
-
-        /* ############################################################## */
-        /**
-         Error in the primary search type definition or interpretation.
-         */
-        case searchTypeError(error: SearchTypeError?)
-        
-        /* ############################################################## */
-        /**
-         Error in the search refinements definition or interpretation.
-         */
-        case searchRefinementsError(error: SearchRefinementsError?)
         
         /* ############################################################## */
         /**
@@ -190,9 +134,7 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
          Returns empty variants of each case.
          */
         public static var allCases: [Error] {
-            [searchTypeError(error: nil),
-             searchRefinementsError(error: nil),
-             communicationError(error: nil),
+            [communicationError(error: nil),
              parsingError(error: nil),
              generalError(error: nil)
             ]
