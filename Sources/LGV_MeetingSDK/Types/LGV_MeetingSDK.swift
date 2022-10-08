@@ -75,17 +75,63 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
         public enum CommunicationError: Swift.Error, CaseIterable, CustomDebugStringConvertible {
             /* ########################################################## */
             /**
+             The server successfully completed, but there was a redirection (which we consider a failure).
+             - parameter error: The Swift error, sent back (if any).
+             */
+            case redirectionError(error: Swift.Error?)
+            
+            /* ########################################################## */
+            /**
+             There was a problem with what we sent to the server.
+             - parameter error: The Swift error, sent back (if any).
+            */
+            case clientError(error: Swift.Error?)
+            
+            /* ########################################################## */
+            /**
+             The server had a cow.
+             - parameter error: The Swift error, sent back (if any).
+             */
+            case serverError(error: Swift.Error?)
+            
+            /* ########################################################## */
+            /**
+             None of the above.
+             - parameter error: The Swift error, sent back (if any).
+             */
+            case generalError(error: Swift.Error?)
+
+            /* ########################################################## */
+            /**
              CaseIterable Conformance
              Returns empty variants of each case.
              */
-            public static var allCases: [Error] { [] }
+            public static var allCases: [CommunicationError] { [serverError(error: nil),
+                                                                redirectionError(error: nil),
+                                                                clientError(error: nil),
+                                                                generalError(error: nil)
+            ] }
             
             /* ########################################################## */
             /**
              CustomDebugStringConvertible Conformance
              Returns a detailed, hierarchical debug description string.
              */
-            public var debugDescription: String { "" }
+            public var debugDescription: String {
+                switch self {
+                case let .serverError(error):
+                    return "serverError\(nil != error ? "(" + (error?.localizedDescription ?? "") + ")" : "")"
+                    
+                case let .redirectionError(error):
+                    return "parameterError\(nil != error ? "(" + (error?.localizedDescription ?? "") + ")" : "")"
+
+                case let .clientError(error):
+                    return "authorizationError\(nil != error ? "(" + (error?.localizedDescription ?? "") + ")" : "")"
+
+                case let .generalError(error):
+                    return "generalError\(nil != error ? "(" + (error?.localizedDescription ?? "") + ")" : "")"
+                }
+            }
         }
         
         /* ############################################################################################################################## */
@@ -147,12 +193,6 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
          */
         public var debugDescription: String {
             switch self {
-            case let .searchTypeError(error):
-                return "searchTypeError\(nil != error ? "(" + (error?.debugDescription ?? "") + ")" : "")"
-                
-            case let .searchRefinementsError(error):
-                return "searchRefinementsError\(nil != error ? "(" + (error?.debugDescription ?? "") + ")" : "")"
-                
             case let .communicationError(error):
                 return "communicationError\(nil != error ? "(" + (error?.debugDescription ?? "") + ")" : "")"
                 
@@ -292,7 +332,7 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
                 return ".fixedRadius(centerLongLat: (latitude: \(centerLongLat.latitude), longitude: \(centerLongLat.longitude)), minimumNumberOfResults: \(minimumNumberOfResults), maxRadiusInMeters: \(maxRadiusInMeters))"
                 
             case let .meetingID(ids):
-                return ".meetingID(ids: \(ids.debugDescription)"
+                return ".meetingID(ids: \(ids.debugDescription))"
             }
         }
         

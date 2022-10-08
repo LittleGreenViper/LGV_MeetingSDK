@@ -76,10 +76,10 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
                             #if DEBUG
                                 print(String(format: "Server returned status code %d, and error %@", response.statusCode, error.localizedDescription))
                             #endif
-                            inCompletion(emptyResponse, error)
+                            inCompletion(emptyResponse, LGV_MeetingSDK_Meeting_Data_Set.Error.CommunicationError.generalError(error: error))
                         } else {
                             #if DEBUG
-                                print(String(format: "Server returned status code %d", response.statusCode))
+                                print(String(format: "Server returned empty data (no error)."))
                             #endif
                             inCompletion(emptyResponse, nil)
                         }
@@ -87,14 +87,63 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
                         #if DEBUG
                             print(String(format: "Server returned status code %d, and error %@", response.statusCode, error.localizedDescription))
                         #endif
-                        inCompletion(emptyResponse, error)
+                        var commError: LGV_MeetingSDK_Meeting_Data_Set.Error.CommunicationError
+                        
+                        switch response.statusCode {
+                        case 300..<400:
+                            commError = .redirectionError(error: error)
+                            
+                        case 400..<500:
+                            commError = .clientError(error: error)
+                            
+                        case 500...:
+                            commError = .serverError(error: error)
+                            
+                        default:
+                            commError = .generalError(error: error)
+                        }
+                        inCompletion(emptyResponse, commError)
                     } else {
                         #if DEBUG
                             print(String(format: "Server returned status code %d", response.statusCode))
                         #endif
-                        inCompletion(emptyResponse, nil)
+                        var commError: LGV_MeetingSDK_Meeting_Data_Set.Error.CommunicationError
+                        
+                        switch response.statusCode {
+                        case 300..<400:
+                            commError = .redirectionError(error: error)
+                            
+                        case 400..<500:
+                            commError = .clientError(error: error)
+                            
+                        case 500...:
+                            commError = .serverError(error: error)
+                            
+                        default:
+                            commError = .generalError(error: error)
+                        }
+                        inCompletion(emptyResponse, commError)
                     }
                 } else if let error = error {
+                    var commError: LGV_MeetingSDK_Meeting_Data_Set.Error.CommunicationError
+                    
+                    if let response = response as? HTTPURLResponse {
+                        switch response.statusCode {
+                        case 300..<400:
+                            commError = .redirectionError(error: error)
+                            
+                        case 400..<500:
+                            commError = .clientError(error: error)
+                            
+                        case 500...:
+                            commError = .serverError(error: error)
+                            
+                        default:
+                            commError = .generalError(error: error)
+                        }
+                    } else {
+                        commError = .generalError(error: error)
+                    }
                     #if DEBUG
                         if let response = response as? HTTPURLResponse {
                             print(String(format: "Server returned error: %@, and response: %@", error.localizedDescription, response.debugDescription))
@@ -102,17 +151,32 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
                             print(String(format: "Server returned error: %@", error.localizedDescription))
                         }
                     #endif
-                    inCompletion(emptyResponse, error)
+                    inCompletion(emptyResponse, commError)
                 } else if let response = response as? HTTPURLResponse {
                     #if DEBUG
                         print(String(format: "Server returned response: %@", response.debugDescription))
                     #endif
-                    inCompletion(emptyResponse, nil)
+                    var commError: LGV_MeetingSDK_Meeting_Data_Set.Error.CommunicationError
+                    
+                    switch response.statusCode {
+                    case 300..<400:
+                        commError = .redirectionError(error: nil)
+                        
+                    case 400..<500:
+                        commError = .clientError(error: nil)
+                        
+                    case 500...:
+                        commError = .serverError(error: nil)
+                        
+                    default:
+                        commError = .generalError(error: nil)
+                    }
+                    inCompletion(emptyResponse, commError)
                 } else {
                     #if DEBUG
                         print("Unkown Response Condition!")
                     #endif
-                    inCompletion(emptyResponse, nil)
+                    inCompletion(emptyResponse, LGV_MeetingSDK_Meeting_Data_Set.Error.CommunicationError.generalError(error: nil))
                 }
             }.resume()
         }
