@@ -96,6 +96,14 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
             
             /* ########################################################## */
             /**
+             Thisis called in case no HTTP response came in. It will likely never happen.
+             
+             - parameter error: The Swift error, sent back (if any).
+             */
+            case missingResponseError(error: Swift.Error?)
+
+            /* ########################################################## */
+            /**
              None of the above.
              - parameter error: The Swift error, sent back (if any).
              */
@@ -109,6 +117,7 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
             public static var allCases: [CommunicationError] { [serverError(error: nil),
                                                                 redirectionError(error: nil),
                                                                 clientError(error: nil),
+                                                                missingResponseError(error: nil),
                                                                 generalError(error: nil)
             ] }
             
@@ -126,7 +135,10 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
                     return "parameterError\(nil != error ? "(" + (error?.localizedDescription ?? "") + ")" : "")"
 
                 case let .clientError(error):
-                    return "authorizationError\(nil != error ? "(" + (error?.localizedDescription ?? "") + ")" : "")"
+                    return "clientError\(nil != error ? "(" + (error?.localizedDescription ?? "") + ")" : "")"
+
+                case let .missingResponseError(error):
+                    return "missingResponseError\(nil != error ? "(" + (error?.localizedDescription ?? "") + ")" : "")"
 
                 case let .generalError(error):
                     return "generalError\(nil != error ? "(" + (error?.localizedDescription ?? "") + ")" : "")"
