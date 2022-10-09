@@ -57,11 +57,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
             URLSession.shared.dataTask(with: urlRequest) { [weak self] data, response, error in
                 let emptyResponse = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements)
                 guard let response = response as? HTTPURLResponse else {
-                    if let error = error {
-                        inCompletion(emptyResponse, LGV_MeetingSDK_Meeting_Data_Set.Error.CommunicationError.generalError(error: error))
-                    } else {
-                        inCompletion(emptyResponse, nil)
-                    }
+                    inCompletion(emptyResponse, LGV_MeetingSDK_Meeting_Data_Set.Error.CommunicationError.missingResponseError(error: error))
                     return
                 }
                 
