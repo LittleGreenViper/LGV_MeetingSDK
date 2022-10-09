@@ -56,12 +56,19 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
         } else {    // Otherwise, we need to execute an NSURLSession data task.
             URLSession.shared.dataTask(with: urlRequest) { [weak self] data, response, error in
                 let emptyResponse = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements)
-                if nil == error,
-                   let response = response as? HTTPURLResponse {
-                    if 200 == response.statusCode {
-                        #if DEBUG
-                            print("Server returned success code 200")
-                        #endif
+                guard let response = response as? HTTPURLResponse else {
+                    if let error = error {
+                        inCompletion(emptyResponse, LGV_MeetingSDK_Meeting_Data_Set.Error.CommunicationError.generalError(error: error))
+                    } else {
+                        inCompletion(emptyResponse, nil)
+                    }
+                    return
+                }
+                
+                if nil == error {
+                    var commError: LGV_MeetingSDK_Meeting_Data_Set.Error.CommunicationError?
+                    switch response.statusCode {
+                    case 200..<300:
                         if let data = data,
                            "application/json" == response.mimeType {
                             self?.parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: data) { inParsedMeetings, inError in
@@ -72,110 +79,26 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
                                     inCompletion(emptyResponse, nil)
                                 }
                             }
-                        } else if let error = error {
-                            #if DEBUG
-                                print(String(format: "Server returned status code %d, and error %@", response.statusCode, error.localizedDescription))
-                            #endif
-                            inCompletion(emptyResponse, LGV_MeetingSDK_Meeting_Data_Set.Error.CommunicationError.generalError(error: error))
                         } else {
-                            #if DEBUG
-                                print(String(format: "Server returned empty data (no error)."))
-                            #endif
-                            inCompletion(emptyResponse, nil)
+                            commError = .generalError(error: nil)
                         }
-                    } else if let error = error {
-                        #if DEBUG
-                            print(String(format: "Server returned status code %d, and error %@", response.statusCode, error.localizedDescription))
-                        #endif
-                        var commError: LGV_MeetingSDK_Meeting_Data_Set.Error.CommunicationError
-                        
-                        switch response.statusCode {
-                        case 300..<400:
-                            commError = .redirectionError(error: error)
-                            
-                        case 400..<500:
-                            commError = .clientError(error: error)
-                            
-                        case 500...:
-                            commError = .serverError(error: error)
-                            
-                        default:
-                            commError = .generalError(error: error)
-                        }
-                        inCompletion(emptyResponse, commError)
-                    } else {
-                        #if DEBUG
-                            print(String(format: "Server returned status code %d", response.statusCode))
-                        #endif
-                        var commError: LGV_MeetingSDK_Meeting_Data_Set.Error.CommunicationError
-                        
-                        switch response.statusCode {
-                        case 300..<400:
-                            commError = .redirectionError(error: error)
-                            
-                        case 400..<500:
-                            commError = .clientError(error: error)
-                            
-                        case 500...:
-                            commError = .serverError(error: error)
-                            
-                        default:
-                            commError = .generalError(error: error)
-                        }
-                        inCompletion(emptyResponse, commError)
-                    }
-                } else if let error = error {
-                    var commError: LGV_MeetingSDK_Meeting_Data_Set.Error.CommunicationError
-                    
-                    if let response = response as? HTTPURLResponse {
-                        switch response.statusCode {
-                        case 300..<400:
-                            commError = .redirectionError(error: error)
-                            
-                        case 400..<500:
-                            commError = .clientError(error: error)
-                            
-                        case 500...:
-                            commError = .serverError(error: error)
-                            
-                        default:
-                            commError = .generalError(error: error)
-                        }
-                    } else {
-                        commError = .generalError(error: error)
-                    }
-                    #if DEBUG
-                        if let response = response as? HTTPURLResponse {
-                            print(String(format: "Server returned error: %@, and response: %@", error.localizedDescription, response.debugDescription))
-                        } else {
-                            print(String(format: "Server returned error: %@", error.localizedDescription))
-                        }
-                    #endif
-                    inCompletion(emptyResponse, commError)
-                } else if let response = response as? HTTPURLResponse {
-                    #if DEBUG
-                        print(String(format: "Server returned response: %@", response.debugDescription))
-                    #endif
-                    var commError: LGV_MeetingSDK_Meeting_Data_Set.Error.CommunicationError
-                    
-                    switch response.statusCode {
                     case 300..<400:
-                        commError = .redirectionError(error: nil)
+                        commError = .redirectionError(error: error)
                         
                     case 400..<500:
-                        commError = .clientError(error: nil)
+                        commError = .clientError(error: error)
                         
                     case 500...:
-                        commError = .serverError(error: nil)
+                        commError = .serverError(error: error)
                         
                     default:
-                        commError = .generalError(error: nil)
+                        commError = .generalError(error: error)
                     }
-                    inCompletion(emptyResponse, commError)
+                    
+                    if let commError = commError {
+                        inCompletion(emptyResponse, commError)
+                    }
                 } else {
-                    #if DEBUG
-                        print("Unkown Response Condition!")
-                    #endif
                     inCompletion(emptyResponse, LGV_MeetingSDK_Meeting_Data_Set.Error.CommunicationError.generalError(error: nil))
                 }
             }.resume()
