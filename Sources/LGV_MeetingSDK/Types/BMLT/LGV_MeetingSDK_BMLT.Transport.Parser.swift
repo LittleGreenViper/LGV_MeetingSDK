@@ -275,6 +275,41 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser {
         
         // We go through each meeting in the results.
         return inMeetings.compactMap { meeting in
+            /* ########################################################## */
+            /**
+             Checks a meeting, to see if a given string is present.
+             
+             - parameter meeting: The meeing instance to check (haystack).
+             - parameter string: The string we're looking for (needle).
+             
+             - returns: True, if the meeting contains the string we're looking for.
+             */
+            func _isStringInHere(meeting inMeeting: LGV_MeetingSDK_Meeting_Protocol, string inString: String) -> Bool {
+                var ret = false
+                
+                if _isThisString(inString, withinThisString: inMeeting.name)
+                    || _isThisString(inString, withinThisString: inMeeting.extraInfo) {
+                    ret = true
+                } else if let physicalLocationName = inMeeting.physicalLocation?.name,
+                          _isThisString(inString, withinThisString: physicalLocationName) {
+                    ret = true
+                } else if let virtualInfo = inMeeting.virtualMeetingInfo?.videoMeeting?.extraInfo,
+                          _isThisString(inString, withinThisString: virtualInfo) {
+                    ret = true
+                } else if let virtualInfo = inMeeting.virtualMeetingInfo?.videoMeeting?.description,
+                          _isThisString(inString, withinThisString: virtualInfo) {
+                    ret = true
+                } else if let virtualInfo = inMeeting.virtualMeetingInfo?.phoneMeeting?.extraInfo,
+                          _isThisString(inString, withinThisString: virtualInfo) {
+                    ret = true
+                } else if let virtualInfo = inMeeting.virtualMeetingInfo?.phoneMeeting?.description,
+                          _isThisString(inString, withinThisString: virtualInfo) {
+                    ret = true
+                }
+                
+                return ret
+            }
+            
             // First filter is for distance.
             if 0 > maximumDistanceInMeters || meeting.distanceInMeters <= maximumDistanceInMeters {
                 // We then see if we specified any refinements. If so, we need to meet them.
@@ -284,23 +319,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser {
                         switch refinement.element {
                         // String searches look at a number of fields in each meeting.
                         case let .string(searchForThisString):
-                            if _isThisString(searchForThisString, withinThisString: meeting.name)
-                                || _isThisString(searchForThisString, withinThisString: meeting.extraInfo) {
-                                returned = meeting
-                            } else if let physicalLocationName = meeting.physicalLocation?.name,
-                                      _isThisString(searchForThisString, withinThisString: physicalLocationName) {
-                                returned = meeting
-                            } else if let virtualInfo = meeting.virtualMeetingInfo?.videoMeeting?.extraInfo,
-                                      _isThisString(searchForThisString, withinThisString: virtualInfo) {
-                                returned = meeting
-                            } else if let virtualInfo = meeting.virtualMeetingInfo?.videoMeeting?.description,
-                                      _isThisString(searchForThisString, withinThisString: virtualInfo) {
-                                returned = meeting
-                            } else if let virtualInfo = meeting.virtualMeetingInfo?.phoneMeeting?.extraInfo,
-                                      _isThisString(searchForThisString, withinThisString: virtualInfo) {
-                                returned = meeting
-                            } else if let virtualInfo = meeting.virtualMeetingInfo?.phoneMeeting?.description,
-                                      _isThisString(searchForThisString, withinThisString: virtualInfo) {
+                            if _isStringInHere(meeting: meeting, string: searchForThisString) {
                                 returned = meeting
                             } else if !meeting.formats.isEmpty {
                                 for format in meeting.formats {

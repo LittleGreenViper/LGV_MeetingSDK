@@ -63,7 +63,9 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
                 
                 if nil == error {
                     var commError: LGV_MeetingSDK_Meeting_Data_Set.Error.CommunicationError?
-                    switch response.statusCode {
+                    let statusCode = response.statusCode
+                    
+                    switch statusCode {
                     case 200..<300:
                         if let data = data,
                            "application/json" == response.mimeType {
@@ -72,11 +74,11 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
                                     parsedData.extraInfo = urlRequest.url?.absoluteString ?? ""
                                     inCompletion(parsedData, inError)
                                 } else {
-                                    inCompletion(emptyResponse, nil)
+                                    inCompletion(emptyResponse, inError)
                                 }
                             }
                         } else {
-                            commError = .generalError(error: nil)
+                            inCompletion(emptyResponse, nil)
                         }
                     case 300..<400:
                         commError = .redirectionError(error: error)

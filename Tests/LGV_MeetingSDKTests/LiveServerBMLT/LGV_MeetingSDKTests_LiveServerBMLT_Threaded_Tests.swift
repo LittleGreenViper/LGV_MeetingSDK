@@ -98,7 +98,7 @@ class LGV_MeetingSDKTests_LiveServerBMLT_Threaded_Tests: LGV_MeetingSDKTests_BML
             })
         }
         
-        wait(for: [expectation], timeout: 5)
+        wait(for: [expectation], timeout: 10)
         print("Returned Meetings:")
         
         searchResults.forEach {
