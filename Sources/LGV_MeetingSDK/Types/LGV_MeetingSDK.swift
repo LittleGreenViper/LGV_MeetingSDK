@@ -155,17 +155,30 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
         public enum ParserError: Swift.Error, CaseIterable, CustomDebugStringConvertible {
             /* ########################################################## */
             /**
+             The JSON parser threw an error.
+             - parameter error: The error that the parser threw.
+             */
+            case jsonParseFailure(error: Swift.Error?)
+            
+            /* ########################################################## */
+            /**
              CaseIterable Conformance
              Returns empty variants of each case.
              */
-            public static var allCases: [Error] { [] }
+            public static var allCases: [ParserError] { [jsonParseFailure(error: nil)
+            ] }
             
             /* ########################################################## */
             /**
              CustomDebugStringConvertible Conformance
              Returns a detailed, hierarchical debug description string.
              */
-            public var debugDescription: String { "" }
+            public var debugDescription: String {
+                switch self {
+                case let .jsonParseFailure(error):
+                    return "jsonParseFailure\(nil != error ? "(" + (error?.localizedDescription ?? "") + ")" : "")"
+                }
+            }
         }
         
         /* ############################################################## */

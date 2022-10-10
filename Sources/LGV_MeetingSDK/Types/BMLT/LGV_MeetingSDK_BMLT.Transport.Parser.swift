@@ -418,19 +418,19 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser {
                 distance = abs(meetingLocation.distance(from: inSearchCenter))
             }
 
-            let meeting = LGV_MeetingSDK_BMLT.Meeting(organization: organization,
-                                                      id: id,
-                                                      weekdayIndex: weekdayIndex,
-                                                      meetingStartTime: meetingStartTime,
-                                                      name: meetingName,
-                                                      extraInfo: comments,
-                                                      meetingDuration: meetingDuration,
-                                                      distanceInMeters: distance,
-                                                      formats: formats,
-                                                      physicalLocation: physicalLocation,
-                                                      virtualMeetingInfo: virtualInformation
-            )
-            ret.append(meeting)
+            ret.append(LGV_MeetingSDK_BMLT.Meeting(organization: organization,
+                                                   id: id,
+                                                   weekdayIndex: weekdayIndex,
+                                                   meetingStartTime: meetingStartTime,
+                                                   name: meetingName,
+                                                   extraInfo: comments,
+                                                   meetingDuration: meetingDuration,
+                                                   distanceInMeters: distance,
+                                                   formats: formats,
+                                                   physicalLocation: physicalLocation,
+                                                   virtualMeetingInfo: virtualInformation
+                                                  )
+                       )
         }
 
         return ret.sorted { lhs, rhs in
@@ -482,45 +482,50 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
                           searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = [],
                           data inData: Data,
                           completion inCompletion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
-        if let main_object = try? JSONSerialization.jsonObject(with: inData, options: []) as? [String: [[String: String]]],
-           let meetingsObject = main_object["meetings"],
-           let formatsObject = main_object["formats"] {
-            var searchCenter: CLLocation = CLLocation(latitude: 0, longitude: 0)
-            if case let .fixedRadius(centerLongLat, _) = inSearchType {
-                searchCenter = CLLocation(latitude: centerLongLat.latitude, longitude: centerLongLat.longitude)
-            } else if case let .autoRadius(centerLongLat, _, _) = inSearchType {
-                searchCenter = CLLocation(latitude: centerLongLat.latitude, longitude: centerLongLat.longitude)
-            }
-            
-            let formats = Self._convert(theseFormats: formatsObject)
-            
-            var distanceFrom: CLLocation?
-            
-            // We can specify a "distance from here" in refinements, and that trumps a search center, for distances. It can also add distances to otherwise unmeasured meetings.
-            for refinement in inSearchRefinements.enumerated() {
-                if case let .distanceFrom(thisLocation) = refinement.element {
-                    distanceFrom = CLLocation(latitude: thisLocation.latitude, longitude: thisLocation.longitude)
-                    break
-                }
-            }
-            
-            let meetings = Self._refineMeetings(_convert(theseMeetings: meetingsObject, andTheseFormats: formats, searchCenter: searchCenter), searchType: inSearchType, searchRefinements: inSearchRefinements).map {
-                var meeting = $0
-                
-                if let distanceFrom = distanceFrom,
-                   let meetingCoords = meeting.locationCoords {
-                    let meetingLocation = CLLocation(latitude: meetingCoords.latitude, longitude: meetingCoords.longitude)
-                    meeting.distanceInMeters = distanceFrom.distance(from: meetingLocation)
+        let emptyResponse = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements)
+        do {
+            if let main_object = try JSONSerialization.jsonObject(with: inData, options: []) as? [String: [[String: String]]],
+               let meetingsObject = main_object["meetings"],
+               let formatsObject = main_object["formats"] {
+                var searchCenter: CLLocation = CLLocation(latitude: 0, longitude: 0)
+                if case let .fixedRadius(centerLongLat, _) = inSearchType {
+                    searchCenter = CLLocation(latitude: centerLongLat.latitude, longitude: centerLongLat.longitude)
+                } else if case let .autoRadius(centerLongLat, _, _) = inSearchType {
+                    searchCenter = CLLocation(latitude: centerLongLat.latitude, longitude: centerLongLat.longitude)
                 }
                 
-                return meeting
-            }
-            
-            let meetingData = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: meetings)
+                let formats = Self._convert(theseFormats: formatsObject)
+                
+                var distanceFrom: CLLocation?
+                
+                // We can specify a "distance from here" in refinements, and that trumps a search center, for distances. It can also add distances to otherwise unmeasured meetings.
+                for refinement in inSearchRefinements.enumerated() {
+                    if case let .distanceFrom(thisLocation) = refinement.element {
+                        distanceFrom = CLLocation(latitude: thisLocation.latitude, longitude: thisLocation.longitude)
+                        break
+                    }
+                }
+                
+                let meetings = Self._refineMeetings(_convert(theseMeetings: meetingsObject, andTheseFormats: formats, searchCenter: searchCenter), searchType: inSearchType, searchRefinements: inSearchRefinements).map {
+                    var meeting = $0
+                    
+                    if let distanceFrom = distanceFrom,
+                       let meetingCoords = meeting.locationCoords {
+                        let meetingLocation = CLLocation(latitude: meetingCoords.latitude, longitude: meetingCoords.longitude)
+                        meeting.distanceInMeters = distanceFrom.distance(from: meetingLocation)
+                    }
+                    
+                    return meeting
+                }
+                
+                let meetingData = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: meetings)
 
-            inCompletion(meetingData, nil)
-        } else {
-            inCompletion(LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: []), nil)
+                inCompletion(meetingData, nil)
+            } else {
+                inCompletion(LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: []), nil)
+            }
+        } catch {
+            inCompletion(emptyResponse, LGV_MeetingSDK_Meeting_Data_Set.Error.parsingError(error: .jsonParseFailure(error: error)))
         }
     }
 }
