@@ -5,25 +5,25 @@
       location = "group:"
       name = "Project-Meta">
       <FileRef
-         location = "group:CHANGELOG.md">
+         location = "group:README.md">
       </FileRef>
       <FileRef
-         location = "group:CODEOWNERS">
+         location = "group:CHANGELOG.md">
       </FileRef>
       <FileRef
          location = "group:jazzy.command">
       </FileRef>
       <FileRef
-         location = "group:LICENSE">
+         location = "group:.swiftlint.yml">
       </FileRef>
       <FileRef
          location = "group:Package.swift">
       </FileRef>
       <FileRef
-         location = "group:README.md">
+         location = "group:LICENSE">
       </FileRef>
       <FileRef
-         location = "group:.swiftlint.yml">
+         location = "group:CODEOWNERS">
       </FileRef>
    </Group>
    <FileRef

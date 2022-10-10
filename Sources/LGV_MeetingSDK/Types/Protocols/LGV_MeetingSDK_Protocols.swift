@@ -140,12 +140,14 @@ public protocol LGV_MeetingSDK_Protocol {
     /**
      OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - This executes a meeting search.
      - Parameters:
-        - type: The main search type.
-        - refinements: a set of search filter refinements.
+        - type (OPTIONAL): The main search type. Default is none (whole set, or none).
+        - refinements (OPTIONAL): a set of search filter refinements. Default is no constraints.
+        - refCon (OPTIONAL): An arbitrary data attachment to the search. This will be returned in the search results set. Default is nil.
         - completion: The completion closure. **NOTE:** This may be called in any thread, and it is escaping (should capture arguments).
      */
     func meetingSearch(type: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
                        refinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
+                       refCon: Any?,
                        completion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure)
 }
 
@@ -157,9 +159,10 @@ public extension LGV_MeetingSDK_Protocol {
     /**
      Default runs, using the built-in organization->transport->initiator method.
      */
-    func meetingSearch(type inType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
-                       refinements inRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
+    func meetingSearch(type inType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints = .none,
+                       refinements inRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = [],
+                       refCon inRefCon: Any? = nil,
                        completion inCompletion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
-        organization?.transport?.initiator?.meetingSearch(type: inType, refinements: inRefinements, completion: inCompletion)
+        organization?.transport?.initiator?.meetingSearch(type: inType, refinements: inRefinements, refCon: inRefCon, completion: inCompletion)
     }
 }

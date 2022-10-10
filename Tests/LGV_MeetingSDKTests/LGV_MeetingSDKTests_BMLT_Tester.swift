@@ -142,7 +142,7 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
 
         (testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = getResponseFile(0)
         
-        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 3000), refinements: []) { inData, inError in
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 3000), refinements: [], refCon: nil) { inData, inError in
             guard nil == inError else {
                 print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -158,7 +158,7 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
 
         (testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = getResponseFile(8)
         
-        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 3000), refinements: [.string(searchString: "gratitude")]) { inData, inError in
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 3000), refinements: [.string(searchString: "gratitude")], refCon: nil) { inData, inError in
             guard nil == inError else {
                 print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -182,7 +182,7 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
         
         let expectation = XCTestExpectation(description: "Callback never occurred.")
         
-        testSDK?.meetingSearch(type: .autoRadius(centerLongLat: testLocationCenter, minimumNumberOfResults: 10, maxRadiusInMeters: 20000), refinements: []) { inData, inError in
+        testSDK?.meetingSearch(type: .autoRadius(centerLongLat: testLocationCenter, minimumNumberOfResults: 10, maxRadiusInMeters: 20000), refinements: [], refCon: nil) { inData, inError in
             guard nil == inError else {
                 print("Auto Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -207,7 +207,7 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
         
         var expectation = XCTestExpectation(description: "Callback never occurred.")
 
-        testSDK?.meetingSearch(type: .meetingID(ids: ids), refinements: []) { inData, inError in
+        testSDK?.meetingSearch(type: .meetingID(ids: ids), refinements: [], refCon: nil) { inData, inError in
             guard nil == inError else {
                 print("ID Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -223,7 +223,7 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
         expectation = XCTestExpectation(description: "Callback never occurred.")
         
         (testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = getResponseFile(5)
-        testSDK?.meetingSearch(type: .meetingID(ids: ids), refinements: [.weekdays([.tuesday, .wednesday])]) { inData, inError in
+        testSDK?.meetingSearch(type: .meetingID(ids: ids), refinements: [.weekdays([.tuesday, .wednesday])], refCon: nil) { inData, inError in
             guard nil == inError else {
                 print("ID Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -239,7 +239,7 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
         expectation = XCTestExpectation(description: "Callback never occurred.")
         
         (testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = getResponseFile(6)
-        testSDK?.meetingSearch(type: .meetingID(ids: ids), refinements: [.startTimeRange(TimeInterval(14 * 60 * 60)...TimeInterval(19 * 60 * 60))]) { inData, inError in
+        testSDK?.meetingSearch(type: .meetingID(ids: ids), refinements: [.startTimeRange(TimeInterval(14 * 60 * 60)...TimeInterval(19 * 60 * 60))], refCon: nil) { inData, inError in
             guard nil == inError else {
                 print("ID Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -255,7 +255,7 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
         expectation = XCTestExpectation(description: "Callback never occurred.")
         
         (testSDK?.organization?.transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = getResponseFile(7)
-        testSDK?.meetingSearch(type: .meetingID(ids: ids), refinements: [.startTimeRange(TimeInterval(14 * 60 * 60)...TimeInterval(19 * 60 * 60)), .weekdays([.tuesday, .wednesday])]) { inData, inError in
+        testSDK?.meetingSearch(type: .meetingID(ids: ids), refinements: [.startTimeRange(TimeInterval(14 * 60 * 60)...TimeInterval(19 * 60 * 60)), .weekdays([.tuesday, .wednesday])], refCon: nil) { inData, inError in
             guard nil == inError else {
                 print("ID Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -272,7 +272,7 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
         
         expectation = XCTestExpectation(description: "Callback never occurred.")
 
-        testSDK?.meetingSearch(type: .meetingID(ids: ids), refinements: [.distanceFrom(thisLocation: testLocationCenter)]) { inData, inError in
+        testSDK?.meetingSearch(type: .meetingID(ids: ids), refinements: [.distanceFrom(thisLocation: testLocationCenter)], refCon: nil) { inData, inError in
             guard nil == inError else {
                 print("ID Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -299,7 +299,7 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
         
         let expectation = XCTestExpectation(description: "Callback never occurred.")
 
-        testSDK?.meetingSearch(type: .none, refinements: []) { inData, inError in
+        testSDK?.meetingSearch(type: .none, refinements: [], refCon: nil) { inData, inError in
             guard nil == inError else {
                 print("ID Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -323,7 +323,7 @@ final class LGV_MeetingSDKTests_BMLT_Tester: XCTestCase {
         
         let expectation = XCTestExpectation(description: "Callback never occurred.")
 
-        testSDK?.meetingSearch(type: .none, refinements: []) { inData, inError in
+        testSDK?.meetingSearch(type: .none, refinements: [], refCon: nil) { inData, inError in
             guard nil == inError else {
                 print("ID Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return

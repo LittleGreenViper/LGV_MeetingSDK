@@ -41,7 +41,7 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Tests: LGV_MeetingSDKTests_BMLT_B
         
         var searchResults: LGV_MeetingSDK_Meeting_Data_Set_Protocol?
         
-        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.sunday])], completion: { inData, inError in
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.sunday])], refCon: nil, completion: { inData, inError in
             guard nil == inError else {
                 print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -63,7 +63,7 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Tests: LGV_MeetingSDKTests_BMLT_B
 
         expectation = XCTestExpectation(description: "Callback never occurred.")
         
-        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.monday])], completion: { inData, inError in
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.monday])], refCon: nil, completion: { inData, inError in
             guard nil == inError else {
                 print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -85,7 +85,7 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Tests: LGV_MeetingSDKTests_BMLT_B
 
         expectation = XCTestExpectation(description: "Callback never occurred.")
         
-        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.tuesday])], completion: { inData, inError in
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.tuesday])], refCon: nil, completion: { inData, inError in
             guard nil == inError else {
                 print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -107,7 +107,7 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Tests: LGV_MeetingSDKTests_BMLT_B
 
         expectation = XCTestExpectation(description: "Callback never occurred.")
         
-        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.wednesday])], completion: { inData, inError in
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.wednesday])], refCon: nil, completion: { inData, inError in
             guard nil == inError else {
                 print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -129,7 +129,7 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Tests: LGV_MeetingSDKTests_BMLT_B
 
         expectation = XCTestExpectation(description: "Callback never occurred.")
         
-        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.thursday])], completion: { inData, inError in
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.thursday])], refCon: nil, completion: { inData, inError in
             guard nil == inError else {
                 print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -151,7 +151,7 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Tests: LGV_MeetingSDKTests_BMLT_B
 
         expectation = XCTestExpectation(description: "Callback never occurred.")
         
-        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.friday])], completion: { inData, inError in
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.friday])], refCon: nil, completion: { inData, inError in
             guard nil == inError else {
                 print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -173,7 +173,7 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Tests: LGV_MeetingSDKTests_BMLT_B
 
         expectation = XCTestExpectation(description: "Callback never occurred.")
         
-        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.saturday])], completion: { inData, inError in
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.saturday])], refCon: nil, completion: { inData, inError in
             guard nil == inError else {
                 print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -195,7 +195,7 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Tests: LGV_MeetingSDKTests_BMLT_B
 
         expectation = XCTestExpectation(description: "Callback never occurred.")
         
-        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.saturday, .sunday])], completion: { inData, inError in
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.saturday, .sunday])], refCon: nil, completion: { inData, inError in
             guard nil == inError else {
                 print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -217,7 +217,7 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Tests: LGV_MeetingSDKTests_BMLT_B
 
         expectation = XCTestExpectation(description: "Callback never occurred.")
         
-        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.monday, .thursday, .tuesday, .friday, .wednesday])], completion: { inData, inError in
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.weekdays([.monday, .thursday, .tuesday, .friday, .wednesday])], refCon: nil, completion: { inData, inError in
             guard nil == inError else {
                 print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -249,7 +249,7 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Tests: LGV_MeetingSDKTests_BMLT_B
         
         var searchResults: LGV_MeetingSDK_Meeting_Data_Set_Protocol?
         
-        testSDK?.meetingSearch(type: .autoRadius(centerLongLat: testLocationCenter, minimumNumberOfResults: 20, maxRadiusInMeters: Double.greatestFiniteMagnitude), refinements: [.venueTypes([.inPersonOnly])], completion: { inData, inError in
+        testSDK?.meetingSearch(type: .autoRadius(centerLongLat: testLocationCenter, minimumNumberOfResults: 20, maxRadiusInMeters: Double.greatestFiniteMagnitude), refinements: [.venueTypes([.inPersonOnly])], refCon: nil, completion: { inData, inError in
             guard nil == inError else {
                 print("Auto Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -270,7 +270,7 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Tests: LGV_MeetingSDKTests_BMLT_B
 
         expectation = XCTestExpectation(description: "Callback never occurred.")
         
-        testSDK?.meetingSearch(type: .autoRadius(centerLongLat: testLocationCenter, minimumNumberOfResults: 20, maxRadiusInMeters: Double.greatestFiniteMagnitude), refinements: [.venueTypes([.virtualOnly])], completion: { inData, inError in
+        testSDK?.meetingSearch(type: .autoRadius(centerLongLat: testLocationCenter, minimumNumberOfResults: 20, maxRadiusInMeters: Double.greatestFiniteMagnitude), refinements: [.venueTypes([.virtualOnly])], refCon: nil, completion: { inData, inError in
             guard nil == inError else {
                 print("Auto Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -291,7 +291,7 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Tests: LGV_MeetingSDKTests_BMLT_B
 
         expectation = XCTestExpectation(description: "Callback never occurred.")
         
-        testSDK?.meetingSearch(type: .autoRadius(centerLongLat: testLocationCenter, minimumNumberOfResults: 20, maxRadiusInMeters: Double.greatestFiniteMagnitude), refinements: [.venueTypes([.hybrid])], completion: { inData, inError in
+        testSDK?.meetingSearch(type: .autoRadius(centerLongLat: testLocationCenter, minimumNumberOfResults: 20, maxRadiusInMeters: Double.greatestFiniteMagnitude), refinements: [.venueTypes([.hybrid])], refCon: nil, completion: { inData, inError in
             guard nil == inError else {
                 print("Auto Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -312,7 +312,7 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Tests: LGV_MeetingSDKTests_BMLT_B
 
         expectation = XCTestExpectation(description: "Callback never occurred.")
         
-        testSDK?.meetingSearch(type: .autoRadius(centerLongLat: testLocationCenter, minimumNumberOfResults: 20, maxRadiusInMeters: Double.greatestFiniteMagnitude), refinements: [.venueTypes([.virtualOnly, .inPersonOnly])], completion: { inData, inError in
+        testSDK?.meetingSearch(type: .autoRadius(centerLongLat: testLocationCenter, minimumNumberOfResults: 20, maxRadiusInMeters: Double.greatestFiniteMagnitude), refinements: [.venueTypes([.virtualOnly, .inPersonOnly])], refCon: nil, completion: { inData, inError in
             guard nil == inError else {
                 print("Auto Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -343,7 +343,7 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Tests: LGV_MeetingSDKTests_BMLT_B
         
         var searchResults: LGV_MeetingSDK_Meeting_Data_Set_Protocol?
         
-        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 10000), refinements: [.startTimeRange((0...1159))], completion: { inData, inError in
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 10000), refinements: [.startTimeRange((0...1159))], refCon: nil, completion: { inData, inError in
             guard nil == inError else {
                 print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -364,7 +364,7 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Tests: LGV_MeetingSDKTests_BMLT_B
 
         expectation = XCTestExpectation(description: "Callback never occurred.")
         
-        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 10000), refinements: [.startTimeRange((1200...1800))], completion: { inData, inError in
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 10000), refinements: [.startTimeRange((1200...1800))], refCon: nil, completion: { inData, inError in
             guard nil == inError else {
                 print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -385,7 +385,7 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Tests: LGV_MeetingSDKTests_BMLT_B
 
         expectation = XCTestExpectation(description: "Callback never occurred.")
         
-        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 10000), refinements: [.startTimeRange((1801...2400))], completion: { inData, inError in
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 10000), refinements: [.startTimeRange((1801...2400))], refCon: nil, completion: { inData, inError in
             guard nil == inError else {
                 print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return
@@ -420,7 +420,7 @@ final class LGV_MeetingSDKTests_LiveServerBMLT_Tests: LGV_MeetingSDKTests_BMLT_B
         
         let centerDistance = CLLocation(latitude: testLocationCenter.latitude, longitude: testLocationCenter.longitude).distance(from: CLLocation(latitude: montaukLighthouse.latitude, longitude: montaukLighthouse.longitude))
         
-        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.distanceFrom(thisLocation: montaukLighthouse)], completion: { inData, inError in
+        testSDK?.meetingSearch(type: .fixedRadius(centerLongLat: testLocationCenter, radiusInMeters: 1000), refinements: [.distanceFrom(thisLocation: montaukLighthouse)], refCon: nil, completion: { inData, inError in
             guard nil == inError else {
                 print("Fixed Radius Meeting Search Error: \(inError?.localizedDescription ?? "ERROR")")
                 return

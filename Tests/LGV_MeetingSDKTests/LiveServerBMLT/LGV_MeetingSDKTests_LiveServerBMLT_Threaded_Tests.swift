@@ -88,7 +88,7 @@ class LGV_MeetingSDKTests_LiveServerBMLT_Threaded_Tests: LGV_MeetingSDKTests_BML
         var searchResults = [String: LGV_MeetingSDK_Meeting_Data_Set_Protocol?]()
 
         sdkInstances.forEach { sdkInstance in
-            sdkInstance.meetingSearch(type: .fixedRadius(centerLongLat: newarkCoordinates, radiusInMeters: 20000), refinements: [], completion: { inData, inError in
+            sdkInstance.meetingSearch(type: .fixedRadius(centerLongLat: newarkCoordinates, radiusInMeters: 20000), refinements: [], refCon: nil, completion: { inData, inError in
                 XCTAssertNil(inError)
                 if let data = inData,
                    let name = sdkInstance.organization?.organizationName {
@@ -124,7 +124,7 @@ class LGV_MeetingSDKTests_LiveServerBMLT_Threaded_Tests: LGV_MeetingSDKTests_BML
         let sdkInstance = LGV_MeetingSDK_BMLT(rootServerURL: url)
         var searchResults: LGV_MeetingSDK_Meeting_Data_Set_Protocol?
 
-        sdkInstance.meetingSearch(type: .fixedRadius(centerLongLat: newarkCoordinates, radiusInMeters: 20000), refinements: [], completion: { inData, inError in
+        sdkInstance.meetingSearch(type: .fixedRadius(centerLongLat: newarkCoordinates, radiusInMeters: 20000), refinements: [], refCon: nil, completion: { inData, inError in
             XCTAssertNil(inError)
             searchResults = inData
             expectation.fulfill()

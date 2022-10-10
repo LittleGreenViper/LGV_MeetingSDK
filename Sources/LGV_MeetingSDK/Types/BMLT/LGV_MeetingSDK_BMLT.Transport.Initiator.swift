@@ -31,12 +31,14 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
      This executes a meeting search.
      
      - Parameters:
-        - type: Any search type that was specified.
-        - refinements: Any search refinements.
-        - completion: A completion function.
+        - type (REQUIRED): Any search type that was specified.
+        - refinements (REQUIRED): Any search refinements.
+        - refCon (OPTIONAL): An arbitrary data attachment to the search. This will be returned in the search results set.
+        - completion (REQUIRED): A completion function.
      */
     public func meetingSearch(type inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
                               refinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
+                              refCon inRefCon: Any? = nil,
                               completion inCompletion: @escaping MeetingSearchCallbackClosure) {
         guard let urlRequest = (transport as? LGV_MeetingSDK_BMLT.Transport)?.ceateURLRequest(type: inSearchType, refinements: inSearchRefinements) else { return }
         #if DEBUG

@@ -711,7 +711,7 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         tabController?.mapViewController?.isBusy = true
         appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: searchType, searchRefinements: searchRefinements)
         tabController?.selectedIndex = LGV_MeetingSDK_Test_Harness_TabController.TabIndexes.search.rawValue
-        tabController?.sdk?.meetingSearch(type: searchType, refinements: searchRefinements, completion: searchCallbackHandler)
+        tabController?.sdk?.meetingSearch(type: searchType, refinements: searchRefinements, refCon: nil, completion: searchCallbackHandler)
         dismiss(animated: true)
     }
 }

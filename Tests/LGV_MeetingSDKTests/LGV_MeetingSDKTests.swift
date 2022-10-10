@@ -83,10 +83,12 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
              - Parameters:
                 - type: Any search type that was specified.
                 - refinements: Any search refinements.
+                - refCon: An arbitrary data attachment to the search. This will be returned in the search results set.
                 - completion: A completion function.
              */
             func meetingSearch(type inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
                                refinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
+                               refCon: Any? = nil,
                                completion inCompletion: @escaping MeetingSearchCallbackClosure) {
                 parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: Data(), completion: inCompletion)
             }
@@ -164,7 +166,7 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
         XCTAssertEqual(testSDK.organization?.organizationURL, organizationURL)
         
         // Make sure that our callback is made.
-        testSDK.meetingSearch(type: .none, refinements: [], completion: dummyCompletion)
+        testSDK.meetingSearch(type: .none, refinements: [], refCon: nil, completion: dummyCompletion)
         wait(for: [expectation], timeout: 0.25)
     }
 }

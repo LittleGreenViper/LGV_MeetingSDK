@@ -75,10 +75,12 @@ public protocol LGV_MeetingSDK_SearchInitiator_Protocol: AnyObject {
      - Parameters:
         - type: The main search type.
         - refinements: a set of search filter refinements.
+        - refCon: An arbitrary data attachment to the search. This will be returned in the search results set.
         - completion: The completion closure.
      */
     func meetingSearch(type: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
                        refinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
+                       refCon: Any?,
                        completion: @escaping MeetingSearchCallbackClosure)
 }
 
