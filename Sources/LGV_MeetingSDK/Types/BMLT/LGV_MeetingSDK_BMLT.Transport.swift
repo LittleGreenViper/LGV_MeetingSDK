@@ -74,8 +74,6 @@ public extension LGV_MeetingSDK_BMLT.Transport {
 
         urlString += "/client_interface/json?callingApp=LGV_MeetingSDK_BMLT&switcher=GetSearchResults&get_used_formats=1&lang_enum=\(String(Locale.preferredLanguages[0].prefix(2)))&data_field_key=\(Self.dataFields.joined(separator: ","))"
         
-        var idSearch = false
-        
         switch inSearchType {
         case .none:
             break
@@ -87,10 +85,10 @@ public extension LGV_MeetingSDK_BMLT.Transport {
             urlString += "&geo_width=\(-Int(minimumNumberOfResults))&long_val=\(centerLongLat.longitude)&lat_val=\(centerLongLat.latitude)"
 
         case .meetingID(let idArray):
-            idSearch = true
             urlString += "&SearchString=\(idArray.compactMap({String($0)}).joined(separator: ","))"
         }
         
+        // These refinements can actually affect the query string.
         inSearchRefinements.forEach { refinement in
             switch refinement {
             case .weekdays(let weekdays):
@@ -143,13 +141,6 @@ public extension LGV_MeetingSDK_BMLT.Transport {
                 
                 urlString += "&StartsBeforeH=\(endHours)&StartsBeforeM=\(endMinutes)"
                 
-            case .string(let searchForThisString):
-                if !idSearch,
-                   !searchForThisString.isEmpty,
-                   let encodedString = searchForThisString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) {
-                    urlString += "&SearchString=\(encodedString)"
-                }
-                
             default:
                 break
             }
@@ -158,7 +149,7 @@ public extension LGV_MeetingSDK_BMLT.Transport {
         guard let url = URL(string: urlString) else { return nil }
         
         #if DEBUG
-            print("URL Request Created for: \(url.absoluteString)")
+            print("URL Request: \(urlString)")
         #endif
         
         return URLRequest(url: url)
