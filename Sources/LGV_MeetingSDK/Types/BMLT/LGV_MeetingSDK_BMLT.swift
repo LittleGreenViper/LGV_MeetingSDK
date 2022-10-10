@@ -111,25 +111,30 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
     // MARK: - Format Struct -
     /* ################################################################################################################################## */
     /**
+     This describes one "meeting format," which is some extra information attached to a meeting, describing attributes.
      */
     public struct Format: LGV_MeetingSDK_Format_Protocol {
         /* ################################################################## */
         /**
+         This is a a unique ID (in the organization/server), for the format.
          */
         public var id: UInt64
         
         /* ################################################################## */
         /**
+         This is a simple text "key" for the format. It should be unique in the found set.
          */
         public var key: String
         
         /* ################################################################## */
         /**
+         This is a short name for the format.
          */
         public var name: String
         
         /* ################################################################## */
         /**
+         This is a longer description for the format.
          */
         public var description: String
     }
@@ -138,12 +143,14 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
     // MARK: - Meeting Struct -
     /* ################################################################################################################################## */
     /**
+     This describes one BMLT meeting.
      */
     public struct Meeting: LGV_MeetingSDK_Meeting_Protocol {
         /* ############################################################################################################################## */
         // MARK: Physical Location Struct
         /* ############################################################################################################################## */
         /**
+         This describes a physical location for the meeting.
          */
         public struct PhysicalLocation: LGV_MeetingSDK_Meeting_Physical_Protocol {
             /* ############################################################## */
@@ -154,7 +161,7 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
             
             /* ############################################################## */
             /**
-                A name for the location.
+             A name for the location.
              */
             public var name: String
 
@@ -181,6 +188,7 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
         // MARK: Virtual Location Struct
         /* ############################################################################################################################## */
         /**
+         This defines a set of virtual access points for the meeting (there may be multiple ones).
          */
         public struct VirtualLocation: LGV_MeetingSDK_Meeting_Virtual_Protocol {
             /* ############################################################################################################################## */
