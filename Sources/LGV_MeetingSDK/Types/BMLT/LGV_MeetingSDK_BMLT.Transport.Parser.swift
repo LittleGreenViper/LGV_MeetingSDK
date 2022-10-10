@@ -47,7 +47,7 @@ internal extension CLLocationCoordinate2D {
 /* ###################################################################################################################################### */
 // MARK: - BMLT Parser Extension (Static Utility Methods) -
 /* ###################################################################################################################################### */
-extension LGV_MeetingSDK_BMLT.Transport.Parser {
+internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
     /* ################################################################## */
     /**
      This allows us to find if a string contains another string.
@@ -369,7 +369,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser {
 /* ###################################################################################################################################### */
 // MARK: Instance Utility Methods
 /* ###################################################################################################################################### */
-extension LGV_MeetingSDK_BMLT.Transport.Parser {
+internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
     /* ################################################################## */
     /**
      This converts "raw" (String Dictionary) meeting objects, into actual Swift structs.

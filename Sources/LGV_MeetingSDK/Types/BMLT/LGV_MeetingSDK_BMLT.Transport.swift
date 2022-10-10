@@ -30,34 +30,45 @@ public extension LGV_MeetingSDK_BMLT.Transport {
     /**
      These are the specific fields that we request. It shortens the response.
      */
-    static let dataFields = ["id_bigint",
-                             "weekday_tinyint",
-                             "start_time",
-                             "duration_time",
-                             "format_shared_id_list",
-                             "venue_type",
-                             "lang_enum",
-                             "longitude",
-                             "latitude",
-                             "meeting_name",
-                             "location_text",
-                             "location_info",
-                             "location_street",
-                             "location_city_subsection",
-                             "location_neighborhood",
-                             "location_municipality",
-                             "location_sub_province",
-                             "location_province",
-                             "location_postal_code_1",
-                             "location_nation",
-                             "comments",
-                             "time_zone",
-                             "virtual_meeting_link",
-                             "phone_meeting_number",
-                             "virtual_meeting_additional_info",
-                             "service_body_bigint"
+    private static let _dataFields = ["comments",
+                                      "duration_time",
+                                      "format_shared_id_list",
+                                      "id_bigint",
+                                      "lang_enum",
+                                      "latitude",
+                                      "location_city_subsection",
+                                      "location_info",
+                                      "location_municipality",
+                                      "location_nation",
+                                      "location_neighborhood",
+                                      "location_postal_code_1",
+                                      "location_province",
+                                      "location_street",
+                                      "location_sub_province",
+                                      "location_text",
+                                      "longitude",
+                                      "meeting_name",
+                                      "phone_meeting_number",
+                                      "service_body_bigint",
+                                      "start_time",
+                                      "time_zone",
+                                      "venue_type",
+                                      "virtual_meeting_additional_info",
+                                      "virtual_meeting_link",
+                                      "weekday_tinyint"
     ]
-
+    
+    /* ################################################################## */
+    /**
+     This prepares the "baseline" URL string for the request.
+     */
+    var preparedURLString: String {
+        guard var urlString = baseURL?.absoluteString else { return "" }
+        urlString += "/client_interface/json?callingApp=LGV_MeetingSDK_BMLT&switcher=GetSearchResults&get_used_formats=1&lang_enum=\(String(Locale.preferredLanguages[0].prefix(2)))&data_field_key=\(Self._dataFields.joined(separator: ","))"
+        
+        return urlString
+    }
+    
     /* ################################################################## */
     /**
      Creates a URL Request, for the given search parameters.
@@ -70,9 +81,9 @@ public extension LGV_MeetingSDK_BMLT.Transport {
     func ceateURLRequest(type inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
                          refinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>
     ) -> URLRequest? {
-        guard var urlString = baseURL?.absoluteString else { return nil }
-
-        urlString += "/client_interface/json?callingApp=LGV_MeetingSDK_BMLT&switcher=GetSearchResults&get_used_formats=1&lang_enum=\(String(Locale.preferredLanguages[0].prefix(2)))&data_field_key=\(Self.dataFields.joined(separator: ","))"
+        var urlString = preparedURLString
+        
+        guard !urlString.isEmpty else { return nil }
         
         switch inSearchType {
         case .none:
