@@ -463,7 +463,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
         - searchType (OPTIONAL): This is the search specification main search type. Default is .none.
         - searchRefinements (OPTIONAL): This is the search specification additional filters. Default is .none.
         - data: The unparsed data, from the transport. It should consist of a meeting data set.
-        - completion: A callback, for when the parse is complete.
+        - completion: A callback, for when the parse is complete. This is escaping, and may not be called in the main thread.
      */
     public func parseThis(searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints = .none,
                           searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = [],
