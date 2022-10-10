@@ -168,6 +168,7 @@
 		D412C80428D3BEC500BAFC16 /* LGV_MeetingSDK */ = {
 			isa = PBXGroup;
 			children = (
+				D4A6EC8928DB698500B3E660 /* Protocols */,
 				D478AD6828DCC43E006D1B4D /* Types */,
 				D46D476128D3BF9200D8785E /* LGV_MeetingSDK.docc */,
 			);
@@ -217,7 +218,6 @@
 			isa = PBXGroup;
 			children = (
 				D412C80528D3BEC500BAFC16 /* LGV_MeetingSDK.swift */,
-				D4A6EC8928DB698500B3E660 /* Protocols */,
 				D41EE90428DE2B5900A8ED53 /* BMLT */,
 			);
 			path = Types;
