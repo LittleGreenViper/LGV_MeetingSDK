@@ -28,6 +28,38 @@ import Foundation
 public extension LGV_MeetingSDK_BMLT.Transport {
     /* ################################################################## */
     /**
+     These are the specific fields that we request. It shortens the response.
+     */
+    static let dataFields = ["id_bigint",
+                             "weekday_tinyint",
+                             "start_time",
+                             "duration_time",
+                             "format_shared_id_list",
+                             "venue_type",
+                             "lang_enum",
+                             "longitude",
+                             "latitude",
+                             "meeting_name",
+                             "location_text",
+                             "location_info",
+                             "location_street",
+                             "location_city_subsection",
+                             "location_neighborhood",
+                             "location_municipality",
+                             "location_sub_province",
+                             "location_province",
+                             "location_postal_code_1",
+                             "location_nation",
+                             "comments",
+                             "time_zone",
+                             "virtual_meeting_link",
+                             "phone_meeting_number",
+                             "virtual_meeting_additional_info",
+                             "service_body_bigint"
+    ]
+
+    /* ################################################################## */
+    /**
      Creates a URL Request, for the given search parameters.
      - Parameters:
         - type: Any search type that was specified.
@@ -40,37 +72,9 @@ public extension LGV_MeetingSDK_BMLT.Transport {
     ) -> URLRequest? {
         guard var urlString = baseURL?.absoluteString else { return nil }
 
-        var idSearch = false
+        urlString += "/client_interface/json?callingApp=LGV_MeetingSDK_BMLT&switcher=GetSearchResults&get_used_formats=1&lang_enum=\(String(Locale.preferredLanguages[0].prefix(2)))&data_field_key=\(Self.dataFields.joined(separator: ","))"
         
-        let dataFields = ["id_bigint",
-                          "weekday_tinyint",
-                          "start_time",
-                          "duration_time",
-                          "format_shared_id_list",
-                          "venue_type",
-                          "lang_enum",
-                          "longitude",
-                          "latitude",
-                          "meeting_name",
-                          "location_text",
-                          "location_info",
-                          "location_street",
-                          "location_city_subsection",
-                          "location_neighborhood",
-                          "location_municipality",
-                          "location_sub_province",
-                          "location_province",
-                          "location_postal_code_1",
-                          "location_nation",
-                          "comments",
-                          "time_zone",
-                          "virtual_meeting_link",
-                          "phone_meeting_number",
-                          "virtual_meeting_additional_info",
-                          "service_body_bigint"
-        ]
-
-        urlString += "/client_interface/json?callingApp=LGV_MeetingSDK_BMLT&switcher=GetSearchResults&get_used_formats=1&lang_enum=\(String(Locale.preferredLanguages[0].prefix(2)))&data_field_key=\(dataFields.joined(separator: ","))"
+        var idSearch = false
         
         switch inSearchType {
         case .none:
@@ -95,9 +99,8 @@ public extension LGV_MeetingSDK_BMLT.Transport {
                 }
 
             case .startTimeRange(let range):
-                guard 0 <= range.lowerBound,
-                      2359 > range.upperBound
-                else { break }
+                // This makes sure the range is correct.
+                guard (range.lowerBound...range.upperBound).clamped(to: (0.0...2359.0)) == (range.lowerBound...range.upperBound) else { break }
                 
                 let startTimeRaw = Int(range.lowerBound)
                 
@@ -142,6 +145,7 @@ public extension LGV_MeetingSDK_BMLT.Transport {
                 
             case .string(let searchForThisString):
                 if !idSearch,
+                   !searchForThisString.isEmpty,
                    let encodedString = searchForThisString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) {
                     urlString += "&SearchString=\(encodedString)"
                 }

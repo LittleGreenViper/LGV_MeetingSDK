@@ -305,6 +305,11 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser {
                 } else if let virtualInfo = inMeeting.virtualMeetingInfo?.phoneMeeting?.description,
                           _isThisString(inString, withinThisString: virtualInfo) {
                     ret = true
+                } else if !meeting.formats.isEmpty {
+                    for meetingFormat in inMeeting.formats where _isThisString(inString, withinThisString: meetingFormat.name) || _isThisString(inString, withinThisString: meetingFormat.description) {
+                        ret = true
+                        break
+                    }
                 }
                 
                 return ret
@@ -319,47 +324,29 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser {
                         switch refinement.element {
                         // String searches look at a number of fields in each meeting.
                         case let .string(searchForThisString):
-                            if _isStringInHere(meeting: meeting, string: searchForThisString) {
-                                returned = meeting
-                            } else if !meeting.formats.isEmpty {
-                                for format in meeting.formats {
-                                    if _isThisString(searchForThisString, withinThisString: format.name) {
-                                        returned = meeting
-                                        break
-                                    } else if _isThisString(searchForThisString, withinThisString: format.description) {
-                                        returned = meeting
-                                        break
-                                    }
-                                }
-                            } else {
-                                return nil
-                            }
+                            guard _isStringInHere(meeting: meeting, string: searchForThisString) else { return nil }
+                          
+                            returned = meeting
                             
                         // If we specified weekdays, then we need to meet on one of the provided days.
                         case let .weekdays(weekdays):
-                            if weekdays.map({ $0.rawValue }).contains(meeting.weekdayIndex) {
-                                returned = meeting
-                            } else {
-                                return nil
-                            }
+                            guard weekdays.map({ $0.rawValue }).contains(meeting.weekdayIndex) else { return nil }
+                           
+                            returned = meeting
                             
                         // If we specified a start time range, then we need to start within that range.
                         case let .startTimeRange(startTimeRange):
-                            guard let startTimeInSeconds = meeting.startTimeInSeconds else { return nil }
+                            guard let startTimeInSeconds = meeting.startTimeInSeconds,
+                                  startTimeRange.contains(startTimeInSeconds)
+                            else { return nil }
                             
-                            if startTimeRange.contains(startTimeInSeconds) {
-                                returned = meeting
-                            } else {
-                                return nil
-                            }
+                            returned = meeting
                             
                         // Are we looking for only virtual, in-person, or hybrid (or combinations, thereof)?
                         case let .venueTypes(venues):
-                            if venues.contains(meeting.meetingType) {
-                                returned = meeting
-                            } else {
-                                return nil
-                            }
+                            guard venues.contains(meeting.meetingType) else { return nil }
+                     
+                            returned = meeting
                             
                         default:
                             returned = meeting
