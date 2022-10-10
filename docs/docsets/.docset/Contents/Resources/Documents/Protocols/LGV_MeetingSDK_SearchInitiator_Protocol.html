@@ -270,9 +270,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14LGV_MeetingSDK0a1_bC25_SearchInitiator_ProtocolP07meetingD04type11refinements10completionyAA0a1_bc1_B9_Data_SetC0D11ConstraintsO_ShyAI0D12_RefinementsOGyAA0a1_bc1_b1_k1_l1_F0_pSg_s5Error_pSgtctF"></a>
-                    <a name="//apple_ref/swift/Method/meetingSearch(type:refinements:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC25_SearchInitiator_ProtocolP07meetingD04type11refinements10completionyAA0a1_bc1_B9_Data_SetC0D11ConstraintsO_ShyAI0D12_RefinementsOGyAA0a1_bc1_b1_k1_l1_F0_pSg_s5Error_pSgtctF">meetingSearch(type:<wbr>refinements:<wbr>completion:<wbr>)</a>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC25_SearchInitiator_ProtocolP07meetingD04type11refinements6refCon10completionyAA0a1_bc1_B9_Data_SetC0D11ConstraintsO_ShyAJ0D12_RefinementsOGypSgyAA0a1_bc1_b1_m1_n1_F0_pSg_s5Error_pSgtctF"></a>
+                    <a name="//apple_ref/swift/Method/meetingSearch(type:refinements:refCon:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC25_SearchInitiator_ProtocolP07meetingD04type11refinements6refCon10completionyAA0a1_bc1_B9_Data_SetC0D11ConstraintsO_ShyAJ0D12_RefinementsOGypSgyAA0a1_bc1_b1_m1_n1_F0_pSg_s5Error_pSgtctF">meetingSearch(type:<wbr>refinements:<wbr>refCon:<wbr>completion:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -289,6 +289,7 @@
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">meetingSearch</span><span class="p">(</span><span class="nv">type</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_MeetingSDK_Meeting_Data_Set.html">LGV_MeetingSDK_Meeting_Data_Set</a></span><span class="o">.</span><span class="kt">SearchConstraints</span><span class="p">,</span>
                    <span class="nv">refinements</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt"><a href="../Classes/LGV_MeetingSDK_Meeting_Data_Set.html">LGV_MeetingSDK_Meeting_Data_Set</a></span><span class="o">.</span><span class="kt">Search_Refinements</span><span class="o">&gt;</span><span class="p">,</span>
+                   <span class="nv">refCon</span><span class="p">:</span> <span class="kt">Any</span><span class="p">?,</span>
                    <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Protocols/LGV_MeetingSDK_SearchInitiator_Protocol.html#/s:14LGV_MeetingSDK0a1_bC25_SearchInitiator_ProtocolP0bD15CallbackClosurea">MeetingSearchCallbackClosure</a></span><span class="p">)</span></code></pre>
 
                         </div>
@@ -318,6 +319,18 @@
                               <td>
                                 <div>
                                   <p>a set of search filter refinements.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>refCon</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An arbitrary data attachment to the search. This will be returned in the search results set.</p>
                                 </div>
                               </td>
                             </tr>

@@ -168,7 +168,87 @@
 
 <p>This SDK provides a (mostly) protocol-based definition of an SDK that can be applied to low-level server connections, when the server provides information on regularly-scheduled (weekly) events.</p>
 
-<p>The information is &ldquo;commiditized&rdquo; into a relatively straightforward structure, so different types of servers, with different behaviors, can be abstracted behind a common façade.</p>
+<p>The information is &ldquo;commoditized&rdquo; into a relatively straightforward structure, so different types of servers, with different behaviors, can be abstracted behind a common façade.</p>
+
+<p><a href="https://littlegreenviper.github.io/LGV_MeetingSDK/">Here is the online technical documentation for this SDK.</a></p>
+<h2 id='what-problem-does-this-solve' class='heading'>What Problem Does This Solve?</h2>
+
+<p>There are very many databases and APIs available, for online scheduling of meetings, and it can be quite daunting, to develop connectors to all of them.</p>
+
+<p>This SDK is a &ldquo;baseline&rdquo; platform that can be extended and specialized, into discrete, focused, connectors that can be &ldquo;mixed and matched,&rdquo; and return a single, consistent data structure.</p>
+
+<p>It also allows a &ldquo;native&rdquo; Swift approach to these connectors, using modern, platform-agnostic Swift.</p>
+<h2 id='requirements' class='heading'>Requirements</h2>
+
+<p>This is a <a href="https://www.swift.org">Swift</a>-only SDK, and is meant to be used by native Swift Apple implementations. It will work for all Apple platforms (<a href="https://apple.com/ios">iOS</a>, <a href="https://apple.com/ipados">iPadOS</a>, <a href="https://apple.com/watchos">WatchOS</a>, <a href="https://apple.com/macos">MacOS</a>, and <a href="https://apple.com/tvos">TVOS</a>).</p>
+
+<p>There are no dependencies for the SDK, but <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK/tree/master/Tests/LGV_MeetingSDK_Test_Harness">the test harness app</a> has some dependencies:</p>
+
+<ul>
+<li><a href="https://riftvalleysoftware.com/work/open-source-projects/#toolbox">RVS_Generic_Swift_Toolbox</a></li>
+<li><a href="https://riftvalleysoftware.com/work/open-source-projects/#uikit">RVS_UIKit_Toolbox</a></li>
+<li><a href="https://riftvalleysoftware.com/work/open-source-projects/#RVS_PersistentPrefs">RVS_Persistent_Prefs</a></li>
+<li><a href="https://riftvalleysoftware.com/work/open-source-projects/#RVS_Checkbox">RVS_Checkbox</a></li>
+</ul>
+<h2 id='what-is-a-quot-meeting-quot' class='heading'>What Is A &ldquo;Meeting&rdquo;?</h2>
+
+<p>For the purposes of this SDK, a meeting is a regularly-occurring event, happening at a certain physical location, or virtual venue (or both). The cadence is weekly.</p>
+
+<p>There are provisions for &ldquo;one-off&rdquo; events, but these would best be handled by something like a calendar or scheduling system.</p>
+
+<p>Meetings are associated with &ldquo;Organizations.&rdquo;</p>
+<h2 id='what-is-an-quot-organization-quot' class='heading'>What Is An &ldquo;Organization&rdquo;?</h2>
+
+<p>This SDK is being developed in order to specifically address the technical needs of propagating scheduling information for 12-Step Recovery organizations, like <a href="https://aa.org">AA</a> and <a href="https://na.org">NA</a>, however, it does not need to be restricted to these types of fellowships. It may also be used to &ldquo;mix and match&rdquo; meetings from different organizations.</p>
+<h2 id='sdk-structure' class='heading'>SDK Structure</h2>
+
+<p>The basic structure of the SDK, is an instance of the SDK, specialized for a certain API (for example, the <a href="https://bmlt.app">BMLT</a> API), that will have an organization assigned. This organization will have a &ldquo;transport&rdquo; assigned, which takes care of querying the server, and parsing the response. It does this, via &ldquo;initiators,&rdquo; and &ldquo;parsers.&rdquo;</p>
+
+<p><img src="img/SystemDiagram.png" alt="The System Diagram"></p>
+
+<p>In the diagram above, we see the SDK being used as a connector to a <a href="https://bmlt.app">BMLT</a> server.</p>
+
+<p>A search is initiated by the user of the SDK, by providing a <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK/blob/master/Sources/LGV_MeetingSDK/Types/LGV_MeetingSDK.swift#L318">Search Type</a>, and <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK/blob/master/Sources/LGV_MeetingSDK/Types/LGV_MeetingSDK.swift#L509">Search Refinements</a>. These define the parameters of the search.</p>
+
+<p>The SDK then gets the <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK/blob/master/Sources/LGV_MeetingSDK/Protocols/LGV_MeetingSDK_Transport_Protocol.swift#L107">Transport</a> instance from its <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK/blob/master/Sources/LGV_MeetingSDK/Protocols/LGV_MeetingSDK_Organization_Protocol.swift#L28">Organization</a> instance, and asks it to perform the search.</p>
+
+<p>The <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK/blob/master/Sources/LGV_MeetingSDK/Protocols/LGV_MeetingSDK_Transport_Protocol.swift#L107">Transport</a> instance has an <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK/blob/master/Sources/LGV_MeetingSDK/Protocols/LGV_MeetingSDK_Transport_Protocol.swift#L50">Initiator</a> instance, as well as a <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK/blob/master/Sources/LGV_MeetingSDK/Protocols/LGV_MeetingSDK_Transport_Protocol.swift#L28">Parser</a> instance, that will take care of the actual interaction (in this case, HTTPS) with the <em>Meeting List Server</em> (in this case, a BMLT server instance).</p>
+
+<p>The initiator knows how to translate the generic <em>Search Type</em> (and, possibly, the <em>Refinements</em>) into a server query, and sends a request to the <em>Meeting List Server</em> that satisfies the parameters of the requested search.</p>
+
+<p>The server responds with an answer to the query (in this case, <a href="https://www.json.org">JSON</a> data), which the <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK/blob/master/Sources/LGV_MeetingSDK/Protocols/LGV_MeetingSDK_Transport_Protocol.swift#L50">Initiator</a> sends to the <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK/blob/master/Sources/LGV_MeetingSDK/Protocols/LGV_MeetingSDK_Transport_Protocol.swift#L28">Parser</a>, which renders it into the basic object model that will be passed to the SDK user.</p>
+
+<p>Each <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK/blob/master/Sources/LGV_MeetingSDK/Protocols/LGV_MeetingSDK_Meeting_Protocols.swift#L227">Meeting</a> instance may have multiple <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK/blob/master/Sources/LGV_MeetingSDK/Protocols/LGV_MeetingSDK_Meeting_Protocols.swift#L61">Format</a> instances attached. These are metadata that define various attributes of the meeting. It will also have at least one <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK/blob/master/Sources/LGV_MeetingSDK/Protocols/LGV_MeetingSDK_Meeting_Protocols.swift#L95">Physical Venue</a>, or at least one <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK/blob/master/Sources/LGV_MeetingSDK/Protocols/LGV_MeetingSDK_Meeting_Protocols.swift#L127">Virtual Venue</a>. It can have both types of venues (Called a &ldquo;hybrid&rdquo; meeting).</p>
+
+<p>The <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK/blob/master/Sources/LGV_MeetingSDK/Protocols/LGV_MeetingSDK_Protocols.swift#L83">response</a> to the user is returned in a <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK/blob/master/Sources/LGV_MeetingSDK/Protocols/LGV_MeetingSDK_Transport_Protocol.swift#L58">Swift Completion Block</a>.</p>
+
+<p>The response contains the initial search request parameters, as well as any meetings found, that satisfy the request. Any errors encountered are also returned in the closure.</p>
+<h2 id='built-in-connectors' class='heading'>Built-In Connectors</h2>
+
+<p>Currently, the only specialized connector, is one for <a href="https://bmlt.app">the BMLT</a>, a modern, worldwide API for <a href="https://na.org">NA</a> meetings.</p>
+<h2 id='examples' class='heading'>Examples</h2>
+
+<p>Examples of the use of the SDK are available in <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK/tree/master/Tests/LGV_MeetingSDKTests">The Unit Tests</a>, and <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK/tree/master/Tests/LGV_MeetingSDK_Test_Harness">The Test Harness</a>.</p>
+<h2 id='where-to-get' class='heading'>Where To Get</h2>
+
+<p>This SDK is available as a <a href="https://www.swift.org/package-manager/">Swift Package</a>,</p>
+
+<p>The <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK">Source code is available on GitHub</a>.</p>
+
+<p>The HTTPS URL for the package is <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK"><code>https://github.com/LittleGreenViper/LGV_MeetingSDK</code></a>.</p>
+
+<p>The SSH URI for the package is <code>git@github.com:LittleGreenViper/LGV_MeetingSDK.git</code>.</p>
+<h2 id='license' class='heading'>License</h2>
+
+<p>The SDK is provided as <a href="https://opensource.org/licenses/MIT">MIT</a>-licensed code.</p>
+
+<p>Copyright 2022 <a href="https://littlegreenviper.com">Little Green Viper Software Development LLC</a></p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &ldquo;Software&rdquo;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED &ldquo;AS IS&rdquo;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 
           </div>
         </section>
