@@ -8,7 +8,8 @@ This SDK provides a (mostly) protocol-based definition of an SDK that can be app
 
 The information is "commoditized" into a relatively straightforward structure, so different types of servers, with different behaviors, can be abstracted behind a common façade.
 
-[Here is the online technical documentation for this SDK.](https://littlegreenviper.github.io/LGV_MeetingSDK/)
+    - [Online technical documentation](https://littlegreenviper.github.io/LGV_MeetingSDK/)
+    - [Source code available on GitHub](https://github.com/LittleGreenViper/LGV_MeetingSDK)
 
 ## What Problem Does This Solve?
 
@@ -45,7 +46,7 @@ This SDK is being developed in order to specifically address the technical needs
 
 The basic structure of the SDK, is an instance of the SDK, specialized for a certain API (for example, the [BMLT](https://bmlt.app) API), that will have an organization assigned. This organization will have a "transport" assigned, which takes care of querying the server, and parsing the response. It does this, via "initiators," and "parsers."
 
-![The System Diagram](img/SystemDiagram.png)
+![The System Diagram](SystemDiagram.png)
 
 In the diagram above, we see the SDK being used as a connector to a [BMLT](https://bmlt.app) server.
 
@@ -69,19 +70,24 @@ The response contains the initial search request parameters, as well as any meet
 
 Currently, the only specialized connector, is one for [the BMLT](https://bmlt.app), a modern, worldwide API for [NA](https://na.org) meetings.
 
+ [Here is the source code for the BMLT connector.](https://github.com/LittleGreenViper/LGV_MeetingSDK/tree/master/Sources/LGV_MeetingSDK/Types/BMLT)
+
 ## Examples
 
 Examples of the use of the SDK are available in [The Unit Tests](https://github.com/LittleGreenViper/LGV_MeetingSDK/tree/master/Tests/LGV_MeetingSDKTests), and [The Test Harness](https://github.com/LittleGreenViper/LGV_MeetingSDK/tree/master/Tests/LGV_MeetingSDK_Test_Harness).
 
 ## Where To Get
 
-This SDK is available as a [Swift Package](https://www.swift.org/package-manager/),
+### [**Swift Package Manager (SPM)**](https://swift.org/package-manager/)
 
-The [Source code is available on GitHub](https://github.com/LittleGreenViper/LGV_MeetingSDK).
+- The HTTPS URL for the package is [`https://github.com/LittleGreenViper/LGV_MeetingSDK`](https://github.com/LittleGreenViper/LGV_MeetingSDK).
+- The SSH URI for the package is `git@github.com:LittleGreenViper/LGV_MeetingSDK.git`.
 
-The HTTPS URL for the package is [`https://github.com/LittleGreenViper/LGV_MeetingSDK`](https://github.com/LittleGreenViper/LGV_MeetingSDK).
+### [**Carthage**](https://github.com/Carthage/Carthage)
 
-The SSH URI for the package is `git@github.com:LittleGreenViper/LGV_MeetingSDK.git`.
+You implement it by adding the following line in your [Cartfile](https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md):
+
+    `github "LittleGreenViper/LGV_MeetingSDK"`
 
 ## License
 
