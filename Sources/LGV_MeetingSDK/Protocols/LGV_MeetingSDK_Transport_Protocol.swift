@@ -30,14 +30,17 @@ public protocol LGV_MeetingSDK_Parser_Protocol: AnyObject {
     /**
      REQUIRED - This parses data, and returns meetings.
      
-     - parameter searchType (OPTIONAL): This is the search specification main search type.
-     - parameter searchRefinements (OPTIONAL): This is the search specification additional filters.
-     - parameter data: The unparsed data, from the transport. It should consist of a meeting data set.
-     - parameter completion: A callback, for when the parse is complete. This is escaping, and may not be called in the main thread.
+     - Parameters:
+        - searchType (OPTIONAL): This is the search specification main search type.
+        - searchRefinements (OPTIONAL): This is the search specification additional filters.
+        - data: The unparsed data, from the transport. It should consist of a meeting data set.
+        - refCon: An arbitrary data attachment to the search. This will be returned in the search results set.
+        - completion: A callback, for when the parse is complete. This is escaping, and may not be called in the main thread.
      */
-    func parseThis(searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
-                   searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
+    func parseThis(searchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
+                   searchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
                    data: Data,
+                   refCon: Any?,
                    completion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure)
 }
 

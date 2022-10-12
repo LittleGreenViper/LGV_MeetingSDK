@@ -463,13 +463,15 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
         - searchType (OPTIONAL): This is the search specification main search type. Default is .none.
         - searchRefinements (OPTIONAL): This is the search specification additional filters. Default is .none.
         - data: The unparsed data, from the transport. It should consist of a meeting data set.
+        - refCon: An arbitrary data attachment to the search. This will be returned in the search results set.
         - completion: A callback, for when the parse is complete. This is escaping, and may not be called in the main thread.
      */
     public func parseThis(searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints = .none,
                           searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = [],
                           data inData: Data,
+                          refCon inRefCon: Any?,
                           completion inCompletion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
-        let emptyResponse = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements)
+        let emptyResponse = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, refCon: inRefCon)
         do {
             if let main_object = try JSONSerialization.jsonObject(with: inData, options: []) as? [String: [[String: String]]],
                let meetingsObject = main_object["meetings"],
@@ -505,11 +507,11 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
                     return meeting
                 }
                 
-                let meetingData = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: meetings)
+                let meetingData = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: meetings, refCon: inRefCon)
 
                 inCompletion(meetingData, nil)
             } else {
-                inCompletion(LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: []), nil)
+                inCompletion(LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: [], refCon: inRefCon), nil)
             }
         } catch {
             inCompletion(emptyResponse, LGV_MeetingSDK_Meeting_Data_Set.Error.parsingError(error: .jsonParseFailure(error: error)))

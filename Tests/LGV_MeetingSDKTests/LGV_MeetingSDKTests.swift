@@ -48,12 +48,15 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
              - parameter searchType (OPTIONAL): This is the search specification main search type. Default is .none.
              - parameter searchRefinements (OPTIONAL): This is the search specification additional filters. Default is .none.
              - parameter data: The unparsed data, from the transport. It should consist of a meeting data set.
+             - parameter refCon (OPTIONAL): An arbitrary data attachment to the search. This will be returned in the search results set.
+             - parameter completion (REQUIRED): The completion closure block. This may be called from any thread.
              */
             func parseThis(searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
                            searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
                            data inData: Data,
+                           refCon inRefCon: Any?,
                            completion inCompletion: LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
-                inCompletion(LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: []), nil)
+                inCompletion(LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: [], refCon: inRefCon), nil)
             }
         }
 
@@ -88,9 +91,9 @@ final class LGV_MeetingSDKTests_Setup: XCTestCase {
              */
             func meetingSearch(type inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
                                refinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
-                               refCon: Any? = nil,
+                               refCon inRefCon: Any? = nil,
                                completion inCompletion: @escaping MeetingSearchCallbackClosure) {
-                parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: Data(), completion: inCompletion)
+                parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: Data(), refCon: inRefCon, completion: inCompletion)
             }
         }
         

@@ -47,7 +47,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
         // See if we have mock data.
         if let dataToParse = (transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse {
             (transport as? LGV_MeetingSDK_BMLT.Transport)?.debugMockDataResponse = nil
-            parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: dataToParse) { inParsedMeetings, inError in
+            parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: dataToParse, refCon: inRefCon) { inParsedMeetings, inError in
                 if var parsedData = inParsedMeetings {
                     parsedData.extraInfo = urlRequest.url?.absoluteString ?? ""
                     inCompletion(parsedData, inError)
@@ -71,7 +71,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
                     case 200..<300:
                         if let data = data,
                            "application/json" == response.mimeType {
-                            self.parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: data) { inParsedMeetings, inError in
+                            self.parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: data, refCon: inRefCon) { inParsedMeetings, inError in
                                 if var parsedData = inParsedMeetings {
                                     parsedData.extraInfo = urlRequest.url?.absoluteString ?? ""
                                     inCompletion(parsedData, inError)
