@@ -56,7 +56,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
                 }
             }
         } else {    // Otherwise, we need to execute an NSURLSession data task.
-            URLSession.shared.dataTask(with: urlRequest) { [weak self] data, response, error in
+            URLSession.shared.dataTask(with: urlRequest) { [self] data, response, error in
                 let emptyResponse = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements)
                 guard let response = response as? HTTPURLResponse else {
                     inCompletion(emptyResponse, LGV_MeetingSDK_Meeting_Data_Set.Error.CommunicationError.missingResponseError(error: error))
@@ -71,7 +71,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
                     case 200..<300:
                         if let data = data,
                            "application/json" == response.mimeType {
-                            self?.parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: data) { inParsedMeetings, inError in
+                            self.parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: data) { inParsedMeetings, inError in
                                 if var parsedData = inParsedMeetings {
                                     parsedData.extraInfo = urlRequest.url?.absoluteString ?? ""
                                     inCompletion(parsedData, inError)
