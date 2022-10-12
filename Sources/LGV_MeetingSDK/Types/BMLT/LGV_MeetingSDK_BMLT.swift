@@ -321,7 +321,7 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
         /**
          The organization to which this meeting belongs.
          */
-        public weak var organization: LGV_MeetingSDK_Organization_Protocol?
+        public var organization: LGV_MeetingSDK_Organization_Protocol?
         
         /* ################################################################## */
         /**
@@ -454,7 +454,7 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
              The initiator, for creating search commands.
              We declare the stored property private, and specific to the class, so we can weakly reference it.
              */
-            private weak var _initiator: Initiator?
+            private var _initiator: Initiator?
             
             /* ################################################################## */
             /**
@@ -479,7 +479,7 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
              The transport to be used for this initiator.
              We declare the stored property private, and specific to the class, so we can weakly reference it.
              */
-            private weak var _transport: Transport?
+            private var _transport: Transport?
             
             /* ########################################################## */
             /**
@@ -528,7 +528,7 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
         /**
          The transport organization to which this instance is assigned.
          */
-        public weak var organization: LGV_MeetingSDK_Organization_Transport_Protocol?
+        public var organization: LGV_MeetingSDK_Organization_Transport_Protocol?
         
         /* ########################################################## */
         /**

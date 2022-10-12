@@ -250,13 +250,13 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
         print("We need to do something with this!")
         print("Search Results: \(String(describing: inSearchResults))")
         print("\tError: \(String(describing: inError))")
-        DispatchQueue.main.async { [weak self] in
-            self?.appDelegateInstance?.searchData = inSearchResults as? LGV_MeetingSDK_BMLT.Data_Set
-            self?.mapViewController?.isBusy = false
-            self?.setTabBarEnablement()
+        DispatchQueue.main.async { [self] in
+            self.appDelegateInstance?.searchData = inSearchResults as? LGV_MeetingSDK_BMLT.Data_Set
+            self.mapViewController?.isBusy = false
+            self.setTabBarEnablement()
             if !(inSearchResults?.meetings ?? []).isEmpty {
-                self?.selectedIndex = TabIndexes.results.rawValue
-                (self?.selectedViewController as? LGV_MeetingSDK_Test_Harness_Results_ViewController)?.updateUI()
+                self.selectedIndex = TabIndexes.results.rawValue
+                (self.selectedViewController as? LGV_MeetingSDK_Test_Harness_Results_ViewController)?.updateUI()
             }
         }
     }
