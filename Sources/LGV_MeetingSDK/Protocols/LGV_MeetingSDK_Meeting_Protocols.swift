@@ -430,12 +430,14 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
      Default returns an optional DateComponents object, with the weekday and time of the meeting. Returns nil, if the meeting weekday and/or start time is invalid.
      */
     var startTimeAndDay: DateComponents? {
+        let startTime = meetingStartTime
+        
         guard (1...7).contains(weekdayIndex),
-              (0...2400).contains(meetingStartTime)
+              (0...2400).contains(startTime)
         else { return nil }
         
-        var hour = Int(meetingStartTime / 1000)
-        let minute = Int(meetingStartTime - (hour * 1000))
+        var hour = Int(startTime / 100)
+        let minute = Int(startTime - (hour * 100))
         var weekdayIndex = weekdayIndex
 
         // Special case for "tonight midnight."
