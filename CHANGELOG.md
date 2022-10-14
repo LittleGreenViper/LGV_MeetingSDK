@@ -2,6 +2,7 @@
 
 - Fixed an issue, where having information in the meeting comments would cause an invalid virtual venue to be created.
 - Fixed a bug, where the start time was wrong (divided military by 1000, not 100).
+- Fixed a bug, where virtual-only meetings were getting physical locations assigned.
 
 **1.1.0.0000** *October 12, 2022*
 

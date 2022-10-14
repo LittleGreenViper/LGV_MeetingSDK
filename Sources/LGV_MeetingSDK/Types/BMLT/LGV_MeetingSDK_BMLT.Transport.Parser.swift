@@ -192,6 +192,9 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
             postalAddress.street = value
         }
         
+        // No street, no physical location.
+        guard !postalAddress.street.isEmpty else { return nil }
+        
         if let value = inMeetingData["location_city_subsection"] {
             postalAddress.subLocality = value
         }
