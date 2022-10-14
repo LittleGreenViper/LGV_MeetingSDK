@@ -136,7 +136,6 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
      */
     private static func _convert(thisDataToAVirtualLocation inMeetingData: [String: String]) -> LGV_MeetingSDK_BMLT.Meeting.VirtualLocation? {
         let meetingURL = URL(string: _cleanURI(urlString: inMeetingData["virtual_meeting_link"] ?? inMeetingData["virtual_meeting_additional_info"] ?? "") ?? "")
-                        ?? URL(string: _cleanURI(urlString: inMeetingData["comments"] ?? "") ?? "")
         let phoneNumber = _decimalOnly(inMeetingData["phone_meeting_number"] ?? "")
         let phoneURL = phoneNumber.isEmpty ? nil : URL(string: "tel:\(phoneNumber)")
         let extraInfo = inMeetingData["virtual_meeting_additional_info"] ?? ""
