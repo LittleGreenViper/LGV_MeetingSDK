@@ -713,29 +713,25 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
          */
         public func encode(to inEncoder: Encoder) throws {
             var container = inEncoder.container(keyedBy: CodingKeys.self)
+            try container.encode(Self._typeIndex(for: self), forKey: .type)
             switch self {
             case .none:
-                try container.encode(Self._typeIndex(for: self), forKey: .type)
+                break
 
             case let .venueTypes(venueTypes):
-                try container.encode(Self._typeIndex(for: self), forKey: .type)
                 try container.encode(venueTypes.compactMap { $0.rawValue }, forKey: .venueTypes)
 
             case let .weekdays(weekdays):
-                try container.encode(Self._typeIndex(for: self), forKey: .type)
                 try container.encode(weekdays.compactMap { $0.rawValue }, forKey: .weekdays)
 
             case let .startTimeRange(startTimeRange):
-                try container.encode(3, forKey: .type)
                 try container.encode(startTimeRange.lowerBound, forKey: .startTimeRange_LowerBound)
                 try container.encode(startTimeRange.upperBound, forKey: .startTimeRange_UpperBound)
 
             case let .string(searchString):
-                try container.encode(Self._typeIndex(for: self), forKey: .type)
                 try container.encode(searchString, forKey: .string)
 
             case let .distanceFrom(thisLocation):
-                try container.encode(Self._typeIndex(for: self), forKey: .type)
                 try container.encode(thisLocation.latitude, forKey: .distanceFrom_Lat)
                 try container.encode(thisLocation.longitude, forKey: .distanceFrom_Lng)
             }
@@ -825,12 +821,13 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
     /**
      Default initializer.
      
-     - parameter searchType (OPTIONAL): This is the search specification main search type. Default is .none.
-     - parameter searchRefinements (OPTIONAL): This is the search specification additional filters. Default is an empty set.
-     - parameter meetings (OPTIONAL): This contains any found meetings. It may be empty or omitted (no meetings found).
-     - parameter formats (OPTIONAL): This Dictionary contains any found formats.
-     - parameter extraInfo (OPTIONAL): This has any extra information that we wish to attach to the data set. Default is an empty String.
-     - parameter refCon (OPTIONAL): This has any reference context that we wish to attach to the data set. Default is nil.
+     - Parameters:
+        - searchType (OPTIONAL): This is the search specification main search type. Default is .none.
+        - searchRefinements (OPTIONAL): This is the search specification additional filters. Default is an empty set.
+        - meetings (OPTIONAL): This contains any found meetings. It may be empty or omitted (no meetings found).
+        - formats (OPTIONAL): This Dictionary contains any found formats.
+        - extraInfo (OPTIONAL): This has any extra information that we wish to attach to the data set. Default is an empty String.
+        - refCon (OPTIONAL): This has any reference context that we wish to attach to the data set. Default is nil.
      */
     public init(searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints = .none,
                 searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = [],

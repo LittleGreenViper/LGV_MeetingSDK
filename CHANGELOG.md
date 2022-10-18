@@ -1,3 +1,5 @@
+**1.1.2.0000** *TBD*
+
 **1.1.1.0000** *October 14, 2022*
 
 - Fixed an issue, where having information in the meeting comments would cause an invalid virtual venue to be created.

@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.6
 
 /*
  © Copyright 2022, Little Green Viper Software Development LLC
@@ -33,6 +33,7 @@ let package = Package(
                          targets: ["LGV_MeetingSDK"]
                        )
               ],
+    dependencies: [.package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0")],
     targets: [.target(name: "LGV_MeetingSDK"),
               .testTarget(name: "LGV_MeetingSDKTests",
                           dependencies: ["LGV_MeetingSDK"],
