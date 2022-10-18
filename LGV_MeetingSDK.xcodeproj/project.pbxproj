@@ -149,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				D46D476028D3BF6400D8785E /* Sources */,
+				D44AA17228E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness */,
 				D4A6EC8228DB4B4200B3E660 /* Tests */,
 				D477C00628E1DD2F00B29654 /* Meta */,
 				D412C80328D3BEC500BAFC16 /* Products */,
@@ -238,7 +239,6 @@
 		D4A6EC8228DB4B4200B3E660 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				D44AA17228E23C5100AB0D85 /* LGV_MeetingSDK_Test_Harness */,
 				D4A6EC7928DB4B3900B3E660 /* LGV_MeetingSDKTests */,
 			);
 			path = Tests;
@@ -746,7 +746,7 @@
 				CURRENT_PROJECT_VERSION = 0000;
 				DEVELOPMENT_TEAM = P53V4JS928;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Tests/LGV_MeetingSDK_Test_Harness/Info.plist;
+				INFOPLIST_FILE = LGV_MeetingSDK_Test_Harness/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "SLUG-LOCATION-PRIVACY-STATEMENT";
 				INFOPLIST_KEY_NSLocationUsageDescription = "SLUG-LOCATION-PRIVACY-STATEMENT";
@@ -779,7 +779,7 @@
 				CURRENT_PROJECT_VERSION = 0000;
 				DEVELOPMENT_TEAM = P53V4JS928;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Tests/LGV_MeetingSDK_Test_Harness/Info.plist;
+				INFOPLIST_FILE = LGV_MeetingSDK_Test_Harness/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "SLUG-LOCATION-PRIVACY-STATEMENT";
 				INFOPLIST_KEY_NSLocationUsageDescription = "SLUG-LOCATION-PRIVACY-STATEMENT";

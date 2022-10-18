@@ -7,6 +7,8 @@ disabled_rules:
 - nesting
 - leading_whitespace
 - trailing_newline
+- trailing_comma
+- vertical_whitespace
 
 opt_in_rules:
 - control_statement
@@ -20,6 +22,10 @@ excluded:
 - img
 - spec
 - Project-Meta
+
+function_parameter_count:
+- 6 # warning
+- 7 # error
 
 type_body_length:
 - 299 # warning
