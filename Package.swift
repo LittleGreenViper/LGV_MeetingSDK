@@ -34,10 +34,8 @@ let package = Package(
                        )
               ],
     dependencies: [.package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0")],
-    targets: [.target(name: "LGV_MeetingSDK"),
-              .testTarget(name: "LGV_MeetingSDKTests",
-                          dependencies: ["LGV_MeetingSDK"],
-                          path: "Tests/LGV_MeetingSDKTests"
-                         )
+    targets: [.target(name: "LGV_MeetingSDK",
+                      exclude: ["Types/BMLT/README.md"]
+                     )
              ]
 )
