@@ -56,7 +56,7 @@ class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harnes
     
     /* ################################################################## */
     /**
-     We start in the center of the US.
+     We start in Central Park.
      */
     private static let _mapCenter = CLLocationCoordinate2D(latitude: 40.7812, longitude: -73.9665)
 

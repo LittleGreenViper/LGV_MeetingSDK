@@ -1,10 +1,10 @@
-![The Project Icon](img/icon.png)
-
 # ``LGV_MeetingSDK``
 
 An adaptible SDK, for finding and listing regularly-occurring, scheduled events.
 
 ## Overview
+
+![The Project Icon](img/icon.png)
 
 This SDK provides a (mostly) protocol-based definition of an SDK that can be applied to low-level server connections, when the server provides information on regularly-scheduled (weekly) events.
 
@@ -25,7 +25,7 @@ It also allows a "native" Swift approach to these connectors, using modern, plat
 
 This is a [Swift](https://www.swift.org)-only SDK, and is meant to be used by native Swift Apple implementations. It will work for all Apple platforms ([iOS](https://apple.com/ios), [iPadOS](https://apple.com/ipados), [WatchOS](https://apple.com/watchos), [MacOS](https://apple.com/macos), and [TVOS](https://apple.com/tvos)).
 
-There are no dependencies for the SDK, but [the test harness app](https://github.com/LittleGreenViper/LGV_MeetingSDK/tree/master/Tests/LGV_MeetingSDK_Test_Harness) has some dependencies:
+There are no dependencies for the SDK, but [the test harness app](https://github.com/LittleGreenViper/LGV_MeetingSDK/tree/master/LGV_MeetingSDK_Test_Harness) has some dependencies:
 
 - [RVS_Generic_Swift_Toolbox](https://riftvalleysoftware.com/work/open-source-projects/#toolbox)
 - [RVS_UIKit_Toolbox](https://riftvalleysoftware.com/work/open-source-projects/#uikit)
@@ -76,7 +76,7 @@ Currently, the only specialized connector, is one for [the BMLT](https://bmlt.ap
 
 ## Examples
 
-Examples of the use of the SDK are available in [The Unit Tests](https://github.com/LittleGreenViper/LGV_MeetingSDK/tree/master/Tests/LGV_MeetingSDKTests), and [The Test Harness](https://github.com/LittleGreenViper/LGV_MeetingSDK/tree/master/Tests/LGV_MeetingSDK_Test_Harness).
+Examples of the use of the SDK are available in [The Unit Tests](https://github.com/LittleGreenViper/LGV_MeetingSDK/tree/master/Tests/LGV_MeetingSDKTests), and [The Test Harness](https://github.com/LittleGreenViper/LGV_MeetingSDK/tree/master/LGV_MeetingSDK_Test_Harness).
 
 ## Where To Get
 
@@ -90,6 +90,73 @@ Examples of the use of the SDK are available in [The Unit Tests](https://github.
 You implement it by adding the following line in your [Cartfile](https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md):
 
     `github "LittleGreenViper/LGV_MeetingSDK"`
+    
+## Usage
+
+You need to have a concrete implementation of the `LGV_MeetingSDK_Protocol`. Currently, there is only one: the `LGV_MeetingSDK_BMLT` class.
+
+Instantiate the class, along with any settings and/or parameters (each concrete implementation will have its own rules), and call the `LGV_MeetingSDK_BMLT.meetingSearch(type:refinements:refCon:completion:)` method.
+
+First, instantiate the SDK:
+
+``` swift
+// We specify the worldwide TOMATO server, for this example.
+guard let rootServerURL = URL(string: "https://tomato.bmltenabled.org/main_server") else { return }
+let sdkInstance = LGV_MeetingSDK_BMLT(rootServerURL: rootServerURL)
+```
+
+Then, specify the search type, by instantiating an instance of `LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints`:
+
+``` swift
+// Search around Central Park, in New York City, for 10 meetings, at a maximum distance from the search center, of 20 Km.
+let searchCenter = CLLocationCoordinate2D(latitude: 40.7812, longitude: -73.9665)
+let searchType = LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints(.autoRadius(centerLongLat: searchCenter,
+                                                                               minimumNumberOfResults: 10,
+                                                                               maxRadiusInMeters: 20000
+                                                                               )
+                                                                   )
+```
+
+You can also specify various search constraints, such as whether or not to look for meetings that gather on certain days of the week, which you specify by instantiating an instance of `LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements`:
+``` swift
+// Look for meetings on the weekend.
+let searchRefinements = LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements(.weekdays([.sunday, .saturday]))
+```
+
+Finally, you'll need to have a callback completion block, which is defined as ``LGV_MeetingSDK/LGV_MeetingSDK_SearchInitiator_Protocol/MeetingSearchCallbackClosure``:
+``` swift
+func completionBlock(_ inSearchResults: LGV_MeetingSDK_Meeting_Data_Set_Protocol?, _ inError: Error?) {
+    if let error = inError {
+        print("There was an error!\n\t\(error.localizedDescription)")
+    } else if let searchResults = inSearchResults {
+        print("These are the search results:\n\t\(searchResults.debugDescription)")
+    } else {
+        print("This should not happen! Nothing was returned!")
+    }
+}
+```
+And then, call the ``LGV_MeetingSDK/LGV_MeetingSDK_Protocol/meetingSearch(type:refinements:refCon:completion:)-6lad7`` method, with these arguments:
+``` swift
+sdkInstance.meetingSearch(type: searchType, refinements: searchRefinements, completion: completionBlock)
+```
+
+Of course, since this is Swift, we can "shortcut" everything, like so:
+
+``` swift
+guard let rootServerURL = URL(string: "https://tomato.bmltenabled.org/main_server") else { return }
+LGV_MeetingSDK_BMLT(rootServerURL: rootServerURL)
+    .meetingSearch(type: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints(.autoRadius(centerLongLat: searchCenter, minimumNumberOfResults: 10, maxRadiusInMeters: 20000)),
+                   refinements: LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements(.weekdays([.sunday, .saturday]))
+                   ) { (_ inSearchResults: LGV_MeetingSDK_Meeting_Data_Set_Protocol?, _ inError: Error?) in
+                         if let error = inError {
+                            print("There was an error!\n\t\(error.localizedDescription)")
+                         } else if let searchResults = inSearchResults {
+                            print("These are the search results:\n\t\(searchResults.debugDescription)")
+                         } else {
+                            print("This should not happen! Nothing was returned!")
+                         }
+                     }
+```
 
 ## License
 
