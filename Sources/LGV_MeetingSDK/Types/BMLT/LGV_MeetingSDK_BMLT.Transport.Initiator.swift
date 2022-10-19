@@ -40,6 +40,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
                               refinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
                               refCon inRefCon: Any? = nil,
                               completion inCompletion: @escaping MeetingSearchCallbackClosure) {
+        transport?.sdkInstance?.lastSearch = nil
         guard let urlRequest = (transport as? LGV_MeetingSDK_BMLT.Transport)?.ceateURLRequest(type: inSearchType, refinements: inSearchRefinements) else { return }
         #if DEBUG
             print("URL Request: \(urlRequest.debugDescription)")
@@ -74,6 +75,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
                             self.parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: data, refCon: inRefCon) { inParsedMeetings, inError in
                                 if var parsedData = inParsedMeetings {
                                     parsedData.extraInfo = urlRequest.url?.absoluteString ?? ""
+                                    self.transport?.sdkInstance?.lastSearch = parsedData
                                     inCompletion(parsedData, inError)
                                 } else {
                                     inCompletion(emptyResponse, inError)

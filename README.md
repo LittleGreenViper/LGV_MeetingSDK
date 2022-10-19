@@ -95,7 +95,7 @@ You implement it by adding the following line in your [Cartfile](https://github.
 
 You need to have a concrete implementation of the `LGV_MeetingSDK_Protocol`. Currently, there is only one: the `LGV_MeetingSDK_BMLT` class.
 
-Instantiate the class, along with any settings and/or parameters (each concrete implementation will have its own rules), and call the `LGV_MeetingSDK_BMLT.meetingSearch(type:refinements:refCon:completion:)` method.
+Instantiate the class, along with any settings and/or parameters (each concrete implementation will have its own rules), and call the `LGV_MeetingSDK_Protocol.meetingSearch(type:refinements:refCon:completion:)` method.
 
 First, instantiate the SDK:
 
@@ -123,7 +123,7 @@ You can also specify various search constraints, such as whether or not to look 
 let searchRefinements = LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements(.weekdays([.sunday, .saturday]))
 ```
 
-Finally, you'll need to have a callback completion block, which is defined as ``LGV_MeetingSDK/LGV_MeetingSDK_SearchInitiator_Protocol/MeetingSearchCallbackClosure``:
+Finally, you'll need to have a callback completion block, which is defined as `LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure`:
 ``` swift
 func completionBlock(_ inSearchResults: LGV_MeetingSDK_Meeting_Data_Set_Protocol?, _ inError: Error?) {
     if let error = inError {
@@ -135,7 +135,7 @@ func completionBlock(_ inSearchResults: LGV_MeetingSDK_Meeting_Data_Set_Protocol
     }
 }
 ```
-And then, call the ``LGV_MeetingSDK/LGV_MeetingSDK_Protocol/meetingSearch(type:refinements:refCon:completion:)-6lad7`` method, with these arguments:
+And then, call the `LGV_MeetingSDK_Protocol.meetingSearch(type:refinements:refCon:completion:)` method, with these arguments:
 ``` swift
 sdkInstance.meetingSearch(type: searchType, refinements: searchRefinements, completion: completionBlock)
 ```

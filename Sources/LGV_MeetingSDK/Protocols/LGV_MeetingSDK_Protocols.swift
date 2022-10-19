@@ -23,12 +23,16 @@
 // MARK: - A Simple "Reference Context" Protocol -
 /* ###################################################################################################################################### */
 /**
- This defines a protocol, that defines a simple `extraInfo` String, allowing conformant types to store string information.
+ This defines a protocol, that describes a simple `extraInfo` String, allowing conformant types to store string information.
  */
 public protocol LGV_MeetingSDK_RefCon_Protocol {
     /* ############################################################## */
     /**
      OPTIONAL - This allows the SDK to declare a "refcon" (reference context), attaching any data to the object.
+     
+     Reference contexts are an old pattern, and aren't used as much, these days, because of context-aware closures.
+     However, they can be very useful. For instance, you can attach an enumeration, or UUID to a network call,
+     and return all of the calls to the same closure, and the refcon can help to differentiate the various calls.
      */
     var refCon: Any? { get set }
 }
@@ -80,6 +84,7 @@ public extension LGV_MeetingSDK_Additional_Info_Protocol {
 /* ###################################################################################################################################### */
 /**
  This defines a protocol, containing a "found set" of meeting data.
+ 
  It is defined for a class, so it can be referenced (possibly weakly), in order to avoid data duplication.
  */
 public protocol LGV_MeetingSDK_Meeting_Data_Set_Protocol: AnyObject, LGV_MeetingSDK_Additional_Info_Protocol, LGV_MeetingSDK_RefCon_Protocol, CustomDebugStringConvertible {
@@ -136,7 +141,7 @@ public protocol LGV_MeetingSDK_Protocol {
     /**
      REQUIRED - The "cached" last search. It may be nil (no last search cached).
      */
-    var lastSearch: LGV_MeetingSDK_Meeting_Data_Set? { get }
+    var lastSearch: LGV_MeetingSDK_Meeting_Data_Set_Protocol? { get set }
     
     /* ################################################################## */
     /**

@@ -160,11 +160,12 @@
         <section class="section">
           <div class="section-content top-matter">
             
-            <p><img src="img/icon.png" alt="The Project Icon"></p>
-<h1 id='code-lgv_meetingsdk-code' class='heading'><code><a href="Classes/LGV_MeetingSDK.html">LGV_MeetingSDK</a></code></h1>
+            <h1 id='code-lgv_meetingsdk-code' class='heading'><code><a href="Classes/LGV_MeetingSDK.html">LGV_MeetingSDK</a></code></h1>
 
 <p>An adaptible SDK, for finding and listing regularly-occurring, scheduled events.</p>
 <h2 id='overview' class='heading'>Overview</h2>
+
+<p><img src="img/icon.png" alt="The Project Icon"></p>
 
 <p>This SDK provides a (mostly) protocol-based definition of an SDK that can be applied to low-level server connections, when the server provides information on regularly-scheduled (weekly) events.</p>
 
@@ -185,7 +186,7 @@
 
 <p>This is a <a href="https://www.swift.org">Swift</a>-only SDK, and is meant to be used by native Swift Apple implementations. It will work for all Apple platforms (<a href="https://apple.com/ios">iOS</a>, <a href="https://apple.com/ipados">iPadOS</a>, <a href="https://apple.com/watchos">WatchOS</a>, <a href="https://apple.com/macos">MacOS</a>, and <a href="https://apple.com/tvos">TVOS</a>).</p>
 
-<p>There are no dependencies for the SDK, but <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK/tree/master/Tests/LGV_MeetingSDK_Test_Harness">the test harness app</a> has some dependencies:</p>
+<p>There are no dependencies for the SDK, but <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK/tree/master/LGV_MeetingSDK_Test_Harness">the test harness app</a> has some dependencies:</p>
 
 <ul>
 <li><a href="https://riftvalleysoftware.com/work/open-source-projects/#toolbox">RVS_Generic_Swift_Toolbox</a></li>
@@ -233,7 +234,7 @@
 <p><a href="https://github.com/LittleGreenViper/LGV_MeetingSDK/tree/master/Sources/LGV_MeetingSDK/Types/BMLT">Here is the source code for the BMLT connector.</a></p>
 <h2 id='examples' class='heading'>Examples</h2>
 
-<p>Examples of the use of the SDK are available in <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK/tree/master/Tests/LGV_MeetingSDKTests">The Unit Tests</a>, and <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK/tree/master/Tests/LGV_MeetingSDK_Test_Harness">The Test Harness</a>.</p>
+<p>Examples of the use of the SDK are available in <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK/tree/master/Tests/LGV_MeetingSDKTests">The Unit Tests</a>, and <a href="https://github.com/LittleGreenViper/LGV_MeetingSDK/tree/master/LGV_MeetingSDK_Test_Harness">The Test Harness</a>.</p>
 <h2 id='where-to-get' class='heading'>Where To Get</h2>
 <h3 id='a-href-https-swift-org-package-manager-strong-swift-package-manager-spm-strong-a' class='heading'><a href="https://swift.org/package-manager/"><strong>Swift Package Manager (SPM)</strong></a></h3>
 
@@ -245,6 +246,64 @@
 
 <p>You implement it by adding the following line in your <a href="https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md">Cartfile</a>:</p>
 <pre class="highlight plaintext"><code>`github "LittleGreenViper/LGV_MeetingSDK"`
+</code></pre>
+<h2 id='usage' class='heading'>Usage</h2>
+
+<p>You need to have a concrete implementation of the <code><a href="Protocols/LGV_MeetingSDK_Protocol.html">LGV_MeetingSDK_Protocol</a></code>. Currently, there is only one: the <code><a href="Classes/LGV_MeetingSDK_BMLT.html">LGV_MeetingSDK_BMLT</a></code> class.</p>
+
+<p>Instantiate the class, along with any settings and/or parameters (each concrete implementation will have its own rules), and call the <code><a href="Protocols/LGV_MeetingSDK_Protocol.html#/s:14LGV_MeetingSDK0a1_bC9_ProtocolP13meetingSearch4type11refinements6refCon10completionyAA0a1_bc1_B9_Data_SetC0F11ConstraintsO_ShyAJ0F12_RefinementsOGypSgyAA0a1_bc1_b1_l1_m1_D0_pSg_s5Error_pSgtctF">LGV_MeetingSDK_Protocol.meetingSearch(type:refinements:refCon:completion:)</a></code> method.</p>
+
+<p>First, instantiate the SDK:</p>
+<pre class="highlight swift"><code><span class="c1">// We specify the worldwide TOMATO server, for this example.</span>
+<span class="k">guard</span> <span class="k">let</span> <span class="nv">rootServerURL</span> <span class="o">=</span> <span class="kt">URL</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="s">"https://tomato.bmltenabled.org/main_server"</span><span class="p">)</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
+<span class="k">let</span> <span class="nv">sdkInstance</span> <span class="o">=</span> <span class="kt">LGV_MeetingSDK_BMLT</span><span class="p">(</span><span class="nv">rootServerURL</span><span class="p">:</span> <span class="n">rootServerURL</span><span class="p">)</span>
+</code></pre>
+
+<p>Then, specify the search type, by instantiating an instance of <code><a href="Classes/LGV_MeetingSDK_Meeting_Data_Set/SearchConstraints.html">LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints</a></code>:</p>
+<pre class="highlight swift"><code><span class="c1">// Search around Central Park, in New York City, for 10 meetings, at a maximum distance from the search center, of 20 Km.</span>
+<span class="k">let</span> <span class="nv">searchCenter</span> <span class="o">=</span> <span class="kt">CLLocationCoordinate2D</span><span class="p">(</span><span class="nv">latitude</span><span class="p">:</span> <span class="mf">40.7812</span><span class="p">,</span> <span class="nv">longitude</span><span class="p">:</span> <span class="o">-</span><span class="mf">73.9665</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">searchType</span> <span class="o">=</span> <span class="kt">LGV_MeetingSDK_Meeting_Data_Set</span><span class="o">.</span><span class="kt">SearchConstraints</span><span class="p">(</span><span class="o">.</span><span class="nf">autoRadius</span><span class="p">(</span><span class="nv">centerLongLat</span><span class="p">:</span> <span class="n">searchCenter</span><span class="p">,</span>
+                                                                               <span class="nv">minimumNumberOfResults</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+                                                                               <span class="nv">maxRadiusInMeters</span><span class="p">:</span> <span class="mi">20000</span>
+                                                                               <span class="p">)</span>
+                                                                   <span class="p">)</span>
+</code></pre>
+
+<p>You can also specify various search constraints, such as whether or not to look for meetings that gather on certain days of the week, which you specify by instantiating an instance of <code><a href="Classes/LGV_MeetingSDK_Meeting_Data_Set/Search_Refinements.html">LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements</a></code>:</p>
+<pre class="highlight swift"><code><span class="c1">// Look for meetings on the weekend.</span>
+<span class="k">let</span> <span class="nv">searchRefinements</span> <span class="o">=</span> <span class="kt">LGV_MeetingSDK_Meeting_Data_Set</span><span class="o">.</span><span class="kt">Search_Refinements</span><span class="p">(</span><span class="o">.</span><span class="nf">weekdays</span><span class="p">([</span><span class="o">.</span><span class="n">sunday</span><span class="p">,</span> <span class="o">.</span><span class="n">saturday</span><span class="p">]))</span>
+</code></pre>
+
+<p>Finally, you&rsquo;ll need to have a callback completion block, which is defined as <code><a href="Protocols/LGV_MeetingSDK_SearchInitiator_Protocol.html#/s:14LGV_MeetingSDK0a1_bC25_SearchInitiator_ProtocolP0bD15CallbackClosurea">LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure</a></code>:</p>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">completionBlock</span><span class="p">(</span><span class="n">_</span> <span class="nv">inSearchResults</span><span class="p">:</span> <span class="kt">LGV_MeetingSDK_Meeting_Data_Set_Protocol</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">inError</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="n">inError</span> <span class="p">{</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"There was an error!</span><span class="se">\n\t\(</span><span class="n">error</span><span class="o">.</span><span class="n">localizedDescription</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="k">let</span> <span class="nv">searchResults</span> <span class="o">=</span> <span class="n">inSearchResults</span> <span class="p">{</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"These are the search results:</span><span class="se">\n\t\(</span><span class="n">searchResults</span><span class="o">.</span><span class="n">debugDescription</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"This should not happen! Nothing was returned!"</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>And then, call the <code><a href="Protocols/LGV_MeetingSDK_Protocol.html#/s:14LGV_MeetingSDK0a1_bC9_ProtocolP13meetingSearch4type11refinements6refCon10completionyAA0a1_bc1_B9_Data_SetC0F11ConstraintsO_ShyAJ0F12_RefinementsOGypSgyAA0a1_bc1_b1_l1_m1_D0_pSg_s5Error_pSgtctF">LGV_MeetingSDK_Protocol.meetingSearch(type:refinements:refCon:completion:)</a></code> method, with these arguments:</p>
+<pre class="highlight swift"><code><span class="n">sdkInstance</span><span class="o">.</span><span class="nf">meetingSearch</span><span class="p">(</span><span class="nv">type</span><span class="p">:</span> <span class="n">searchType</span><span class="p">,</span> <span class="nv">refinements</span><span class="p">:</span> <span class="n">searchRefinements</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="n">completionBlock</span><span class="p">)</span>
+</code></pre>
+
+<p>Of course, since this is Swift, we can &ldquo;shortcut&rdquo; everything, like so:</p>
+<pre class="highlight swift"><code><span class="k">guard</span> <span class="k">let</span> <span class="nv">rootServerURL</span> <span class="o">=</span> <span class="kt">URL</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="s">"https://tomato.bmltenabled.org/main_server"</span><span class="p">)</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
+<span class="kt">LGV_MeetingSDK_BMLT</span><span class="p">(</span><span class="nv">rootServerURL</span><span class="p">:</span> <span class="n">rootServerURL</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">meetingSearch</span><span class="p">(</span><span class="nv">type</span><span class="p">:</span> <span class="kt">LGV_MeetingSDK_Meeting_Data_Set</span><span class="o">.</span><span class="kt">SearchConstraints</span><span class="p">(</span><span class="o">.</span><span class="nf">autoRadius</span><span class="p">(</span><span class="nv">centerLongLat</span><span class="p">:</span> <span class="n">searchCenter</span><span class="p">,</span> <span class="nv">minimumNumberOfResults</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nv">maxRadiusInMeters</span><span class="p">:</span> <span class="mi">20000</span><span class="p">)),</span>
+                   <span class="nv">refinements</span><span class="p">:</span> <span class="kt">LGV_MeetingSDK_Meeting_Data_Set</span><span class="o">.</span><span class="kt">Search_Refinements</span><span class="p">(</span><span class="o">.</span><span class="nf">weekdays</span><span class="p">([</span><span class="o">.</span><span class="n">sunday</span><span class="p">,</span> <span class="o">.</span><span class="n">saturday</span><span class="p">]))</span>
+                   <span class="p">)</span> <span class="p">{</span> <span class="p">(</span><span class="n">_</span> <span class="nv">inSearchResults</span><span class="p">:</span> <span class="kt">LGV_MeetingSDK_Meeting_Data_Set_Protocol</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">inError</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span> <span class="k">in</span>
+                         <span class="k">if</span> <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="n">inError</span> <span class="p">{</span>
+                            <span class="nf">print</span><span class="p">(</span><span class="s">"There was an error!</span><span class="se">\n\t\(</span><span class="n">error</span><span class="o">.</span><span class="n">localizedDescription</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+                         <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="k">let</span> <span class="nv">searchResults</span> <span class="o">=</span> <span class="n">inSearchResults</span> <span class="p">{</span>
+                            <span class="nf">print</span><span class="p">(</span><span class="s">"These are the search results:</span><span class="se">\n\t\(</span><span class="n">searchResults</span><span class="o">.</span><span class="n">debugDescription</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+                         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                            <span class="nf">print</span><span class="p">(</span><span class="s">"This should not happen! Nothing was returned!"</span><span class="p">)</span>
+                         <span class="p">}</span>
+                     <span class="p">}</span>
 </code></pre>
 <h2 id='license' class='heading'>License</h2>
 
@@ -265,7 +324,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-10-18)</p>
+      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-10-19)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

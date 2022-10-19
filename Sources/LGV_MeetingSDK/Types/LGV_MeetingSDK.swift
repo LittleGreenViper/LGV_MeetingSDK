@@ -863,7 +863,7 @@ open class LGV_MeetingSDK {
     /**
      The "cached" last search. It may be nil (no last search cached).
      */
-    private var _lastSearch: LGV_MeetingSDK_Meeting_Data_Set?
+    private var _lastSearch: LGV_MeetingSDK_Meeting_Data_Set_Protocol?
 
     /* ################################################################################################################################## */
     // MARK: Main Initializer
@@ -892,7 +892,10 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
     /**
      The "cached" last search. It may be nil (no last search cached).
      */
-    public var lastSearch: LGV_MeetingSDK_Meeting_Data_Set? { _lastSearch }
+    public var lastSearch: LGV_MeetingSDK_Meeting_Data_Set_Protocol? {
+        get { _lastSearch }
+        set { _lastSearch = newValue }
+    }
 }
 
 /* ###################################################################################################################################### */
