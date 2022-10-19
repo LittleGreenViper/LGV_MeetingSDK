@@ -33,7 +33,8 @@ let package = Package(
                          targets: ["LGV_MeetingSDK"]
                        )
               ],
-    dependencies: [.package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0")],
+// I'm commenting this out, because it's actually a bit messy, and gives SwiftLint agita. Also, the doc code it generates isn't really worth squat.
+//    dependencies: [.package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0")],
     targets: [.target(name: "LGV_MeetingSDK",
                       exclude: ["Types/BMLT/README.md"]
                      )
