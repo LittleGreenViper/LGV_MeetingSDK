@@ -135,7 +135,7 @@ public protocol LGV_MeetingSDK_Meeting_Virtual_Venue_Protocol: LGV_MeetingSDK_Ad
     /**
      REQUIRED - The local timezone for the meeting.
      
-     **NOTE:** It is important to implement this, if the meeting is held in a particular timezone, and does not have a physical placemark!
+     > Note: It is important to implement this, if the meeting is held in a particular timezone, and does not have a physical placemark!
      */
     var timeZone: TimeZone? { get }
 
@@ -235,7 +235,7 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
     /**
      REQUIRED - Each meeting should have a unique (in the search domain) integer ID.
      
-     **NOTE:** This is positive, and 1-based. 0 is an error.
+     > Note: This is positive, and 1-based. 0 is an error.
      */
     var id: UInt64 { get }
 
@@ -245,7 +245,7 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
      
      If this is 0, then the meeting is considered to be a one-time event, and the `meetingStartTime` property should be ignored (`nextMeetingStartsOn` will have the start time and day).
      
-     **NOTE:** 1 is Sunday, regardless of the current region week start day.
+     > Note: 1 is Sunday, regardless of the current region week start day.
      */
     var weekdayIndex: Int { get }
     
@@ -253,7 +253,7 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
     /**
      REQUIRED - The start time of the meeting, as military time (HHMM). This only applies, if `(1...7).contains(weekday)`.
      
-     **NOTE:** 0 is midnight (this morning), and 2400 is midnight (tonight).
+     > Note: 0 is midnight (this morning), and 2400 is midnight (tonight).
      
      A meeting that starts at midnight, on Friday night (which is actually, midnight, Saturday morning), would have a `weekday` of 6, and a `meetingStartTime` of 2400.
      
@@ -269,7 +269,7 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
     /**
      REQUIRED - If the meeting has a physical presence, this will have the location. Nil, if no physical location.
      
-     **NOTE:** If this is not provided, then `virtualMeetingInfo` should be provided.
+     > Note: If this is not provided, then `virtualMeetingInfo` should be provided.
      */
     var physicalLocation: LGV_MeetingSDK_Meeting_Physical_Protocol? { get set }
 
@@ -277,7 +277,7 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
     /**
      REQUIRED - If the meeting has a virtual presence, this will have that information. Nil, if no virtual meeting.
      
-     **NOTE:** If this is not provided, then `physicalLocation` should be provided.
+     > Note: If this is not provided, then `physicalLocation` should be provided.
      */
     var virtualMeetingInfo: LGV_MeetingSDK_Meeting_Virtual_Protocol? { get set }
     
@@ -297,7 +297,7 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
     /**
      OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - Returns an optional DateComponents object, with the time of the meeting. Nil, if one-time event.
      
-     **NOTE:** This will not allow "2400" to be indicative of midnight. 23:59:59 is returned, if the meeting specifies "2400."
+     > Note: This will not allow "2400" to be indicative of midnight. 23:59:59 is returned, if the meeting specifies "2400."
      */
     var startTime: DateComponents? { get }
 
@@ -329,7 +329,7 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
     /**
      OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - A direct accessor for the physical location coordinates.
      
-     **NOTE:** Virtual-only meetings may either have no coords, or may return an invalid coordinate.
+     > Note: Virtual-only meetings may either have no coords, or may return an invalid coordinate.
      */
     var locationCoords: CLLocationCoordinate2D? { get }
     
@@ -337,7 +337,7 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
     /**
      OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The local timezone of the meeting.
      
-     **NOTE:** This may not be useful, if the meeting does not have a timezone.
+     > Note: This may not be useful, if the meeting does not have a timezone.
      */
     var meetingLocalTimezone: TimeZone { get }
     

@@ -543,7 +543,7 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
         /**
          We can specify a location that can be used as a "fulcrum," from which to measure distance to the results.
          
-         **NOTE:** The parameter cannot be (0, 0), as that is considered an "invalid" location.
+         > Note: The parameter cannot be (0, 0), as that is considered an "invalid" location.
          */
         case distanceFrom(thisLocation: CLLocationCoordinate2D)
         

@@ -360,7 +360,7 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
         /**
          The 1-based weekday instance.
          
-         **NOTE:** This is always 1 -> Sunday, 7 -> Saturday, regardless of when the week starts in the device locale.
+         > Note: This is always 1 -> Sunday, 7 -> Saturday, regardless of when the week starts in the device locale.
          */
         public let weekdayIndex: Int
         

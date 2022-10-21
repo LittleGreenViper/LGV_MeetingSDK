@@ -103,7 +103,7 @@ class LGV_MeetingSDK_Test_Harness_Results_ViewController: LGV_MeetingSDK_Test_Ha
     /* ################################################################## */
     /**
      The bar button item that displays our edit button.
-     **NOTE:** This is displayed in the Tab Controller NavBar Item; not ours.
+     > Note: This is displayed in the Tab Controller NavBar Item; not ours.
      */
     weak var editBarButtonItem: UIBarButtonItem?
 }
