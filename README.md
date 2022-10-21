@@ -93,13 +93,13 @@ You implement it by adding the following line in your [Cartfile](https://github.
     
 ## Usage
 
-You need to have a concrete implementation of the `LGV_MeetingSDK_Protocol`. Currently, there is only one: the `LGV_MeetingSDK_BMLT` class.
+You need to have a concrete implementation of the `LGV_MeetingSDK_Protocol`. Currently, there is only one: the `LGV_MeetingSDK_BMLT` class. The following example will use that class.
 
 Instantiate the class, along with any settings and/or parameters (each concrete implementation will have its own rules), and call the `LGV_MeetingSDK_Protocol.meetingSearch(type:refinements:refCon:completion:)` method.
 
 First, instantiate the SDK:
 
-``` swift
+```swift
 // We specify the worldwide TOMATO server, for this example.
 guard let rootServerURL = URL(string: "https://tomato.bmltenabled.org/main_server") else { return }
 let sdkInstance = LGV_MeetingSDK_BMLT(rootServerURL: rootServerURL)
@@ -118,13 +118,17 @@ let searchType = LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints(.autoRadius(c
 ```
 
 You can also specify various search constraints, such as whether or not to look for meetings that gather on certain days of the week, which you specify by instantiating an instance of `LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements`:
-``` swift
+
+```swift
 // Look for meetings on the weekend.
 let searchRefinements = LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements(.weekdays([.sunday, .saturday]))
 ```
 
 Finally, you'll need to have a callback completion block, which is defined as `LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure`:
-``` swift
+
+> Note: This is likely to be called in a non-main thread.
+
+```swift
 func completionBlock(_ inSearchResults: LGV_MeetingSDK_Meeting_Data_Set_Protocol?, _ inError: Error?) {
     if let error = inError {
         print("There was an error!\n\t\(error.localizedDescription)")
@@ -135,14 +139,16 @@ func completionBlock(_ inSearchResults: LGV_MeetingSDK_Meeting_Data_Set_Protocol
     }
 }
 ```
+
 And then, call the `LGV_MeetingSDK_Protocol.meetingSearch(type:refinements:refCon:completion:)` method, with these arguments:
-``` swift
+
+```swift
 sdkInstance.meetingSearch(type: searchType, refinements: searchRefinements, completion: completionBlock)
 ```
 
 Of course, since this is Swift, we can "shortcut" everything, like so:
 
-``` swift
+```swift
 guard let rootServerURL = URL(string: "https://tomato.bmltenabled.org/main_server") else { return }
 LGV_MeetingSDK_BMLT(rootServerURL: rootServerURL)
     .meetingSearch(type: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints(.autoRadius(centerLongLat: searchCenter, minimumNumberOfResults: 10, maxRadiusInMeters: 20000)),

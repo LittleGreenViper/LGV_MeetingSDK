@@ -54,7 +54,9 @@ public protocol LGV_MeetingSDK_SearchInitiator_Protocol: AnyObject {
     /* ################################################################## */
     /**
      This is the callback made, when the search is complete.
-     **NOTE:** This may not be called in the main thread.
+     
+     > Warning: This may not be called in the main thread.
+     
      - parameter: Meeting Data, this is an optional (may be nil) of any returned (parsed) data. It will contain the original search specification parameters.
      - parameter: Error This is optional and will usually be nil. If an error was encountered during the search, it is returned here.
      */

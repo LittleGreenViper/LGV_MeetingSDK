@@ -1,3 +1,7 @@
+**1.1.3.0000** *October 21, 2022*
+
+- Documentation improvements. No API changes.
+
 **1.1.2.0000** *October 19, 2022*
 
 - Documentation improvements. No API changes.
