@@ -87,12 +87,13 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
         /**
          Default initializer.
          
-         - parameter searchType (OPTIONAL): This is the search specification main search type. Default is .none.
-         - parameter searchRefinements (OPTIONAL): This is the search specification additional filters. Default is an empty set.
-         - parameter meetings (OPTIONAL): This contains any found meetings. It may be empty or omitted (no meetings found).
-         - parameter formats (OPTIONAL): This Dictionary contains any found formats.
-         - parameter extraInfo (OPTIONAL): This has any extra information that we wish to attach to the data set. Default is an empty String.
-         - parameter refCon (OPTIONAL): This has any reference context that we wish to attach to the data set. Default is nil.
+         - Parameters:
+             - searchType (OPTIONAL): This is the search specification main search type. Default is .none.
+             - searchRefinements (OPTIONAL): This is the search specification additional filters. Default is an empty set.
+             - meetings (OPTIONAL): This contains any found meetings. It may be empty or omitted (no meetings found).
+             - formats (OPTIONAL): This Dictionary contains any found formats.
+             - extraInfo (OPTIONAL): This has any extra information that we wish to attach to the data set. Default is an empty String.
+             - refCon (OPTIONAL): This has any reference context that we wish to attach to the data set. Default is nil.
          */
         public init(searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints = .none,
                     searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = [],
@@ -238,12 +239,13 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
                 /**
                  Default initializer.
                  
-                 - parameter description (OPTIONAL): This describes the meeting venue (i.e. "Video," "Zoom," "Audio-Only," "Phone," etc.).
-                 - parameter timeZone (OPTIONAL): The local timezone for the meeting.
-                 - parameter url (OPTIONAL): If the meeting has a URI, that is available here.
-                 - parameter meetingID (OPTIONAL): If the meeting has a separate meeting ID, that is available here, as a String.
-                 - parameter password (OPTIONAL): If the meeting has a separate meeting password, that is available here, as a String.
-                 - parameter extraInfo (OPTIONAL): Any additional information (as a String).
+                 - Parameters:
+                     - description (OPTIONAL): This describes the meeting venue (i.e. "Video," "Zoom," "Audio-Only," "Phone," etc.).
+                     - timeZone (OPTIONAL): The local timezone for the meeting.
+                     - url (OPTIONAL): If the meeting has a URI, that is available here.
+                     - meetingID (OPTIONAL): If the meeting has a separate meeting ID, that is available here, as a String.
+                     - password (OPTIONAL): If the meeting has a separate meeting password, that is available here, as a String.
+                     - extraInfo (OPTIONAL): Any additional information (as a String).
                  */
                 init(description inDescription: String = "",
                      timeZone inTimeZone: TimeZone? = nil,
@@ -294,9 +296,10 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
             /**
              Default initializer.
              
-             - parameter videoMeeting (OPTIONAL): If specified, the video meeting venue.
-             - parameter phoneMeeting (OPTIONAL): If specified, the phone meeting venue.
-             - parameter extraInfo (OPTIONAL): Any additional information (as a String).
+             - Parameters:
+                 - videoMeeting (OPTIONAL): If specified, the video meeting venue.
+                 - phoneMeeting (OPTIONAL): If specified, the phone meeting venue.
+                 - extraInfo (OPTIONAL): Any additional information (as a String).
              */
             public init(videoMeeting inVideoMeeting: VirtualVenue? = nil, phoneMeeting inPhoneMeeting: VirtualVenue? = nil, extraInfo inExtraInfo: String = "") {
                 _videoMeeting = inVideoMeeting
@@ -365,7 +368,7 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
         /**
          The start time of the meeting, in miltary time (HHMM).
          
-         **NOTE:** 0000 is midnight (this morning), and 2400 is midnight (tonight).
+         > Note: 0000 is midnight (this morning), and 2400 is midnight (tonight).
          */
         public let meetingStartTime: Int
         
@@ -399,7 +402,7 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
          
          - Parameters:
             - id: A unique ID for this meeting (within the organization).
-            - weekdayIndex: The 1-based weekday instance.
+            - weekdayIndex: The 1-based weekday instance (1 is always Sunday).
             - meetingStartTime: The start time of the meeting, in miltary time (HHMM).
             - name (OPTIONAL): The name of the meeting.
             - extraInfo (OPTIONAL): Any comments and/or additional information.
