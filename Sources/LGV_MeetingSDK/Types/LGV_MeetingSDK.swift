@@ -871,6 +871,8 @@ open class LGV_MeetingSDK {
     /* ################################################################## */
     /**
      This is the default initializer for the search SDK.
+     
+     - parameter organization: The organization (containing the transport) to be applied.
      */
     public init(organization inOrganization: LGV_MeetingSDK_Organization_Transport_Protocol) {
         _organization = inOrganization

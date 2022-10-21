@@ -34,8 +34,9 @@ internal extension CLLocationCoordinate2D {
     /**
      Compares two locations for "equality."
      
-     - parameter inComp: A location (long and lat), to which we are comparing ourselves.
-     - parameter precisionInMeters: This is an optional precision (slop area), in meters. If left out, then the match must be exact.
+     - Parameters:
+        - inComp: A location (long and lat), to which we are comparing ourselves.
+        - precisionInMeters: This is an optional precision (slop area), in meters. If left out, then the match must be exact.
      
      - returns: True, if the locations are equal, according to the given precision.
      */
@@ -52,9 +53,10 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
     /**
      This allows us to find if a string contains another string.
      
-     - parameter inString: The string we're looking for.
-     - parameter withinThisString: The string we're looking through.
-     - parameter options (OPTIONAL): The String options for the search. Default is case insensitive, and diacritical insensitive.
+     - Parameters:
+         - inString: The string we're looking for.
+         - withinThisString: The string we're looking through.
+         - options (OPTIONAL): The String options for the search. Default is case insensitive, and diacritical insensitive.
      
      - returns: True, if the string contains the other String.
      */
@@ -73,8 +75,9 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
         /**
          This tests a string to see if a given substring is present at the start.
          
-         - parameter inString: The string to test.
-         - parameter inSubstring: The substring to test for.
+         - Parameters:
+            - inString: The string to test.
+            - inSubstring: The substring to test for.
 
          - returns: true, if the string begins with the given substring.
          */
@@ -132,6 +135,7 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
      Creates (or not) a virtual location, based on the provided meeting details.
      
      - parameter theseMeetings: The Dictionary that represents this meeting.
+     
      - returns: A new virtual location instance.
      */
     private static func _convert(thisDataToAVirtualLocation inMeetingData: [String: String]) -> LGV_MeetingSDK_BMLT.Meeting.VirtualLocation? {
@@ -173,7 +177,8 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
     /**
      This converts "raw" (String Dictionary) meeting objects, into actual Swift structs.
      
-     - parameter theseMeetings: The Dictionary of String Dictionaries that represent the parsed JSON object for the meetings.
+     - parameter thisDataToAPhysicalLocation: The Dictionary of String Dictionaries that represent the parsed JSON object for the meetings.
+     
      - returns: A new physical location instance.
      */
     private static func _convert(thisDataToAPhysicalLocation inMeetingData: [String: String]) -> LGV_MeetingSDK_BMLT.Meeting.PhysicalLocation? {
@@ -227,6 +232,7 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
      This converts "raw" (String Dictionary) meeting objects, into actual Swift structs.
      
      - parameter theseFormats: The Dictionary of String Dictionaries that represent the parsed JSON object for the formats.
+     
      - returns: An Array of parsed and initialized format instances.
      */
     private static func _convert(theseFormats inJSONParsedFormats: [[String: String]]) -> [UInt64: LGV_MeetingSDK_Format_Protocol] {
@@ -252,9 +258,10 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
      
      Deal with it. It works great.
      
-     - parameter inMeetings: The meeting array to be filtered.
-     - parameter searchType: This is the search specification main search type.
-     - parameter searchRefinements: This is the search specification additional filters.
+     - Parameters:
+         - inMeetings: The meeting array to be filtered.
+         - searchType: This is the search specification main search type.
+         - searchRefinements: This is the search specification additional filters.
      
      - returns: The refined meeting array.
      */
@@ -375,8 +382,11 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
     /* ################################################################## */
     /**
      This converts "raw" (String Dictionary) meeting objects, into actual Swift structs.
-     - parameter theseMeetings: The Dictionary of String Dictionaries that represent the parsed JSON object for the meetings.
-     - parameter andTheseFormats: The Dictionary of parsed formats.
+     
+     - Parameters:
+         - theseMeetings: The Dictionary of String Dictionaries that represent the parsed JSON object for the meetings.
+         - andTheseFormats: The Dictionary of parsed formats.
+     
      - returns: An Array of parsed and initialized meeting instances.
      */
     private func _convert(theseMeetings inJSONParsedMeetings: [[String: String]], andTheseFormats inFormats: [UInt64: LGV_MeetingSDK_Format_Protocol], searchCenter inSearchCenter: CLLocation) -> [LGV_MeetingSDK_Meeting_Protocol] {
