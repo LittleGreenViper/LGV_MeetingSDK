@@ -159,7 +159,7 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
     func setSDKToThisRootServerURL(_ inRootServerURLString: String) {
         if let rootServerURL = URL(string: inRootServerURLString) {
             searchData?.meetings = []
-            sdk = LGV_MeetingSDK_BMLT(rootServerURL: rootServerURL)
+            sdk = Rcvrr_MultiMeetingLayer(rootServerURL: rootServerURL)
             setTabBarEnablement()
             mapViewController?.updateScreen()
         }

@@ -1,3 +1,7 @@
+**1.2.0.0000** *TBD*
+
+- Some simple API changes to afford more flexibility in the initial implementation.
+
 **1.1.3.0000** *October 21, 2022*
 
 - Documentation improvements. No API changes.

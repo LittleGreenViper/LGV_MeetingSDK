@@ -279,7 +279,7 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
              Any additional information.
              */
             public let extraInfo: String
-
+            
             /* ################################################################## */
             /**
              If there is a video meeting associated, it is defined here. May be nil. This also applies to audio-only (not phone) meetings.
@@ -330,7 +330,7 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
         /**
          A unique ID for this meeting (within the organization).
          */
-        public let id: UInt64
+        public var id: UInt64
         
         /* ################################################################## */
         /**
@@ -620,17 +620,19 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
      Default initializer.
      
      - Parameters:
-         - rootServerURL (REQUIRED): The URL to the BMLT Root Server that will be accessed by this instance.
-         - organizationKey (OPTIONAL): The organization key. Default is `LGV_MeetingSDK_BMLT.organizationKey`
-         - organizationName (OPTIONAL): The name of the organization. Default is `LGV_MeetingSDK_BMLT.organizationName`.
-         - organizationName (OPTIONAL): A longer description for the organization. Default is `LGV_MeetingSDK_BMLT.organizationDescription`.
-         - organizationURL (OPTIONAL): A URL for the organization. Default is `LGV_MeetingSDK_BMLT.organizationURL`.
+        - rootServerURL (REQUIRED): The URL to the BMLT Root Server that will be accessed by this instance.
+        - organizationKey (OPTIONAL): The organization key. Default is `LGV_MeetingSDK_BMLT.organizationKey`
+        - organizationName (OPTIONAL): The name of the organization. Default is `LGV_MeetingSDK_BMLT.organizationName`.
+        - organizationName (OPTIONAL): A longer description for the organization. Default is `LGV_MeetingSDK_BMLT.organizationDescription`.
+        - organizationURL (OPTIONAL): A URL for the organization. Default is `LGV_MeetingSDK_BMLT.organizationURL`.
+        - refCon (OPTIONAL): An optional (default is nil) reference context, to attach to the SDK instance.
      */
     public init(rootServerURL inRootServerURL: URL,
                 organizationKey inOrganizationKey: String = LGV_MeetingSDK_BMLT.organizationKey,
                 organizationName inOrganizationName: String = LGV_MeetingSDK_BMLT.organizationName,
                 organizationDescription inOrganizationDescription: String = LGV_MeetingSDK_BMLT.organizationDescription,
-                organizationURL inorganizationURL: URL? = LGV_MeetingSDK_BMLT.organizationURL) {
+                organizationURL inorganizationURL: URL? = LGV_MeetingSDK_BMLT.organizationURL,
+                refCon: Any? = nil) {
         let organization = LGV_MeetingSDK_Generic_Organization(transport: LGV_MeetingSDK_BMLT.Transport(rootServerURL: inRootServerURL),
                                                                organizationKey: inOrganizationKey,
                                                                organizationName: inOrganizationName,

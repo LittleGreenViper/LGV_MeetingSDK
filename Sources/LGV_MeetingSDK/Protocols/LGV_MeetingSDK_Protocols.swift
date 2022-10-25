@@ -130,7 +130,7 @@ extension LGV_MeetingSDK_Meeting_Data_Set_Protocol {
 /**
  This defines the requirements for the main SDK instance.
  */
-public protocol LGV_MeetingSDK_Protocol {
+public protocol LGV_MeetingSDK_Protocol: LGV_MeetingSDK_RefCon_Protocol {
     /* ################################################################## */
     /**
      REQUIRED - The search organization. This needs to be the "transport" version of the organization.

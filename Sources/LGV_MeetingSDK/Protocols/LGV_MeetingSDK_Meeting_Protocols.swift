@@ -237,7 +237,7 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
      
      > Note: This is positive, and 1-based. 0 is an error.
      */
-    var id: UInt64 { get }
+    var id: UInt64 { get set }
 
     /* ################################################################## */
     /**
