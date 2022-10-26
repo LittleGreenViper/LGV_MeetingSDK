@@ -1,4 +1,4 @@
-**1.2.0.0000** *TBD*
+**1.2.0.0000** *October 26, 2022*
 
 - Some simple API changes to afford more flexibility in the initial implementation.
 
