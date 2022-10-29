@@ -4,7 +4,7 @@ An adaptible SDK, for finding and listing regularly-occurring, scheduled events.
 
 ## Overview
 
-![The Project Icon](img/icon.png)
+![The Project Icon](icon.png)
 
 This SDK provides a (mostly) protocol-based definition of an SDK that can be applied to low-level server connections, when the server provides information on regularly-scheduled (weekly) events.
 
