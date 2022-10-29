@@ -218,15 +218,18 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>REQUIRED - Each meeting should have a unique (in the search domain) integer ID.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This is positive, and 1-based. 0 is an error.</p>
 
-<p><strong>NOTE:</strong> This is positive, and 1-based. 0 is an error.</p>
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">UInt64</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">UInt64</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -249,8 +252,11 @@
                         <p>REQUIRED - The repeating weekday for the meeting (1-based, with 1 being Sunday, and 7 being Saturday).</p>
 
 <p>If this is 0, then the meeting is considered to be a one-time event, and the <code><a href="../Protocols/LGV_MeetingSDK_Meeting_Protocol.html#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP16meetingStartTimeSivp">meetingStartTime</a></code> property should be ignored (<code>nextMeetingStartsOn</code> will have the start time and day).</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>1 is Sunday, regardless of the current region week start day.</p>
 
-<p><strong>NOTE:</strong> 1 is Sunday, regardless of the current region week start day.</p>
+</div>
 
                       </div>
                       <div class="declaration">
@@ -278,8 +284,11 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>REQUIRED - The start time of the meeting, as military time (HHMM). This only applies, if <code>(1...7).contains(weekday)</code>.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>0 is midnight (this morning), and 2400 is midnight (tonight).</p>
 
-<p><strong>NOTE:</strong> 0 is midnight (this morning), and 2400 is midnight (tonight).</p>
+</div>
 
 <p>A meeting that starts at midnight, on Friday night (which is actually, midnight, Saturday morning), would have a <code>weekday</code> of 6, and a <code>meetingStartTime</code> of 2400.</p>
 
@@ -315,8 +324,11 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>REQUIRED - If the meeting has a physical presence, this will have the location. Nil, if no physical location.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>If this is not provided, then <code><a href="../Protocols/LGV_MeetingSDK_Meeting_Protocol.html#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP07virtualB4InfoAA0a1_bc1_b9_Virtual_D0_pSgvp">virtualMeetingInfo</a></code> should be provided.</p>
 
-<p><strong>NOTE:</strong> If this is not provided, then <code><a href="../Protocols/LGV_MeetingSDK_Meeting_Protocol.html#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP07virtualB4InfoAA0a1_bc1_b9_Virtual_D0_pSgvp">virtualMeetingInfo</a></code> should be provided.</p>
+</div>
 
                       </div>
                       <div class="declaration">
@@ -344,8 +356,11 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>REQUIRED - If the meeting has a virtual presence, this will have that information. Nil, if no virtual meeting.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>If this is not provided, then <code><a href="../Protocols/LGV_MeetingSDK_Meeting_Protocol.html#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP16physicalLocationAA0a1_bc1_b10_Physical_D0_pSgvp">physicalLocation</a></code> should be provided.</p>
 
-<p><strong>NOTE:</strong> If this is not provided, then <code><a href="../Protocols/LGV_MeetingSDK_Meeting_Protocol.html#/s:14LGV_MeetingSDK0a1_bc1_B9_ProtocolP16physicalLocationAA0a1_bc1_b10_Physical_D0_pSgvp">physicalLocation</a></code> should be provided.</p>
+</div>
 
                       </div>
                       <div class="declaration">
@@ -438,8 +453,11 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - Returns an optional DateComponents object, with the time of the meeting. Nil, if one-time event.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This will not allow &ldquo;2400&rdquo; to be indicative of midnight. 23:59:59 is returned, if the meeting specifies &ldquo;2400.&rdquo;</p>
 
-<p><strong>NOTE:</strong> This will not allow &ldquo;2400&rdquo; to be indicative of midnight. 23:59:59 is returned, if the meeting specifies &ldquo;2400.&rdquo;</p>
+</div>
 
                       </div>
                       <h4>Default Implementation</h4>
@@ -615,8 +633,11 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - A direct accessor for the physical location coordinates.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>Virtual-only meetings may either have no coords, or may return an invalid coordinate.</p>
 
-<p><strong>NOTE:</strong> Virtual-only meetings may either have no coords, or may return an invalid coordinate.</p>
+</div>
 
                       </div>
                       <h4>Default Implementation</h4>
@@ -652,8 +673,11 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The local timezone of the meeting.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This may not be useful, if the meeting does not have a timezone.</p>
 
-<p><strong>NOTE:</strong> This may not be useful, if the meeting does not have a timezone.</p>
+</div>
 
                       </div>
                       <h4>Default Implementation</h4>
@@ -931,7 +955,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-10-19)</p>
+      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-10-29)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

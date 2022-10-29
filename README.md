@@ -48,7 +48,7 @@ This SDK is being developed in order to specifically address the technical needs
 
 The basic structure of the SDK, is an instance of the SDK, specialized for a certain API (for example, the [BMLT](https://bmlt.app) API), that will have an organization assigned. This organization will have a "transport" assigned, which takes care of querying the server, and parsing the response. It does this, via "initiators," and "parsers."
 
-![The System Diagram](img/SystemDiagram.png)
+![The System Diagram](SystemDiagram.png)
 
 In the diagram above, we see the SDK being used as a connector to a [BMLT](https://bmlt.app) server.
 

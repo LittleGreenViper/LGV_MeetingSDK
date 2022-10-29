@@ -11,4 +11,4 @@ jazzy  --readme ./README.md \
        --title "LGV_MeetingSDK Doumentation" \
        --min_acl private \
        --theme fullwidth
-cp ./img/* docs/img
+cp ./img/* docs
