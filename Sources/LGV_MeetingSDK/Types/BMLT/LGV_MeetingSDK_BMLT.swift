@@ -457,7 +457,7 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
              The initiator, for creating search commands.
              We declare the stored property private, and specific to the class, so we can weakly reference it.
              */
-            private var _initiator: Initiator?
+            private weak var _initiator: Initiator?
             
             /* ################################################################## */
             /**
@@ -482,13 +482,21 @@ open class LGV_MeetingSDK_BMLT: LGV_MeetingSDK {
              The transport to be used for this initiator.
              We declare the stored property private, and specific to the class, so we can weakly reference it.
              */
-            private var _transport: Transport?
+            private weak var _transport: Transport?
+            
+            /* ########################################################## */
+            /**
+             */
+            private var _parser: LGV_MeetingSDK_BMLT.Transport.Parser?
             
             /* ########################################################## */
             /**
              The parser goes here.
              */
-            public var parser: LGV_MeetingSDK_Parser_Protocol
+            public var parser: LGV_MeetingSDK_Parser_Protocol {
+                get { _parser! } // I hate implicit optionals, but I want this to crash, if it is deallocated.
+                set { _parser = newValue as? LGV_MeetingSDK_BMLT.Transport.Parser }
+            }
             
             /* ########################################################## */
             /**

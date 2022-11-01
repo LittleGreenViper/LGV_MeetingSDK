@@ -159,7 +159,7 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
     func setSDKToThisRootServerURL(_ inRootServerURLString: String) {
         if let rootServerURL = URL(string: inRootServerURLString) {
             searchData?.meetings = []
-            sdk = Rcvrr_MultiMeetingLayer(rootServerURL: rootServerURL)
+            sdk = LGV_MeetingSDK_BMLT(rootServerURL: rootServerURL)
             setTabBarEnablement()
             mapViewController?.updateScreen()
         }
@@ -250,7 +250,7 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
         print("We need to do something with this!")
         print("Search Results: \(String(describing: inSearchResults))")
         print("\tError: \(String(describing: inError))")
-        DispatchQueue.main.async { [self] in
+        DispatchQueue.main.async {
             self.appDelegateInstance?.searchData = inSearchResults as? LGV_MeetingSDK_BMLT.Data_Set
             self.mapViewController?.isBusy = false
             self.setTabBarEnablement()

@@ -1,3 +1,7 @@
+**1.2.1.0000** *November 1, 2022*
+
+- Addressing some possible memory leaks.
+
 **1.2.0.0000** *October 26, 2022*
 
 - Some simple API changes to afford more flexibility in the initial implementation.

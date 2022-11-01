@@ -390,9 +390,9 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
      - returns: An Array of parsed and initialized meeting instances.
      */
     private func _convert(theseMeetings inJSONParsedMeetings: [[String: String]], andTheseFormats inFormats: [UInt64: LGV_MeetingSDK_Format_Protocol], searchCenter inSearchCenter: CLLocation) -> [LGV_MeetingSDK_Meeting_Protocol] {
-        var ret = [LGV_MeetingSDK_Meeting_Protocol]()
-        
         guard let organization = initiator?.transport?.organization else { return [] }
+        
+        var ret = [LGV_MeetingSDK_Meeting_Protocol]()
         
         inJSONParsedMeetings.forEach { meetingDictionary in
             let meetingDurationComponents = meetingDictionary["duration_time"]?.split(separator: ":").map { Int($0) ?? 0 } ?? [0, 0]
