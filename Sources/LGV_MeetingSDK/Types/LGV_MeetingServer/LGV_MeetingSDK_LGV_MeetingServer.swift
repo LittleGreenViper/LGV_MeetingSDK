@@ -522,7 +522,7 @@ open class LGV_MeetingSDK_LGV_MeetingServer: LGV_MeetingSDK {
         /* ################################################################################################################################## */
         /* ########################################################## */
         /**
-         This will contain the URL to the Root Server that is being accessed by this transport instance.
+         This will contain the URL to the main Server that is being accessed by this transport instance.
          */
         public var baseURL: URL?
 
@@ -554,7 +554,7 @@ open class LGV_MeetingSDK_LGV_MeetingServer: LGV_MeetingSDK {
         /**
          This is a special dummy URL that we use to allow mocking.
          */
-        public static let testingRootServerURL = URL(string: "https://bmlt.app.example.com/littlegreenviper")
+        public static let testingEntrypointURL = URL(string: "https://bmlt.app.example.com/littlegreenviper")
         
         /* ########################################################## */
         /**
@@ -572,10 +572,10 @@ open class LGV_MeetingSDK_LGV_MeetingServer: LGV_MeetingSDK {
         /**
          Default initializer.
          
-         - parameter rootServerURL: The URL to the BMLT Root Server that will be accessed by this instance.
+         - parameter entrypointURL: The URL to the BMLT Root Server that will be accessed by this instance.
          */
-        public init(rootServerURL inRootServerURL: URL) {
-            baseURL = inRootServerURL
+        public init(entrypointURL inEntrypointURL: URL) {
+            baseURL = inEntrypointURL
             initiator = Initiator()
             initiator?.transport = self
         }
@@ -588,25 +588,25 @@ open class LGV_MeetingSDK_LGV_MeetingServer: LGV_MeetingSDK {
     /**
      The organization key to use for the test organization.
      */
-    public static let organizationKey: String = "BMLT"
+    public static let organizationKey: String = "NA"
     
     /* ################################################################## */
     /**
      The name to use for the test organization.
      */
-    public static let organizationName: String = "BMLT-Enabled"
+    public static let organizationName: String = "Narcotics Anonymous"
     
     /* ################################################################## */
     /**
      The description to use for the test organization.
      */
-    public static let organizationDescription = "BMLT-Enabled is an independent, non-profit management entity for the Basic Meeting List Toolbox Initiative."
+    public static let organizationDescription = ""
     
     /* ################################################################## */
     /**
      The URL to use for the test organization.
      */
-    public static let organizationURL = URL(string: "https://bmlt.app")
+    public static let organizationURL = URL(string: "https://na.org")
     
     /* ###################################################################################################################################### */
     // MARK: Instance Methods
@@ -615,7 +615,7 @@ open class LGV_MeetingSDK_LGV_MeetingServer: LGV_MeetingSDK {
     /**
      Simple accessor to the Root Server URL String.
      */
-    public var rootServerURLString: String {
+    public var entrypointURLString: String {
         get { organization?.transport?.baseURL?.absoluteString ?? "" }
         set { organization?.transport?.baseURL = URL(string: newValue) }
     }
@@ -628,20 +628,20 @@ open class LGV_MeetingSDK_LGV_MeetingServer: LGV_MeetingSDK {
      Default initializer.
      
      - Parameters:
-        - rootServerURL (REQUIRED): The URL to the BMLT Root Server that will be accessed by this instance.
+        - entrypointURL (REQUIRED): The URL to the Meeting Server that will be accessed by this instance.
         - organizationKey (OPTIONAL): The organization key. Default is `LGV_MeetingSDK_LGV_MeetingServer.organizationKey`
         - organizationName (OPTIONAL): The name of the organization. Default is `LGV_MeetingSDK_LGV_MeetingServer.organizationName`.
         - organizationName (OPTIONAL): A longer description for the organization. Default is `LGV_MeetingSDK_LGV_MeetingServer.organizationDescription`.
         - organizationURL (OPTIONAL): A URL for the organization. Default is `LGV_MeetingSDK_LGV_MeetingServer.organizationURL`.
         - refCon (OPTIONAL): An optional (default is nil) reference context, to attach to the SDK instance.
      */
-    public init(rootServerURL inRootServerURL: URL,
+    public init(entrypointURL inEntrypointURL: URL,
                 organizationKey inOrganizationKey: String = LGV_MeetingSDK_LGV_MeetingServer.organizationKey,
                 organizationName inOrganizationName: String = LGV_MeetingSDK_LGV_MeetingServer.organizationName,
                 organizationDescription inOrganizationDescription: String = LGV_MeetingSDK_LGV_MeetingServer.organizationDescription,
                 organizationURL inorganizationURL: URL? = LGV_MeetingSDK_LGV_MeetingServer.organizationURL,
                 refCon: Any? = nil) {
-        let organization = LGV_MeetingSDK_Generic_Organization(transport: LGV_MeetingSDK_LGV_MeetingServer.Transport(rootServerURL: inRootServerURL),
+        let organization = LGV_MeetingSDK_Generic_Organization(transport: LGV_MeetingSDK_LGV_MeetingServer.Transport(entrypointURL: inEntrypointURL),
                                                                organizationKey: inOrganizationKey,
                                                                organizationName: inOrganizationName,
                                                                organizationDescription: inOrganizationDescription,
