@@ -20,6 +20,31 @@
 import CoreLocation
 
 /* ###################################################################################################################################### */
+// MARK: - CLLocationCoordinate2D Extension -
+/* ###################################################################################################################################### */
+internal extension CLLocationCoordinate2D {
+    /* ################################################################## */
+    /**
+     - returns: True, if the location is valid. This allows some "slop" around the Prime Meridian/Equator point.
+     */
+    var isValid: Bool { !isEqualTo(CLLocationCoordinate2D(latitude: 0, longitude: 0), precisionInMeters: 500000) && CLLocationCoordinate2DIsValid(self) }
+
+    /* ################################################################## */
+    /**
+     Compares two locations for "equality."
+     
+     - Parameters:
+        - inComp: A location (long and lat), to which we are comparing ourselves.
+        - precisionInMeters: This is an optional precision (slop area), in meters. If left out, then the match must be exact.
+     
+     - returns: True, if the locations are equal, according to the given precision.
+     */
+    func isEqualTo(_ inComp: CLLocationCoordinate2D, precisionInMeters inPrecisionInMeters: CLLocationDistance = 0.0) -> Bool {
+        CLLocation(latitude: latitude, longitude: longitude).distance(from: CLLocation(latitude: inComp.latitude, longitude: inComp.longitude)) <= inPrecisionInMeters
+    }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - Hashable Conformance for CLLocationCoordinate2D -
 /* ###################################################################################################################################### */
 extension CLLocationCoordinate2D: Hashable {

@@ -23,7 +23,7 @@ import Contacts
 /* ###################################################################################################################################### */
 // MARK: - BMLT Parser Extension (Static Utility Methods) -
 /* ###################################################################################################################################### */
-internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
+internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
     /* ################################################################## */
     /**
      This allows us to find if a string contains another string.
@@ -113,7 +113,7 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
      
      - returns: A new virtual location instance.
      */
-    private static func _convert(thisDataToAVirtualLocation inMeetingData: [String: String]) -> LGV_MeetingSDK_BMLT.Meeting.VirtualLocation? {
+    private static func _convert(thisDataToAVirtualLocation inMeetingData: [String: String]) -> LGV_MeetingSDK_LGV_MeetingServer.Meeting.VirtualLocation? {
         let meetingURL = URL(string: _cleanURI(urlString: inMeetingData["virtual_meeting_link"] ?? inMeetingData["virtual_meeting_additional_info"] ?? "") ?? "")
         let phoneNumber = _decimalOnly(inMeetingData["phone_meeting_number"] ?? "")
         let phoneURL = phoneNumber.isEmpty ? nil : URL(string: "tel:\(phoneNumber)")
@@ -126,18 +126,18 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
             timeZone = TimeZone(secondsFromGMT: 0) ?? TimeZone.current
         }
 
-        var videoVenue: LGV_MeetingSDK_BMLT.Meeting.VirtualLocation.VirtualVenue?
-        var phoneVenue: LGV_MeetingSDK_BMLT.Meeting.VirtualLocation.VirtualVenue?
+        var videoVenue: LGV_MeetingSDK_LGV_MeetingServer.Meeting.VirtualLocation.VirtualVenue?
+        var phoneVenue: LGV_MeetingSDK_LGV_MeetingServer.Meeting.VirtualLocation.VirtualVenue?
 
         if let meetingURL = meetingURL {
-            videoVenue = LGV_MeetingSDK_BMLT.Meeting.VirtualLocation.VirtualVenue(description: "",
+            videoVenue = LGV_MeetingSDK_LGV_MeetingServer.Meeting.VirtualLocation.VirtualVenue(description: "",
                                                                                   timeZone: timeZone,
                                                                                   url: meetingURL,
                                                                                   extraInfo: extraInfo)
         }
 
         if let phoneURL = phoneURL {
-            phoneVenue = LGV_MeetingSDK_BMLT.Meeting.VirtualLocation.VirtualVenue(description: "",
+            phoneVenue = LGV_MeetingSDK_LGV_MeetingServer.Meeting.VirtualLocation.VirtualVenue(description: "",
                                                                                   timeZone: timeZone,
                                                                                   url: phoneURL,
                                                                                   extraInfo: extraInfo)
@@ -145,7 +145,7 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
 
         guard nil != videoVenue || nil != phoneVenue else { return nil }
         
-        return LGV_MeetingSDK_BMLT.Meeting.VirtualLocation(videoMeeting: videoVenue, phoneMeeting: phoneVenue, extraInfo: "")
+        return LGV_MeetingSDK_LGV_MeetingServer.Meeting.VirtualLocation(videoMeeting: videoVenue, phoneMeeting: phoneVenue, extraInfo: "")
     }
     
     /* ################################################################## */
@@ -156,7 +156,7 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
      
      - returns: A new physical location instance.
      */
-    private static func _convert(thisDataToAPhysicalLocation inMeetingData: [String: String]) -> LGV_MeetingSDK_BMLT.Meeting.PhysicalLocation? {
+    private static func _convert(thisDataToAPhysicalLocation inMeetingData: [String: String]) -> LGV_MeetingSDK_LGV_MeetingServer.Meeting.PhysicalLocation? {
         let coords = CLLocationCoordinate2D(latitude: Double(inMeetingData["latitude"] ?? "0") ?? 0, longitude: Double(inMeetingData["longitude"] ?? "0") ?? 0)
         let name = inMeetingData["location_text"] ?? ""
         let extraInfo = inMeetingData["location_info"] ?? ""
@@ -199,7 +199,7 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
             postalAddress.country = value
         }
 
-        return LGV_MeetingSDK_BMLT.Meeting.PhysicalLocation(coords: coords, name: name, postalAddress: postalAddress, timeZone: timeZone, extraInfo: extraInfo)
+        return LGV_MeetingSDK_LGV_MeetingServer.Meeting.PhysicalLocation(coords: coords, name: name, postalAddress: postalAddress, timeZone: timeZone, extraInfo: extraInfo)
     }
 
     /* ################################################################## */
@@ -220,7 +220,7 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
                   let name = formatDictionary["name_string"],
                   let description = formatDictionary["description_string"]
             else { return }
-            let format = LGV_MeetingSDK_BMLT.Format(id: id, key: key, name: name, description: description)
+            let format = LGV_MeetingSDK_LGV_MeetingServer.Format(id: id, key: key, name: name, description: description)
             ret[id] = format
         }
         
@@ -353,7 +353,7 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
 /* ###################################################################################################################################### */
 // MARK: Instance Utility Methods
 /* ###################################################################################################################################### */
-internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
+internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
     /* ################################################################## */
     /**
      This converts "raw" (String Dictionary) meeting objects, into actual Swift structs.
@@ -392,7 +392,7 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
                 distance = abs(meetingLocation.distance(from: inSearchCenter))
             }
 
-            ret.append(LGV_MeetingSDK_BMLT.Meeting(organization: organization,
+            ret.append(LGV_MeetingSDK_LGV_MeetingServer.Meeting(organization: organization,
                                                    id: id,
                                                    weekdayIndex: weekdayIndex,
                                                    meetingStartTime: meetingStartTime,
@@ -441,7 +441,7 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
 /* ###################################################################################################################################### */
 // MARK: LGV_MeetingSDK_Parser_Protocol Conformance
 /* ###################################################################################################################################### */
-extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
+extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
     /* ################################################################## */
     /**
      REQUIRED - This parses data, and returns meetings.
@@ -458,7 +458,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
                           data inData: Data,
                           refCon inRefCon: Any?,
                           completion inCompletion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
-        let emptyResponse = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, refCon: inRefCon)
+        let emptyResponse = LGV_MeetingSDK_LGV_MeetingServer.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, refCon: inRefCon)
         do {
             if let main_object = try JSONSerialization.jsonObject(with: inData, options: []) as? [String: [[String: String]]],
                let meetingsObject = main_object["meetings"],
@@ -494,11 +494,11 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
                     return meeting
                 }
                 
-                let meetingData = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: meetings, refCon: inRefCon)
+                let meetingData = LGV_MeetingSDK_LGV_MeetingServer.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: meetings, refCon: inRefCon)
                 
                 inCompletion(meetingData, nil)
             } else {
-                inCompletion(LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: [], refCon: inRefCon), nil)
+                inCompletion(LGV_MeetingSDK_LGV_MeetingServer.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: [], refCon: inRefCon), nil)
             }
         } catch {
             inCompletion(emptyResponse, LGV_MeetingSDK_Meeting_Data_Set.Error.parsingError(error: .jsonParseFailure(error: error)))

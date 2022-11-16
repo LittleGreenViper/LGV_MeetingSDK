@@ -1,3 +1,7 @@
+**2.0.0.0000** *TBD*
+
+- Added support for the LGV_MeetingServer backend.
+
 **1.2.1.0000** *November 1, 2022*
 
 - Addressing some possible memory leaks.
