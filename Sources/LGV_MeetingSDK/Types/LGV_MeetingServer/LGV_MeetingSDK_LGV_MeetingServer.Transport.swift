@@ -28,43 +28,11 @@ import Foundation
 public extension LGV_MeetingSDK_LGV_MeetingServer.Transport {
     /* ################################################################## */
     /**
-     These are the specific fields that we request. It shortens the response.
-     */
-    private static let _dataFields = ["comments",
-                                      "duration_time",
-                                      "format_shared_id_list",
-                                      "id_bigint",
-                                      "lang_enum",
-                                      "latitude",
-                                      "location_city_subsection",
-                                      "location_info",
-                                      "location_municipality",
-                                      "location_nation",
-                                      "location_neighborhood",
-                                      "location_postal_code_1",
-                                      "location_province",
-                                      "location_street",
-                                      "location_sub_province",
-                                      "location_text",
-                                      "longitude",
-                                      "meeting_name",
-                                      "phone_meeting_number",
-                                      "service_body_bigint",
-                                      "start_time",
-                                      "time_zone",
-                                      "venue_type",
-                                      "virtual_meeting_additional_info",
-                                      "virtual_meeting_link",
-                                      "weekday_tinyint"
-    ]
-    
-    /* ################################################################## */
-    /**
      This prepares the "baseline" URL string for the request.
      */
     var preparedURLString: String {
         guard var urlString = baseURL?.absoluteString else { return "" }
-        urlString += "/client_interface/json?callingApp=LGV_MeetingSDK_LGV_MeetingServer&switcher=GetSearchResults&get_used_formats=1&lang_enum=\(String(Locale.preferredLanguages[0].prefix(2)))&data_field_key=\(Self._dataFields.joined(separator: ","))"
+        urlString += "?query"
         
         return urlString
     }
@@ -81,6 +49,22 @@ public extension LGV_MeetingSDK_LGV_MeetingServer.Transport {
     func ceateURLRequest(type inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
                          refinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>
     ) -> URLRequest? {
+        /* ############################################################## */
+        /**
+         Unwinds the "composite" IDs that we use, into the "aggregate" ones, used by the server.
+         
+         The first 20 bits are the server ID, and the second 44 bits, are the meeting ID.
+         
+         - returns: An Array of tuples, containing the bifurcated IDs.
+         */
+        func unwindIDArray(_ inIDArray: [UInt64]) -> [(Int, Int)] {
+            inIDArray.map {
+                let serverID = Int($0 >> 44)
+                let meetingID = Int($0 & 0x00000FFFFFFFFFFF)
+                return (serverID, meetingID)
+            }
+        }
+        
         var urlString = preparedURLString
         
         guard !urlString.isEmpty else { return nil }
@@ -90,21 +74,22 @@ public extension LGV_MeetingSDK_LGV_MeetingServer.Transport {
             break
             
         case .fixedRadius(let centerLongLat, let radiusInMeters):
-            urlString += "&geo_width_km=\(radiusInMeters / 1000)&long_val=\(centerLongLat.longitude)&lat_val=\(centerLongLat.latitude)"
+            urlString += "&geo_radius=\(radiusInMeters / 1000)&geocenter_lng=\(centerLongLat.longitude)&geocenter_lat=\(centerLongLat.latitude)"
             
         case .autoRadius(let centerLongLat, let minimumNumberOfResults, _):
-            urlString += "&geo_width=\(-Int(minimumNumberOfResults))&long_val=\(centerLongLat.longitude)&lat_val=\(centerLongLat.latitude)"
+            urlString += "&minimum_found=\(Int(minimumNumberOfResults))&geocenter_lng=\(centerLongLat.longitude)&geocenter_lat=\(centerLongLat.latitude)"
 
         case .meetingID(let idArray):
-            urlString += "&SearchString=\(idArray.compactMap({String($0)}).joined(separator: ","))"
+            let compositeArray = unwindIDArray(idArray)
+            urlString += "&ids=\(compositeArray.map({String(format: "(%d,%d)", $0.0, $0.1)}).joined(separator: ","))"
         }
         
         // These refinements can actually affect the query string.
         inSearchRefinements.forEach { refinement in
             switch refinement {
             case .weekdays(let weekdays):
-                weekdays.forEach { weekday in
-                    urlString += "&weekdays\(1 < weekdays.count ? "[]" : "")=\(weekday.rawValue)"
+                if !weekdays.isEmpty {
+                    urlString += "&weekdays=\(weekdays.map({String($0.rawValue)}).joined(separator: ","))"
                 }
 
             case .startTimeRange(let range):
@@ -129,9 +114,10 @@ public extension LGV_MeetingSDK_LGV_MeetingServer.Transport {
                     }
                 }
                 
+                let startTime = (beginHours * 3600) + (beginMinutes * 60)
                 // If we are at zero, then there's no need to have a start to the range.
-                if 0 < beginMinutes || 0 < beginHours {
-                    urlString += "&StartsAfterH=\(beginHours)&StartsAfterM=\(beginMinutes)"
+                if (1..<86400).contains(startTime) {
+                    urlString += "&start_time=\(startTime)"
                 }
                 
                 // We add one to the end, as well (same reason). We clamp at 2359.
@@ -150,8 +136,11 @@ public extension LGV_MeetingSDK_LGV_MeetingServer.Transport {
                     }
                 }
                 
-                urlString += "&StartsBeforeH=\(endHours)&StartsBeforeM=\(endMinutes)"
-                
+                let endTime = (endHours * 3600) + (endMinutes * 60)
+                if (startTime..<86400).contains(endTime) {
+                    urlString += "&end_time=\(endTime)"
+                }
+
             default:
                 break
             }
