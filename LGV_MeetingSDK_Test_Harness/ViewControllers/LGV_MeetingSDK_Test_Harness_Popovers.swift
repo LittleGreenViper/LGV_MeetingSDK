@@ -97,7 +97,7 @@ extension LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController {
      */
     var indexOfSelectedRootServer: Int {
         get {
-            let selected = LGV_MeetingSDK_Test_Harness_Prefs().rootServerURLString
+            let selected = LGV_MeetingSDK_Test_Harness_Prefs().serverURLString
             
             for rootServerEntity in Self.rootServerList.enumerated() where rootServerEntity.element.rootURL == selected {
                 return rootServerEntity.offset
@@ -107,10 +107,10 @@ extension LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController {
         }
         
         set {
-            LGV_MeetingSDK_Test_Harness_Prefs().rootServerURLString = Self.rootServerList[newValue].rootURL
+            LGV_MeetingSDK_Test_Harness_Prefs().serverURLString = Self.rootServerList[newValue].rootURL
             guard let rootURL = Self.currentRootServer?.rootURL else { return }
             
-            tabController?.setSDKToThisRootServerURL(rootURL)
+            tabController?.setSDKToThisServerURL(rootURL)
         }
     }
 }

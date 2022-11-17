@@ -203,7 +203,7 @@ extension LGV_MeetingSDK_Test_Harness_Base_ViewController {
     /**
      This returns the currently selected Root Server entity.
      */
-    class var currentRootServer: RootServerEntity? { rootServerList.first { $0.rootURL == LGV_MeetingSDK_Test_Harness_Prefs().rootServerURLString } }
+    class var currentRootServer: RootServerEntity? { rootServerList.first { $0.rootURL == LGV_MeetingSDK_Test_Harness_Prefs().serverURLString } }
 }
 
 /* ###################################################################################################################################### */

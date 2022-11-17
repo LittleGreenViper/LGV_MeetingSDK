@@ -54,7 +54,7 @@ class LGV_MeetingSDK_Test_Harness_TabController: UITabBarController {
     /**
      This holds the actual SDK instance that we're testing.
      */
-    var sdk: LGV_MeetingSDK_BMLT?
+    var sdk: LGV_MeetingSDK?
     
     /* ################################################################## */
     /**
@@ -156,10 +156,14 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
      
      - parameter inRootServerURLString: The string representation of the root server to be used.
      */
-    func setSDKToThisRootServerURL(_ inRootServerURLString: String) {
+    func setSDKToThisServerURL(_ inRootServerURLString: String) {
         if let rootServerURL = URL(string: inRootServerURLString) {
             searchData?.meetings = []
-            sdk = LGV_MeetingSDK_BMLT(rootServerURL: rootServerURL)
+            if LGV_MeetingSDK_Test_Harness_Prefs().selectedConnector == 0 {
+                sdk = LGV_MeetingSDK_BMLT(rootServerURL: rootServerURL)
+            } else {
+                sdk = LGV_MeetingSDK_LGV_MeetingServer(entrypointURL: rootServerURL)
+            }
             setTabBarEnablement()
             mapViewController?.updateScreen()
         }
@@ -188,11 +192,11 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
      Saves the current search state.
      */
     func saveState() {
-        guard let rootServerURLString = sdk?.rootServerURLString,
-              !rootServerURLString.isEmpty
-        else { return }
-        
-        LGV_MeetingSDK_Test_Harness_Prefs().rootServerURLString = rootServerURLString
+        if let sdk = sdk as? LGV_MeetingSDK_BMLT {
+            LGV_MeetingSDK_Test_Harness_Prefs().serverURLString = sdk.rootServerURLString
+        } else if let sdk = sdk as? LGV_MeetingSDK_LGV_MeetingServer {
+            LGV_MeetingSDK_Test_Harness_Prefs().serverURLString = sdk.entrypointURLString
+        }
     }
     
     /* ################################################################## */
@@ -200,12 +204,12 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
      Loads the saved search state.
      */
     func loadState() {
-        let rootServerURLString = LGV_MeetingSDK_Test_Harness_Prefs().rootServerURLString
+        let serverURLString = LGV_MeetingSDK_Test_Harness_Prefs().serverURLString
         
-        guard !rootServerURLString.isEmpty else { return }
+        guard !serverURLString.isEmpty else { return }
         
         // Set up our SDK.
-        setSDKToThisRootServerURL(rootServerURLString)
+        setSDKToThisServerURL(serverURLString)
 
         mapViewController?.updateScreen()
         setTabBarEnablement()
