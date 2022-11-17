@@ -204,7 +204,17 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
      Loads the saved search state.
      */
     func loadState() {
-        let serverURLString = LGV_MeetingSDK_Test_Harness_Prefs().serverURLString
+        var serverURLString: String
+        
+        if 0 == LGV_MeetingSDK_Test_Harness_Prefs().selectedConnector {
+            serverURLString = LGV_MeetingSDK_Test_Harness_Prefs().serverURLString
+            
+            if "SLUG-GENERIC-SERVER-URL".localizedVariant == serverURLString {
+                serverURLString = "SLUG-BMLT-SERVER-URL".localizedVariant
+            }
+        } else {
+            serverURLString = "SLUG-GENERIC-SERVER-URL".localizedVariant
+        }
         
         guard !serverURLString.isEmpty else { return }
         
