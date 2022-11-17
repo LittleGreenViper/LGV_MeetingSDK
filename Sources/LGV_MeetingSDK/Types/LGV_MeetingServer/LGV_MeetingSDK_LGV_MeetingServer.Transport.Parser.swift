@@ -360,7 +360,6 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
      
      - Parameters:
          - theseMeetings: The Dictionary of String Dictionaries that represent the parsed JSON object for the meetings.
-         - andTheseFormats: The Dictionary of parsed formats.
      
      - returns: An Array of parsed and initialized meeting instances.
      */
@@ -393,8 +392,7 @@ extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser: LGV_MeetingSDK_Pars
                           completion inCompletion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
         let emptyResponse = LGV_MeetingSDK_LGV_MeetingServer.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, refCon: inRefCon)
         do {
-            if let main_object = try JSONSerialization.jsonObject(with: inData, options: []) as? [String: [[String: String]]],
-               let meetingsObject = main_object["meetings"] {
+            if let meetingsObject = (try JSONSerialization.jsonObject(with: inData, options: []) as? [String: Any])?["meetings"] as? [[String: Any]] {
                 var searchCenter: CLLocation = CLLocation(latitude: 0, longitude: 0)
                 if case let .fixedRadius(centerLongLat, _) = inSearchType {
                     searchCenter = CLLocation(latitude: centerLongLat.latitude, longitude: centerLongLat.longitude)
