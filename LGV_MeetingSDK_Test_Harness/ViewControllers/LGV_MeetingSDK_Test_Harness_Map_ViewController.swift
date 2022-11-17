@@ -470,7 +470,8 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
      This updates the screen to reflect the current state.
      */
     func updateScreen() {
-        connectorSegmentedSwitch?.selectedSegmentIndex = LGV_MeetingSDK_Test_Harness_Prefs().selectedConnector
+        let connector = LGV_MeetingSDK_Test_Harness_Prefs().selectedConnector
+        connectorSegmentedSwitch?.selectedSegmentIndex = connector
         updateRootServerButtonTitle()
         if case let .autoRadius(_, numberOfResults, maximumRadiusInMeters) = searchData?.searchType {
             autoSearchStackView?.isHidden = false
@@ -506,11 +507,11 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         LGV_MeetingSDK_Test_Harness_Prefs().selectedConnector = inSegmentedSwitch.selectedSegmentIndex
         if ConnectorSwitchIndexes.bmlt.rawValue != inSegmentedSwitch.selectedSegmentIndex {
             rootServerButton?.isHidden = true
+            tabController?.setSDKToThisServerURL("SLUG-GENERIC-SERVER-URL".localizedVariant)
         } else {
             rootServerButton?.isHidden = false
             tabController?.setSDKToThisServerURL("SLUG-TOMATO-SERVER-URL".localizedVariant)
         }
-        tabController?.loadState()
         updateScreen()
     }
 
