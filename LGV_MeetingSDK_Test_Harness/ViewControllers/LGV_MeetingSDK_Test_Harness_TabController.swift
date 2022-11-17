@@ -89,7 +89,7 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
     /**
      This allows us to specify, and receive, a search.
      */
-    var searchData: LGV_MeetingSDK_BMLT.Data_Set? { appDelegateInstance?.searchData }
+    var searchData: LGV_MeetingSDK_Meeting_Data_Set_Protocol? { appDelegateInstance?.searchData }
     
     /* ################################################################## */
     /**
@@ -264,7 +264,7 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
         print("Search Results: \(String(describing: inSearchResults))")
         print("\tError: \(String(describing: inError))")
         DispatchQueue.main.async {
-            self.appDelegateInstance?.searchData = inSearchResults as? LGV_MeetingSDK_BMLT.Data_Set
+            self.appDelegateInstance?.searchData = inSearchResults
             self.mapViewController?.isBusy = false
             self.setTabBarEnablement()
             if !(inSearchResults?.meetings ?? []).isEmpty {

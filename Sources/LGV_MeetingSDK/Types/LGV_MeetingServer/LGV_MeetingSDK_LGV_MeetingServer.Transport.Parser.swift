@@ -206,18 +206,18 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
      
      - returns: An Array of parsed and initialized format instances.
      */
-    private static func _convert(theseFormats inJSONParsedFormats: [[String: String]]) -> [UInt64: LGV_MeetingSDK_Format_Protocol] {
-        var ret = [UInt64: LGV_MeetingSDK_Format_Protocol]()
+    private static func _convert(theseFormats inJSONParsedFormats: [[String: Any]]) -> [LGV_MeetingSDK_Format_Protocol] {
+        var ret = [LGV_MeetingSDK_Format_Protocol]()
         
-        inJSONParsedFormats.forEach { formatDictionary in
-            guard let str = formatDictionary["id"],
-                  let id = UInt64(str),
-                  let key = formatDictionary["key_string"],
-                  let name = formatDictionary["name_string"],
-                  let description = formatDictionary["description_string"]
+        inJSONParsedFormats.forEach {
+            guard let idInt = $0["id"] as? Int,
+                  let key = $0["key"] as? String,
+                  let name = $0["name"] as? String,
+                  let description = $0["description"] as? String
             else { return }
+            let id = UInt64(idInt)
             let format = LGV_MeetingSDK_LGV_MeetingServer.Format(id: id, key: key, name: name, description: description)
-            ret[id] = format
+            ret.append(format)
         }
         
         return ret
@@ -360,35 +360,55 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
      - returns: An Array of parsed and initialized meeting instances.
      */
     private func _convert(theseMeetings inJSONParsedMeetings: [[String: Any]], searchCenter inSearchCenter: CLLocation) -> [LGV_MeetingSDK_Meeting_Protocol] {
-        let ret = [LGV_MeetingSDK_Meeting_Protocol]()
+        guard let organization = initiator?.transport?.organization else { return [] }
+
+        var ret = [LGV_MeetingSDK_Meeting_Protocol]()
         
         inJSONParsedMeetings.forEach { rawMeetingObject in
             let serverID = UInt64(rawMeetingObject["server_id"] as? Int ?? 0)
             let meetingID = UInt64(rawMeetingObject["meeting_id"] as? Int ?? 0)
             let organizationKey: String = rawMeetingObject["organization_key"] as? String ?? ""
             let coords = CLLocationCoordinate2D(latitude: Double(rawMeetingObject["latitude"] as? Double ?? 0), longitude: Double(rawMeetingObject["longitude"] as? Double ?? 0))
+            let name = rawMeetingObject["name"] as? String ?? ""
+            let comments = rawMeetingObject["comments"] as? String ?? ""
             let duration = TimeInterval(rawMeetingObject["duration"] as? Int ?? 0)
-
-            var distance: CLLocationDistance?
-
-            if let value = rawMeetingObject["distance"] as? Double {
-                distance = CLLocationDistance(value)
-            }
+            let weekday = rawMeetingObject["weekday"] as? Int ?? 0
+            let meetingStartTime = (Int(Self._decimalOnly(rawMeetingObject["start_time"] as? String ?? "00:00:00")) ?? 0) / 100
+            let distance: CLLocationDistance = CLLocationDistance(rawMeetingObject["distance"] as? Double ?? Double.greatestFiniteMagnitude)
+            let formats: [LGV_MeetingSDK_Format_Protocol] = Self._convert(theseFormats: rawMeetingObject["formats"] as? [[String: Any]] ?? [])
 
             var physicalLocation: LGV_MeetingSDK_LGV_MeetingServer.Meeting.PhysicalLocation?
-            var virtualInformation: LGV_MeetingSDK_LGV_MeetingServer.Meeting.VirtualLocation?
 
             if let physicalAddress = rawMeetingObject["physical_address"] as? [String: String] {
                 physicalLocation = Self._convert(thisDataToAPhysicalLocation: physicalAddress, coords: coords)
             }
             
+            var virtualInformation: LGV_MeetingSDK_LGV_MeetingServer.Meeting.VirtualLocation?
+
             if let virtualStuff = rawMeetingObject["virtual_information"] as? [String: String] {
                 virtualInformation = Self._convert(thisDataToAVirtualLocation: virtualStuff)
             }
-            
-            print("Meeting:\n\tcoords: \(coords)\n\tserver_id: \(serverID)\n\tmeeting_id: \(meetingID)\n\torganizationKey: \(organizationKey)\n\tduration: \(duration)\n\tdistance: \(String(describing: distance))")
+
+            print("Meeting:\n\tcoords: \(coords)\n\tname: \(name)\n\tserver_id: \(serverID)\n\tmeeting_id: \(meetingID)\n\torganizationKey: \(organizationKey)\n\tduration: \(duration)\n\tdistance: \(String(describing: distance))")
+            print("\tformats: \(formats.debugDescription)")
             print("\tphysicalLocation: \(physicalLocation.debugDescription)")
             print("\tvirtualInformation: \(virtualInformation.debugDescription)")
+            
+            let id = (serverID << 44) + meetingID
+            
+            ret.append(LGV_MeetingSDK_LGV_MeetingServer.Meeting(organization: organization,
+                                                                id: id,
+                                                                weekdayIndex: weekday,
+                                                                meetingStartTime: meetingStartTime,
+                                                                name: name,
+                                                                extraInfo: comments,
+                                                                meetingDuration: duration,
+                                                                distanceInMeters: distance,
+                                                                formats: formats,
+                                                                physicalLocation: physicalLocation,
+                                                                virtualMeetingInfo: virtualInformation
+                                                               )
+                       )
         }
         return ret
     }

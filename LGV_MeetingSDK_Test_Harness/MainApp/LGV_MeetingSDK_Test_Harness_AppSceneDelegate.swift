@@ -40,7 +40,7 @@ class LGV_MeetingSDK_Test_Harness_AppSceneDelegate: UIResponder {
     /**
      This allows us to specify, and receive, a search.
      */
-    var searchData: LGV_MeetingSDK_BMLT.Data_Set?
+    var searchData: LGV_MeetingSDK_Meeting_Data_Set_Protocol?
 }
 
 /* ###################################################################################################################################### */

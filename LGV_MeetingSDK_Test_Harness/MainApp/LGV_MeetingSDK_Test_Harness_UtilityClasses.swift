@@ -227,7 +227,7 @@ extension LGV_MeetingSDK_Test_Harness_Base_ViewController {
     /**
      This allows us to specify, and receive, a search.
      */
-    var searchData: LGV_MeetingSDK_BMLT.Data_Set? { appDelegateInstance?.searchData }
+    var searchData: LGV_MeetingSDK_Meeting_Data_Set_Protocol? { appDelegateInstance?.searchData }
 }
 
 /* ###################################################################################################################################### */
