@@ -488,7 +488,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
      */
     func updateRootServerButtonTitle() {
         rootServerButton?.isHidden = ConnectorSwitchIndexes.bmlt.rawValue != (connectorSegmentedSwitch?.selectedSegmentIndex ?? ConnectorSwitchIndexes.bmlt.rawValue)
-        rootServerButton?.setTitle(Self.currentRootServer?.name ?? "ERROR", for: .normal)
+        rootServerButton?.setTitle(Self.currentRootServer?.name ?? "", for: .normal)
     }
 }
 
@@ -504,6 +504,12 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
      */
     @IBAction func connectorSegmentedSwitchHit(_ inSegmentedSwitch: UISegmentedControl) {
         LGV_MeetingSDK_Test_Harness_Prefs().selectedConnector = inSegmentedSwitch.selectedSegmentIndex
+        if ConnectorSwitchIndexes.bmlt.rawValue != inSegmentedSwitch.selectedSegmentIndex {
+            rootServerButton?.isHidden = true
+        } else {
+            rootServerButton?.isHidden = false
+            tabController?.setSDKToThisServerURL("SLUG-TOMATO-SERVER-URL".localizedVariant)
+        }
         tabController?.loadState()
         updateScreen()
     }
