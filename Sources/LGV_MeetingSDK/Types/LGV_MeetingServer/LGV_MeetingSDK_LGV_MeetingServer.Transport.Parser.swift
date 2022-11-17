@@ -114,10 +114,10 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
      - returns: A new virtual location instance.
      */
     private static func _convert(thisDataToAVirtualLocation inMeetingData: [String: String]) -> LGV_MeetingSDK_LGV_MeetingServer.Meeting.VirtualLocation? {
-        let meetingURL = URL(string: _cleanURI(urlString: inMeetingData["virtual_meeting_link"] ?? inMeetingData["virtual_meeting_additional_info"] ?? "") ?? "")
-        let phoneNumber = _decimalOnly(inMeetingData["phone_meeting_number"] ?? "")
+        let meetingURL = URL(string: _cleanURI(urlString: inMeetingData["url"] ?? inMeetingData["info"] ?? "") ?? "")
+        let phoneNumber = _decimalOnly(inMeetingData["phone_number"] ?? "")
         let phoneURL = phoneNumber.isEmpty ? nil : URL(string: "tel:\(phoneNumber)")
-        let extraInfo = inMeetingData["virtual_meeting_additional_info"] ?? ""
+        let extraInfo = inMeetingData["info"] ?? ""
         var timeZone: TimeZone
         if let timeZoneIdentifier = inMeetingData["time_zone"],
            let timeZoneTemp = TimeZone(identifier: timeZoneIdentifier) {
@@ -153,53 +153,49 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
      This converts "raw" (String Dictionary) meeting objects, into actual Swift structs.
      
      - parameter thisDataToAPhysicalLocation: The Dictionary of String Dictionaries that represent the parsed JSON object for the meetings.
+     - parameter coords: The meeting coordinates.
      
      - returns: A new physical location instance.
      */
-    private static func _convert(thisDataToAPhysicalLocation inMeetingData: [String: String]) -> LGV_MeetingSDK_LGV_MeetingServer.Meeting.PhysicalLocation? {
-        let coords = CLLocationCoordinate2D(latitude: Double(inMeetingData["latitude"] ?? "0") ?? 0, longitude: Double(inMeetingData["longitude"] ?? "0") ?? 0)
-        let name = inMeetingData["location_text"] ?? ""
-        let extraInfo = inMeetingData["location_info"] ?? ""
-        var timeZone = TimeZone.autoupdatingCurrent
-        if let timeZoneIdentifier = inMeetingData["time_zone"],
-           let timeZoneTemp = TimeZone(identifier: timeZoneIdentifier) {
-            timeZone = timeZoneTemp
-        }
+    private static func _convert(thisDataToAPhysicalLocation inMeetingData: [String: String], coords inCoords: CLLocationCoordinate2D) -> LGV_MeetingSDK_LGV_MeetingServer.Meeting.PhysicalLocation? {
+        let name = inMeetingData["name"] ?? ""
+        let extraInfo = inMeetingData["info"] ?? ""
+        let timeZone = TimeZone.autoupdatingCurrent
 
         let postalAddress = CNMutablePostalAddress()
 
-        if let value = inMeetingData["location_street"] {
+        if let value = inMeetingData["street"] {
             postalAddress.street = value
         }
         
         // No street, no physical location.
         guard !postalAddress.street.isEmpty else { return nil }
         
-        if let value = inMeetingData["location_city_subsection"] {
+        if let value = inMeetingData["city_subsection"] {
             postalAddress.subLocality = value
         }
         
-        if let value = inMeetingData["location_municipality"] {
+        if let value = inMeetingData["municipality"] {
             postalAddress.city = value
         }
         
-        if let value = inMeetingData["location_sub_province"] {
+        if let value = inMeetingData["sub_province"] {
             postalAddress.subAdministrativeArea = value
         }
         
-        if let value = inMeetingData["location_province"] {
+        if let value = inMeetingData["province"] {
             postalAddress.state = value
         }
         
-        if let value = inMeetingData["location_postal_code_1"] {
+        if let value = inMeetingData["postal_code"] {
             postalAddress.postalCode = value
         }
         
-        if let value = inMeetingData["location_nation"] {
+        if let value = inMeetingData["nation"] {
             postalAddress.country = value
         }
 
-        return LGV_MeetingSDK_LGV_MeetingServer.Meeting.PhysicalLocation(coords: coords, name: name, postalAddress: postalAddress, timeZone: timeZone, extraInfo: extraInfo)
+        return LGV_MeetingSDK_LGV_MeetingServer.Meeting.PhysicalLocation(coords: inCoords, name: name, postalAddress: postalAddress, timeZone: timeZone, extraInfo: extraInfo)
     }
 
     /* ################################################################## */
@@ -366,6 +362,34 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
     private func _convert(theseMeetings inJSONParsedMeetings: [[String: Any]], searchCenter inSearchCenter: CLLocation) -> [LGV_MeetingSDK_Meeting_Protocol] {
         let ret = [LGV_MeetingSDK_Meeting_Protocol]()
         
+        inJSONParsedMeetings.forEach { rawMeetingObject in
+            let serverID = UInt64(rawMeetingObject["server_id"] as? Int ?? 0)
+            let meetingID = UInt64(rawMeetingObject["meeting_id"] as? Int ?? 0)
+            let organizationKey: String = rawMeetingObject["organization_key"] as? String ?? ""
+            let coords = CLLocationCoordinate2D(latitude: Double(rawMeetingObject["latitude"] as? Double ?? 0), longitude: Double(rawMeetingObject["longitude"] as? Double ?? 0))
+            let duration = TimeInterval(rawMeetingObject["duration"] as? Int ?? 0)
+
+            var distance: CLLocationDistance?
+
+            if let value = rawMeetingObject["distance"] as? Double {
+                distance = CLLocationDistance(value)
+            }
+
+            var physicalLocation: LGV_MeetingSDK_LGV_MeetingServer.Meeting.PhysicalLocation?
+            var virtualInformation: LGV_MeetingSDK_LGV_MeetingServer.Meeting.VirtualLocation?
+
+            if let physicalAddress = rawMeetingObject["physical_address"] as? [String: String] {
+                physicalLocation = Self._convert(thisDataToAPhysicalLocation: physicalAddress, coords: coords)
+            }
+            
+            if let virtualStuff = rawMeetingObject["virtual_information"] as? [String: String] {
+                virtualInformation = Self._convert(thisDataToAVirtualLocation: virtualStuff)
+            }
+            
+            print("Meeting:\n\tcoords: \(coords)\n\tserver_id: \(serverID)\n\tmeeting_id: \(meetingID)\n\torganizationKey: \(organizationKey)\n\tduration: \(duration)\n\tdistance: \(String(describing: distance))")
+            print("\tphysicalLocation: \(physicalLocation.debugDescription)")
+            print("\tvirtualInformation: \(virtualInformation.debugDescription)")
+        }
         return ret
     }
 }

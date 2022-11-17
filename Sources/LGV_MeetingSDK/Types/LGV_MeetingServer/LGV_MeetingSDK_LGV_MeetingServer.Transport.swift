@@ -156,6 +156,6 @@ public extension LGV_MeetingSDK_LGV_MeetingServer.Transport {
             print("URL Request: \(urlString)")
         #endif
         
-        return URLRequest(url: url)
+        return URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData)
     }
 }

@@ -318,6 +318,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
      */
     override func viewWillAppear(_ inAnimated: Bool) {
         super.viewWillAppear(inAnimated)
+        tabController?.loadState()
         tabController?.searchBarButtonItem?.isEnabled = true
         recalculateSearchParameters()
     }
@@ -503,6 +504,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
      */
     @IBAction func connectorSegmentedSwitchHit(_ inSegmentedSwitch: UISegmentedControl) {
         LGV_MeetingSDK_Test_Harness_Prefs().selectedConnector = inSegmentedSwitch.selectedSegmentIndex
+        tabController?.loadState()
         updateScreen()
     }
 

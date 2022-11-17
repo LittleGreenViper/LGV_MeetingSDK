@@ -163,6 +163,6 @@ public extension LGV_MeetingSDK_BMLT.Transport {
             print("URL Request: \(urlString)")
         #endif
         
-        return URLRequest(url: url)
+        return URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData)
     }
 }
