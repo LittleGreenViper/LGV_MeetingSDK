@@ -38,9 +38,29 @@ class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harnes
     // MARK: Switch Index Enum
     /* ################################################################################################################################## */
     /**
-     These Represent our segmented switch values.
+     These Represent our segmented switch values for the server connector.
      */
-    enum SwitchIndexes: Int {
+    enum ConnectorSwitchIndexes: Int {
+        /* ############################################################## */
+        /**
+         The BMLT Server Segment
+         */
+        case bmlt
+        
+        /* ############################################################## */
+        /**
+         The LGV_MeetingServer Segment
+         */
+        case lgv
+    }
+    
+    /* ################################################################################################################################## */
+    // MARK: Radius Switch Index Enum
+    /* ################################################################################################################################## */
+    /**
+     These Represent our segmented switch values for the radius search.
+     */
+    enum RadiusSwitchIndexes: Int {
         /* ############################################################## */
         /**
          The Fixed Map Search Segment
@@ -116,6 +136,12 @@ class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harnes
     
     /* ################################################################## */
     /**
+     This is the segmented switch that goes between BMLT, and LGV_MeetingServer.
+     */
+    @IBOutlet weak var connectorSegmentedSwitch: UISegmentedControl?
+    
+    /* ################################################################## */
+    /**
      This is the segmented switch that goes between fixed radius, and auto-radius, searches.
      */
     @IBOutlet weak var modeSelectionSegmentedControl: UISegmentedControl?
@@ -181,7 +207,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
     var isCircleMaskShown: Bool {
         guard let index = modeSelectionSegmentedControl?.selectedSegmentIndex,
               let isMaxRadiusOn = maxRadiusSwitch?.isOn,
-              SwitchIndexes.fixedSearch.rawValue == index || isMaxRadiusOn
+              RadiusSwitchIndexes.fixedSearch.rawValue == index || isMaxRadiusOn
         else { return false }
         
         return true
@@ -224,16 +250,20 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         maxRadiusLabelButton?.titleLabel?.textAlignment = .left
         maxRadiusLabelButton?.setTitle(maxRadiusLabelButton?.title(for: .normal)?.localizedVariant, for: .normal)
         
-        for segmentIndex in (SwitchIndexes.fixedSearch.rawValue..<(modeSelectionSegmentedControl?.numberOfSegments ?? SwitchIndexes.fixedSearch.rawValue)) {
+        for segmentIndex in (RadiusSwitchIndexes.fixedSearch.rawValue..<(modeSelectionSegmentedControl?.numberOfSegments ?? RadiusSwitchIndexes.fixedSearch.rawValue)) {
             modeSelectionSegmentedControl?.setTitle(modeSelectionSegmentedControl?.titleForSegment(at: segmentIndex)?.localizedVariant, forSegmentAt: segmentIndex)
+        }
+        
+        for segmentIndex in (0..<(connectorSegmentedSwitch?.numberOfSegments ?? 0)) {
+            connectorSegmentedSwitch?.setTitle(connectorSegmentedSwitch?.titleForSegment(at: segmentIndex)?.localizedVariant, forSegmentAt: segmentIndex)
         }
         
         setAccessibilityHints()
         
         if case .autoRadius = searchData?.searchType {
-            modeSelectionSegmentedControl?.selectedSegmentIndex = SwitchIndexes.autoRadiusSearch.rawValue
+            modeSelectionSegmentedControl?.selectedSegmentIndex = RadiusSwitchIndexes.autoRadiusSearch.rawValue
         } else {
-            modeSelectionSegmentedControl?.selectedSegmentIndex = SwitchIndexes.fixedSearch.rawValue
+            modeSelectionSegmentedControl?.selectedSegmentIndex = RadiusSwitchIndexes.fixedSearch.rawValue
         }
         
         rootServerButton?.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -391,6 +421,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         maxRadiusSwitch?.accessibilityHint = "SLUG-MAX-RADIUS-BUTTON".accessibilityLocalizedVariant
         maxRadiusLabelButton?.accessibilityHint = "SLUG-MAX-RADIUS-BUTTON".accessibilityLocalizedVariant
         modeSelectionSegmentedControl?.accessibilityHint = "SLUG-SEGMENTED-RADIUS-SWITCH-HINT".accessibilityLocalizedVariant
+        connectorSegmentedSwitch?.accessibilityHint = "SLUG-SEGMENTED-SERVER-SWITCH-HINT".accessibilityLocalizedVariant
         rootServerButton?.titleLabel?.accessibilityHint = "SLUG-ROOT-SERVER-BUTTON-HINT".accessibilityLocalizedVariant
     }
     
@@ -418,7 +449,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         
         let meetings = appDelegateInstance?.searchData?.meetings ?? []
         
-        if SwitchIndexes.fixedSearch.rawValue == modeSelectionSegmentedControl?.selectedSegmentIndex {
+        if RadiusSwitchIndexes.fixedSearch.rawValue == modeSelectionSegmentedControl?.selectedSegmentIndex {
             appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: .fixedRadius(centerLongLat: mapView.centerCoordinate, radiusInMeters: radiusInMeters), meetings: meetings)
         } else {
             var maxRadius = Double.greatestFiniteMagnitude
@@ -454,6 +485,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
      This updates the title of the Root Server button, to match the current selection.
      */
     func updateRootServerButtonTitle() {
+        rootServerButton?.isHidden = ConnectorSwitchIndexes.bmlt.rawValue != (connectorSegmentedSwitch?.selectedSegmentIndex ?? ConnectorSwitchIndexes.bmlt.rawValue)
         rootServerButton?.setTitle(Self.currentRootServer?.name ?? "ERROR", for: .normal)
     }
 }
@@ -462,6 +494,16 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
 // MARK: Callbacks
 /* ###################################################################################################################################### */
 extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
+    /* ################################################################## */
+    /**
+     The segmented switch that goes between BMLT, and LGV_MeetingServer was hit.
+     
+     - parameter inSegmentedSwitch: The switch that was changed.
+     */
+    @IBAction func connectorSegmentedSwitchHit(_ inSegmentedSwitch: UISegmentedControl) {
+        updateScreen()
+    }
+
     /* ################################################################## */
     /**
      Called when the main segmented switch changes value.

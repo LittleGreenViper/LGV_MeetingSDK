@@ -76,9 +76,13 @@ public extension LGV_MeetingSDK_LGV_MeetingServer.Transport {
         case .fixedRadius(let centerLongLat, let radiusInMeters):
             urlString += "&geo_radius=\(radiusInMeters / 1000)&geocenter_lng=\(centerLongLat.longitude)&geocenter_lat=\(centerLongLat.latitude)"
             
-        case .autoRadius(let centerLongLat, let minimumNumberOfResults, _):
+        case .autoRadius(let centerLongLat, let minimumNumberOfResults, let maximumRadiusInMeters):
             urlString += "&minimum_found=\(Int(minimumNumberOfResults))&geocenter_lng=\(centerLongLat.longitude)&geocenter_lat=\(centerLongLat.latitude)"
 
+            if 0 < maximumRadiusInMeters {
+                urlString += "&geo_radius=\(maximumRadiusInMeters / 1000)"
+            }
+        
         case .meetingID(let idArray):
             let compositeArray = unwindIDArray(idArray)
             urlString += "&ids=\(compositeArray.map({String(format: "(%d,%d)", $0.0, $0.1)}).joined(separator: ","))"

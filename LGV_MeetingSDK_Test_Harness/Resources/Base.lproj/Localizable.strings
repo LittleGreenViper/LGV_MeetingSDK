@@ -40,3 +40,5 @@
 "SLUG-VIRTUAL-ONLY-TEXT"                                        =       "Virtual-Only Meeting";
 "SLUG-EDIT-BUTTON-TEXT"                                         =       "Edit";
 "SLUG-CANCEL-BUTTON-TEXT"                                       =       "Cancel";
+"SLUG-BMLT-SEGMENT"                                             =       "BMLT";
+"SLUG-LGV-SEGMENT"                                              =       "LGV_MeetingServer";
