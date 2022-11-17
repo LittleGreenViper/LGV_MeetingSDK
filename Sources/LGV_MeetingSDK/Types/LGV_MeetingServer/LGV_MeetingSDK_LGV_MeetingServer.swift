@@ -91,7 +91,6 @@ open class LGV_MeetingSDK_LGV_MeetingServer: LGV_MeetingSDK {
              - searchType (OPTIONAL): This is the search specification main search type. Default is .none.
              - searchRefinements (OPTIONAL): This is the search specification additional filters. Default is an empty set.
              - meetings (OPTIONAL): This contains any found meetings. It may be empty or omitted (no meetings found).
-             - formats (OPTIONAL): This Dictionary contains any found formats.
              - extraInfo (OPTIONAL): This has any extra information that we wish to attach to the data set. Default is an empty String.
              - refCon (OPTIONAL): This has any reference context that we wish to attach to the data set. Default is nil.
          */

@@ -364,77 +364,10 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
      
      - returns: An Array of parsed and initialized meeting instances.
      */
-    private func _convert(theseMeetings inJSONParsedMeetings: [[String: String]], andTheseFormats inFormats: [UInt64: LGV_MeetingSDK_Format_Protocol], searchCenter inSearchCenter: CLLocation) -> [LGV_MeetingSDK_Meeting_Protocol] {
-        guard let organization = initiator?.transport?.organization else { return [] }
+    private func _convert(theseMeetings inJSONParsedMeetings: [[String: Any]], searchCenter inSearchCenter: CLLocation) -> [LGV_MeetingSDK_Meeting_Protocol] {
+        let ret = [LGV_MeetingSDK_Meeting_Protocol]()
         
-        var ret = [LGV_MeetingSDK_Meeting_Protocol]()
-        
-        inJSONParsedMeetings.forEach { meetingDictionary in
-            let meetingDurationComponents = meetingDictionary["duration_time"]?.split(separator: ":").map { Int($0) ?? 0 } ?? [0, 0]
-            guard 1 < meetingDurationComponents.count,
-                  let str = meetingDictionary["id_bigint"],
-                  let sharedFormatIDs = meetingDictionary["format_shared_id_list"],
-                  let id = UInt64(str)
-            else { return }
-            let meetingName = meetingDictionary["meeting_name"] ?? "NA Meeting"
-            let weekdayIndex = Int(meetingDictionary["weekday_tinyint"] ?? "0") ?? 0
-            let meetingStartTime = (Int(Self._decimalOnly(meetingDictionary["start_time"] ?? "00:00:00")) ?? 0) / 100
-            let meetingDuration = TimeInterval((meetingDurationComponents[0] * (60 * 60)) + (meetingDurationComponents[1] * 60))
-            let formats = sharedFormatIDs.split(separator: ",").compactMap { UInt64($0) }.compactMap { inFormats[$0] }
-            let physicalLocation = Self._convert(thisDataToAPhysicalLocation: meetingDictionary)
-            let virtualInformation = Self._convert(thisDataToAVirtualLocation: meetingDictionary)
-            let comments = meetingDictionary["comments"] ?? ""
-            var distance = Double.greatestFiniteMagnitude
-            if let coords = physicalLocation?.coords,
-               coords.isValid,
-               inSearchCenter.coordinate.isValid {
-                let meetingLocation = CLLocation(latitude: coords.latitude, longitude: coords.longitude)
-                distance = abs(meetingLocation.distance(from: inSearchCenter))
-            }
-
-            ret.append(LGV_MeetingSDK_LGV_MeetingServer.Meeting(organization: organization,
-                                                   id: id,
-                                                   weekdayIndex: weekdayIndex,
-                                                   meetingStartTime: meetingStartTime,
-                                                   name: meetingName,
-                                                   extraInfo: comments,
-                                                   meetingDuration: meetingDuration,
-                                                   distanceInMeters: distance,
-                                                   formats: formats,
-                                                   physicalLocation: physicalLocation,
-                                                   virtualMeetingInfo: virtualInformation
-                                                  )
-                       )
-        }
-
-        return ret.sorted { lhs, rhs in
-            guard !inSearchCenter.coordinate.isValid || lhs.distanceInMeters == rhs.distanceInMeters else {
-                return lhs.distanceInMeters < rhs.distanceInMeters
-            }
-            
-            guard lhs.adjustedWeekdayIndex == rhs.adjustedWeekdayIndex else {
-                return lhs.adjustedWeekdayIndex < rhs.adjustedWeekdayIndex
-            }
-            
-            guard lhs.meetingStartTime == rhs.meetingStartTime else {
-                return lhs.meetingStartTime < rhs.meetingStartTime
-            }
-            
-            guard lhs.meetingType == rhs.meetingType else {
-                switch lhs.meetingType {
-                case .invalid, .virtualOnly:
-                    return false
-                    
-                case .inPersonOnly:
-                    return .hybrid == rhs.meetingType
-                
-                case .hybrid:
-                    return true
-                }
-            }
-            
-            return false
-        }
+        return ret
     }
 }
 
@@ -461,16 +394,13 @@ extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser: LGV_MeetingSDK_Pars
         let emptyResponse = LGV_MeetingSDK_LGV_MeetingServer.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, refCon: inRefCon)
         do {
             if let main_object = try JSONSerialization.jsonObject(with: inData, options: []) as? [String: [[String: String]]],
-               let meetingsObject = main_object["meetings"],
-               let formatsObject = main_object["formats"] {
+               let meetingsObject = main_object["meetings"] {
                 var searchCenter: CLLocation = CLLocation(latitude: 0, longitude: 0)
                 if case let .fixedRadius(centerLongLat, _) = inSearchType {
                     searchCenter = CLLocation(latitude: centerLongLat.latitude, longitude: centerLongLat.longitude)
                 } else if case let .autoRadius(centerLongLat, _, _) = inSearchType {
                     searchCenter = CLLocation(latitude: centerLongLat.latitude, longitude: centerLongLat.longitude)
                 }
-                
-                let formats = Self._convert(theseFormats: formatsObject)
                 
                 var distanceFrom: CLLocation?
                 
@@ -482,7 +412,7 @@ extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser: LGV_MeetingSDK_Pars
                     }
                 }
                 
-                let meetings = Self._refineMeetings(_convert(theseMeetings: meetingsObject, andTheseFormats: formats, searchCenter: searchCenter), searchType: inSearchType, searchRefinements: inSearchRefinements).map {
+                let meetings = Self._refineMeetings(_convert(theseMeetings: meetingsObject, searchCenter: searchCenter), searchType: inSearchType, searchRefinements: inSearchRefinements).map {
                     var meeting = $0
                     
                     if let distanceFrom = distanceFrom,
