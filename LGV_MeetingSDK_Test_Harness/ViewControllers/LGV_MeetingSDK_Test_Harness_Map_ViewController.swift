@@ -469,6 +469,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
      This updates the screen to reflect the current state.
      */
     func updateScreen() {
+        connectorSegmentedSwitch?.selectedSegmentIndex = LGV_MeetingSDK_Test_Harness_Prefs().selectedConnector
         updateRootServerButtonTitle()
         if case let .autoRadius(_, numberOfResults, maximumRadiusInMeters) = searchData?.searchType {
             autoSearchStackView?.isHidden = false
@@ -501,6 +502,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
      - parameter inSegmentedSwitch: The switch that was changed.
      */
     @IBAction func connectorSegmentedSwitchHit(_ inSegmentedSwitch: UISegmentedControl) {
+        LGV_MeetingSDK_Test_Harness_Prefs().selectedConnector = inSegmentedSwitch.selectedSegmentIndex
         updateScreen()
     }
 

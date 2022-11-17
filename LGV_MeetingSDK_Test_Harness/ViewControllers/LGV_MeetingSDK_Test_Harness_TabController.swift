@@ -247,7 +247,6 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
      - parameter inError: The error (if any)
      */
     func searchCallbackHandler(_ inSearchResults: LGV_MeetingSDK_Meeting_Data_Set_Protocol?, _ inError: Error?) {
-        print("We need to do something with this!")
         print("Search Results: \(String(describing: inSearchResults))")
         print("\tError: \(String(describing: inError))")
         DispatchQueue.main.async {

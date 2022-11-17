@@ -37,15 +37,21 @@ class LGV_MeetingSDK_Test_Harness_Prefs: RVS_PersistentPrefs {
     enum Keys: String {
         /* ############################################################## */
         /**
-         This stores the Root Server URL String
+         This stores the Root Server URL String.
          */
         case rootServerURLString
 
         /* ############################################################## */
         /**
+         This stores the currently selected connector.
+         */
+        case selectedConnector
+
+        /* ############################################################## */
+        /**
          These are all the keys, in an Array of String.
          */
-        static var allKeys: [String] { [rootServerURLString.rawValue] }
+        static var allKeys: [String] { [rootServerURLString.rawValue, selectedConnector.rawValue] }
     }
     
     /* ################################################################################################################################## */
@@ -70,5 +76,14 @@ class LGV_MeetingSDK_Test_Harness_Prefs: RVS_PersistentPrefs {
     var rootServerURLString: String {
         get { values[Keys.rootServerURLString.rawValue] as? String ?? "SLUG-TOMATO-SERVER-URL".localizedVariant }
         set { values[Keys.rootServerURLString.rawValue] = newValue }
+    }
+    
+    /* ################################################################## */
+    /**
+     This stores/returns the selected connector tech.
+     */
+    var selectedConnector: Int {
+        get { values[Keys.selectedConnector.rawValue] as? Int ?? 0 }
+        set { values[Keys.selectedConnector.rawValue] = newValue }
     }
 }
