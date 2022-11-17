@@ -175,7 +175,7 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
             postalAddress.subLocality = value
         }
         
-        if let value = inMeetingData["municipality"] {
+        if let value = inMeetingData["city"] {
             postalAddress.city = value
         }
         
