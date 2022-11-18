@@ -70,9 +70,10 @@ The response contains the initial search request parameters, as well as any meet
 
 ## Built-In Connectors
 
-Currently, the only specialized connector, is one for [the BMLT](https://bmlt.app), a modern, worldwide API for [NA](https://na.org) meetings.
+Currently, the only specialized connectors, are one for [the BMLT](https://bmlt.app), a modern, worldwide API for [NA](https://na.org) meetings, and one for [the LGV_MeetingServer](https://github.com/LittleGreenViper/LGV_MeetingServer) backend (which also aggregates BMLT servers, so the data is actually the same data).
 
- [Here is the source code for the BMLT connector.](https://github.com/LittleGreenViper/LGV_MeetingSDK/tree/master/Sources/LGV_MeetingSDK/Types/BMLT)
+- [Here is the source code for the BMLT connector.](https://github.com/LittleGreenViper/LGV_MeetingSDK/tree/master/Sources/LGV_MeetingSDK/Types/BMLT)
+- [Here is the source code for the LGV_MeetingServer connector.](https://github.com/LittleGreenViper/LGV_MeetingSDK/tree/master/Sources/LGV_MeetingSDK/Types/LGV_MeetingServer)
 
 ## Examples
 

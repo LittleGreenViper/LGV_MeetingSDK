@@ -136,7 +136,7 @@ class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harnes
     
     /* ################################################################## */
     /**
-     This is the segmented switch that goes between BMLT, and LGV_MeetingServer.
+     The segmented switch that switches the server connector.
      */
     @IBOutlet weak var connectorSegmentedSwitch: UISegmentedControl?
     
@@ -499,7 +499,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
 extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
     /* ################################################################## */
     /**
-     The segmented switch that goes between BMLT, and LGV_MeetingServer was hit.
+     The segmented switch that switches the server connector was changed.
      
      - parameter inSegmentedSwitch: The switch that was changed.
      */
