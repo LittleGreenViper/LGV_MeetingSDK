@@ -1,3 +1,7 @@
+**2.0.1.0000** *November 22, 2022*
+
+- Fixed a bug, where the auto radius was not being reported as such (debug string).
+
 **2.0.0.0000** *November 18, 2022*
 
 - Added support for the LGV_MeetingServer backend.

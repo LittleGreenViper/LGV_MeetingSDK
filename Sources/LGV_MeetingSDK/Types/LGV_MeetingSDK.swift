@@ -379,7 +379,7 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
                 return ".fixedRadius(centerLongLat: (latitude: \(centerLongLat.latitude), longitude: \(centerLongLat.longitude)), radiusInMeters: \(radiusInMeters))"
                 
             case let .autoRadius(centerLongLat, minimumNumberOfResults, maxRadiusInMeters):
-                return ".fixedRadius(centerLongLat: (latitude: \(centerLongLat.latitude), longitude: \(centerLongLat.longitude)), minimumNumberOfResults: \(minimumNumberOfResults), maxRadiusInMeters: \(maxRadiusInMeters))"
+                return ".autoRadius(centerLongLat: (latitude: \(centerLongLat.latitude), longitude: \(centerLongLat.longitude)), minimumNumberOfResults: \(minimumNumberOfResults), maxRadiusInMeters: \(maxRadiusInMeters))"
                 
             case let .meetingID(ids):
                 return ".meetingID(ids: \(ids.debugDescription))"
