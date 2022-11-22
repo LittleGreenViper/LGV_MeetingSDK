@@ -98,12 +98,12 @@ public extension LGV_MeetingSDK_LGV_MeetingServer.Transport {
 
             case .startTimeRange(let range):
                 // This makes sure the range is correct.
-                guard (range.lowerBound...range.upperBound).clamped(to: (0.0...2359.0)) == (range.lowerBound...range.upperBound) else { break }
+                guard (range.lowerBound...range.upperBound).clamped(to: (0.0...86399)) == (range.lowerBound...range.upperBound) else { break }
                 
                 let startTimeRaw = Int(range.lowerBound)
                 
-                var beginHours = startTimeRaw / 100
-                var beginMinutes = startTimeRaw - (beginHours * 100)
+                var beginHours = Int(startTimeRaw / 3600)
+                var beginMinutes = Int(startTimeRaw / 60) - (beginHours * 60)
                 
                 // We subtract one minute, because the comparison is not inclusive.
                 beginMinutes -= 1
@@ -124,9 +124,10 @@ public extension LGV_MeetingSDK_LGV_MeetingServer.Transport {
                     urlString += "&start_time=\(startTime)"
                 }
                 
+                let endTimeRaw = Int(range.upperBound)
                 // We add one to the end, as well (same reason). We clamp at 2359.
-                var endHours = Int(range.upperBound) / 100
-                var endMinutes = Int(range.upperBound) - (endHours * 100)
+                var endHours = Int(endTimeRaw / 3600)
+                var endMinutes = Int(endTimeRaw / 60) - (endHours * 60)
                 
                 endMinutes += 1
                 
