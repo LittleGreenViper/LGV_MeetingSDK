@@ -214,7 +214,7 @@ public extension LGV_MeetingSDK_Protocol {
          */
         func searchCallback(_ inData: LGV_MeetingSDK_Meeting_Data_Set_Protocol?, _ inError: Error?) {
             guard let meetings = inData?.meetings else { return }
-            finalSet.meetings += meetings
+            finalSet.meetings.append(contentsOf: meetings)
         }
         
         inCompletion(finalSet, nil)
