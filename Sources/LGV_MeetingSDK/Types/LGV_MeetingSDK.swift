@@ -359,13 +359,20 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
          We deliberately do not specify the "width" of these "rings," because the server may have its own ideas. A conformant implementation of the initiator could be used to allow the width to be specified.
          */
         case autoRadius(centerLongLat: CLLocationCoordinate2D, minimumNumberOfResults: UInt, maxRadiusInMeters: CLLocationDistance)
-        
+
         /* ############################################################## */
         /**
          This is a very basic Array of individual meeting IDs.
          */
         case meetingID(ids: [UInt64])
         
+        /* ############################################################## */
+        /**
+         This is very similar to the autoRadius search (in fact, it is used, internally), but it looks for meetings happening soon after the current time.
+         If this search is done, the `startTimeRange` and `weekday` refinements are ignored.
+         */
+        case nextMeetings(centerLongLat: CLLocationCoordinate2D, minimumNumberOfResults: UInt, maxRadiusInMeters: CLLocationDistance)
+
         /* ############################################################## */
         /**
          CustomDebugStringConvertible Conformance
@@ -380,9 +387,12 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
                 
             case let .autoRadius(centerLongLat, minimumNumberOfResults, maxRadiusInMeters):
                 return ".autoRadius(centerLongLat: (latitude: \(centerLongLat.latitude), longitude: \(centerLongLat.longitude)), minimumNumberOfResults: \(minimumNumberOfResults), maxRadiusInMeters: \(maxRadiusInMeters))"
-                
+
             case let .meetingID(ids):
                 return ".meetingID(ids: \(ids.debugDescription))"
+                
+            case let .nextMeetings(centerLongLat, minimumNumberOfResults, maxRadiusInMeters):
+                return ".nextMeetings(centerLongLat: (latitude: \(centerLongLat.latitude), longitude: \(centerLongLat.longitude)), minimumNumberOfResults: \(minimumNumberOfResults), maxRadiusInMeters: \(maxRadiusInMeters))"
             }
         }
         
@@ -405,9 +415,12 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
                 
             case .autoRadius:
                 return 2
-            
+
             case .meetingID:
                 return 3
+                
+            case .nextMeetings:
+                return 4
             }
         }
 
@@ -486,6 +499,13 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
             case let .meetingID(ids):
                 try container.encode(Self._typeIndex(for: self), forKey: .type)
                 try container.encode(ids, forKey: .ids)
+
+            case let .nextMeetings(centerLongLat, minimumNumberOfResults, maxRadiusInMeters):
+                try container.encode(Self._typeIndex(for: self), forKey: .type)
+                try container.encode(centerLongLat.latitude, forKey: .centerLongLat_Lat)
+                try container.encode(centerLongLat.longitude, forKey: .centerLongLat_Lng)
+                try container.encode(minimumNumberOfResults, forKey: .minimumNumberOfResults)
+                try container.encode(maxRadiusInMeters, forKey: .radiusInMeters)
             }
         }
 
@@ -518,7 +538,14 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
             case Self._typeIndex(for: .meetingID(ids: [])):
                 let ids = try values.decode([UInt64].self, forKey: .ids)
                 self = .meetingID(ids: ids)
-                
+
+            case Self._typeIndex(for: .nextMeetings(centerLongLat: CLLocationCoordinate2D(), minimumNumberOfResults: 0, maxRadiusInMeters: 0)):
+                let latitude = try values.decode(CLLocationDegrees.self, forKey: .centerLongLat_Lat)
+                let longitude = try values.decode(CLLocationDegrees.self, forKey: .centerLongLat_Lng)
+                let minCount = try values.decode(UInt.self, forKey: .minimumNumberOfResults)
+                let radius = try values.decode(Double.self, forKey: .radiusInMeters)
+                self = .nextMeetings(centerLongLat: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), minimumNumberOfResults: minCount, maxRadiusInMeters: radius)
+
             default:
                 self = .none
             }

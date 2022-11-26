@@ -156,6 +156,19 @@ public protocol LGV_MeetingSDK_Protocol: LGV_MeetingSDK_RefCon_Protocol {
                        refinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
                        refCon: Any?,
                        completion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure)
+    
+    /* ################################################################## */
+    /**
+     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - This executes a meeting search.
+     - Parameters:
+        - type (OPTIONAL): The main search type. Default is none (whole set, or none).
+        - refinements (OPTIONAL): a set of search filter refinements. Default is no constraints.
+        - refCon (OPTIONAL): An arbitrary data attachment to the search. This will be returned in the search results set. Default is nil.
+        - completion: The completion closure. > Note: This may be called in any thread, and it is escaping (should capture arguments).
+     */
+    func findNextMeetingsSearch(refinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
+                                refCon: Any?,
+                                completion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure)
 }
 
 /* ###################################################################################################################################### */
@@ -171,5 +184,21 @@ public extension LGV_MeetingSDK_Protocol {
                        refCon inRefCon: Any? = nil,
                        completion inCompletion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
         organization?.transport?.initiator?.meetingSearch(type: inType, refinements: inRefinements, refCon: inRefCon, completion: inCompletion)
+    }
+    
+    /* ################################################################## */
+    /**
+     Default runs multiple auto radius searches, until the search request is satisfied.
+     */
+    func findNextMeetingsSearch(refinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
+                                refCon: Any?,
+                                completion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
+        /* ############################################################## */
+        /**
+         This is our own internal completion callback. We use this to aggregate the search results.
+         */
+        func searchCallback(_ inData: LGV_MeetingSDK_Meeting_Data_Set_Protocol?, _ inError: Error?) {
+            
+        }
     }
 }

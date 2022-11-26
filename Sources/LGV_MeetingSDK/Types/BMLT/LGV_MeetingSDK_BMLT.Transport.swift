@@ -86,9 +86,6 @@ public extension LGV_MeetingSDK_BMLT.Transport {
         guard !urlString.isEmpty else { return nil }
         
         switch inSearchType {
-        case .none:
-            break
-            
         case .fixedRadius(let centerLongLat, let radiusInMeters):
             urlString += "&geo_width_km=\(radiusInMeters / 1000)&long_val=\(centerLongLat.longitude)&lat_val=\(centerLongLat.latitude)"
             
@@ -97,6 +94,9 @@ public extension LGV_MeetingSDK_BMLT.Transport {
 
         case .meetingID(let idArray):
             urlString += "&SearchString=\(idArray.compactMap({String($0)}).joined(separator: ","))"
+
+        default:
+            break
         }
         
         // These refinements can actually affect the query string.
