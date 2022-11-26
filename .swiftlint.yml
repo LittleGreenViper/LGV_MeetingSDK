@@ -21,6 +21,10 @@ excluded:
 - spec
 - Project-Meta
 
+function_parameter_count:
+- 6 # warning
+- 7 # error
+
 type_body_length:
 - 299 # warning
 - 300 # error

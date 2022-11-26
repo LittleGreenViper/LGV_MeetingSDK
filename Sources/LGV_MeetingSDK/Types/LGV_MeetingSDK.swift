@@ -369,7 +369,6 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
         /* ############################################################## */
         /**
          This is very similar to the autoRadius search (in fact, it is used, internally), but it looks for meetings happening soon after the current time.
-         If this search is done, the `startTimeRange` and `weekday` refinements are ignored.
          */
         case nextMeetings(centerLongLat: CLLocationCoordinate2D, minimumNumberOfResults: UInt, maxRadiusInMeters: CLLocationDistance)
 

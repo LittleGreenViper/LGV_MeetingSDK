@@ -19,6 +19,8 @@
  Version: 2.0.2
  */
 
+import CoreLocation
+
 /* ###################################################################################################################################### */
 // MARK: - A Simple "Reference Context" Protocol -
 /* ###################################################################################################################################### */
@@ -150,7 +152,7 @@ public protocol LGV_MeetingSDK_Protocol: LGV_MeetingSDK_RefCon_Protocol {
         - type (OPTIONAL): The main search type. Default is none (whole set, or none).
         - refinements (OPTIONAL): a set of search filter refinements. Default is no constraints.
         - refCon (OPTIONAL): An arbitrary data attachment to the search. This will be returned in the search results set. Default is nil.
-        - completion: The completion closure. > Note: This may be called in any thread, and it is escaping (should capture arguments).
+        - completion (REQUIRED): The completion closure. > Note: This may be called in any thread, and it is escaping (should capture arguments).
      */
     func meetingSearch(type: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
                        refinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
@@ -161,12 +163,17 @@ public protocol LGV_MeetingSDK_Protocol: LGV_MeetingSDK_RefCon_Protocol {
     /**
      OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - This executes a meeting search.
      - Parameters:
-        - type (OPTIONAL): The main search type. Default is none (whole set, or none).
+        - centerLongLat (REQUIRED): The longitude and latitude (in degrees), of the search center.
+        - minimumNumberOfResults (REQUIRED): The minimum number of results we require.
+        - maxRadiusInMeters (OPTIONAL): The maximum radius of the search, in meters.
         - refinements (OPTIONAL): a set of search filter refinements. Default is no constraints.
         - refCon (OPTIONAL): An arbitrary data attachment to the search. This will be returned in the search results set. Default is nil.
-        - completion: The completion closure. > Note: This may be called in any thread, and it is escaping (should capture arguments).
+        - completion (REQUIRED): The completion closure. > Note: This may be called in any thread, and it is escaping (should capture arguments).
      */
-    func findNextMeetingsSearch(refinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
+    func findNextMeetingsSearch(centerLongLat: CLLocationCoordinate2D,
+                                minimumNumberOfResults: UInt,
+                                maxRadiusInMeters: CLLocationDistance,
+                                refinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
                                 refCon: Any?,
                                 completion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure)
 }
@@ -190,15 +197,26 @@ public extension LGV_MeetingSDK_Protocol {
     /**
      Default runs multiple auto radius searches, until the search request is satisfied.
      */
-    func findNextMeetingsSearch(refinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
-                                refCon: Any?,
-                                completion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
+    func findNextMeetingsSearch(centerLongLat inCenterLongLat: CLLocationCoordinate2D,
+                                minimumNumberOfResults inMinimumNumberOfResults: UInt = 10,
+                                maxRadiusInMeters inMaxRadiusInMeters: CLLocationDistance = 1000000,
+                                refinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = [],
+                                refCon inRefCon: Any? = nil,
+                                completion inCompletion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
+        let finalSet = LGV_MeetingSDK_Meeting_Data_Set(searchType: .nextMeetings(centerLongLat: inCenterLongLat, minimumNumberOfResults: inMinimumNumberOfResults, maxRadiusInMeters: inMaxRadiusInMeters), searchRefinements: inSearchRefinements)
+        
         /* ############################################################## */
         /**
          This is our own internal completion callback. We use this to aggregate the search results.
+         
+         - parameter inData: The data returned from the search.
+         - parameter inError: Any errors encountered (may be nil).
          */
         func searchCallback(_ inData: LGV_MeetingSDK_Meeting_Data_Set_Protocol?, _ inError: Error?) {
-            
+            guard let meetings = inData?.meetings else { return }
+            finalSet.meetings += meetings
         }
+        
+        inCompletion(finalSet, nil)
     }
 }
