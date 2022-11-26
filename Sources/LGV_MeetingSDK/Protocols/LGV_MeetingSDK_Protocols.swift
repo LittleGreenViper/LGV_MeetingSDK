@@ -161,13 +161,13 @@ public protocol LGV_MeetingSDK_Protocol: LGV_MeetingSDK_RefCon_Protocol {
     
     /* ################################################################## */
     /**
-     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - This executes a meeting search.
+     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - This executes a special "Find nearby meetings that I can attend" meeting search.
      - Parameters:
         - centerLongLat (REQUIRED): The longitude and latitude (in degrees), of the search center.
-        - minimumNumberOfResults (REQUIRED): The minimum number of results we require.
+        - minimumNumberOfResults (OPTIONAL): The minimum number of results we require.
         - maxRadiusInMeters (OPTIONAL): The maximum radius of the search, in meters.
-        - refinements (OPTIONAL): a set of search filter refinements. Default is no constraints.
-        - refCon (OPTIONAL): An arbitrary data attachment to the search. This will be returned in the search results set. Default is nil.
+        - refinements (OPTIONAL): a set of search filter refinements.
+        - refCon (OPTIONAL): An arbitrary data attachment to the search. This will be returned in the search results set.
         - completion (REQUIRED): The completion closure. > Note: This may be called in any thread, and it is escaping (should capture arguments).
      */
     func findNextMeetingsSearch(centerLongLat: CLLocationCoordinate2D,
@@ -196,10 +196,14 @@ public extension LGV_MeetingSDK_Protocol {
     /* ################################################################## */
     /**
      Default runs multiple auto radius searches, until the search request is satisfied.
+     - default minimumNumberOfResults is 10
+     - default maxRadiusInMeters is 10,000 Km
+     - default refinements is an empty set
+     - default refCon is nil
      */
     func findNextMeetingsSearch(centerLongLat inCenterLongLat: CLLocationCoordinate2D,
                                 minimumNumberOfResults inMinimumNumberOfResults: UInt = 10,
-                                maxRadiusInMeters inMaxRadiusInMeters: CLLocationDistance = 1000000,
+                                maxRadiusInMeters inMaxRadiusInMeters: CLLocationDistance = 10000000,
                                 refinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = [],
                                 refCon inRefCon: Any? = nil,
                                 completion inCompletion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
