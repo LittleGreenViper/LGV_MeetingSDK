@@ -443,6 +443,12 @@ class LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController: LGV_Meetin
      The button for executing a search.
      */
     @IBOutlet weak var searchButton: UIButton?
+    
+    /* ################################################################## */
+    /**
+     The button for executing a search for the next few meetings.
+     */
+    @IBOutlet weak var searchNextButton: UIButton!
 }
 
 /* ###################################################################################################################################### */
@@ -507,6 +513,11 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         searchButton?.titleLabel?.minimumScaleFactor = 0.5
         searchButton?.accessibilityHint = searchButton?.title(for: .normal)?.accessibilityLocalizedVariant
         searchButton?.setTitle(searchButton?.title(for: .normal)?.localizedVariant, for: .normal)
+        
+        searchNextButton?.titleLabel?.adjustsFontSizeToFitWidth = true
+        searchNextButton?.titleLabel?.minimumScaleFactor = 0.5
+        searchNextButton?.accessibilityHint = searchNextButton?.title(for: .normal)?.accessibilityLocalizedVariant
+        searchNextButton?.setTitle(searchNextButton?.title(for: .normal)?.localizedVariant, for: .normal)
 
         setUpUI()
     }
@@ -544,6 +555,18 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         relateToMeSwitch?.isOn = false
         venueTypeSegmentedControl?.selectedSegmentIndex = VenueTypeSegmentIndexes.anyVenue.rawValue
         venueTypeView?.isHidden = true
+        
+        guard let tabController = tabController,
+              !(tabController.viewControllers?.isEmpty ?? true),
+              LGV_MeetingSDK_Test_Harness_TabController.TabIndexes.search.rawValue == tabController.selectedIndex,
+              let mapViewController = tabController.viewControllers?[0] as? LGV_MeetingSDK_Test_Harness_Map_ViewController,
+              let autoSearchStackView = mapViewController.autoSearchStackView
+        else {
+            searchNextButton?.isHidden = true
+            return
+        }
+        
+        searchNextButton?.isHidden = autoSearchStackView.isHidden
     }
     
     /* ################################################################## */
@@ -717,5 +740,32 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         tabController?.selectedIndex = LGV_MeetingSDK_Test_Harness_TabController.TabIndexes.search.rawValue
         tabController?.sdk?.meetingSearch(type: searchType, refinements: searchRefinements, refCon: nil, completion: searchCallbackHandler)
         dismiss(animated: true)
+    }
+    
+    /* ################################################################## */
+    /**
+     The search next button was hit.
+     
+     - parameter: ignored.
+     */
+    @IBAction func searchNextButtonHit(_: Any) {
+        guard let tabController = tabController,
+              let sdk = tabController.sdk,
+              let searchType = searchData?.searchType,
+              let searchRefinements = calculatedSearchRefinements
+        else { return }
+        
+        if case let .autoRadius(centerLongLat, minimumNumberOfResults, maxRadiusInMeters) = searchType {
+            let searchType = LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints.nextMeetings(centerLongLat: centerLongLat, minimumNumberOfResults: minimumNumberOfResults, maxRadiusInMeters: maxRadiusInMeters)
+            tabController.mapViewController?.isBusy = true
+            if 0 == LGV_MeetingSDK_Test_Harness_Prefs().selectedConnector {
+                appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: searchType, searchRefinements: searchRefinements)
+            } else {
+                appDelegateInstance?.searchData = LGV_MeetingSDK_LGV_MeetingServer.Data_Set(searchType: searchType, searchRefinements: searchRefinements)
+            }
+            tabController.selectedIndex = LGV_MeetingSDK_Test_Harness_TabController.TabIndexes.search.rawValue
+            sdk.findNextMeetingsSearch(centerLongLat: centerLongLat, minimumNumberOfResults: minimumNumberOfResults, maxRadiusInMeters: maxRadiusInMeters, refinements: searchRefinements, completion: tabController.searchCallbackHandler)
+            dismiss(animated: true)
+        }
     }
 }

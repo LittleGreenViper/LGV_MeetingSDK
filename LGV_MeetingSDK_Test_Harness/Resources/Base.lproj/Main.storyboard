@@ -967,13 +967,21 @@
                                                 <rect key="frame" x="0.0" y="247" width="358" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="3pY-qq-HR4"/>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="36" id="Qeh-GU-BEo"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-SEARCH-BUTTON-TITLE"/>
                                                 <connections>
                                                     <action selector="searchButtonHit:" destination="EU7-Xo-ygf" eventType="touchUpInside" id="lHu-GM-nFu"/>
+                                                </connections>
+                                            </button>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uxc-JA-lFw">
+                                                <rect key="frame" x="9" y="283" width="340" height="0.0"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="SLUG-SEARCH-NEXT-BUTTON-TITLE"/>
+                                                <connections>
+                                                    <action selector="searchNextButtonHit:" destination="EU7-Xo-ygf" eventType="touchUpInside" id="4kE-Zu-7cG"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -1040,6 +1048,7 @@
                         <outlet property="relateToMeLabelButton" destination="c71-Sf-nKq" id="1ec-Pq-8fK"/>
                         <outlet property="relateToMeSwitch" destination="gMj-0B-qwm" id="UN5-nd-GIK"/>
                         <outlet property="searchButton" destination="P00-iT-Qnf" id="9ip-fd-EQR"/>
+                        <outlet property="searchNextButton" destination="Uxc-JA-lFw" id="MoD-de-REF"/>
                         <outlet property="searchTextTextField" destination="eeF-Vc-sUb" id="rGP-8a-Foy"/>
                         <outlet property="startTimeSegmentedControl" destination="cjd-Lm-6L3" id="XAv-mF-CAg"/>
                         <outlet property="timeConstraintsStackView" destination="p22-zh-Wpr" id="Sea-4X-LqS"/>
@@ -1062,7 +1071,7 @@
         <image name="list.bullet" catalog="system" width="128" height="87"/>
         <image name="mappin.and.ellipse" catalog="system" width="117" height="128"/>
         <namedColor name="AccentColor">
-            <color red="0.15800000727176666" green="0.74199998378753662" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.31400001049041748" green="0.37999999523162842" blue="0.89399999380111694" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
