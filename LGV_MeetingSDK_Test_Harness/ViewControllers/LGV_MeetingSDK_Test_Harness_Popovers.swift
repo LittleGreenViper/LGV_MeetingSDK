@@ -582,8 +582,9 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
            (0..<1436).contains(startTime),
            endTime > startTime,
            (startTime..<1441).contains(endTime) {
-            
-            ret.insert(.startTimeRange(TimeInterval(startTime * 60)...TimeInterval(endTime * 60)))
+            let startTimeInSeconds = TimeInterval(startTime * 60)
+            let endTimeInSeconds = TimeInterval(endTime * 60)
+            ret.insert(.startTimeRange(startTimeInSeconds...endTimeInSeconds))
         }
         
         var weekdays: Set<LGV_MeetingSDK_Meeting_Data_Set.Weekdays> = []

@@ -216,6 +216,8 @@ public extension LGV_MeetingSDK_Protocol {
                                 refinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = [],
                                 refCon inRefCon: Any? = nil,
                                 completion inCompletion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
+        let maxRadius = (0.0..<Double.greatestFiniteMagnitude).contains(inMaxRadiusInMeters) ? inMaxRadiusInMeters : 0
+        
         var minResultCount = Int(inMinimumNumberOfResults)
         var currentWeekdayIndex = 0
         var aggregatedMeetings = [LGV_MeetingSDK_Meeting_Protocol]()
@@ -232,11 +234,11 @@ public extension LGV_MeetingSDK_Protocol {
          */
         func searchCallback(_ inData: LGV_MeetingSDK_Meeting_Data_Set_Protocol?, _ inError: Error?) {
             searchUnderWay = false
+            currentWeekdayIndex += 1
             guard let meetings = inData?.meetings,
-                !meetings.isEmpty
+                  !meetings.isEmpty
             else { return }
             minResultCount -= meetings.count
-            currentWeekdayIndex += 1
             aggregatedMeetings.append(contentsOf: meetings)
         }
         
@@ -268,28 +270,32 @@ public extension LGV_MeetingSDK_Protocol {
             }
         }
         
+        var eachDayTimeRange = TimeInterval(0)...TimeInterval(86399)
+        var firstDayTimeRange = eachDayTimeRange
+        
+        if let startTimeRange = startTimeRangeRefinement.first {
+            if case let .startTimeRange(startTimeRangeVal) = startTimeRange {
+                eachDayTimeRange = startTimeRangeVal
+            }
+        }
+
         if !weekdayPool.isEmpty {
-            var eachDayTimeRange = TimeInterval(0)...TimeInterval(86399)
-            var firstDayTimeRange = eachDayTimeRange
-            
-            if let startTimeRange = startTimeRangeRefinement.first {
-                if case let .startTimeRange(startTimeRangeVal) = startTimeRange {
-                    eachDayTimeRange = startTimeRangeVal
-                    if todayWeekday == weekdayPool[0].rawValue {    // If we are starting today, we may need to clamp the range.
-                        firstDayTimeRange = (max(eachDayTimeRange.lowerBound, secondsSinceMidnightThisMorning)...eachDayTimeRange.upperBound)
-                    }
-                }
+            if todayWeekday == weekdayPool[0].rawValue {    // If we are starting today, we may need to clamp the range.
+                firstDayTimeRange = (max(eachDayTimeRange.lowerBound, secondsSinceMidnightThisMorning)...eachDayTimeRange.upperBound)
+            } else {
+                firstDayTimeRange = eachDayTimeRange
             }
             
             var currentTimeRange = firstDayTimeRange
             
             while 0 < minResultCount,
                   currentWeekdayIndex < weekdayPool.count {
-                let searchType = LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints.autoRadius(centerLongLat: inCenterLongLat, minimumNumberOfResults: inMinimumNumberOfResults, maxRadiusInMeters: inMaxRadiusInMeters)
+                let searchType = LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints.autoRadius(centerLongLat: inCenterLongLat, minimumNumberOfResults: inMinimumNumberOfResults, maxRadiusInMeters: maxRadius)
                 // Each sweep adds the next weekday in our list.
-                var refinements = baselineRefinements.union([LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements.weekdays([weekdayPool[currentWeekdayIndex]])])
+                var refinements = baselineRefinements
+                refinements.insert(LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements.weekdays([weekdayPool[currentWeekdayIndex]]))
                 if 0 < currentTimeRange.lowerBound || 86399 > currentTimeRange.upperBound {    // We don't specify a time range, at all, if we never specified a constrained one.
-                    refinements = refinements.union([LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements.startTimeRange(currentTimeRange)])
+                    refinements.insert(LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements.startTimeRange(currentTimeRange))
                 }
                 
                 currentTimeRange = eachDayTimeRange
@@ -312,6 +318,6 @@ public extension LGV_MeetingSDK_Protocol {
             }
         }
         
-        inCompletion(LGV_MeetingSDK_Meeting_Data_Set(searchType: .nextMeetings(centerLongLat: inCenterLongLat, minimumNumberOfResults: inMinimumNumberOfResults, maxRadiusInMeters: inMaxRadiusInMeters), searchRefinements: inSearchRefinements, meetings: aggregatedMeetings), nil)
+        inCompletion(LGV_MeetingSDK_Meeting_Data_Set(searchType: .nextMeetings(centerLongLat: inCenterLongLat, minimumNumberOfResults: inMinimumNumberOfResults, maxRadiusInMeters: maxRadius), searchRefinements: inSearchRefinements, meetings: aggregatedMeetings), nil)
     }
 }

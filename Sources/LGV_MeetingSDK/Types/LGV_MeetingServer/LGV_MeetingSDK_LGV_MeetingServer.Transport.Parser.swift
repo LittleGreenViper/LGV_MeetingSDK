@@ -389,7 +389,7 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
                 virtualInformation = Self._convert(thisDataToAVirtualLocation: virtualStuff)
             }
 
-            print("Meeting:\n\tcoords: \(coords)\n\tname: \(name)\n\tserver_id: \(serverID)\n\tmeeting_id: \(meetingID)\n\torganizationKey: \(organizationKey)\n\tduration: \(duration)\n\tdistance: \(String(describing: distance))")
+            print("Meeting:\n\tweekday: \(weekday)\n\tstart_time: \(meetingStartTime)\n\tcoords: \(coords)\n\tname: \(name)\n\tserver_id: \(serverID)\n\tmeeting_id: \(meetingID)\n\torganizationKey: \(organizationKey)\n\tduration: \(duration)\n\tdistance: \(String(describing: distance))")
             print("\tformats: \(formats.debugDescription)")
             print("\tphysicalLocation: \(physicalLocation.debugDescription)")
             print("\tvirtualInformation: \(virtualInformation.debugDescription)")

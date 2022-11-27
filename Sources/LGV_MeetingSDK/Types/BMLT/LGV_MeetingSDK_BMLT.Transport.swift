@@ -87,7 +87,8 @@ public extension LGV_MeetingSDK_BMLT.Transport {
         
         switch inSearchType {
         case .fixedRadius(let centerLongLat, let radiusInMeters):
-            urlString += "&geo_width_km=\(radiusInMeters / 1000)&long_val=\(centerLongLat.longitude)&lat_val=\(centerLongLat.latitude)"
+            let maxRadius = (0.0..<40008000).contains(radiusInMeters) ? radiusInMeters : 0
+            urlString += "&geo_width_km=\(maxRadius / 1000)&long_val=\(centerLongLat.longitude)&lat_val=\(centerLongLat.latitude)"
             
         case .autoRadius(let centerLongLat, let minimumNumberOfResults, _):
             urlString += "&geo_width=\(-Int(minimumNumberOfResults))&long_val=\(centerLongLat.longitude)&lat_val=\(centerLongLat.latitude)"

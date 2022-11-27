@@ -74,10 +74,12 @@ public extension LGV_MeetingSDK_LGV_MeetingServer.Transport {
             urlString += "&geo_radius=\(radiusInMeters / 1000)&geocenter_lng=\(centerLongLat.longitude)&geocenter_lat=\(centerLongLat.latitude)"
             
         case .autoRadius(let centerLongLat, let minimumNumberOfResults, let maximumRadiusInMeters):
+            let maxRadius = (0.0..<40008000).contains(maximumRadiusInMeters) ? maximumRadiusInMeters : 0
+            
             urlString += "&minimum_found=\(Int(minimumNumberOfResults))&geocenter_lng=\(centerLongLat.longitude)&geocenter_lat=\(centerLongLat.latitude)"
 
-            if 0 < maximumRadiusInMeters {
-                urlString += "&geo_radius=\(maximumRadiusInMeters / 1000)"
+            if 0 < maxRadius {
+                urlString += "&geo_radius=\(maxRadius / 1000)"
             }
         
         case .meetingID(let idArray):
