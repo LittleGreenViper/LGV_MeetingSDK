@@ -39,6 +39,7 @@
 "SLUG-SEARCH-BUTTON-TITLE"                                      =       "Search for Meetings";
 "SLUG-SEARCH-NEXT-BUTTON-TITLE"                                 =       "Search for Next Meetings";
 "SLUG-VIRTUAL-ONLY-TEXT"                                        =       "Virtual-Only Meeting";
+"SLUG-MEETINGS-FOUND-FORMAT"                                    =       "%d Meetings Found";
 "SLUG-EDIT-BUTTON-TEXT"                                         =       "Edit";
 "SLUG-CANCEL-BUTTON-TEXT"                                       =       "Cancel";
 "SLUG-BMLT-SEGMENT"                                             =       "BMLT";

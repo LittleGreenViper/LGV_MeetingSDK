@@ -233,13 +233,22 @@ public extension LGV_MeetingSDK_Protocol {
          - parameter inError: Any errors encountered (may be nil).
          */
         func searchCallback(_ inData: LGV_MeetingSDK_Meeting_Data_Set_Protocol?, _ inError: Error?) {
-            searchUnderWay = false
             currentWeekdayIndex += 1
             guard let meetings = inData?.meetings,
                   !meetings.isEmpty
-            else { return }
-            minResultCount -= meetings.count
-            aggregatedMeetings.append(contentsOf: meetings)
+            else {
+                searchUnderWay = false
+                return
+            }
+            
+            meetings.forEach { meeting in
+                if !aggregatedMeetings.contains(where: { $0.id == meeting.id }) {
+                    minResultCount -= 1
+                    aggregatedMeetings.append(meeting)
+                }
+            }
+            
+            searchUnderWay = false
         }
         
         // This sets us up for the current time and weekday.

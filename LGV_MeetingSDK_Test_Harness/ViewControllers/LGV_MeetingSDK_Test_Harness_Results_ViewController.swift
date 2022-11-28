@@ -37,6 +37,12 @@ class LGV_MeetingSDK_Test_Harness_Results_TableViewCell: UITableViewCell {
     
     /* ################################################################## */
     /**
+     The label that displays the row number of the meeting.
+     */
+    @IBOutlet weak var indexLabel: UILabel?
+
+    /* ################################################################## */
+    /**
      The label that displays the day of the week.
      */
     @IBOutlet weak var weekdayLabel: UILabel?
@@ -93,6 +99,12 @@ extension LGV_MeetingSDK_Test_Harness_Results_TableViewCell {
  This displays the manual search controller.
  */
 class LGV_MeetingSDK_Test_Harness_Results_ViewController: LGV_MeetingSDK_Test_Harness_Base_ViewController {
+    /* ################################################################## */
+    /**
+     The label at the top, displaying the number of meetings.
+     */
+    @IBOutlet weak var countLabel: UILabel?
+    
     /* ################################################################## */
     /**
      The table that displays the results.
@@ -240,6 +252,7 @@ extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
      */
     func updateUI() {
         endEditMode()
+        countLabel?.text = String(format: "SLUG-MEETINGS-FOUND-FORMAT".localizedVariant, appDelegateInstance?.searchData?.meetings.count ?? 0)
         if !(searchData?.meetings.isEmpty ?? true) {
             resulsTableView?.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
         }
@@ -285,6 +298,7 @@ extension LGV_MeetingSDK_Test_Harness_Results_ViewController: UITableViewDataSou
         if let meeting = appDelegateInstance?.searchData?.meetings[inIndexPath.row],
            let cell = inTableView.dequeueReusableCell(withIdentifier: "LGV_MeetingSDK_Test_Harness_Results_TableViewCell") as? LGV_MeetingSDK_Test_Harness_Results_TableViewCell {
             cell.meetingObject = meeting
+            cell.indexLabel?.text = String(inIndexPath.row + 1)
             return cell
         }
         return UITableViewCell()
