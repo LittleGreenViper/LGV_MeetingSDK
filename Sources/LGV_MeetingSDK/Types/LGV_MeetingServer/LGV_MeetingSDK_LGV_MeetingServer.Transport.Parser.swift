@@ -296,7 +296,7 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
             }
             
             // First filter is for distance.
-            if 0 > maximumDistanceInMeters || meeting.distanceInMeters <= maximumDistanceInMeters {
+            if 0 >= maximumDistanceInMeters || meeting.distanceInMeters <= maximumDistanceInMeters {
                 // We then see if we specified any refinements. If so, we need to meet them.
                 if !inSearchRefinements.isEmpty {
                     var returned: LGV_MeetingSDK_Meeting_Protocol?
