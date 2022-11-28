@@ -1,4 +1,7 @@
-**2.1.0** *TBD*
+**2.1.0** *November 28, 2022*
+
+- Added the ability to do a "Nearby Meetings" search.
+- Added an indicator of the number of meetings found (in the results tab), and results are numbered.
 
 **2.0.2** *November 22, 2022*
 

@@ -166,6 +166,18 @@ LGV_MeetingSDK_BMLT(rootServerURL: rootServerURL)
                      }
 ```
 
+### As Of 2.1.0
+
+### The ``findNextMeetingsSearch()`` Function
+
+We have introduced a "Find My Next Meetings" search. This acts a lot like the auto-radius search, but, instead of just looking for meetings, in general, we start looking for meetings from right now, to as much as seven days from now, and return the first (as in time and day first, as opposed to location first) meetings available.
+
+```swift
+sdkInstance.findNextMeetingsSearch(centerLongLat: CLLocationCoordinate2D, minimumNumberOfResults: UInt, maxRadiusInMeters: CLLocationDistance, refinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>, refCon: Any?, completion: LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure)
+```
+
+We can still specify refinements, such as weekdays and time ranges. The search requires a search center, and an optional maximum radius.
+
 ## License
 
 The SDK is provided as [MIT](https://opensource.org/licenses/MIT)-licensed code.
