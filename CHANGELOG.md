@@ -1,3 +1,7 @@
+**2.1.1** *November 28, 2022*
+
+- Fixed a bug in the way that the meetings for the new function are aggregated.
+
 **2.1.0** *November 28, 2022*
 
 - Added the ability to do a "Nearby Meetings" search.

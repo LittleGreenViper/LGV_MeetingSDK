@@ -16,7 +16,7 @@
  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
  CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  
- Version: 2.0.2
+ Version: 2.1.1
  */
 
 import CoreLocation
@@ -218,7 +218,6 @@ public extension LGV_MeetingSDK_Protocol {
                                 completion inCompletion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
         let maxRadius = (0.0..<Double.greatestFiniteMagnitude).contains(inMaxRadiusInMeters) ? inMaxRadiusInMeters : 0
         
-        var minResultCount = Int(inMinimumNumberOfResults)
         var currentWeekdayIndex = 0
         var aggregatedMeetings = [LGV_MeetingSDK_Meeting_Protocol]()
         var searchUnderWay = false
@@ -243,7 +242,6 @@ public extension LGV_MeetingSDK_Protocol {
             
             meetings.forEach { meeting in
                 if !aggregatedMeetings.contains(where: { $0.id == meeting.id }) {
-                    minResultCount -= 1
                     aggregatedMeetings.append(meeting)
                 }
             }
@@ -297,7 +295,7 @@ public extension LGV_MeetingSDK_Protocol {
             
             var currentTimeRange = firstDayTimeRange
             
-            while 0 < minResultCount,
+            while inMinimumNumberOfResults > aggregatedMeetings.count,
                   currentWeekdayIndex < weekdayPool.count {
                 let searchType = LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints.autoRadius(centerLongLat: inCenterLongLat, minimumNumberOfResults: inMinimumNumberOfResults, maxRadiusInMeters: maxRadius)
                 // Each sweep adds the next weekday in our list.
