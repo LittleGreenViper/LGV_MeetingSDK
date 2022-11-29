@@ -236,9 +236,9 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
      
      - returns: The refined meeting array.
      */
-    private static func _refineMeetings(_ inMeetings: [LGV_MeetingSDK_Meeting_Protocol],
+    private static func _refineMeetings(_ inMeetings: [LGV_MeetingSDK.Meeting],
                                         searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
-                                        searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>) -> [LGV_MeetingSDK_Meeting_Protocol] {
+                                        searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>) -> [LGV_MeetingSDK.Meeting] {
         var maximumDistanceInMeters: CLLocationDistance = -1
         
         // See if we have a distance-constrained search.
@@ -299,34 +299,33 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
             if 0 >= maximumDistanceInMeters || meeting.distanceInMeters <= maximumDistanceInMeters {
                 // We then see if we specified any refinements. If so, we need to meet them.
                 if !inSearchRefinements.isEmpty {
-                    var returned: LGV_MeetingSDK_Meeting_Protocol?
+                    var returned: LGV_MeetingSDK.Meeting?
                     for refinement in inSearchRefinements.enumerated() {
                         switch refinement.element {
                         // String searches look at a number of fields in each meeting.
                         case let .string(searchForThisString):
-                            guard _isStringInHere(meeting: meeting, string: searchForThisString) else { return nil }
-                          
-                            returned = meeting
+                            if _isStringInHere(meeting: meeting, string: searchForThisString) {
+                                returned = meeting
+                            }
                             
                         // If we specified weekdays, then we need to meet on one of the provided days.
                         case let .weekdays(weekdays):
-                            guard weekdays.map({ $0.rawValue }).contains(meeting.weekdayIndex) else { return nil }
-                           
-                            returned = meeting
+                            if weekdays.map({ $0.rawValue }).contains(meeting.weekdayIndex) {
+                                returned = meeting
+                            }
                             
                         // If we specified a start time range, then we need to start within that range.
                         case let .startTimeRange(startTimeRange):
-                            guard let startTimeInSeconds = meeting.startTimeInSeconds,
-                                  startTimeRange.contains(startTimeInSeconds)
-                            else { return nil }
-                            
-                            returned = meeting
+                            if let startTimeInSeconds = meeting.startTimeInSeconds,
+                               startTimeRange.contains(startTimeInSeconds) {
+                                returned = meeting
+                            }
                             
                         // Are we looking for only virtual, in-person, or hybrid (or combinations, thereof)?
                         case let .venueTypes(venues):
-                            guard venues.contains(meeting.meetingType) else { return nil }
-                     
-                            returned = meeting
+                            if venues.contains(meeting.meetingType) {
+                                returned = meeting
+                            }
                             
                         default:
                             returned = meeting
@@ -359,10 +358,10 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
      
      - returns: An Array of parsed and initialized meeting instances.
      */
-    private func _convert(theseMeetings inJSONParsedMeetings: [[String: Any]], searchCenter inSearchCenter: CLLocation) -> [LGV_MeetingSDK_Meeting_Protocol] {
+    private func _convert(theseMeetings inJSONParsedMeetings: [[String: Any]], searchCenter inSearchCenter: CLLocation) -> [LGV_MeetingSDK.Meeting] {
         guard let organization = initiator?.transport?.organization else { return [] }
 
-        var ret = [LGV_MeetingSDK_Meeting_Protocol]()
+        var ret = [LGV_MeetingSDK.Meeting]()
         
         inJSONParsedMeetings.forEach { rawMeetingObject in
             let serverID = UInt64(rawMeetingObject["server_id"] as? Int ?? 0)
@@ -388,11 +387,12 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
             if let virtualStuff = rawMeetingObject["virtual_information"] as? [String: String] {
                 virtualInformation = Self._convert(thisDataToAVirtualLocation: virtualStuff)
             }
-
-            print("Meeting:\n\tweekday: \(weekday)\n\tstart_time: \(meetingStartTime)\n\tcoords: \(coords)\n\tname: \(name)\n\tserver_id: \(serverID)\n\tmeeting_id: \(meetingID)\n\torganizationKey: \(organizationKey)\n\tduration: \(duration)\n\tdistance: \(String(describing: distance))")
-            print("\tformats: \(formats.debugDescription)")
-            print("\tphysicalLocation: \(physicalLocation.debugDescription)")
-            print("\tvirtualInformation: \(virtualInformation.debugDescription)")
+            #if DEBUG
+                print("Meeting:\n\tweekday: \(weekday)\n\tstart_time: \(meetingStartTime)\n\tcoords: \(coords)\n\tname: \(name)\n\tserver_id: \(serverID)\n\tmeeting_id: \(meetingID)\n\torganizationKey: \(organizationKey)\n\tduration: \(duration)\n\tdistance: \(String(describing: distance))")
+                print("\tformats: \(formats.debugDescription)")
+                print("\tphysicalLocation: \(physicalLocation.debugDescription)")
+                print("\tvirtualInformation: \(virtualInformation.debugDescription)")
+            #endif
             
             let id = (serverID << 44) + meetingID
             
@@ -434,7 +434,7 @@ extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser: LGV_MeetingSDK_Pars
                           data inData: Data,
                           refCon inRefCon: Any?,
                           completion inCompletion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
-        let emptyResponse = LGV_MeetingSDK_LGV_MeetingServer.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, refCon: inRefCon)
+        let emptyResponse = LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, refCon: inRefCon)
         do {
             if let meetingsObject = (try JSONSerialization.jsonObject(with: inData, options: []) as? [String: Any])?["meetings"] as? [[String: Any]] {
                 var searchCenter: CLLocation = CLLocation(latitude: 0, longitude: 0)
@@ -466,11 +466,11 @@ extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser: LGV_MeetingSDK_Pars
                     return meeting
                 }
                 
-                let meetingData = LGV_MeetingSDK_LGV_MeetingServer.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: meetings, refCon: inRefCon)
+                let meetingData = LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: meetings, refCon: inRefCon)
                 
                 inCompletion(meetingData, nil)
             } else {
-                inCompletion(LGV_MeetingSDK_LGV_MeetingServer.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: [], refCon: inRefCon), nil)
+                inCompletion(LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: [], refCon: inRefCon), nil)
             }
         } catch {
             inCompletion(emptyResponse, LGV_MeetingSDK_Meeting_Data_Set.Error.parsingError(error: .jsonParseFailure(error: error)))

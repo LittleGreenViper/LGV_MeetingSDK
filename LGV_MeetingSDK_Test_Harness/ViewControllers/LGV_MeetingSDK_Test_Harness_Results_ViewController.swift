@@ -206,7 +206,7 @@ extension LGV_MeetingSDK_Test_Harness_Results_ViewController {
            let selectedRowIndexes = resulsTableView?.indexPathsForSelectedRows,
            !meetings.isEmpty {
             let ids = selectedRowIndexes.map { meetings[$0.row].id }
-            appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: .meetingID(ids: ids))
+            appDelegateInstance?.searchData = LGV_MeetingSDK_Meeting_Data_Set(searchType: .meetingID(ids: ids))
         }
     }
 }

@@ -733,11 +733,7 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         else { return }
         
         tabController?.mapViewController?.isBusy = true
-        if 0 == LGV_MeetingSDK_Test_Harness_Prefs().selectedConnector {
-            appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: searchType, searchRefinements: searchRefinements)
-        } else {
-            appDelegateInstance?.searchData = LGV_MeetingSDK_LGV_MeetingServer.Data_Set(searchType: searchType, searchRefinements: searchRefinements)
-        }
+        appDelegateInstance?.searchData = LGV_MeetingSDK_Meeting_Data_Set(searchType: searchType, searchRefinements: searchRefinements)
         tabController?.selectedIndex = LGV_MeetingSDK_Test_Harness_TabController.TabIndexes.search.rawValue
         tabController?.sdk?.meetingSearch(type: searchType, refinements: searchRefinements, refCon: nil, completion: searchCallbackHandler)
         dismiss(animated: true)
@@ -759,11 +755,7 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         if case let .autoRadius(centerLongLat, minimumNumberOfResults, maxRadiusInMeters) = searchType {
             let searchType = LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints.nextMeetings(centerLongLat: centerLongLat, minimumNumberOfResults: minimumNumberOfResults, maxRadiusInMeters: maxRadiusInMeters)
             tabController.mapViewController?.isBusy = true
-            if 0 == LGV_MeetingSDK_Test_Harness_Prefs().selectedConnector {
-                appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: searchType, searchRefinements: searchRefinements)
-            } else {
-                appDelegateInstance?.searchData = LGV_MeetingSDK_LGV_MeetingServer.Data_Set(searchType: searchType, searchRefinements: searchRefinements)
-            }
+            appDelegateInstance?.searchData = LGV_MeetingSDK_Meeting_Data_Set(searchType: searchType, searchRefinements: searchRefinements)
             tabController.selectedIndex = LGV_MeetingSDK_Test_Harness_TabController.TabIndexes.search.rawValue
             sdk.findNextMeetingsSearch(centerLongLat: centerLongLat, minimumNumberOfResults: minimumNumberOfResults, maxRadiusInMeters: maxRadiusInMeters, refinements: searchRefinements, completion: tabController.searchCallbackHandler)
             dismiss(animated: true)

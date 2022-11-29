@@ -16,7 +16,7 @@
  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
  CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  
- Version: 2.1.2
+ Version: 2.2.0
  */
 
 import CoreLocation
@@ -106,7 +106,7 @@ public protocol LGV_MeetingSDK_Meeting_Data_Set_Protocol: AnyObject, LGV_Meeting
     /**
      REQUIRED - This contains any found meetings. It may be empty (no meetings found).
      */
-    var meetings: [LGV_MeetingSDK_Meeting_Protocol] { get set }
+    var meetings: [LGV_MeetingSDK.Meeting] { get set }
 }
 
 /* ###################################################################################################################################### */
@@ -173,7 +173,7 @@ public protocol LGV_MeetingSDK_Protocol: LGV_MeetingSDK_RefCon_Protocol {
     func findNextMeetingsSearch(centerLongLat: CLLocationCoordinate2D,
                                 minimumNumberOfResults: UInt,
                                 maxRadiusInMeters: CLLocationDistance,
-                                refinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
+                                refinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>?,
                                 refCon: Any?,
                                 completion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure)
 }

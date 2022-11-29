@@ -58,7 +58,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Initiator: LGV_MeetingSDK_SearchInitiato
             }
         } else {    // Otherwise, we need to execute an NSURLSession data task.
             URLSession.shared.dataTask(with: urlRequest) { data, response, error in
-                let emptyResponse = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements)
+                let emptyResponse = LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements)
                 guard let response = response as? HTTPURLResponse else {
                     inCompletion(emptyResponse, LGV_MeetingSDK_Meeting_Data_Set.Error.CommunicationError.missingResponseError(error: error))
                     return

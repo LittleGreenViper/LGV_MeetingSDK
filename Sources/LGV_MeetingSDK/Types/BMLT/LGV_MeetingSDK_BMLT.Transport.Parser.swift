@@ -240,9 +240,9 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
      
      - returns: The refined meeting array.
      */
-    private static func _refineMeetings(_ inMeetings: [LGV_MeetingSDK_Meeting_Protocol],
+    private static func _refineMeetings(_ inMeetings: [LGV_MeetingSDK.Meeting],
                                         searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
-                                        searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>) -> [LGV_MeetingSDK_Meeting_Protocol] {
+                                        searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>) -> [LGV_MeetingSDK.Meeting] {
         var maximumDistanceInMeters: CLLocationDistance = -1
         
         // See if we have a distance-constrained search.
@@ -268,7 +268,7 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
              
              - returns: True, if the meeting contains the string we're looking for.
              */
-            func _isStringInHere(meeting inMeeting: LGV_MeetingSDK_Meeting_Protocol, string inString: String) -> Bool {
+            func _isStringInHere(meeting inMeeting: LGV_MeetingSDK.Meeting, string inString: String) -> Bool {
                 var ret = false
                 
                 if _isThisString(inString, withinThisString: inMeeting.name)
@@ -303,7 +303,7 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
             if 0 > maximumDistanceInMeters || meeting.distanceInMeters <= maximumDistanceInMeters {
                 // We then see if we specified any refinements. If so, we need to meet them.
                 if !inSearchRefinements.isEmpty {
-                    var returned: LGV_MeetingSDK_Meeting_Protocol?
+                    var returned: LGV_MeetingSDK.Meeting?
                     for refinement in inSearchRefinements.enumerated() {
                         switch refinement.element {
                         // String searches look at a number of fields in each meeting.
@@ -364,10 +364,10 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
      
      - returns: An Array of parsed and initialized meeting instances.
      */
-    private func _convert(theseMeetings inJSONParsedMeetings: [[String: String]], andTheseFormats inFormats: [UInt64: LGV_MeetingSDK_Format_Protocol], searchCenter inSearchCenter: CLLocation) -> [LGV_MeetingSDK_Meeting_Protocol] {
+    private func _convert(theseMeetings inJSONParsedMeetings: [[String: String]], andTheseFormats inFormats: [UInt64: LGV_MeetingSDK_Format_Protocol], searchCenter inSearchCenter: CLLocation) -> [LGV_MeetingSDK.Meeting] {
         guard let organization = initiator?.transport?.organization else { return [] }
         
-        var ret = [LGV_MeetingSDK_Meeting_Protocol]()
+        var ret = [LGV_MeetingSDK.Meeting]()
         
         inJSONParsedMeetings.forEach { meetingDictionary in
             let meetingDurationComponents = meetingDictionary["duration_time"]?.split(separator: ":").map { Int($0) ?? 0 } ?? [0, 0]
@@ -458,7 +458,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
                           data inData: Data,
                           refCon inRefCon: Any?,
                           completion inCompletion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
-        let emptyResponse = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, refCon: inRefCon)
+        let emptyResponse = LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, refCon: inRefCon)
         do {
             if let main_object = try JSONSerialization.jsonObject(with: inData, options: []) as? [String: [[String: String]]],
                let meetingsObject = main_object["meetings"],
@@ -494,11 +494,11 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
                     return meeting
                 }
                 
-                let meetingData = LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: meetings, refCon: inRefCon)
+                let meetingData = LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: meetings, refCon: inRefCon)
                 
                 inCompletion(meetingData, nil)
             } else {
-                inCompletion(LGV_MeetingSDK_BMLT.Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: [], refCon: inRefCon), nil)
+                inCompletion(LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements, meetings: [], refCon: inRefCon), nil)
             }
         } catch {
             inCompletion(emptyResponse, LGV_MeetingSDK_Meeting_Data_Set.Error.parsingError(error: .jsonParseFailure(error: error)))

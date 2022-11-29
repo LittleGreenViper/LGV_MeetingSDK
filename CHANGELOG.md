@@ -1,3 +1,7 @@
+**2.2.0** *November 29, 2022*
+
+- A whole bunch of work to stay DRY, and fixed a possible thread collision bug.
+
 **2.1.2** *November 29, 2022*
 
 - I moved the protocol defaults for the main protocol into the module base class, as I was getting strange optimization errors, in the first implementation.

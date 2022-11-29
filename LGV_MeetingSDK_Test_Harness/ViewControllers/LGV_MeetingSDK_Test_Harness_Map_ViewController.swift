@@ -451,7 +451,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         let meetings = appDelegateInstance?.searchData?.meetings ?? []
         
         if RadiusSwitchIndexes.fixedSearch.rawValue == modeSelectionSegmentedControl?.selectedSegmentIndex {
-            appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: .fixedRadius(centerLongLat: mapView.centerCoordinate, radiusInMeters: radiusInMeters), meetings: meetings)
+            appDelegateInstance?.searchData = LGV_MeetingSDK_Meeting_Data_Set(searchType: .fixedRadius(centerLongLat: mapView.centerCoordinate, radiusInMeters: radiusInMeters), meetings: meetings)
         } else {
             var maxRadius = Double.greatestFiniteMagnitude
             
@@ -459,7 +459,7 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
                 maxRadius = radiusInMeters
             }
             
-            appDelegateInstance?.searchData = LGV_MeetingSDK_BMLT.Data_Set(searchType: .autoRadius(centerLongLat: mapView.centerCoordinate, minimumNumberOfResults: UInt(requestedNumberOfMeetings), maxRadiusInMeters: maxRadius), meetings: meetings)
+            appDelegateInstance?.searchData = LGV_MeetingSDK_Meeting_Data_Set(searchType: .autoRadius(centerLongLat: mapView.centerCoordinate, minimumNumberOfResults: UInt(requestedNumberOfMeetings), maxRadiusInMeters: maxRadius), meetings: meetings)
         }
         
         (tabBarController as? LGV_MeetingSDK_Test_Harness_TabController)?.setTabBarEnablement()
