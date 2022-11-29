@@ -1,3 +1,7 @@
+**2.2.1** *November 29, 2022*
+
+- Some thread safety work.
+
 **2.2.0** *November 29, 2022*
 
 - A whole bunch of work to stay DRY, and fixed a possible thread collision bug.
