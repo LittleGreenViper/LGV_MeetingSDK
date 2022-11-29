@@ -949,6 +949,152 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
         get { _lastSearch }
         set { _lastSearch = newValue }
     }
+    
+    /* ################################################################## */
+    /**
+     Default runs, using the built-in organization->transport->initiator method.
+     */
+    public func meetingSearch(type inType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints = .none,
+                              refinements inRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = [],
+                              refCon inRefCon: Any? = nil,
+                              completion inCompletion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
+        organization?.transport?.initiator?.meetingSearch(type: inType, refinements: inRefinements, refCon: inRefCon, completion: inCompletion)
+    }
+
+    /* ################################################################## */
+    /**
+     WHAT'S ALL THIS, THEN?
+     
+     This method will be a bit complex, because, what we are doing, is successive auto radius calls, until a minimum number of aggregated results are found.
+     
+     Sounds like a standard auto radius call, eh? But there's a difference. This is a "Next Available Meetings" call. The result will be a series of meetings, sorted by weekday and time, then by distance, after now.
+     
+     The caller can specify refinements, like "Only look at meetings on weekdays, between 6PM and 9PM."
+     
+     The search will continue until the minimum number of search results has been found, or until all seven days have been exhausted. The caller can also specify a maximum radius.
+
+     - default minimumNumberOfResults is 10
+     - default maxRadiusInMeters is 10,000 Km
+     - default refinements is an empty set
+     - default refCon is nil
+     */
+    public func findNextMeetingsSearch(centerLongLat inCenterLongLat: CLLocationCoordinate2D,
+                                       minimumNumberOfResults inMinimumNumberOfResults: UInt = 10,
+                                       maxRadiusInMeters inMaxRadiusInMeters: CLLocationDistance = 10000000,
+                                       refinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = [],
+                                       refCon inRefCon: Any? = nil,
+                                       completion inCompletion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
+        let maxRadius = (0.0..<Double.greatestFiniteMagnitude).contains(inMaxRadiusInMeters) ? inMaxRadiusInMeters : 0
+        
+        var currentWeekdayIndex = 0
+        var aggregatedMeetings = [LGV_MeetingSDK_Meeting_Protocol]()
+        var searchUnderWay = false
+
+        /* ############################################################## */
+        /**
+         This is our own internal completion callback. We use this to aggregate the search results.
+         
+         > NOTE: I don't want to recurse, because I don't want long stack chains. We're calling a remote service, and it could be dicey. Instead, I will use a rather primitive loop.
+         
+         - parameter inData: The data returned from the search.
+         - parameter inError: Any errors encountered (may be nil).
+         */
+        func searchCallback(_ inData: LGV_MeetingSDK_Meeting_Data_Set_Protocol?, _ inError: Error?) {
+            currentWeekdayIndex += 1
+            guard let meetings = inData?.meetings,
+                  !meetings.isEmpty
+            else {
+                searchUnderWay = false
+                return
+            }
+            
+            meetings.forEach { meeting in
+                if !aggregatedMeetings.contains(where: { $0.id == meeting.id }) {
+                    aggregatedMeetings.append(meeting)
+                }
+            }
+            
+            searchUnderWay = false
+        }
+        
+        // This sets us up for the current time and weekday.
+        let todayWeekday = Calendar(identifier: .gregorian).component(.weekday, from: Date())
+        let secondsSinceMidnightThisMorning = TimeInterval(Int(Date().timeIntervalSince(Calendar.current.startOfDay(for: Date()))))
+        
+        // Save the requested refinements for weekday and start time range. These can be empty arrays
+        let weekdayRefinement = Array(inSearchRefinements.filter { $0.hashKey == "weekdays" })
+        let startTimeRangeRefinement = Array(inSearchRefinements.filter { $0.hashKey == "startTimeRange" })
+        // Now, remove them from our basic refinements.
+        let baselineRefinements = inSearchRefinements.filter { $0.hashKey != "weekdays" && $0.hashKey != "startTimeRange" }
+        
+        // We build a "pool" of weekdays to search, starting from today's weekday, and extending for a week.
+        // We will be searching only these weekdays. We won't worry about when the week starts in the calendar, but we will be going from today, on. It's an array, because order is important.
+        var weekdayPool = [LGV_MeetingSDK_Meeting_Data_Set.Weekdays]()
+        
+        for index in todayWeekday...(todayWeekday + 6) {
+            // If we have a weekday refinement, we only add weekdays that are in it.
+            if let weekday = LGV_MeetingSDK_Meeting_Data_Set.Weekdays(rawValue: 0 < index ? (8 > index ? index : index - 7) : index + 7) {
+                if !weekdayRefinement.isEmpty {
+                    if case let .weekdays(weekdayArray) = weekdayRefinement[0],
+                       weekdayArray.contains(weekday) {
+                        weekdayPool.append(weekday)
+                    }
+                } else {    // Otherwise, we add all seven weekdays.
+                    weekdayPool.append(weekday)
+                }
+            }
+        }
+        
+        var eachDayTimeRange = TimeInterval(0)...TimeInterval(86399)
+        var firstDayTimeRange = eachDayTimeRange
+        
+        if let startTimeRange = startTimeRangeRefinement.first {
+            if case let .startTimeRange(startTimeRangeVal) = startTimeRange {
+                eachDayTimeRange = startTimeRangeVal
+            }
+        }
+
+        if !weekdayPool.isEmpty {
+            if todayWeekday == weekdayPool[0].rawValue {    // If we are starting today, we may need to clamp the range.
+                firstDayTimeRange = (max(eachDayTimeRange.lowerBound, secondsSinceMidnightThisMorning)...eachDayTimeRange.upperBound)
+            } else {
+                firstDayTimeRange = eachDayTimeRange
+            }
+            
+            var currentTimeRange = firstDayTimeRange
+            
+            while inMinimumNumberOfResults > aggregatedMeetings.count,
+                  currentWeekdayIndex < weekdayPool.count {
+                let searchType = LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints.autoRadius(centerLongLat: inCenterLongLat, minimumNumberOfResults: inMinimumNumberOfResults, maxRadiusInMeters: maxRadius)
+                // Each sweep adds the next weekday in our list.
+                var refinements = baselineRefinements
+                refinements.insert(LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements.weekdays([weekdayPool[currentWeekdayIndex]]))
+                if 0 < currentTimeRange.lowerBound || 86399 > currentTimeRange.upperBound {    // We don't specify a time range, at all, if we never specified a constrained one.
+                    refinements.insert(LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements.startTimeRange(currentTimeRange))
+                }
+                
+                currentTimeRange = eachDayTimeRange
+                
+                if !searchUnderWay {
+                    searchUnderWay = true
+                    meetingSearch(type: searchType, refinements: refinements, refCon: inRefCon, completion: searchCallback)
+                }
+            }
+            
+            aggregatedMeetings = aggregatedMeetings.sorted { a, b in
+                guard a.weekdayIndex == b.weekdayIndex, // If the weekdays aren't the same, then no further sorting.
+                      let aStartTime = a.startTimeInSeconds,
+                      let bStartTime = b.startTimeInSeconds
+                else { return false }
+
+                guard aStartTime == bStartTime else { return aStartTime < bStartTime }
+                
+                return a.distanceInMeters < b.distanceInMeters
+            }
+        }
+        
+        inCompletion(LGV_MeetingSDK_Meeting_Data_Set(searchType: .nextMeetings(centerLongLat: inCenterLongLat, minimumNumberOfResults: inMinimumNumberOfResults, maxRadiusInMeters: maxRadius), searchRefinements: inSearchRefinements, meetings: aggregatedMeetings), nil)
+    }
 }
 
 /* ###################################################################################################################################### */

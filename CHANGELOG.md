@@ -1,3 +1,7 @@
+**2.1.2** *November 29, 2022*
+
+- I moved the protocol defaults for the main protocol into the module base class, as I was getting strange optimization errors, in the first implementation.
+
 **2.1.1** *November 28, 2022*
 
 - Fixed a bug in the way that the meetings for the new function are aggregated.
