@@ -118,6 +118,12 @@ public protocol LGV_MeetingSDK_Transport_Protocol: AnyObject {
     
     /* ################################################################## */
     /**
+     REQUIRED - The parser, for parsing search commands.
+     */
+    var parser: LGV_MeetingSDK_Parser_Protocol? { get }
+    
+    /* ################################################################## */
+    /**
      REQUIRED - The transport organization to which this instance is assigned. It should generally be declared weak.
      */
     var organization: LGV_MeetingSDK_Organization_Transport_Protocol? { get set }
@@ -133,6 +139,28 @@ public protocol LGV_MeetingSDK_Transport_Protocol: AnyObject {
      OPTIONAL - The "base" URL for the transport target.
      */
     var baseURL: URL? { get set }
+    
+    /* ########################################################## */
+    /**
+     OPTIONAL - This is used to "short-circuit" the actual network call.
+     
+     If this is non-nil, then the Data instance is sent to the callback closure as a "one-shot" call. The property is immediately cleared, after being read.
+     The URL is ignored.
+     */
+    var debugMockDataResponse: Data? { get set }
+    
+    /* ################################################################## */
+    /**
+     REQUIRED - Creates a URL Request, for the given search parameters.
+     - Parameters:
+        - type: Any search type that was specified.
+        - refinements: Any search refinements.
+     
+     - returns: A new URL Request object, ready for a task.
+     */
+    func ceateURLRequest(type inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
+                         refinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>
+    ) -> URLRequest?
 }
 
 /* ###################################################################################################################################### */

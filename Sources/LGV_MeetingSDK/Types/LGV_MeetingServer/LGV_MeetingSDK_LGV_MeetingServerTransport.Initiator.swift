@@ -40,70 +40,54 @@ extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Initiator: LGV_MeetingSDK_S
                               refinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>,
                               refCon inRefCon: Any? = nil,
                               completion inCompletion: @escaping MeetingSearchCallbackClosure) {
-        transport?.sdkInstance?.lastSearch = nil
-        guard let urlRequest = (transport as? LGV_MeetingSDK_LGV_MeetingServer.Transport)?.ceateURLRequest(type: inSearchType, refinements: inSearchRefinements) else { return }
-        #if DEBUG
-            print("URL Request: \(urlRequest.debugDescription)")
-        #endif
-        // See if we have mock data.
-        if let dataToParse = (transport as? LGV_MeetingSDK_LGV_MeetingServer.Transport)?.debugMockDataResponse {
-            (transport as? LGV_MeetingSDK_LGV_MeetingServer.Transport)?.debugMockDataResponse = nil
-            parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: dataToParse, refCon: inRefCon) { inParsedMeetings, inError in
-                if var parsedData = inParsedMeetings {
-                    parsedData.extraInfo = urlRequest.url?.absoluteString ?? ""
-                    inCompletion(parsedData, inError)
-                } else {
-                    inCompletion(nil, nil)
-                }
+        guard let urlRequest = transport?.ceateURLRequest(type: inSearchType, refinements: inSearchRefinements) else { return }
+
+        URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+            let emptyResponse = LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements)
+            guard let response = response as? HTTPURLResponse else {
+                inCompletion(emptyResponse, LGV_MeetingSDK_Meeting_Data_Set.Error.CommunicationError.missingResponseError(error: error))
+                return
             }
-        } else {    // Otherwise, we need to execute an NSURLSession data task.
-            URLSession.shared.dataTask(with: urlRequest) { data, response, error in
-                let emptyResponse = LGV_MeetingSDK_Meeting_Data_Set(searchType: inSearchType, searchRefinements: inSearchRefinements)
-                guard let response = response as? HTTPURLResponse else {
-                    inCompletion(emptyResponse, LGV_MeetingSDK_Meeting_Data_Set.Error.CommunicationError.missingResponseError(error: error))
-                    return
+            
+            if nil == error {
+                var commError: LGV_MeetingSDK_Meeting_Data_Set.Error.CommunicationError?
+                let statusCode = response.statusCode
+                
+                switch statusCode {
+                case 200..<300:
+                    if let data = data,
+                       "application/json" == response.mimeType {
+                        self.parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: data, refCon: inRefCon) { inParsedMeetings, inError in
+                            if var parsedData = inParsedMeetings {
+                                parsedData.extraInfo = urlRequest.url?.absoluteString ?? ""
+                                self.transport?.sdkInstance?.lastSearch = parsedData
+                                inCompletion(parsedData, inError)
+                            } else {
+                                inCompletion(emptyResponse, inError)
+                            }
+                        }
+                    } else {
+                        inCompletion(emptyResponse, nil)
+                    }
+                case 300..<400:
+                    commError = .redirectionError(error: error)
+                    
+                case 400..<500:
+                    commError = .clientError(error: error)
+                    
+                case 500...:
+                    commError = .serverError(error: error)
+                    
+                default:
+                    commError = .generalError(error: error)
                 }
                 
-                if nil == error {
-                    var commError: LGV_MeetingSDK_Meeting_Data_Set.Error.CommunicationError?
-                    let statusCode = response.statusCode
-                    
-                    switch statusCode {
-                    case 200..<300:
-                        if let data = data,
-                           "application/json" == response.mimeType {
-                            self.parser.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: data, refCon: inRefCon) { inParsedMeetings, inError in
-                                if var parsedData = inParsedMeetings {
-                                    parsedData.extraInfo = urlRequest.url?.absoluteString ?? ""
-                                    self.transport?.sdkInstance?.lastSearch = parsedData
-                                    inCompletion(parsedData, inError)
-                                } else {
-                                    inCompletion(emptyResponse, inError)
-                                }
-                            }
-                        } else {
-                            inCompletion(emptyResponse, nil)
-                        }
-                    case 300..<400:
-                        commError = .redirectionError(error: error)
-                        
-                    case 400..<500:
-                        commError = .clientError(error: error)
-                        
-                    case 500...:
-                        commError = .serverError(error: error)
-                        
-                    default:
-                        commError = .generalError(error: error)
-                    }
-                    
-                    if let commError = commError {
-                        inCompletion(emptyResponse, commError)
-                    }
-                } else {
-                    inCompletion(emptyResponse, LGV_MeetingSDK_Meeting_Data_Set.Error.CommunicationError.generalError(error: nil))
+                if let commError = commError {
+                    inCompletion(emptyResponse, commError)
                 }
-            }.resume()
-        }
+            } else {
+                inCompletion(emptyResponse, LGV_MeetingSDK_Meeting_Data_Set.Error.CommunicationError.generalError(error: nil))
+            }
+        }.resume()
     }
 }

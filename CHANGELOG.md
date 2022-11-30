@@ -1,3 +1,8 @@
+**2.2.2** *November 30, 2022*
+
+- Fairly significant refactoring, in an effort to DRY out, and simplify the code.
+- More work to reinforce thread safety.
+
 **2.2.1** *November 29, 2022*
 
 - Some thread safety work.

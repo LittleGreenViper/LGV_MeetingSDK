@@ -26,87 +26,6 @@ import Contacts
 internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
     /* ################################################################## */
     /**
-     This allows us to find if a string contains another string.
-     
-     - Parameters:
-         - inString: The string we're looking for.
-         - withinThisString: The string we're looking through.
-         - options (OPTIONAL): The String options for the search. Default is case insensitive, and diacritical insensitive.
-     
-     - returns: True, if the string contains the other String.
-     */
-    private static func _isThisString(_ inString: String, withinThisString inMainString: String, options inOptions: String.CompareOptions = [.caseInsensitive, .diacriticInsensitive]) -> Bool { nil != inMainString.range(of: inString, options: inOptions)?.lowerBound }
-
-    /* ################################################################## */
-    /**
-     "Cleans" a URI.
-     
-     - parameter urlString: The URL, as a String. It can be optional.
-     
-     - returns: an optional String. This is the given URI, "cleaned up" ("https://" or "tel:" may be prefixed)
-     */
-    private static func _cleanURI(urlString inURLString: String?) -> String? {
-        /* ################################################################## */
-        /**
-         This tests a string to see if a given substring is present at the start.
-         
-         - Parameters:
-            - inString: The string to test.
-            - inSubstring: The substring to test for.
-
-         - returns: true, if the string begins with the given substring.
-         */
-        func string (_ inString: String, beginsWith inSubstring: String) -> Bool {
-            var ret: Bool = false
-            if let range = inString.range(of: inSubstring) {
-                ret = (range.lowerBound == inString.startIndex)
-            }
-            return ret
-        }
-
-        guard var ret: String = inURLString?.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed),
-              let regex = try? NSRegularExpression(pattern: "^(http://|https://|tel://|tel:)", options: .caseInsensitive)
-        else { return nil }
-        
-        // We specifically look for tel URIs.
-        let wasTel = string(ret.lowercased(), beginsWith: "tel:")
-        
-        // Yeah, this is pathetic, but it's quick, simple, and works a charm.
-        ret = regex.stringByReplacingMatches(in: ret, options: [], range: NSRange(location: 0, length: ret.count), withTemplate: "")
-
-        if ret.isEmpty {
-            return nil
-        }
-        
-        if wasTel {
-            ret = "tel:" + ret
-        } else {
-            ret = "https://" + ret
-        }
-        
-        return ret
-    }
-
-    /* ################################################################## */
-    /**
-     This simply strips out all non-decimal characters in the string, leaving only valid decimal digits.
-     
-     - parameter inString: The string to be "decimated."
-     
-     - returns: A String, with all the non-decimal characters stripped.
-     */
-    private static func _decimalOnly(_ inString: String) -> String {
-        let decimalDigits = CharacterSet(charactersIn: "0123456789")
-        return inString.filter {
-            // The higher-order function stuff will convert each character into an aggregate integer, which then becomes a Unicode scalar. Very primitive, but shouldn't be a problem for us, as we only need a very limited ASCII set.
-            guard let cha = UnicodeScalar($0.unicodeScalars.map { $0.value }.reduce(0, +)) else { return false }
-            
-            return decimalDigits.contains(cha)
-        }
-    }
-    
-    /* ################################################################## */
-    /**
      Creates (or not) a virtual location, based on the provided meeting details.
      
      - parameter theseMeetings: The Dictionary that represents this meeting.
@@ -114,8 +33,8 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
      - returns: A new virtual location instance.
      */
     private static func _convert(thisDataToAVirtualLocation inMeetingData: [String: String]) -> LGV_MeetingSDK_LGV_MeetingServer.Meeting.VirtualLocation? {
-        let meetingURL = URL(string: _cleanURI(urlString: inMeetingData["url"] ?? inMeetingData["info"] ?? "") ?? "")
-        let phoneNumber = _decimalOnly(inMeetingData["phone_number"] ?? "")
+        let meetingURL = URL(string: LGV_MeetingSDK.cleanURI(urlString: inMeetingData["url"] ?? inMeetingData["info"] ?? "") ?? "")
+        let phoneNumber = LGV_MeetingSDK.decimalOnly(inMeetingData["phone_number"] ?? "")
         let phoneURL = phoneNumber.isEmpty ? nil : URL(string: "tel:\(phoneNumber)")
         let extraInfo = inMeetingData["info"] ?? ""
         var timeZone: TimeZone
@@ -222,127 +141,6 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
         
         return ret
     }
-
-    /* ################################################################## */
-    /**
-     Yeah, this is a big, ugly function, with lots of cyclomatic complexity.
-     
-     Deal with it. It works great.
-     
-     - Parameters:
-         - inMeetings: The meeting array to be filtered.
-         - searchType: This is the search specification main search type.
-         - searchRefinements: This is the search specification additional filters.
-     
-     - returns: The refined meeting array.
-     */
-    private static func _refineMeetings(_ inMeetings: [LGV_MeetingSDK.Meeting],
-                                        searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
-                                        searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>) -> [LGV_MeetingSDK.Meeting] {
-        var maximumDistanceInMeters: CLLocationDistance = -1
-        
-        // See if we have a distance-constrained search.
-        switch inSearchType {
-        case let .fixedRadius(centerLongLat: _, radiusInMeters: max):
-            maximumDistanceInMeters = max
-            
-        case let .autoRadius(centerLongLat: _, minimumNumberOfResults: _, maxRadiusInMeters: max):
-            maximumDistanceInMeters = max
-            
-        default:
-            break
-        }
-        
-        // We go through each meeting in the results.
-        return inMeetings.compactMap { meeting in
-            /* ########################################################## */
-            /**
-             Checks a meeting, to see if a given string is present.
-             
-             - parameter meeting: The meeing instance to check (haystack).
-             - parameter string: The string we're looking for (needle).
-             
-             - returns: True, if the meeting contains the string we're looking for.
-             */
-            func _isStringInHere(meeting inMeeting: LGV_MeetingSDK_Meeting_Protocol, string inString: String) -> Bool {
-                var ret = false
-                
-                if _isThisString(inString, withinThisString: inMeeting.name)
-                    || _isThisString(inString, withinThisString: inMeeting.extraInfo) {
-                    ret = true
-                } else if let physicalLocationName = inMeeting.physicalLocation?.name,
-                          _isThisString(inString, withinThisString: physicalLocationName) {
-                    ret = true
-                } else if let virtualInfo = inMeeting.virtualMeetingInfo?.videoMeeting?.extraInfo,
-                          _isThisString(inString, withinThisString: virtualInfo) {
-                    ret = true
-                } else if let virtualInfo = inMeeting.virtualMeetingInfo?.videoMeeting?.description,
-                          _isThisString(inString, withinThisString: virtualInfo) {
-                    ret = true
-                } else if let virtualInfo = inMeeting.virtualMeetingInfo?.phoneMeeting?.extraInfo,
-                          _isThisString(inString, withinThisString: virtualInfo) {
-                    ret = true
-                } else if let virtualInfo = inMeeting.virtualMeetingInfo?.phoneMeeting?.description,
-                          _isThisString(inString, withinThisString: virtualInfo) {
-                    ret = true
-                } else if !meeting.formats.isEmpty {
-                    for meetingFormat in inMeeting.formats where _isThisString(inString, withinThisString: meetingFormat.name) || _isThisString(inString, withinThisString: meetingFormat.description) {
-                        ret = true
-                        break
-                    }
-                }
-                
-                return ret
-            }
-            
-            // First filter is for distance.
-            if 0 >= maximumDistanceInMeters || meeting.distanceInMeters <= maximumDistanceInMeters {
-                // We then see if we specified any refinements. If so, we need to meet them.
-                if !inSearchRefinements.isEmpty {
-                    var returned: LGV_MeetingSDK.Meeting?
-                    for refinement in inSearchRefinements.enumerated() {
-                        switch refinement.element {
-                        // String searches look at a number of fields in each meeting.
-                        case let .string(searchForThisString):
-                            if _isStringInHere(meeting: meeting, string: searchForThisString) {
-                                returned = meeting
-                            }
-                            
-                        // If we specified weekdays, then we need to meet on one of the provided days.
-                        case let .weekdays(weekdays):
-                            if weekdays.map({ $0.rawValue }).contains(meeting.weekdayIndex) {
-                                returned = meeting
-                            }
-                            
-                        // If we specified a start time range, then we need to start within that range.
-                        case let .startTimeRange(startTimeRange):
-                            if let startTimeInSeconds = meeting.startTimeInSeconds,
-                               startTimeRange.contains(startTimeInSeconds) {
-                                returned = meeting
-                            }
-                            
-                        // Are we looking for only virtual, in-person, or hybrid (or combinations, thereof)?
-                        case let .venueTypes(venues):
-                            if venues.contains(meeting.meetingType) {
-                                returned = meeting
-                            }
-                            
-                        default:
-                            returned = meeting
-                        }
-                        
-                        return returned
-                    }
-                    // If the meeting did not meet any of the refinements, then we don't include it.
-                    return nil
-                } else {    // If we are not refining, then we just include the meeting.
-                    return meeting
-                }
-            } else {    // If we were looking at restricting the distance, then this means the meeting exceeds our maximum distance.
-                return nil
-            }
-        }
-    }
 }
 
 /* ###################################################################################################################################### */
@@ -372,7 +170,7 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
             let comments = rawMeetingObject["comments"] as? String ?? ""
             let duration = TimeInterval(rawMeetingObject["duration"] as? Int ?? 0)
             let weekday = rawMeetingObject["weekday"] as? Int ?? 0
-            let meetingStartTime = (Int(Self._decimalOnly(rawMeetingObject["start_time"] as? String ?? "00:00:00")) ?? 0) / 100
+            let meetingStartTime = (Int(LGV_MeetingSDK.decimalOnly(rawMeetingObject["start_time"] as? String ?? "00:00:00")) ?? 0) / 100
             let distance: CLLocationDistance = CLLocationDistance(rawMeetingObject["distance"] as? Double ?? Double.greatestFiniteMagnitude)
             let formats: [LGV_MeetingSDK_Format_Protocol] = Self._convert(theseFormats: rawMeetingObject["formats"] as? [[String: Any]] ?? [])
 
@@ -454,7 +252,7 @@ extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser: LGV_MeetingSDK_Pars
                     }
                 }
                 
-                let meetings = Self._refineMeetings(_convert(theseMeetings: meetingsObject, searchCenter: searchCenter), searchType: inSearchType, searchRefinements: inSearchRefinements).map {
+                let meetings = LGV_MeetingSDK.refineMeetings(_convert(theseMeetings: meetingsObject, searchCenter: searchCenter), searchType: inSearchType, searchRefinements: inSearchRefinements).map {
                     var meeting = $0
                     
                     if let distanceFrom = distanceFrom,

@@ -727,16 +727,18 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
      - parameter: ignored.
      */
     @IBAction func searchButtonHit(_: Any) {
-        guard let searchType = searchData?.searchType,
-              let searchRefinements = calculatedSearchRefinements,
-              let searchCallbackHandler = tabController?.searchCallbackHandler
+        guard let tabController = tabController,
+              let sdk = tabController.sdk,
+              let searchType = searchData?.searchType,
+              let searchRefinements = calculatedSearchRefinements
         else { return }
         
-        tabController?.mapViewController?.isBusy = true
+        tabController.mapViewController?.isBusy = true
         appDelegateInstance?.searchData = LGV_MeetingSDK_Meeting_Data_Set(searchType: searchType, searchRefinements: searchRefinements)
-        tabController?.selectedIndex = LGV_MeetingSDK_Test_Harness_TabController.TabIndexes.search.rawValue
-        tabController?.sdk?.meetingSearch(type: searchType, refinements: searchRefinements, refCon: nil, completion: searchCallbackHandler)
-        dismiss(animated: true)
+        dismiss(animated: true) {
+            tabController.selectedIndex = LGV_MeetingSDK_Test_Harness_TabController.TabIndexes.search.rawValue
+            sdk.meetingSearch(type: searchType, refinements: searchRefinements, refCon: nil, completion: tabController.searchCallbackHandler)
+        }
     }
     
     /* ################################################################## */
@@ -748,17 +750,17 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
     @IBAction func searchNextButtonHit(_: Any) {
         guard let tabController = tabController,
               let sdk = tabController.sdk,
-              let searchType = searchData?.searchType,
               let searchRefinements = calculatedSearchRefinements
         else { return }
         
-        if case let .autoRadius(centerLongLat, minimumNumberOfResults, maxRadiusInMeters) = searchType {
-            let searchType = LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints.nextMeetings(centerLongLat: centerLongLat, minimumNumberOfResults: minimumNumberOfResults, maxRadiusInMeters: maxRadiusInMeters)
+        if case let .autoRadius(centerLongLat, minimumNumberOfResults, maxRadiusInMeters) = searchData?.searchType {
             tabController.mapViewController?.isBusy = true
+            let searchType = LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints.nextMeetings(centerLongLat: centerLongLat, minimumNumberOfResults: minimumNumberOfResults, maxRadiusInMeters: maxRadiusInMeters)
             appDelegateInstance?.searchData = LGV_MeetingSDK_Meeting_Data_Set(searchType: searchType, searchRefinements: searchRefinements)
-            tabController.selectedIndex = LGV_MeetingSDK_Test_Harness_TabController.TabIndexes.search.rawValue
-            sdk.findNextMeetingsSearch(centerLongLat: centerLongLat, minimumNumberOfResults: minimumNumberOfResults, maxRadiusInMeters: maxRadiusInMeters, refinements: searchRefinements, completion: tabController.searchCallbackHandler)
-            dismiss(animated: true)
+            dismiss(animated: true) {
+                tabController.selectedIndex = LGV_MeetingSDK_Test_Harness_TabController.TabIndexes.search.rawValue
+                sdk.findNextMeetingsSearch(centerLongLat: centerLongLat, minimumNumberOfResults: minimumNumberOfResults, maxRadiusInMeters: maxRadiusInMeters, refinements: searchRefinements, completion: tabController.searchCallbackHandler)
+            }
         }
     }
 }

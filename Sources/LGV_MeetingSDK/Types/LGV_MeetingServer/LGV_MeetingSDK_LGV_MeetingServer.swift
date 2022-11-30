@@ -147,6 +147,12 @@ open class LGV_MeetingSDK_LGV_MeetingServer: LGV_MeetingSDK {
          This will contain the URL to the main Server that is being accessed by this transport instance.
          */
         public var baseURL: URL?
+        
+        /* ########################################################## */
+        /**
+         The parser
+         */
+        public var parser: LGV_MeetingSDK_Parser_Protocol? { initiator?.parser }
 
         /* ################################################################################################################################## */
         // MARK: Instance Properties

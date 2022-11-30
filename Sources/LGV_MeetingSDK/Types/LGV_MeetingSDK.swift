@@ -902,7 +902,6 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
  This is a class, so it can be specialized, and referenced.
  */
 open class LGV_MeetingSDK {
-
     /* ################################################################################################################################## */
     // MARK: - Meeting Struct -
     /* ################################################################################################################################## */
@@ -928,7 +927,7 @@ open class LGV_MeetingSDK {
              A name for the location.
              */
             public var name: String
-
+            
             /* ############################################################## */
             /**
              The address of the meeting.
@@ -967,13 +966,13 @@ open class LGV_MeetingSDK {
                  This describes the meeting venue (i.e. "Video," "Zoom," "Audio-Only," "Phone," etc.).
                  */
                 public let description: String
-
+                
                 /* ################################################################## */
                 /**
                  The local timezone for the meeting.
                  */
                 public let timeZone: TimeZone?
-
+                
                 /* ################################################################## */
                 /**
                  If the meeting has a URI, that is available here.
@@ -1003,12 +1002,12 @@ open class LGV_MeetingSDK {
                  Default initializer.
                  
                  - Parameters:
-                     - description (OPTIONAL): This describes the meeting venue (i.e. "Video," "Zoom," "Audio-Only," "Phone," etc.).
-                     - timeZone (OPTIONAL): The local timezone for the meeting.
-                     - url (OPTIONAL): If the meeting has a URI, that is available here.
-                     - meetingID (OPTIONAL): If the meeting has a separate meeting ID, that is available here, as a String.
-                     - password (OPTIONAL): If the meeting has a separate meeting password, that is available here, as a String.
-                     - extraInfo (OPTIONAL): Any additional information (as a String).
+                 - description (OPTIONAL): This describes the meeting venue (i.e. "Video," "Zoom," "Audio-Only," "Phone," etc.).
+                 - timeZone (OPTIONAL): The local timezone for the meeting.
+                 - url (OPTIONAL): If the meeting has a URI, that is available here.
+                 - meetingID (OPTIONAL): If the meeting has a separate meeting ID, that is available here, as a String.
+                 - password (OPTIONAL): If the meeting has a separate meeting password, that is available here, as a String.
+                 - extraInfo (OPTIONAL): Any additional information (as a String).
                  */
                 init(description inDescription: String = "",
                      timeZone inTimeZone: TimeZone? = nil,
@@ -1036,7 +1035,7 @@ open class LGV_MeetingSDK {
              Local storage for the phone venue.
              */
             private let _phoneMeeting: VirtualVenue?
-
+            
             /* ############################################################## */
             /**
              Any additional information.
@@ -1060,9 +1059,9 @@ open class LGV_MeetingSDK {
              Default initializer.
              
              - Parameters:
-                 - videoMeeting (OPTIONAL): If specified, the video meeting venue.
-                 - phoneMeeting (OPTIONAL): If specified, the phone meeting venue.
-                 - extraInfo (OPTIONAL): Any additional information (as a String).
+             - videoMeeting (OPTIONAL): If specified, the video meeting venue.
+             - phoneMeeting (OPTIONAL): If specified, the phone meeting venue.
+             - extraInfo (OPTIONAL): Any additional information (as a String).
              */
             public init(videoMeeting inVideoMeeting: VirtualVenue? = nil, phoneMeeting inPhoneMeeting: VirtualVenue? = nil, extraInfo inExtraInfo: String = "") {
                 _videoMeeting = inVideoMeeting
@@ -1070,19 +1069,19 @@ open class LGV_MeetingSDK {
                 extraInfo = inExtraInfo
             }
         }
-
+        
         /* ################################################################## */
         /**
          The meeting's physical location (if any).
          */
         private var _physicalLocation: PhysicalLocation?
-
+        
         /* ################################################################## */
         /**
          The meeting's virtual information (if any).
          */
         private var _virtualLocation: VirtualLocation?
-
+        
         /* ################################################################## */
         /**
          The organization to which this meeting belongs.
@@ -1106,7 +1105,7 @@ open class LGV_MeetingSDK {
          Any comments and/or additional information.
          */
         public let extraInfo: String
-
+        
         /* ################################################################## */
         /**
          The duration of the meeting, in seconds.
@@ -1118,7 +1117,7 @@ open class LGV_MeetingSDK {
          The distance of this meeting, from the search center, or a specified "distance from" refinement.
          */
         public var distanceInMeters: CLLocationDistance
-
+        
         /* ################################################################## */
         /**
          The 1-based weekday instance.
@@ -1149,7 +1148,7 @@ open class LGV_MeetingSDK {
             get { _physicalLocation }
             set { _physicalLocation = newValue as? PhysicalLocation }
         }
-
+        
         /* ################################################################## */
         /**
          Accessor for the virtual information.
@@ -1164,16 +1163,16 @@ open class LGV_MeetingSDK {
          Default initializer.
          
          - Parameters:
-            - id: A unique ID for this meeting (within the organization).
-            - weekdayIndex: The 1-based weekday instance (1 is always Sunday).
-            - meetingStartTime: The start time of the meeting, in miltary time (HHMM).
-            - name (OPTIONAL): The name of the meeting.
-            - extraInfo (OPTIONAL): Any comments and/or additional information.
-            - meetingDuration (OPTIONAL): The duration of the meeting, in seconds.
-            - distanceInMeters (OPTIONAL): The distance of this meeting, from the search center, or a specified "distance from" refinement. This is in meters.
-            - formats (OPTIONAL): Any formats that apply to this meeting.
-            - physicalLocation (OPTIONAL): The meeting's physical location (if any).
-            - virtualMeetingInfo (OPTIONAL): The meeting's virtual information (if any).
+         - id: A unique ID for this meeting (within the organization).
+         - weekdayIndex: The 1-based weekday instance (1 is always Sunday).
+         - meetingStartTime: The start time of the meeting, in miltary time (HHMM).
+         - name (OPTIONAL): The name of the meeting.
+         - extraInfo (OPTIONAL): Any comments and/or additional information.
+         - meetingDuration (OPTIONAL): The duration of the meeting, in seconds.
+         - distanceInMeters (OPTIONAL): The distance of this meeting, from the search center, or a specified "distance from" refinement. This is in meters.
+         - formats (OPTIONAL): Any formats that apply to this meeting.
+         - physicalLocation (OPTIONAL): The meeting's physical location (if any).
+         - virtualMeetingInfo (OPTIONAL): The meeting's virtual information (if any).
          */
         public init(organization inOrganization: LGV_MeetingSDK_Organization_Protocol? = nil,
                     id inID: UInt64,
@@ -1199,7 +1198,7 @@ open class LGV_MeetingSDK {
             virtualMeetingInfo = inVirtualMeetingInfo
         }
     }
-
+    
     /* ################################################################################################################################## */
     // MARK: Private Instance Properties
     /* ################################################################################################################################## */
@@ -1208,13 +1207,13 @@ open class LGV_MeetingSDK {
      This is the organization that applies to this search instance. This is a strong reference.
      */
     private var _organization: LGV_MeetingSDK_Organization_Transport_Protocol?
-
+    
     /* ################################################################## */
     /**
      The "cached" last search. It may be nil (no last search cached).
      */
     private var _lastSearch: LGV_MeetingSDK_Meeting_Data_Set_Protocol?
-
+    
     /* ################################################################################################################################## */
     // MARK: Main Initializer
     /* ################################################################################################################################## */
@@ -1227,6 +1226,210 @@ open class LGV_MeetingSDK {
     public init(organization inOrganization: LGV_MeetingSDK_Organization_Transport_Protocol) {
         _organization = inOrganization
         _organization?.sdkInstance = self
+    }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Static Utility Functions
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK {
+    /* ################################################################## */
+    /**
+     "Cleans" a URI.
+     
+     - parameter urlString: The URL, as a String. It can be optional.
+     
+     - returns: an optional String. This is the given URI, "cleaned up" ("https://" or "tel:" may be prefixed)
+     */
+    static func cleanURI(urlString inURLString: String?) -> String? {
+        /* ################################################################## */
+        /**
+         This tests a string to see if a given substring is present at the start.
+         
+         - Parameters:
+         - inString: The string to test.
+         - inSubstring: The substring to test for.
+         
+         - returns: true, if the string begins with the given substring.
+         */
+        func string (_ inString: String, beginsWith inSubstring: String) -> Bool {
+            var ret: Bool = false
+            if let range = inString.range(of: inSubstring) {
+                ret = (range.lowerBound == inString.startIndex)
+            }
+            return ret
+        }
+        
+        guard var ret: String = inURLString?.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed),
+              let regex = try? NSRegularExpression(pattern: "^(http://|https://|tel://|tel:)", options: .caseInsensitive)
+        else { return nil }
+        
+        // We specifically look for tel URIs.
+        let wasTel = string(ret.lowercased(), beginsWith: "tel:")
+        
+        // Yeah, this is pathetic, but it's quick, simple, and works a charm.
+        ret = regex.stringByReplacingMatches(in: ret, options: [], range: NSRange(location: 0, length: ret.count), withTemplate: "")
+        
+        if ret.isEmpty {
+            return nil
+        }
+        
+        if wasTel {
+            ret = "tel:" + ret
+        } else {
+            ret = "https://" + ret
+        }
+        
+        return ret
+    }
+    
+    /* ################################################################## */
+    /**
+     This simply strips out all non-decimal characters in the string, leaving only valid decimal digits.
+     
+     - parameter inString: The string to be "decimated."
+     
+     - returns: A String, with all the non-decimal characters stripped.
+     */
+    static func decimalOnly(_ inString: String) -> String {
+        let decimalDigits = CharacterSet(charactersIn: "0123456789")
+        return inString.filter {
+            // The higher-order function stuff will convert each character into an aggregate integer, which then becomes a Unicode scalar. Very primitive, but shouldn't be a problem for us, as we only need a very limited ASCII set.
+            guard let cha = UnicodeScalar($0.unicodeScalars.map { $0.value }.reduce(0, +)) else { return false }
+            
+            return decimalDigits.contains(cha)
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     This allows us to find if a string contains another string.
+     
+     - Parameters:
+         - inString: The string we're looking for.
+         - withinThisString: The string we're looking through.
+         - options (OPTIONAL): The String options for the search. Default is case insensitive, and diacritical insensitive.
+     
+     - returns: True, if the string contains the other String.
+     */
+    private static func _isThisString(_ inString: String, withinThisString inMainString: String, options inOptions: String.CompareOptions = [.caseInsensitive, .diacriticInsensitive]) -> Bool { nil != inMainString.range(of: inString, options: inOptions)?.lowerBound }
+
+    /* ########################################################## */
+    /**
+     Checks a meeting, to see if a given string is present.
+     
+     - parameter meeting: The meeing instance to check (haystack).
+     - parameter string: The string we're looking for (needle).
+     
+     - returns: True, if the meeting contains the string we're looking for.
+     */
+    private static func _isStringInHere(meeting inMeeting: LGV_MeetingSDK.Meeting, string inString: String) -> Bool {
+        var ret = false
+        
+        if LGV_MeetingSDK._isThisString(inString, withinThisString: inMeeting.name)
+            || LGV_MeetingSDK._isThisString(inString, withinThisString: inMeeting.extraInfo) {
+            ret = true
+        } else if let physicalLocationName = inMeeting.physicalLocation?.name,
+                  LGV_MeetingSDK._isThisString(inString, withinThisString: physicalLocationName) {
+            ret = true
+        } else if let virtualInfo = inMeeting.virtualMeetingInfo?.videoMeeting?.extraInfo,
+                  LGV_MeetingSDK._isThisString(inString, withinThisString: virtualInfo) {
+            ret = true
+        } else if let virtualInfo = inMeeting.virtualMeetingInfo?.videoMeeting?.description,
+                  LGV_MeetingSDK._isThisString(inString, withinThisString: virtualInfo) {
+            ret = true
+        } else if let virtualInfo = inMeeting.virtualMeetingInfo?.phoneMeeting?.extraInfo,
+                  LGV_MeetingSDK._isThisString(inString, withinThisString: virtualInfo) {
+            ret = true
+        } else if let virtualInfo = inMeeting.virtualMeetingInfo?.phoneMeeting?.description,
+                  LGV_MeetingSDK._isThisString(inString, withinThisString: virtualInfo) {
+            ret = true
+        } else if !inMeeting.formats.isEmpty {
+            for meetingFormat in inMeeting.formats where LGV_MeetingSDK._isThisString(inString, withinThisString: meetingFormat.name) || LGV_MeetingSDK._isThisString(inString, withinThisString: meetingFormat.description) {
+                ret = true
+                break
+            }
+        }
+        
+        return ret
+    }
+    
+    /* ################################################################## */
+    /**
+     - Parameters:
+         - inMeetings: The meeting array to be filtered.
+         - searchType: This is the search specification main search type.
+         - searchRefinements: This is the search specification additional filters.
+     
+     - returns: The refined meeting array.
+     */
+    static func refineMeetings(_ inMeetings: [LGV_MeetingSDK.Meeting],
+                               searchType inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints,
+                               searchRefinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements>) -> [LGV_MeetingSDK.Meeting] {
+        var maximumDistanceInMeters: CLLocationDistance = -1
+        
+        // See if we have a distance-constrained search.
+        switch inSearchType {
+        case let .fixedRadius(centerLongLat: _, radiusInMeters: max):
+            maximumDistanceInMeters = max
+            
+        case let .autoRadius(centerLongLat: _, minimumNumberOfResults: _, maxRadiusInMeters: max):
+            maximumDistanceInMeters = max
+            
+        default:
+            break
+        }
+        
+        // We go through each meeting in the results.
+        return inMeetings.compactMap { meeting in
+            // First filter is for distance.
+            if 0 >= maximumDistanceInMeters || meeting.distanceInMeters <= maximumDistanceInMeters {
+                // We then see if we specified any refinements. If so, we need to meet them.
+                if !inSearchRefinements.isEmpty {
+                    var returned: LGV_MeetingSDK.Meeting?
+                    for refinement in inSearchRefinements.enumerated() {
+                        switch refinement.element {
+                        // String searches look at a number of fields in each meeting.
+                        case let .string(searchForThisString):
+                            guard Self._isStringInHere(meeting: meeting, string: searchForThisString) else { return nil }
+                          
+                            returned = meeting
+                            
+                        // If we specified weekdays, then we need to meet on one of the provided days.
+                        case let .weekdays(weekdays):
+                            guard weekdays.map({ $0.rawValue }).contains(meeting.weekdayIndex) else { return nil }
+                           
+                            returned = meeting
+                            
+                        // If we specified a start time range, then we need to start within that range.
+                        case let .startTimeRange(startTimeRange):
+                            guard let startTimeInSeconds = meeting.startTimeInSeconds,
+                                  startTimeRange.contains(startTimeInSeconds)
+                            else { return nil }
+                            
+                            returned = meeting
+                            
+                        // Are we looking for only virtual, in-person, or hybrid (or combinations, thereof)?
+                        case let .venueTypes(venues):
+                            guard venues.contains(meeting.meetingType) else { return nil }
+                     
+                            returned = meeting
+                            
+                        default:
+                            returned = meeting
+                        }
+                        
+                        return returned
+                    }
+                    // If the meeting did not meet any of the refinements, then we don't include it.
+                    return nil
+                } else {    // If we are not refining, then we just include the meeting.
+                    return meeting
+                }
+            } else {    // If we were looking at restricting the distance, then this means the meeting exceeds our maximum distance.
+                return nil
+            }
+        }
     }
 }
 
@@ -1253,11 +1456,29 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
     /**
      Default runs, using the built-in organization->transport->initiator method.
      */
-    public func meetingSearch(type inType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints = .none,
-                              refinements inRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = [],
+    public func meetingSearch(type inSearchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints = .none,
+                              refinements inSearchRefinements: Set<LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements> = [],
                               refCon inRefCon: Any? = nil,
                               completion inCompletion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
-        organization?.transport?.initiator?.meetingSearch(type: inType, refinements: inRefinements, refCon: inRefCon, completion: inCompletion)
+        organization?.transport?.sdkInstance?.lastSearch = nil
+        guard let urlRequest = organization?.transport?.ceateURLRequest(type: inSearchType, refinements: inSearchRefinements) else { return }
+        #if DEBUG
+            print("URL Request: \(urlRequest.debugDescription)")
+        #endif
+        // See if we have mock data.
+        if let dataToParse = (organization?.transport as? LGV_MeetingSDK_LGV_MeetingServer.Transport)?.debugMockDataResponse {
+            organization?.transport?.debugMockDataResponse = nil
+            organization?.transport?.parser?.parseThis(searchType: inSearchType, searchRefinements: inSearchRefinements, data: dataToParse, refCon: inRefCon) { inParsedMeetings, inError in
+                if var parsedData = inParsedMeetings {
+                    parsedData.extraInfo = urlRequest.url?.absoluteString ?? ""
+                    inCompletion(parsedData, inError)
+                } else {
+                    inCompletion(nil, nil)
+                }
+            }
+        } else {    // Otherwise, we need to execute an NSURLSession data task.
+            organization?.transport?.initiator?.meetingSearch(type: inSearchType, refinements: inSearchRefinements, refCon: inRefCon, completion: inCompletion)
+        }
     }
 
     /* ################################################################## */
@@ -1285,7 +1506,7 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
                                        completion inCompletion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
         let maxRadius = (0.0..<40075000.0).contains(inMaxRadiusInMeters) ? inMaxRadiusInMeters : 0
         
-        let lockTite = DispatchQueue(label: "threadlock", qos: .background)
+        let lockTite = DispatchQueue(label: "threadlock", qos: .background) // We use this to make sure we don't get thread collisions.
         var currentWeekdayIndex = 0
         var aggregatedMeetings: [Meeting] = []
         var searchUnderWay = false
@@ -1303,31 +1524,34 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
             #if DEBUG
                 print("SDK Internal Callback, with data: \(String(describing: inData)), error: \(String(describing: inError))")
             #endif
-            defer { searchUnderWay = false }
-            lastSearch = nil
-            currentWeekdayIndex += 1
+            defer { lockTite.sync { searchUnderWay = false } }
+            lockTite.sync {
+                lastSearch = nil
+                currentWeekdayIndex += 1
+            }
+            
             guard let meetings = inData?.meetings,
                   !meetings.isEmpty
             else {
                 return
             }
 
-            #if DEBUG
-                print("SDK Internal Callback, found meetings: \(meetings.debugDescription)")
-            #endif
-
             // This helps to prevent occasional thread collision crashes.
             lockTite.sync {
+                #if DEBUG
+                    print("SDK Internal Callback, found meetings: \(meetings.debugDescription)")
+                #endif
+
                 meetings.forEach { meeting in
                     if !aggregatedMeetings.contains(where: { $0.id == meeting.id }) {
                         aggregatedMeetings.append(meeting)
                     }
                 }
-            }
 
-            #if DEBUG
-                print("SDK Internal Callback, final aggregate meetings: \(aggregatedMeetings.debugDescription)")
-            #endif
+                #if DEBUG
+                    print("SDK Internal Callback, final aggregate meetings: \(aggregatedMeetings.debugDescription)")
+                #endif
+            }
         }
         
         // This sets us up for the current time and weekday.
@@ -1379,11 +1603,15 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
             var currentTimeRange = firstDayTimeRange
             
             var breakMe = false // We use a semaphore, to avoid thread collisions.
-
-            while !breakMe,
-                  currentWeekdayIndex < weekdayPool.count {
-                if !searchUnderWay {
-                    searchUnderWay = true
+            
+            while !breakMe {
+                var dontDoASearch = true
+                lockTite.sync {
+                    breakMe = aggregatedMeetings.count >= inMinimumNumberOfResults || currentWeekdayIndex >= weekdayPool.count
+                    dontDoASearch = searchUnderWay || breakMe
+                }
+                if !dontDoASearch {
+                    lockTite.sync { searchUnderWay = true }
                     let searchType = LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints.autoRadius(centerLongLat: inCenterLongLat, minimumNumberOfResults: inMinimumNumberOfResults, maxRadiusInMeters: maxRadius)
                     // Each sweep adds the next weekday in our list.
                     var refinements = baselineRefinements
@@ -1397,10 +1625,6 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
                     
                     lastSearch = nil
                     meetingSearch(type: searchType, refinements: refinements, refCon: inRefCon, completion: searchCallback)
-                    // This just keeps us in sync with the callback.
-                    lockTite.sync {
-                        breakMe = aggregatedMeetings.count >= inMinimumNumberOfResults
-                    }
                 }
             }
             
@@ -1415,6 +1639,7 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
                 return a.distanceInMeters < b.distanceInMeters
             }
             
+            // We make sure to trim to the requested amount, or less.
             aggregatedMeetings = [Meeting](aggregatedMeetings[0..<min(aggregatedMeetings.count, Int(inMinimumNumberOfResults))])
         }
         
