@@ -1,7 +1,8 @@
-**2.2.2** *November 30, 2022*
+**2.3.0** *November 30, 2022*
 
 - Fairly significant refactoring, in an effort to DRY out, and simplify the code.
 - More work to reinforce thread safety.
+- Changed the way that the physical location is specified, as a lot of virtual meetings pretend to be physical. They shouldn't do that, but who am I, to judge?
 
 **2.2.1** *November 29, 2022*
 

@@ -81,39 +81,47 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
         let extraInfo = inMeetingData["info"] ?? ""
         let timeZone = TimeZone.autoupdatingCurrent
 
-        let postalAddress = CNMutablePostalAddress()
+        var postalAddress: CNMutablePostalAddress?
 
-        if let value = inMeetingData["street"] {
-            postalAddress.street = value
+        if let value = inMeetingData["street"],
+           !value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            postalAddress = CNMutablePostalAddress()
+            postalAddress?.street = value.trimmingCharacters(in: .whitespacesAndNewlines)
         }
         
-        // No street, no physical location.
-        guard !postalAddress.street.isEmpty else { return nil }
-        
-        if let value = inMeetingData["city_subsection"] {
-            postalAddress.subLocality = value
+        // No street, no address.
+        if nil != postalAddress {
+            if let value = inMeetingData["city_subsection"],
+               !value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                postalAddress?.subLocality = value.trimmingCharacters(in: .whitespacesAndNewlines)
+            }
+            
+            if let value = inMeetingData["city"],
+               !value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                postalAddress?.city = value.trimmingCharacters(in: .whitespacesAndNewlines)
+            }
+            
+            if let value = inMeetingData["sub_province"],
+               !value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                postalAddress?.subAdministrativeArea = value.trimmingCharacters(in: .whitespacesAndNewlines)
+            }
+            
+            if let value = inMeetingData["province"],
+               !value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                postalAddress?.state = value.trimmingCharacters(in: .whitespacesAndNewlines)
+            }
+            
+            if let value = inMeetingData["postal_code"],
+               !value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                postalAddress?.postalCode = value.trimmingCharacters(in: .whitespacesAndNewlines)
+            }
+            
+            if let value = inMeetingData["nation"],
+               !value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                postalAddress?.country = value.trimmingCharacters(in: .whitespacesAndNewlines)
+            }
         }
         
-        if let value = inMeetingData["city"] {
-            postalAddress.city = value
-        }
-        
-        if let value = inMeetingData["sub_province"] {
-            postalAddress.subAdministrativeArea = value
-        }
-        
-        if let value = inMeetingData["province"] {
-            postalAddress.state = value
-        }
-        
-        if let value = inMeetingData["postal_code"] {
-            postalAddress.postalCode = value
-        }
-        
-        if let value = inMeetingData["nation"] {
-            postalAddress.country = value
-        }
-
         return LGV_MeetingSDK.Meeting.PhysicalLocation(coords: inCoords, name: name, postalAddress: postalAddress, timeZone: timeZone, extraInfo: extraInfo)
     }
 

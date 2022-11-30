@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>PhysicalLocation Structure Reference</title>
+    <title>Format Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Struct/PhysicalLocation" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Struct/Format" class="dashAnchor"></a>
 
-    <a title="PhysicalLocation Structure Reference"></a>
+    <a title="Format Structure Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../../../index.html"> Reference</a>
       <img class="carat" src="../../../img/carat.png" alt=""/>
-      PhysicalLocation Structure Reference
+      Format Structure Reference
     </p>
 
     <div class="content-wrapper">
@@ -57,16 +57,10 @@
                 <a class="nav-group-task-link" href="../../../Classes/LGV_MeetingSDK.html">LGV_MeetingSDK</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../../Classes/LGV_MeetingSDK/Meeting.html">– Meeting</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../../Classes/LGV_MeetingSDK_BMLT.html">LGV_MeetingSDK_BMLT</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../../Classes/LGV_MeetingSDK_BMLT/Data_Set.html">– Data_Set</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../../Classes/LGV_MeetingSDK_BMLT/Format.html">– Format</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../../Classes/LGV_MeetingSDK_BMLT/Meeting.html">– Meeting</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../../Classes/LGV_MeetingSDK_BMLT/Transport.html">– Transport</a>
@@ -76,15 +70,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../../Classes/LGV_MeetingSDK_LGV_MeetingServer.html">LGV_MeetingSDK_LGV_MeetingServer</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../../Classes/LGV_MeetingSDK_LGV_MeetingServer/Data_Set.html">– Data_Set</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../../Classes/LGV_MeetingSDK_LGV_MeetingServer/Format.html">– Format</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../../Classes/LGV_MeetingSDK_LGV_MeetingServer/Meeting.html">– Meeting</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../../Classes/LGV_MeetingSDK_LGV_MeetingServer/Transport.html">– Transport</a>
@@ -175,15 +160,15 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>PhysicalLocation</h1>
+            <h1>Format</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PhysicalLocation</span> <span class="p">:</span> <span class="kt"><a href="../../../Protocols/LGV_MeetingSDK_Meeting_Physical_Protocol.html">LGV_MeetingSDK_Meeting_Physical_Protocol</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Format</span> <span class="p">:</span> <span class="kt"><a href="../../../Protocols/LGV_MeetingSDK_Format_Protocol.html">LGV_MeetingSDK_Format_Protocol</a></span></code></pre>
 
                 </div>
               </div>
-            <p>This describes a physical location for the meeting.</p>
+            <p>This describes one &ldquo;meeting format,&rdquo; which is some extra information attached to a meeting, describing attributes.</p>
 
           </div>
         </section>
@@ -195,9 +180,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14LGV_MeetingSDK0a1_bc1_a1_B6ServerC0B0V16PhysicalLocationV6coordsSo22CLLocationCoordinate2DVvp"></a>
-                    <a name="//apple_ref/swift/Property/coords" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_a1_B6ServerC0B0V16PhysicalLocationV6coordsSo22CLLocationCoordinate2DVvp">coords</a>
+                    <a name="/s:14LGV_MeetingSDKAAC0B0V6FormatV2ids6UInt64Vvp"></a>
+                    <a name="//apple_ref/swift/Property/id" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14LGV_MeetingSDKAAC0B0V6FormatV2ids6UInt64Vvp">id</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -205,14 +190,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The coordinates of the meeting.</p>
+                        <p>This is a a unique ID (in the organization/server), for the format.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">coords</span><span class="p">:</span> <span class="kt">CLLocationCoordinate2D</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">UInt64</span></code></pre>
 
                         </div>
                       </div>
@@ -222,9 +207,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14LGV_MeetingSDK0a1_bc1_a1_B6ServerC0B0V16PhysicalLocationV4nameSSvp"></a>
-                    <a name="//apple_ref/swift/Property/name" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_a1_B6ServerC0B0V16PhysicalLocationV4nameSSvp">name</a>
+                    <a name="/s:14LGV_MeetingSDKAAC0B0V6FormatV3keySSvp"></a>
+                    <a name="//apple_ref/swift/Property/key" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14LGV_MeetingSDKAAC0B0V6FormatV3keySSvp">key</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -232,7 +217,34 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A name for the location.</p>
+                        <p>This is a simple text &ldquo;key&rdquo; for the format. It should be unique in the found set.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14LGV_MeetingSDKAAC0B0V6FormatV4nameSSvp"></a>
+                    <a name="//apple_ref/swift/Property/name" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14LGV_MeetingSDKAAC0B0V6FormatV4nameSSvp">name</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This is a short name for the format.</p>
 
                       </div>
                       <div class="declaration">
@@ -249,9 +261,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14LGV_MeetingSDK0a1_bc1_a1_B6ServerC0B0V16PhysicalLocationV13postalAddressSo08CNPostalH0Cvp"></a>
-                    <a name="//apple_ref/swift/Property/postalAddress" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_a1_B6ServerC0B0V16PhysicalLocationV13postalAddressSo08CNPostalH0Cvp">postalAddress</a>
+                    <a name="/s:14LGV_MeetingSDKAAC0B0V6FormatV11descriptionSSvp"></a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14LGV_MeetingSDKAAC0B0V6FormatV11descriptionSSvp">description</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -259,68 +271,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The address of the meeting.</p>
+                        <p>This is a longer description for the format.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">postalAddress</span><span class="p">:</span> <span class="kt">CNPostalAddress</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14LGV_MeetingSDK0a1_bc1_a1_B6ServerC0B0V16PhysicalLocationV8timeZone10Foundation04TimeH0Vvp"></a>
-                    <a name="//apple_ref/swift/Property/timeZone" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_a1_B6ServerC0B0V16PhysicalLocationV8timeZone10Foundation04TimeH0Vvp">timeZone</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The local time zone of the meeting.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">timeZone</span><span class="p">:</span> <span class="kt">TimeZone</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14LGV_MeetingSDK0a1_bc1_a1_B6ServerC0B0V16PhysicalLocationV9extraInfoSSvp"></a>
-                    <a name="//apple_ref/swift/Property/extraInfo" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_a1_B6ServerC0B0V16PhysicalLocationV9extraInfoSSvp">extraInfo</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Any additional information.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">extraInfo</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -335,7 +293,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-11-18)</p>
+      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-11-30)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

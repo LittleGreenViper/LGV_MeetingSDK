@@ -109,7 +109,7 @@ public protocol LGV_MeetingSDK_Meeting_Physical_Protocol: LGV_MeetingSDK_Additio
     /**
      REQUIRED - The location is stored as a standard postal address.
      */
-    var postalAddress: CNPostalAddress { get }
+    var postalAddress: CNPostalAddress? { get }
 
     /* ################################################################## */
     /**
@@ -397,7 +397,7 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
      Default figures out the meeting type, based on what venues are available.
      */
     var meetingType: LGV_MeetingSDK_VenueType_Enum {
-        let hasPhysicalLocation = nil != physicalLocation && nil != physicalLocation?.postalAddress && !(physicalLocation?.postalAddress.street ?? "").isEmpty
+        let hasPhysicalLocation = nil != physicalLocation && nil != physicalLocation?.postalAddress && !(physicalLocation?.postalAddress?.street ?? "").isEmpty
         if hasPhysicalLocation,
            nil != virtualMeetingInfo {
             return .hybrid

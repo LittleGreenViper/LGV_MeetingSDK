@@ -57,16 +57,10 @@
                 <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK.html">LGV_MeetingSDK</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK/Meeting.html">– Meeting</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_BMLT.html">LGV_MeetingSDK_BMLT</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_BMLT/Data_Set.html">– Data_Set</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_BMLT/Format.html">– Format</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_BMLT/Meeting.html">– Meeting</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_BMLT/Transport.html">– Transport</a>
@@ -76,15 +70,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_LGV_MeetingServer.html">LGV_MeetingSDK_LGV_MeetingServer</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_LGV_MeetingServer/Data_Set.html">– Data_Set</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_LGV_MeetingServer/Format.html">– Format</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_LGV_MeetingServer/Meeting.html">– Meeting</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_LGV_MeetingServer/Transport.html">– Transport</a>
@@ -253,9 +238,6 @@
                     <a name="//apple_ref/swift/Method/meetingSearch(type:refinements:refCon:completion:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC9_ProtocolP13meetingSearch4type11refinements6refCon10completionyAA0a1_bc1_B9_Data_SetC0F11ConstraintsO_ShyAJ0F12_RefinementsOGypSgyAA0a1_bc1_b1_l1_m1_D0_pSg_s5Error_pSgtctF">meetingSearch(type:<wbr>refinements:<wbr>refCon:<wbr>completion:<wbr>)</a>
                     </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -263,11 +245,6 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - This executes a meeting search.</p>
-
-                      </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        <p>Default runs, using the built-in organization-&gt;transport-&gt;initiator method.</p>
 
                       </div>
                       <div class="declaration">
@@ -281,24 +258,37 @@
 
                         </div>
                       </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>completion</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The completion closure. &gt; Note: This may be called in any thread, and it is escaping (should capture arguments).</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC9_ProtocolP22findNextMeetingsSearch13centerLongLat22minimumNumberOfResults17maxRadiusInMeters11refinements6refCon10completionySo22CLLocationCoordinate2DV_SuSdShyAA0a1_bc1_B9_Data_SetC0H12_RefinementsOGSgypSgyAA0a1_bc1_b1_z5_Set_D0_pSg_s5Error_pSgtctF"></a>
+                    <a name="//apple_ref/swift/Method/findNextMeetingsSearch(centerLongLat:minimumNumberOfResults:maxRadiusInMeters:refinements:refCon:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC9_ProtocolP22findNextMeetingsSearch13centerLongLat22minimumNumberOfResults17maxRadiusInMeters11refinements6refCon10completionySo22CLLocationCoordinate2DV_SuSdShyAA0a1_bc1_B9_Data_SetC0H12_RefinementsOGSgypSgyAA0a1_bc1_b1_z5_Set_D0_pSg_s5Error_pSgtctF">findNextMeetingsSearch(centerLongLat:<wbr>minimumNumberOfResults:<wbr>maxRadiusInMeters:<wbr>refinements:<wbr>refCon:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - This executes a special &ldquo;Find nearby meetings that I can attend&rdquo; meeting search.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">findNextMeetingsSearch</span><span class="p">(</span><span class="nv">centerLongLat</span><span class="p">:</span> <span class="kt">CLLocationCoordinate2D</span><span class="p">,</span>
+                            <span class="nv">minimumNumberOfResults</span><span class="p">:</span> <span class="kt">UInt</span><span class="p">,</span>
+                            <span class="nv">maxRadiusInMeters</span><span class="p">:</span> <span class="kt">CLLocationDistance</span><span class="p">,</span>
+                            <span class="nv">refinements</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt"><a href="../Classes/LGV_MeetingSDK_Meeting_Data_Set.html">LGV_MeetingSDK_Meeting_Data_Set</a></span><span class="o">.</span><span class="kt">Search_Refinements</span><span class="o">&gt;</span><span class="p">?,</span>
+                            <span class="nv">refCon</span><span class="p">:</span> <span class="kt">Any</span><span class="p">?,</span>
+                            <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Protocols/LGV_MeetingSDK_SearchInitiator_Protocol.html">LGV_MeetingSDK_SearchInitiator_Protocol</a></span><span class="o">.</span><span class="kt">MeetingSearchCallbackClosure</span><span class="p">)</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -311,7 +301,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-11-18)</p>
+      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-11-30)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

@@ -57,16 +57,10 @@
                 <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK.html">LGV_MeetingSDK</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK/Meeting.html">– Meeting</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_BMLT.html">LGV_MeetingSDK_BMLT</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_BMLT/Data_Set.html">– Data_Set</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_BMLT/Format.html">– Format</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_BMLT/Meeting.html">– Meeting</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_BMLT/Transport.html">– Transport</a>
@@ -76,15 +70,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_LGV_MeetingServer.html">LGV_MeetingSDK_LGV_MeetingServer</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_LGV_MeetingServer/Data_Set.html">– Data_Set</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_LGV_MeetingServer/Format.html">– Format</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_LGV_MeetingServer/Meeting.html">– Meeting</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/LGV_MeetingSDK_LGV_MeetingServer/Transport.html">– Transport</a>
@@ -222,6 +207,33 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC19_Transport_ProtocolP6parserAA0a1_bc8_Parser_E0_pSgvp"></a>
+                    <a name="//apple_ref/swift/Property/parser" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC19_Transport_ProtocolP6parserAA0a1_bc8_Parser_E0_pSgvp">parser</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>REQUIRED - The parser, for parsing search commands.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">parser</span><span class="p">:</span> <span class="kt"><a href="../Protocols/LGV_MeetingSDK_Parser_Protocol.html">LGV_MeetingSDK_Parser_Protocol</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:14LGV_MeetingSDK0a1_bC19_Transport_ProtocolP12organizationAA0a1_bc14_Organization_d1_E0_pSgvp"></a>
                     <a name="//apple_ref/swift/Property/organization" class="dashAnchor"></a>
                     <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC19_Transport_ProtocolP12organizationAA0a1_bc14_Organization_d1_E0_pSgvp">organization</a>
@@ -316,6 +328,100 @@
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC19_Transport_ProtocolP21debugMockDataResponse10Foundation0H0VSgvp"></a>
+                    <a name="//apple_ref/swift/Property/debugMockDataResponse" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC19_Transport_ProtocolP21debugMockDataResponse10Foundation0H0VSgvp">debugMockDataResponse</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>OPTIONAL - This is used to &ldquo;short-circuit&rdquo; the actual network call.</p>
+
+<p>If this is non-nil, then the Data instance is sent to the callback closure as a &ldquo;one-shot&rdquo; call. The property is immediately cleared, after being read.
+The URL is ignored.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">debugMockDataResponse</span><span class="p">:</span> <span class="kt">Data</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14LGV_MeetingSDK0a1_bC19_Transport_ProtocolP15ceateURLRequest4type11refinements10Foundation0G0VSgAA0a1_bc1_B9_Data_SetC17SearchConstraintsO_ShyAL0M12_RefinementsOGtF"></a>
+                    <a name="//apple_ref/swift/Method/ceateURLRequest(type:refinements:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC19_Transport_ProtocolP15ceateURLRequest4type11refinements10Foundation0G0VSgAA0a1_bc1_B9_Data_SetC17SearchConstraintsO_ShyAL0M12_RefinementsOGtF">ceateURLRequest(type:<wbr>refinements:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>REQUIRED - Creates a URL Request, for the given search parameters.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">ceateURLRequest</span><span class="p">(</span><span class="n">type</span> <span class="nv">inSearchType</span><span class="p">:</span> <span class="kt"><a href="../Classes/LGV_MeetingSDK_Meeting_Data_Set.html">LGV_MeetingSDK_Meeting_Data_Set</a></span><span class="o">.</span><span class="kt">SearchConstraints</span><span class="p">,</span>
+                     <span class="n">refinements</span> <span class="nv">inSearchRefinements</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt"><a href="../Classes/LGV_MeetingSDK_Meeting_Data_Set.html">LGV_MeetingSDK_Meeting_Data_Set</a></span><span class="o">.</span><span class="kt">Search_Refinements</span><span class="o">&gt;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">URLRequest</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>type</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Any search type that was specified.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>refinements</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Any search refinements.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new URL Request object, ready for a task.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </div>
@@ -324,7 +430,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-11-18)</p>
+      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-11-30)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

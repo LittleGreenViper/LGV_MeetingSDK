@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Format Structure Reference</title>
+    <title>cleanURI(urlString:) Static Method Reference</title>
     <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Struct/Format" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Method/cleanURI(urlString:)" class="dashAnchor"></a>
 
-    <a title="Format Structure Reference"></a>
+    <a title="cleanURI(urlString:) Static Method Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../../index.html"> Reference</a>
       <img class="carat" src="../../img/carat.png" alt=""/>
-      Format Structure Reference
+      cleanURI(urlString:) Static Method Reference
     </p>
 
     <div class="content-wrapper">
@@ -57,16 +57,10 @@
                 <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK.html">LGV_MeetingSDK</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK/Meeting.html">– Meeting</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_BMLT.html">LGV_MeetingSDK_BMLT</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_BMLT/Data_Set.html">– Data_Set</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_BMLT/Format.html">– Format</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_BMLT/Meeting.html">– Meeting</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_BMLT/Transport.html">– Transport</a>
@@ -76,15 +70,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_LGV_MeetingServer.html">LGV_MeetingSDK_LGV_MeetingServer</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_LGV_MeetingServer/Data_Set.html">– Data_Set</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_LGV_MeetingServer/Format.html">– Format</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_LGV_MeetingServer/Meeting.html">– Meeting</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_LGV_MeetingServer/Transport.html">– Transport</a>
@@ -175,16 +160,39 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>Format</h1>
+            <h1>cleanURI(urlString:)</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Format</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/LGV_MeetingSDK_Format_Protocol.html">LGV_MeetingSDK_Format_Protocol</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">cleanURI</span><span class="p">(</span><span class="n">urlString</span> <span class="nv">inURLString</span><span class="p">:</span> <span class="kt">String</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
 
                 </div>
               </div>
-            <p>This describes one &ldquo;meeting format,&rdquo; which is some extra information attached to a meeting, describing attributes.</p>
+            <p>&ldquo;Cleans&rdquo; a URI.</p>
 
+              <div>
+                <h4>Parameters</h4>
+                <table class="graybox">
+                  <tbody>
+                      <tr>
+                        <td>
+                          <code>
+                          <em>urlString</em>
+                          </code>
+                        </td>
+                        <td>
+                          <div>
+                            <p>The URL, as a String. It can be optional.</p>
+                          </div>
+                        </td>
+                      </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <h4>Return Value</h4>
+                <p>an optional String. This is the given URI, &ldquo;cleaned up&rdquo; (&ldquo;https://&rdquo; or &ldquo;tel:&rdquo; may be prefixed)</p>
+              </div>
           </div>
         </section>
 
@@ -195,9 +203,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14LGV_MeetingSDK0a1_bC5_BMLTC6FormatV2ids6UInt64Vvp"></a>
-                    <a name="//apple_ref/swift/Property/id" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC5_BMLTC6FormatV2ids6UInt64Vvp">id</a>
+                    <a name="/s:14LGV_MeetingSDKAAC8cleanURI9urlStringSSSgAE_tFZ6stringL__10beginsWithSbSS_SStF"></a>
+                    <a name="//apple_ref/swift/Function/string(_:beginsWith:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14LGV_MeetingSDKAAC8cleanURI9urlStringSSSgAE_tFZ6stringL__10beginsWithSbSS_SStF">string(_:<wbr>beginsWith:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -205,97 +213,25 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This is a a unique ID (in the organization/server), for the format.</p>
+                        <p>This tests a string to see if a given substring is present at the start.</p>
+
+<ul>
+<li>inString: The string to test.</li>
+<li><p>inSubstring: The substring to test for.</p></li>
+</ul>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">UInt64</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">string</span><span class="p">(</span><span class="n">_</span> <span class="nv">inString</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">beginsWith</span> <span class="nv">inSubstring</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14LGV_MeetingSDK0a1_bC5_BMLTC6FormatV3keySSvp"></a>
-                    <a name="//apple_ref/swift/Property/key" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC5_BMLTC6FormatV3keySSvp">key</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This is a simple text &ldquo;key&rdquo; for the format. It should be unique in the found set.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14LGV_MeetingSDK0a1_bC5_BMLTC6FormatV4nameSSvp"></a>
-                    <a name="//apple_ref/swift/Property/name" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC5_BMLTC6FormatV4nameSSvp">name</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This is a short name for the format.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14LGV_MeetingSDK0a1_bC5_BMLTC6FormatV11descriptionSSvp"></a>
-                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bC5_BMLTC6FormatV11descriptionSSvp">description</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This is a longer description for the format.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span></code></pre>
-
-                        </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>true, if the string begins with the given substring.</p>
                       </div>
                     </section>
                   </div>
@@ -308,7 +244,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-11-18)</p>
+      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-11-30)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

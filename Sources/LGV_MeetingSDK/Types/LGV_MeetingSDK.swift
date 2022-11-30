@@ -964,7 +964,7 @@ open class LGV_MeetingSDK {
             /**
              The address of the meeting.
              */
-            public var postalAddress: CNPostalAddress
+            public var postalAddress: CNPostalAddress?
             
             /* ############################################################## */
             /**

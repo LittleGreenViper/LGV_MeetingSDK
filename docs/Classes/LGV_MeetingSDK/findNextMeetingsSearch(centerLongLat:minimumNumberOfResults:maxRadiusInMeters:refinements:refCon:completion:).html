@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Format Structure Reference</title>
+    <title>findNextMeetingsSearch(centerLongLat:minimumNumberOfResults:maxRadiusInMeters:refinements:refCon:completion:) Instance Method Reference</title>
     <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Struct/Format" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Method/findNextMeetingsSearch(centerLongLat:minimumNumberOfResults:maxRadiusInMeters:refinements:refCon:completion:)" class="dashAnchor"></a>
 
-    <a title="Format Structure Reference"></a>
+    <a title="findNextMeetingsSearch(centerLongLat:minimumNumberOfResults:maxRadiusInMeters:refinements:refCon:completion:) Instance Method Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../../index.html"> Reference</a>
       <img class="carat" src="../../img/carat.png" alt=""/>
-      Format Structure Reference
+      findNextMeetingsSearch(centerLongLat:minimumNumberOfResults:maxRadiusInMeters:refinements:refCon:completion:) Instance Method Reference
     </p>
 
     <div class="content-wrapper">
@@ -57,16 +57,10 @@
                 <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK.html">LGV_MeetingSDK</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK/Meeting.html">– Meeting</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_BMLT.html">LGV_MeetingSDK_BMLT</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_BMLT/Data_Set.html">– Data_Set</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_BMLT/Format.html">– Format</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_BMLT/Meeting.html">– Meeting</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_BMLT/Transport.html">– Transport</a>
@@ -76,15 +70,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_LGV_MeetingServer.html">LGV_MeetingSDK_LGV_MeetingServer</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_LGV_MeetingServer/Data_Set.html">– Data_Set</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_LGV_MeetingServer/Format.html">– Format</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_LGV_MeetingServer/Meeting.html">– Meeting</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Classes/LGV_MeetingSDK_LGV_MeetingServer/Transport.html">– Transport</a>
@@ -175,15 +160,35 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>Format</h1>
+            <h1>findNextMeetingsSearch(centerLongLat:minimumNumberOfResults:maxRadiusInMeters:refinements:refCon:completion:)</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Format</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/LGV_MeetingSDK_Format_Protocol.html">LGV_MeetingSDK_Format_Protocol</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">findNextMeetingsSearch</span><span class="p">(</span><span class="n">centerLongLat</span> <span class="nv">inCenterLongLat</span><span class="p">:</span> <span class="kt">CLLocationCoordinate2D</span><span class="p">,</span>
+                                   <span class="n">minimumNumberOfResults</span> <span class="nv">inMinimumNumberOfResults</span><span class="p">:</span> <span class="kt">UInt</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+                                   <span class="n">maxRadiusInMeters</span> <span class="nv">inMaxRadiusInMeters</span><span class="p">:</span> <span class="kt">CLLocationDistance</span> <span class="o">=</span> <span class="mi">10000000</span><span class="p">,</span>
+                                   <span class="n">refinements</span> <span class="nv">inSearchRefinements</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt"><a href="../../Classes/LGV_MeetingSDK_Meeting_Data_Set.html">LGV_MeetingSDK_Meeting_Data_Set</a></span><span class="o">.</span><span class="kt">Search_Refinements</span><span class="o">&gt;</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                                   <span class="n">refCon</span> <span class="nv">inRefCon</span><span class="p">:</span> <span class="kt">Any</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                                   <span class="n">completion</span> <span class="nv">inCompletion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../../Protocols/LGV_MeetingSDK_SearchInitiator_Protocol.html">LGV_MeetingSDK_SearchInitiator_Protocol</a></span><span class="o">.</span><span class="kt">MeetingSearchCallbackClosure</span><span class="p">)</span></code></pre>
 
                 </div>
               </div>
-            <p>This describes one &ldquo;meeting format,&rdquo; which is some extra information attached to a meeting, describing attributes.</p>
+            <p>WHAT&rsquo;S ALL THIS, THEN?</p>
+
+<p>This method will be a bit complex, because, what we are doing, is successive auto radius calls, until a minimum number of aggregated results are found.</p>
+
+<p>Sounds like a standard auto radius call, eh? But there&rsquo;s a difference. This is a &ldquo;Next Available Meetings&rdquo; call. The result will be a series of meetings, sorted by weekday and time, then by distance, after now.</p>
+
+<p>The caller can specify refinements, like &ldquo;Only look at meetings on weekdays, between 6PM and 9PM.&rdquo;</p>
+
+<p>The search will continue until the minimum number of search results has been found, or until all seven days have been exhausted. The caller can also specify a maximum radius.</p>
+
+<ul>
+<li>default minimumNumberOfResults is 10</li>
+<li>default maxRadiusInMeters is 10,000 Km</li>
+<li>default refinements is nil</li>
+<li>default refCon is nil</li>
+</ul>
 
           </div>
         </section>
@@ -195,9 +200,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14LGV_MeetingSDK0a1_bc1_a1_B6ServerC6FormatV2ids6UInt64Vvp"></a>
-                    <a name="//apple_ref/swift/Property/id" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_a1_B6ServerC6FormatV2ids6UInt64Vvp">id</a>
+                    <a name="/s:14LGV_MeetingSDKAAC22findNextMeetingsSearch13centerLongLat22minimumNumberOfResults17maxRadiusInMeters11refinements6refCon10completionySo22CLLocationCoordinate2DV_SuSdShyAA0a1_bc1_B9_Data_SetC0G12_RefinementsOGSgypSgyAA0a1_bc1_b1_y1_Z9_Protocol_pSg_s5Error_pSgtctF14searchCallbackL_yyAT_AVtF"></a>
+                    <a name="//apple_ref/swift/Function/searchCallback(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14LGV_MeetingSDKAAC22findNextMeetingsSearch13centerLongLat22minimumNumberOfResults17maxRadiusInMeters11refinements6refCon10completionySo22CLLocationCoordinate2DV_SuSdShyAA0a1_bc1_B9_Data_SetC0G12_RefinementsOGSgypSgyAA0a1_bc1_b1_y1_Z9_Protocol_pSg_s5Error_pSgtctF14searchCallbackL_yyAT_AVtF">searchCallback(_:<wbr>_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -205,97 +210,52 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This is a a unique ID (in the organization/server), for the format.</p>
+                        <p>This is our own internal completion callback. We use this to aggregate the search results.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>I don&rsquo;t want to recurse, because I don&rsquo;t want long stack chains. We&rsquo;re calling a remote service, and it could be dicey. Instead, I will use a rather primitive loop.</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">UInt64</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">searchCallback</span><span class="p">(</span><span class="n">_</span> <span class="nv">inData</span><span class="p">:</span> <span class="kt"><a href="../../Protocols/LGV_MeetingSDK_Meeting_Data_Set_Protocol.html">LGV_MeetingSDK_Meeting_Data_Set_Protocol</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">inError</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span></code></pre>
 
                         </div>
                       </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14LGV_MeetingSDK0a1_bc1_a1_B6ServerC6FormatV3keySSvp"></a>
-                    <a name="//apple_ref/swift/Property/key" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_a1_B6ServerC6FormatV3keySSvp">key</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This is a simple text &ldquo;key&rdquo; for the format. It should be unique in the found set.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14LGV_MeetingSDK0a1_bc1_a1_B6ServerC6FormatV4nameSSvp"></a>
-                    <a name="//apple_ref/swift/Property/name" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_a1_B6ServerC6FormatV4nameSSvp">name</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This is a short name for the format.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14LGV_MeetingSDK0a1_bc1_a1_B6ServerC6FormatV11descriptionSSvp"></a>
-                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14LGV_MeetingSDK0a1_bc1_a1_B6ServerC6FormatV11descriptionSSvp">description</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This is a longer description for the format.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span></code></pre>
-
-                        </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inData</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The data returned from the search.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inError</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Any errors encountered (may be nil).</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -308,7 +268,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-11-18)</p>
+      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-11-30)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
