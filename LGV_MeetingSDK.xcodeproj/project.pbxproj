@@ -159,9 +159,9 @@
 			children = (
 				D41200EA29250E3A00EDFBA7 /* README.md */,
 				D41200E729250E3A00EDFBA7 /* LGV_MeetingSDK_LGV_MeetingServer.swift */,
-				D41200E829250E3A00EDFBA7 /* LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser.swift */,
-				D41200E929250E3A00EDFBA7 /* LGV_MeetingSDK_LGV_MeetingServerTransport.Initiator.swift */,
 				D41200EB29250E3A00EDFBA7 /* LGV_MeetingSDK_LGV_MeetingServer.Transport.swift */,
+				D41200E929250E3A00EDFBA7 /* LGV_MeetingSDK_LGV_MeetingServerTransport.Initiator.swift */,
+				D41200E829250E3A00EDFBA7 /* LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser.swift */,
 			);
 			path = LGV_MeetingServer;
 			sourceTree = "<group>";

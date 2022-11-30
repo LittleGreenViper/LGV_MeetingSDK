@@ -64,7 +64,7 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
 
         guard nil != videoVenue || nil != phoneVenue else { return nil }
         
-        return LGV_MeetingSDK_BMLT.Meeting.VirtualLocation(videoMeeting: videoVenue, phoneMeeting: phoneVenue, extraInfo: "")
+        return LGV_MeetingSDK.Meeting.VirtualLocation(videoMeeting: videoVenue, phoneMeeting: phoneVenue, extraInfo: "")
     }
     
     /* ################################################################## */
@@ -118,7 +118,7 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
             postalAddress.country = value
         }
 
-        return LGV_MeetingSDK_BMLT.Meeting.PhysicalLocation(coords: coords, name: name, postalAddress: postalAddress, timeZone: timeZone, extraInfo: extraInfo)
+        return LGV_MeetingSDK.Meeting.PhysicalLocation(coords: coords, name: name, postalAddress: postalAddress, timeZone: timeZone, extraInfo: extraInfo)
     }
 
     /* ################################################################## */
@@ -139,7 +139,7 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
                   let name = formatDictionary["name_string"],
                   let description = formatDictionary["description_string"]
             else { return }
-            let format = LGV_MeetingSDK_BMLT.Format(id: id, key: key, name: name, description: description)
+            let format = LGV_MeetingSDK.Meeting.Format(id: id, key: key, name: name, description: description)
             ret[id] = format
         }
         
@@ -189,18 +189,18 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
                 distance = abs(meetingLocation.distance(from: inSearchCenter))
             }
 
-            ret.append(LGV_MeetingSDK_BMLT.Meeting(organization: organization,
-                                                   id: id,
-                                                   weekdayIndex: weekdayIndex,
-                                                   meetingStartTime: meetingStartTime,
-                                                   name: meetingName,
-                                                   extraInfo: comments,
-                                                   meetingDuration: meetingDuration,
-                                                   distanceInMeters: distance,
-                                                   formats: formats,
-                                                   physicalLocation: physicalLocation,
-                                                   virtualMeetingInfo: virtualInformation
-                                                  )
+            ret.append(LGV_MeetingSDK.Meeting(organization: organization,
+                                              id: id,
+                                              weekdayIndex: weekdayIndex,
+                                              meetingStartTime: meetingStartTime,
+                                              name: meetingName,
+                                              extraInfo: comments,
+                                              meetingDuration: meetingDuration,
+                                              distanceInMeters: distance,
+                                              formats: formats,
+                                              physicalLocation: physicalLocation,
+                                              virtualMeetingInfo: virtualInformation
+                                             )
                        )
         }
 
