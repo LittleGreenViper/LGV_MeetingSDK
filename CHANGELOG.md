@@ -1,3 +1,7 @@
+**2.3.1** *December 3, 2022*
+
+- Some work on the "Find My Next Meeting" search. The code was difficult to understand, and there were a couple of range and sorting issues.
+
 **2.3.0** *November 30, 2022*
 
 - Fairly significant refactoring, in an effort to DRY out, and simplify the code.

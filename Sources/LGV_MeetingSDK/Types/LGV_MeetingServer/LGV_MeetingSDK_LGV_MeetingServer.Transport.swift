@@ -100,8 +100,7 @@ public extension LGV_MeetingSDK_LGV_MeetingServer.Transport {
 
             case .startTimeRange(let range):
                 // This makes sure the range is correct.
-                guard (range.lowerBound...range.upperBound).clamped(to: (0.0...86399)) == (range.lowerBound...range.upperBound) else { break }
-                
+                let range = (range.lowerBound...range.upperBound).clamped(to: (0.0...86400))
                 let startTimeRaw = Int(range.lowerBound)
                 
                 var beginHours = Int(startTimeRaw / 3600)

@@ -1537,7 +1537,6 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
                                        refCon inRefCon: Any? = nil,
                                        completion inCompletion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure) {
         let maxRadius = (0.0..<40075000.0).contains(inMaxRadiusInMeters) ? inMaxRadiusInMeters : 0
-        
         let lockTite = DispatchQueue(label: "threadlock", qos: .background) // We use this to make sure we don't get thread collisions.
         var currentWeekdayIndex = 0
         var aggregatedMeetings: [Meeting] = []
@@ -1586,10 +1585,6 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
             }
         }
         
-        // This sets us up for the current time and weekday.
-        let todayWeekday = Calendar(identifier: .gregorian).component(.weekday, from: Date())
-        let secondsSinceMidnightThisMorning = TimeInterval(Int(Date().timeIntervalSince(Calendar.current.startOfDay(for: Date()))))
-        
         let searchRefinements = inSearchRefinements ?? []
         
         // Save the requested refinements for weekday and start time range. These can be empty arrays
@@ -1597,6 +1592,12 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
         let startTimeRangeRefinement = Array(searchRefinements.filter { $0.hashKey == "startTimeRange" })
         // Now, remove them from our basic refinements.
         let baselineRefinements = searchRefinements.filter { $0.hashKey != "weekdays" && $0.hashKey != "startTimeRange" }
+        
+        // This sets us up for the current time and weekday.
+        let todayWeekday = Calendar(identifier: .gregorian).component(.weekday, from: Date())
+        let now = Date(timeIntervalSinceNow: -(3600 * 1.5))
+        let startOfToday = Calendar.current.startOfDay(for: now)
+        let secondsSinceMidnightThisMorning = now.timeIntervalSince(startOfToday)
         
         // We build a "pool" of weekdays to search, starting from today's weekday, and extending for a week.
         // We will be searching only these weekdays. We won't worry about when the week starts in the calendar, but we will be going from today, on. It's an array, because order is important.
@@ -1616,14 +1617,15 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
             }
         }
         
-        var eachDayTimeRange = TimeInterval(0)...TimeInterval(86399)
-        var firstDayTimeRange = eachDayTimeRange
+        var eachDayTimeRange = TimeInterval(0)...TimeInterval(86400)
         
         if let startTimeRange = startTimeRangeRefinement.first {
             if case let .startTimeRange(startTimeRangeVal) = startTimeRange {
                 eachDayTimeRange = startTimeRangeVal
             }
         }
+        
+        var firstDayTimeRange = eachDayTimeRange
 
         if !weekdayPool.isEmpty {
             if todayWeekday == weekdayPool[0].rawValue {    // If we are starting today, we may need to clamp the range.
@@ -1649,7 +1651,7 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
                     var refinements = baselineRefinements
                     let weekdays = weekdayPool[currentWeekdayIndex]
                     refinements.insert(LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements.weekdays([weekdays]))
-                    if 0 < currentTimeRange.lowerBound || 86399 > currentTimeRange.upperBound {    // We don't specify a time range, at all, if we never specified a constrained one.
+                    if 0 < currentTimeRange.lowerBound || 86400 > currentTimeRange.upperBound {    // We don't specify a time range, at all, if we never specified a constrained one.
                         refinements.insert(LGV_MeetingSDK_Meeting_Data_Set.Search_Refinements.startTimeRange(currentTimeRange))
                     }
                     
@@ -1664,7 +1666,17 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
                 guard a.weekdayIndex == b.weekdayIndex, // If the weekdays aren't the same, then no further sorting.
                       let aStartTime = a.startTimeInSeconds,
                       let bStartTime = b.startTimeInSeconds
-                else { return false }
+                else {
+                    var aWeekday = a.weekdayIndex - todayWeekday
+                    if 0 > aWeekday {
+                        aWeekday += 7
+                    }
+                    var bWeekday = b.weekdayIndex - todayWeekday
+                    if 0 > bWeekday {
+                        bWeekday += 7
+                    }
+                    return aWeekday < bWeekday
+                }
 
                 guard aStartTime == bStartTime else { return aStartTime < bStartTime }
                 
