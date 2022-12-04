@@ -1594,7 +1594,7 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
         let baselineRefinements = searchRefinements.filter { $0.hashKey != "weekdays" && $0.hashKey != "startTimeRange" }
         
         // This sets us up for the current time and weekday.
-        let todayWeekday = 1 // Calendar(identifier: .gregorian).component(.weekday, from: Date())
+        let todayWeekday = Calendar(identifier: .gregorian).component(.weekday, from: Date())
         let now = Date()
         let startOfToday = Calendar.current.startOfDay(for: now)
         let secondsSinceMidnightThisMorning = now.timeIntervalSince(startOfToday)
