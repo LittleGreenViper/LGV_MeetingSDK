@@ -1,3 +1,7 @@
+**2.3.2** *December 3, 2022*
+
+- That was dumb. I left a debug value in there.
+
 **2.3.1** *December 3, 2022*
 
 - Some work on the "Find My Next Meeting" search. The code was difficult to understand, and there were a couple of range and sorting issues.

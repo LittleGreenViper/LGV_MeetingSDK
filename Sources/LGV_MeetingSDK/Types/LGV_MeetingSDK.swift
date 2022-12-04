@@ -1595,7 +1595,7 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
         
         // This sets us up for the current time and weekday.
         let todayWeekday = Calendar(identifier: .gregorian).component(.weekday, from: Date())
-        let now = Date(timeIntervalSinceNow: -(3600 * 1.5))
+        let now = Date()
         let startOfToday = Calendar.current.startOfDay(for: now)
         let secondsSinceMidnightThisMorning = now.timeIntervalSince(startOfToday)
         
