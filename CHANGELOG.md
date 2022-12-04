@@ -1,3 +1,7 @@
+**2.3.3** *December 4, 2022*
+
+- The sorting was not being done correctly for the "Find the Next Meeting" search. This has been fixed.
+
 **2.3.2** *December 3, 2022*
 
 - That was dumb. I left a debug value in there.

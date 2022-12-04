@@ -1594,7 +1594,7 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
         let baselineRefinements = searchRefinements.filter { $0.hashKey != "weekdays" && $0.hashKey != "startTimeRange" }
         
         // This sets us up for the current time and weekday.
-        let todayWeekday = Calendar(identifier: .gregorian).component(.weekday, from: Date())
+        let todayWeekday = 1 // Calendar(identifier: .gregorian).component(.weekday, from: Date())
         let now = Date()
         let startOfToday = Calendar.current.startOfDay(for: now)
         let secondsSinceMidnightThisMorning = now.timeIntervalSince(startOfToday)
@@ -1663,22 +1663,20 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
             }
             
             aggregatedMeetings = aggregatedMeetings.sorted { a, b in
-                guard a.weekdayIndex == b.weekdayIndex, // If the weekdays aren't the same, then no further sorting.
-                      let aStartTime = a.startTimeInSeconds,
-                      let bStartTime = b.startTimeInSeconds
-                else {
-                    var aWeekday = a.weekdayIndex - todayWeekday
-                    if 0 > aWeekday {
-                        aWeekday += 7
-                    }
-                    var bWeekday = b.weekdayIndex - todayWeekday
-                    if 0 > bWeekday {
-                        bWeekday += 7
-                    }
-                    return aWeekday < bWeekday
+                var aSort = a.weekdayIndex - todayWeekday
+                if 0 > aSort {
+                    aSort += 7
                 }
+                
+                var bSort = b.weekdayIndex - todayWeekday
+                if 0 > bSort {
+                    bSort += 7
+                }
+                
+                aSort = (aSort * 10000) + a.meetingStartTime
+                bSort = (bSort * 10000) + b.meetingStartTime
 
-                guard aStartTime == bStartTime else { return aStartTime < bStartTime }
+                guard aSort == bSort else { return aSort < bSort }
                 
                 return a.distanceInMeters < b.distanceInMeters
             }
