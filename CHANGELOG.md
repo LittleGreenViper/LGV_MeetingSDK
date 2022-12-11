@@ -1,3 +1,7 @@
+**2.3.5** *December 11, 2022*
+
+ - Added CustomDebugStringConvertible conformance
+ 
 **2.3.4** *December 4, 2022*
 
 - I did it again. I left a debug value in there.

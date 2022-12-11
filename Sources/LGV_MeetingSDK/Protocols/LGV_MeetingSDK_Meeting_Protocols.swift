@@ -224,7 +224,7 @@ public extension LGV_MeetingSDK_Meeting_Virtual_Protocol {
 /**
  Each meeting instance will present itself as conforming to this protocol.
  */
-public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_Protocol {
+public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_Protocol, CustomDebugStringConvertible {
     /* ################################################################## */
     /**
      REQUIRED - The meeting organization.
@@ -392,6 +392,12 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
 // MARK: Protocol Defaults
 /* ###################################################################################################################################### */
 public extension LGV_MeetingSDK_Meeting_Protocol {
+    /* ################################################################## */
+    /**
+     CustomDebugStringConvertible Conformance
+     */
+    var debugDescription: String { "Meeting Type: \(meetingType.rawValue), startTimeAndDay: \(startTimeAndDay?.debugDescription ?? "No Start Time And Day"), location: \(locationCoords.debugDescription), location text: \(simpleLocationText ?? "No Location Text"), duration in minutes: \(durationInMinutes)" }
+
     /* ################################################################## */
     /**
      Default figures out the meeting type, based on what venues are available.
