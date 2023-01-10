@@ -1,3 +1,7 @@
+**2.3.8** *January 10, 2023*
+
+ - Had to explicitly define the Equatable and Comparable methods.
+ 
 **2.3.7** *January 10, 2023*
 
  - Added Equatable conformance to the meeting protocol.
