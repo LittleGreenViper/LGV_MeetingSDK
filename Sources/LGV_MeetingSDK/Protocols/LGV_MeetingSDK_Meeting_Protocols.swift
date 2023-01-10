@@ -386,32 +386,6 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_
      OPTIONAL - If the meeting has a URI (not a virtual meeting URI -for example, a Group Web site), that is available here.
      */
     var meetingURI: URL? { get }
-    
-    /* ################################################################## */
-    /**
-     Equatable Conformance.
-     OPTIONAL AND DOES NOT NEED TO BE IMPLEMENTED - This compares two meetings, and returns true, if they represent the same meeting. Only the ID is tested.
-     
-     - parameter lhs: The left-hand side of the comparison.
-     - parameter rhs: The right-hand side of the comparison.
-     
-     - returns: True, is lhs and rhs represent the same meeting.
-     */
-    static func == (lhs: Self, rhs: Self) -> Bool
-    
-    /* ################################################################## */
-    /**
-     Comparable Conformance.
-     
-     OPTIONAL AND DOES NOT NEED TO BE IMPLEMENTED - This compares two meetings, and sorts according to weekday, start time, name, and ID, in that order.
-     The weekday is localized to the current calendar (so the week start is considered).
-     
-     - parameter lhs: The left-hand side of the comparison.
-     - parameter rhs: The right-hand side of the comparison.
-     
-     - returns: True, is lhs < rhs.
-     */
-    static func < (lhs: Self, rhs: Self) -> Bool
 }
 
 /* ###################################################################################################################################### */
@@ -603,66 +577,4 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
      Default is Nil
      */
     var meetingURI: URL? { nil }
-    
-    /* ################################################################## */
-    /**
-     This compares two meetings, and returns true, if they represent the same meeting. Only the ID is tested.
-     
-     - parameter lhs: The left-hand side of the comparison.
-     - parameter rhs: The right-hand side of the comparison.
-     
-     - returns: True, is lhs and rhs represent the same meeting.
-     */
-    static func == (lhs: Self, rhs: Self) -> Bool { lhs.id == rhs.id }
-    
-    /* ################################################################## */
-    /**
-     This compares two meetings, and sorts according to weekday, start time, name, and ID, in that order.
-     The weekday is localized to the current calendar (so the week start is considered).
-     
-     - parameter lhs: The left-hand side of the comparison.
-     - parameter rhs: The right-hand side of the comparison.
-     
-     - returns: True, is lhs < rhs.
-     */
-    static func < (lhs: Self, rhs: Self) -> Bool {
-        /* ############################################################## */
-        /**
-         This adjusts the selection to match the week start (localization).
-         
-         - parameter inWeekdayIndex: The 0-based index of the selected weekday, in the 0 = Sunday locale.
-         
-         - returns: The adjusted weekday index, with 0 being the week start day.
-         */
-        func _localizeWeedayIndex(_ inWeekdayIndex: Int) -> Int {
-            var weekdayIndex = Calendar.current.firstWeekday + inWeekdayIndex
-            
-            if 7 < weekdayIndex {
-                weekdayIndex -= 7
-            }
-            
-            return weekdayIndex - 1
-        }
-        
-        guard (1..<8).contains(lhs.weekdayIndex),
-              (1..<8).contains(rhs.weekdayIndex)
-        else { return false }
-        
-        let localizedLHS = _localizeWeedayIndex(lhs.weekdayIndex - 1)
-        let localizedRHS = _localizeWeedayIndex(rhs.weekdayIndex - 1)
-        
-        guard localizedLHS == localizedRHS else { return localizedLHS < localizedRHS }
-        
-        if let lhsStart = lhs.startTimeInSeconds,
-           let rhsStart = rhs.startTimeInSeconds,
-           (0...86400).contains(lhsStart),
-           (0...86400).contains(rhsStart),
-           lhsStart != rhsStart {
-            return lhsStart < rhsStart
-        }
-        
-        guard lhs.name == rhs.name else { return lhs.name < rhs.name }
-        
-        return lhs.id < rhs.id
-    }
 }

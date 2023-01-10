@@ -1,3 +1,7 @@
+**2.3.9** *January 10, 2023*
+
+ - OK. Had to give up being clever, and implement the Equatable and Comparable conformance in the actual class.
+ 
 **2.3.8** *January 10, 2023*
 
  - Had to explicitly define the Equatable and Comparable methods.
