@@ -396,7 +396,8 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
     /**
      CustomDebugStringConvertible Conformance
      */
-    var debugDescription: String { "Meeting Type: \(meetingType.rawValue), startTimeAndDay: \(startTimeAndDay?.debugDescription ?? "No Start Time And Day"), location: \(locationCoords.debugDescription), location text: \(simpleLocationText ?? "No Location Text"), duration in minutes: \(durationInMinutes)" }
+    var debugDescription: String { "Meeting Type: \(meetingType.rawValue), startTimeAndDay: \(startTimeAndDay?.debugDescription ?? "No Start Time And Day"),"
+                                    + " location: \(locationCoords.debugDescription), location text: \(simpleLocationText ?? "No Location Text"), duration in minutes: \(durationInMinutes)" }
 
     /* ################################################################## */
     /**
@@ -576,11 +577,27 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
      Default is Nil
      */
     var meetingURI: URL? { nil }
-
+    
+    /* ################################################################## */
+    /**
+     This compares two meetings, and returns true, if they represent the same meeting. Only the ID is tested.
+     
+     - parameter lhs: The left-hand side of the comparison.
+     - parameter rhs: The right-hand side of the comparison.
+     
+     - returns: True, is lhs and rhs represent the same meeting.
+     */
+    static func == (lhs: Self, rhs: Self) -> Bool { lhs.id == rhs.id }
+    
     /* ################################################################## */
     /**
      This compares two meetings, and sorts according to weekday, start time, name, and ID, in that order.
      The weekday is localized to the current calendar (so the week start is considered).
+     
+     - parameter lhs: The left-hand side of the comparison.
+     - parameter rhs: The right-hand side of the comparison.
+     
+     - returns: True, is lhs < rhs.
      */
     static func < (lhs: Self, rhs: Self) -> Bool {
         /* ############################################################## */

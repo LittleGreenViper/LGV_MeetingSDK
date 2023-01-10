@@ -1,3 +1,7 @@
+**2.3.7** *January 10, 2023*
+
+ - Added Equatable conformance to the meeting protocol.
+ 
 **2.3.6** *January 10, 2023*
 
  - Added Comparable conformance to the meeting protocol.

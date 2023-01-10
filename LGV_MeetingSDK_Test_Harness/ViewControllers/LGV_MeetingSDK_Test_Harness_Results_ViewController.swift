@@ -33,7 +33,7 @@ class LGV_MeetingSDK_Test_Harness_Results_TableViewCell: UITableViewCell {
     /**
      The meeting that is being represented by this cell.
      */
-    var meetingObject: LGV_MeetingSDK_Meeting_Protocol?
+    var meetingObject: (any LGV_MeetingSDK_Meeting_Protocol)?
     
     /* ################################################################## */
     /**
