@@ -1,4 +1,8 @@
-**2.3.9** *January 10, 2023*
+ **2.3.10** *January 15, 2023*
+ 
+ - Fixed a bug in the start time (components) routine.
+ 
+ **2.3.9** *January 10, 2023*
 
  - OK. Had to give up being clever, and implement the Equatable and Comparable conformance in the actual class.
  

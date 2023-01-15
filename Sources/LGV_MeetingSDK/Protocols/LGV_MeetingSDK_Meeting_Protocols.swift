@@ -426,8 +426,8 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
         
         guard 2400 != meetingStartTime else { return DateComponents(hour: 23, minute: 59, second: 59, nanosecond: 999999999) }
         
-        let hour = Int(meetingStartTime / 1000)
-        let minute = Int(meetingStartTime - (hour * 1000))
+        let hour = Int(meetingStartTime / 100)
+        let minute = Int(meetingStartTime - (hour * 100))
 
         return DateComponents(hour: hour, minute: minute)
     }
