@@ -24,10 +24,10 @@ import PackageDescription
 let package = Package(
     name: "LGV_MeetingSDK",
     platforms: [
-        .iOS(.v14),
-        .tvOS(.v14),
-        .watchOS(.v6),
-        .macOS(.v10_14)
+        .iOS(.v15),
+        .tvOS(.v15),
+        .watchOS(.v8),
+        .macOS(.v11)
     ],
     products: [.library( name: "LGV_MeetingSDK",
                          targets: ["LGV_MeetingSDK"]

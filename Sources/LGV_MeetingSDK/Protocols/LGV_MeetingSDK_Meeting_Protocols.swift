@@ -513,7 +513,7 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
     var nextStartDate: Date? {
         guard let startTimeAndDay = startTimeAndDay else { return nil }
 
-        return Calendar.current.nextDate(after: Date(), matching: startTimeAndDay, matchingPolicy: .nextTimePreservingSmallerComponents)
+        return Calendar.autoupdatingCurrent.nextDate(after: .now, matching: startTimeAndDay, matchingPolicy: .nextTimePreservingSmallerComponents, repeatedTimePolicy: .last, direction: .forward)
     }
     
     /* ################################################################## */
