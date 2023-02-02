@@ -511,9 +511,24 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
      If the meeting is not a recurring weekly meeting, this should be implemented by the conforming class.
      */
     var nextStartDate: Date? {
-        guard let startTimeAndDay = startTimeAndDay else { return nil }
-
-        return Calendar.autoupdatingCurrent.nextDate(after: .now, matching: startTimeAndDay, matchingPolicy: .nextTimePreservingSmallerComponents, repeatedTimePolicy: .last, direction: .forward)
+        if let weekday = startTimeAndDay?.weekday,
+           let startHour = startTimeAndDay?.hour,
+           let startMinute = startTimeAndDay?.minute,
+           (1...7).contains(weekday) {
+            let now = Date.now
+            let todaysWeekday = Calendar.autoupdatingCurrent.component(.weekday, from: now)
+            let todaysMonthDay = Calendar.autoupdatingCurrent.component(.day, from: now)
+            let todaysMonth = Calendar.autoupdatingCurrent.component(.month, from: now)
+            let todaysYear = Calendar.autoupdatingCurrent.component(.year, from: now)
+            let dayDifference = 0 <= (weekday - todaysWeekday) ? weekday - todaysWeekday : (weekday + 7) - todaysWeekday
+            let newMonthDay = todaysMonthDay + dayDifference    // The date calculator will take care of date overflows.
+            return Calendar.autoupdatingCurrent.date(from: DateComponents(year: todaysYear, month: todaysMonth, day: newMonthDay, hour: startHour, minute: startMinute))
+        }
+                                         
+        return nil
+// The above replaces this, which I found very slow, and rather problematic
+//        guard let startTimeAndDay = startTimeAndDay else { return nil }
+//        return Calendar.autoupdatingCurrent.nextDate(after: .now, matching: startTimeAndDay, matchingPolicy: .nextTimePreservingSmallerComponents, repeatedTimePolicy: .last, direction: .forward)
     }
     
     /* ################################################################## */

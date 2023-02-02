@@ -1,4 +1,6 @@
- **2.4.0** *TBD*
+ **2.4.0** *February 2, 2023*
+ 
+ - The next meeting date generator was slow, and possibly problematic. I rewrote the protocol default function to be more straightforward.
  
  **2.3.10** *January 15, 2023*
  
