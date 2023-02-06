@@ -1,6 +1,7 @@
  **2.5.0** *February 6, 2023*
  
  - Added a protocol for addressable entities.
+ - Changed the bundle ID.
  
  **2.4.0** *February 2, 2023*
  
