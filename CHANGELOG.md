@@ -1,4 +1,4 @@
- **2.5.1** *February 6, 2023*
+ **2.5.2** *February 6, 2023*
  
  - Oh, Cthulhu, I hate this crap. I'm just reverting to the underscore, and I'll deal with Xcode whining at me.
  

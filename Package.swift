@@ -29,7 +29,7 @@ let package = Package(
         .watchOS(.v8),
         .macOS(.v11)
     ],
-    products: [.library( name: "LGV-MeetingSDK",
+    products: [.library( name: "LGV_MeetingSDK",
                          targets: ["LGV_MeetingSDK"]
                        )
               ],
