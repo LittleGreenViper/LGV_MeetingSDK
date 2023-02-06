@@ -1192,6 +1192,12 @@ open class LGV_MeetingSDK {
         
         /* ################################################################## */
         /**
+         Default is a blank String.
+         */
+        public var urlString: String { "" }
+        
+        /* ################################################################## */
+        /**
          Default initializer.
          
          - Parameters:

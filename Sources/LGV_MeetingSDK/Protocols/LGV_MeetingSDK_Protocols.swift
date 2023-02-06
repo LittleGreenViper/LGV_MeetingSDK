@@ -16,7 +16,7 @@
  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
  CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  
- Version: 2.5.2
+ Version: 2.5.3
  */
 
 import CoreLocation
@@ -187,28 +187,5 @@ public protocol LGV_MeetingSDK_AddressableEntity_Protocol {
      This is the entity's URL, as a String.
      */
     var urlString: String { get }
-    
-    /* ################################################################## */
-    /**
-     This is the entity's URL.
-     */
-    var url: URL? { get }
-}
-
-/* ###################################################################################################################################### */
-// MARK: Protocol Defaults
-/* ###################################################################################################################################### */
-extension LGV_MeetingSDK_AddressableEntity_Protocol {
-    /* ################################################################## */
-    /**
-     Default is a blank String.
-     */
-    public var urlString: String { "" }
-    
-    /* ################################################################## */
-    /**
-     Default simply URLs the String.
-     */
-    public var url: URL? { URL(string: urlString) }
 }
 

@@ -1,3 +1,7 @@
+ **2.5.3** *February 6, 2023*
+ 
+- Removed the default in the protocol, and moved it into the meeting, itself.
+
  **2.5.2** *February 6, 2023*
  
  - Oh, Cthulhu, I hate this crap. I'm just reverting to the underscore, and I'll deal with Xcode whining at me.
