@@ -1,3 +1,7 @@
+ **2.5.0** *February 6, 2023*
+ 
+ - Added a protocol for addressable entities.
+ 
  **2.4.0** *February 2, 2023*
  
  - The next meeting date generator was slow, and possibly problematic. I rewrote the protocol default function to be more straightforward.

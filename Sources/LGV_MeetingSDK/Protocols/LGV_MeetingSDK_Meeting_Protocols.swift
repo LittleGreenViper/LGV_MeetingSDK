@@ -224,7 +224,7 @@ public extension LGV_MeetingSDK_Meeting_Virtual_Protocol {
 /**
  Each meeting instance will present itself as conforming to this protocol.
  */
-public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_Protocol, CustomDebugStringConvertible, Comparable {
+public protocol LGV_MeetingSDK_Meeting_Protocol: LGV_MeetingSDK_Additional_Info_Protocol, LGV_MeetingSDK_AddressableEntity_Protocol, CustomDebugStringConvertible, Comparable {
     /* ################################################################## */
     /**
      REQUIRED - The meeting organization.

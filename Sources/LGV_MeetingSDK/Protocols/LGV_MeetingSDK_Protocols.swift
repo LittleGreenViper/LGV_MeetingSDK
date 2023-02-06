@@ -177,3 +177,38 @@ public protocol LGV_MeetingSDK_Protocol: LGV_MeetingSDK_RefCon_Protocol {
                                 refCon: Any?,
                                 completion: @escaping LGV_MeetingSDK_SearchInitiator_Protocol.MeetingSearchCallbackClosure)
 }
+
+/* ###################################################################################################################################### */
+// MARK: - Protocol to Generate URIs for Addressing Entities -
+/* ###################################################################################################################################### */
+public protocol LGV_MeetingSDK_AddressableEntity_Protocol {
+    /* ################################################################## */
+    /**
+     This is the entity's URL, as a String.
+     */
+    var urlString: String { get }
+    
+    /* ################################################################## */
+    /**
+     This is the entity's URL.
+     */
+    var url: URL? { get }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Protocol Defaults
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_AddressableEntity_Protocol {
+    /* ################################################################## */
+    /**
+     Default is a blank String.
+     */
+    public var urlString: String { "" }
+    
+    /* ################################################################## */
+    /**
+     Default simply URLs the String.
+     */
+    public var url: URL? { URL(string: urlString) }
+}
+
