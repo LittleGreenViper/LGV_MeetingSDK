@@ -1,3 +1,7 @@
+ **2.5.1** *February 6, 2023*
+ 
+ - Oh, Cthulhu, I hate this crap. I'm just reverting to the underscore, and I'll deal with Xcode whining at me.
+ 
  **2.5.0** *February 6, 2023*
  
  - Added a protocol for addressable entities.

@@ -22,7 +22,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "LGV-MeetingSDK",
+    name: "LGV_MeetingSDK",
     platforms: [
         .iOS(.v15),
         .tvOS(.v15),
