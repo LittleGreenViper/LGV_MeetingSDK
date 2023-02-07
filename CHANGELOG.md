@@ -1,3 +1,7 @@
+ **2.7.0** *February 7, 2023*
+ 
+ - I had to make the meeting objects a class. The struct leaked.
+ 
  **2.6.0** *February 7, 2023*
  
  - The urlString requirement is now get/set. This allows us to use stored properties, so there is not a requirement for computed. This is useful for an opaque SDK, like this one.

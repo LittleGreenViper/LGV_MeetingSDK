@@ -908,7 +908,7 @@ open class LGV_MeetingSDK {
     /**
      This describes one meeting.
      */
-    public struct Meeting: LGV_MeetingSDK_Meeting_Protocol {
+    public class Meeting: LGV_MeetingSDK_Meeting_Protocol {
         /* ################################################################################################################################## */
         // MARK: - Format Struct -
         /* ################################################################################################################################## */
@@ -1245,7 +1245,7 @@ open class LGV_MeetingSDK {
          
          - returns: True, is lhs and rhs represent the same meeting.
          */
-        public static func == (lhs: Self, rhs: Self) -> Bool { lhs.id == rhs.id }
+        public static func == (lhs: LGV_MeetingSDK.Meeting, rhs: LGV_MeetingSDK.Meeting) -> Bool { lhs.id == rhs.id }
         
         /* ################################################################## */
         /**
@@ -1257,7 +1257,7 @@ open class LGV_MeetingSDK {
          
          - returns: True, is lhs < rhs.
          */
-        public static func < (lhs: Self, rhs: Self) -> Bool {
+        public static func < (lhs: LGV_MeetingSDK.Meeting, rhs: LGV_MeetingSDK.Meeting) -> Bool {
             /* ############################################################## */
             /**
              This adjusts the selection to match the week start (localization).

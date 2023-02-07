@@ -288,7 +288,7 @@ extension LGV_MeetingSDK_BMLT.Transport.Parser: LGV_MeetingSDK_Parser_Protocol {
                 }
                 
                 let meetings = LGV_MeetingSDK.refineMeetings(_convert(theseMeetings: meetingsObject, andTheseFormats: formats, searchCenter: searchCenter), searchType: inSearchType, searchRefinements: inSearchRefinements).map {
-                    var meeting = $0
+                    let meeting = $0
                     
                     if let distanceFrom = distanceFrom,
                        let meetingCoords = meeting.locationCoords {

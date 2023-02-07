@@ -261,7 +261,7 @@ extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser: LGV_MeetingSDK_Pars
                 }
                 
                 let meetings = LGV_MeetingSDK.refineMeetings(_convert(theseMeetings: meetingsObject, searchCenter: searchCenter), searchType: inSearchType, searchRefinements: inSearchRefinements).map {
-                    var meeting = $0
+                    let meeting = $0
                     
                     if let distanceFrom = distanceFrom,
                        let meetingCoords = meeting.locationCoords {
