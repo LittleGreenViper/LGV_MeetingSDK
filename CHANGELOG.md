@@ -1,3 +1,7 @@
+ **2.6.0** *February 7, 2023*
+ 
+ - The urlString requirement is now get/set. This allows us to use stored properties, so there is not a requirement for computed. This is useful for an opaque SDK, like this one.
+ 
  **2.5.3** *February 6, 2023*
  
 - Removed the default in the protocol, and moved it into the meeting, itself.

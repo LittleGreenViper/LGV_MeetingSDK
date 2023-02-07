@@ -16,7 +16,7 @@
  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
  CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  
- Version: 2.5.3
+ Version: 2.6.0
  */
 
 import CoreLocation
@@ -186,6 +186,6 @@ public protocol LGV_MeetingSDK_AddressableEntity_Protocol {
     /**
      This is the entity's URL, as a String.
      */
-    var urlString: String { get }
+    var urlString: String { get set }
 }
 

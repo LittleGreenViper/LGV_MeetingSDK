@@ -1174,6 +1174,12 @@ open class LGV_MeetingSDK {
         
         /* ################################################################## */
         /**
+         Default is a blank String.
+         */
+        public var urlString: String = ""
+
+        /* ################################################################## */
+        /**
          Accessor for the physical location.
          */
         public var physicalLocation: LGV_MeetingSDK_Meeting_Physical_Protocol? {
@@ -1189,12 +1195,6 @@ open class LGV_MeetingSDK {
             get { _virtualLocation }
             set { _virtualLocation = newValue as? VirtualLocation }
         }
-        
-        /* ################################################################## */
-        /**
-         Default is a blank String.
-         */
-        public var urlString: String { "" }
         
         /* ################################################################## */
         /**
