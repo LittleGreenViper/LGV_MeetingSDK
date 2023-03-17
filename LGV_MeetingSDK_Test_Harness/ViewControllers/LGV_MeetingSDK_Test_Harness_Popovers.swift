@@ -789,11 +789,11 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         else { return }
         
         tabController.mapViewController?.isBusy = true
-        let searchType = LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints.upcomingMeetings(minimumNumberOfResults: 20)
+        let searchType = LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints.allMeetings
         appDelegateInstance?.searchData = LGV_MeetingSDK_Meeting_Data_Set(searchType: searchType, searchRefinements: searchRefinements)
         dismiss(animated: true) {
             tabController.selectedIndex = LGV_MeetingSDK_Test_Harness_TabController.TabIndexes.search.rawValue
-            sdk.findNextMeetingsSearch(centerLongLat: CLLocationCoordinate2D(latitude: 0, longitude: 0), minimumNumberOfResults: 20, maxRadiusInMeters: 0, refinements: searchRefinements, completion: tabController.searchCallbackHandler)
+            sdk.meetingSearch(type: searchType, refinements: searchRefinements, completion: tabController.searchCallbackHandler)
         }
     }
 }
