@@ -487,7 +487,7 @@
                                 <rect key="frame" x="16" y="63" width="358" height="395"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="8oC-0U-Usd" userLabel="Main Stack View">
-                                        <rect key="frame" x="0.0" y="0.0" width="358" height="283"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="358" height="327"/>
                                         <subviews>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="cjd-Lm-6L3">
                                                 <rect key="frame" x="0.0" y="0.0" width="358" height="32"/>
@@ -1002,7 +1002,7 @@
                                                 </connections>
                                             </button>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uxc-JA-lFw">
-                                                <rect key="frame" x="9" y="283" width="340" height="0.0"/>
+                                                <rect key="frame" x="9" y="287" width="340" height="36"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="SLUG-SEARCH-NEXT-BUTTON-TITLE"/>
@@ -1010,12 +1010,24 @@
                                                     <action selector="searchNextButtonHit:" destination="EU7-Xo-ygf" eventType="touchUpInside" id="4kE-Zu-7cG"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="fhA-ie-wHP">
+                                                <rect key="frame" x="0.0" y="291" width="358" height="36"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="SLUG-SEARCH-NEXT-BUTTON-NOLOC-TITLE"/>
+                                                <connections>
+                                                    <action selector="searchNextNoLocHit:" destination="EU7-Xo-ygf" eventType="touchUpInside" id="qMZ-bC-gPb"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="H5f-Pm-hYl" secondAttribute="trailing" id="0Lg-qF-yFf"/>
+                                            <constraint firstItem="fhA-ie-wHP" firstAttribute="height" secondItem="P00-iT-Qnf" secondAttribute="height" id="3zM-t5-rgq"/>
                                             <constraint firstItem="eeF-Vc-sUb" firstAttribute="leading" secondItem="8oC-0U-Usd" secondAttribute="leading" id="Gbb-0c-WI7"/>
                                             <constraint firstItem="P00-iT-Qnf" firstAttribute="leading" secondItem="8oC-0U-Usd" secondAttribute="leading" id="Qe0-ZU-3PP"/>
                                             <constraint firstItem="H5f-Pm-hYl" firstAttribute="leading" secondItem="8oC-0U-Usd" secondAttribute="leading" id="VHH-9m-zAz"/>
+                                            <constraint firstItem="Uxc-JA-lFw" firstAttribute="height" secondItem="P00-iT-Qnf" secondAttribute="height" id="fF2-B3-wey"/>
                                             <constraint firstItem="U4s-Fx-naA" firstAttribute="leading" secondItem="8oC-0U-Usd" secondAttribute="leading" id="jPP-hr-bvj"/>
                                             <constraint firstAttribute="trailing" secondItem="U4s-Fx-naA" secondAttribute="trailing" id="jrY-Ce-ZSx"/>
                                             <constraint firstAttribute="trailing" secondItem="eeF-Vc-sUb" secondAttribute="trailing" id="lYh-pz-jDH"/>
@@ -1075,6 +1087,7 @@
                         <outlet property="relateToMeSwitch" destination="gMj-0B-qwm" id="UN5-nd-GIK"/>
                         <outlet property="searchButton" destination="P00-iT-Qnf" id="9ip-fd-EQR"/>
                         <outlet property="searchNextButton" destination="Uxc-JA-lFw" id="MoD-de-REF"/>
+                        <outlet property="searchNextNoLocButton" destination="fhA-ie-wHP" id="0Hm-LM-qxN"/>
                         <outlet property="searchTextTextField" destination="eeF-Vc-sUb" id="rGP-8a-Foy"/>
                         <outlet property="startTimeSegmentedControl" destination="cjd-Lm-6L3" id="XAv-mF-CAg"/>
                         <outlet property="timeConstraintsStackView" destination="p22-zh-Wpr" id="Sea-4X-LqS"/>

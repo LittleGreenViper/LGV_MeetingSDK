@@ -95,7 +95,7 @@ public extension LGV_MeetingSDK_BMLT.Transport {
 
         case .meetingID(let idArray):
             urlString += "&SearchString=\(idArray.compactMap({String($0)}).joined(separator: ","))"
-
+            
         default:
             break
         }

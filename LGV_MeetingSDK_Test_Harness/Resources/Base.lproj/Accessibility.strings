@@ -24,6 +24,7 @@
 "SLUG-ROOT-SERVER-BUTTON-HINT"                                  =       "Th name of the currently selected BMLT Root Server. Select this button to be presented by a popover, to change the Root Server.";
 "SLUG-SEARCH-BUTTON-TITLE"                                      =       "If this is selected, the search will begin. Simply close the popover to cancel.";
 "SLUG-SEARCH-NEXT-BUTTON-TITLE"                                 =       "If this is selected, a search for the next few meetings will begin. Simply close the popover to cancel.";
+"SLUG-SEARCH-NEXT-BUTTON-NOLOC-TITLE"                           =       "If this is selected, a search for the next few meetings, without considering their location, will begin. Simply close the popover to cancel.";
 "SLUG-TIME-RANGE-SEGMENTED-SWITCH"                              =       "If you want to look for meetings that start within a specific time range, setting this will make a couple of text boxes appear, where you can enter a time range.";
 "SLUG-TIME-RANGE-LOWER"                                         =       "Enter the minimum start time, in military time, here.";
 "SLUG-TIME-RANGE-UPPER"                                         =       "Enter the maximum start time, in military time, here.";

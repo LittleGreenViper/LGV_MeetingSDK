@@ -18,6 +18,7 @@
  */
 
 import UIKit
+import CoreLocation
 import RVS_Generic_Swift_Toolbox
 import RVS_UIKit_Toolbox
 import RVS_Checkbox
@@ -449,6 +450,12 @@ class LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController: LGV_Meetin
      The button for executing a search for the next few meetings.
      */
     @IBOutlet weak var searchNextButton: UIButton!
+    
+    /* ################################################################## */
+    /**
+     The button for executing a search for the next few meetings (without considering location).
+     */
+    @IBOutlet weak var searchNextNoLocButton: UIButton!
 }
 
 /* ###################################################################################################################################### */
@@ -518,6 +525,11 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         searchNextButton?.titleLabel?.minimumScaleFactor = 0.5
         searchNextButton?.accessibilityHint = searchNextButton?.title(for: .normal)?.accessibilityLocalizedVariant
         searchNextButton?.setTitle(searchNextButton?.title(for: .normal)?.localizedVariant, for: .normal)
+        
+        searchNextNoLocButton?.titleLabel?.adjustsFontSizeToFitWidth = true
+        searchNextNoLocButton?.titleLabel?.minimumScaleFactor = 0.5
+        searchNextNoLocButton?.accessibilityHint = searchNextNoLocButton?.title(for: .normal)?.accessibilityLocalizedVariant
+        searchNextNoLocButton?.setTitle(searchNextNoLocButton?.title(for: .normal)?.localizedVariant, for: .normal)
 
         setUpUI()
     }
@@ -761,6 +773,27 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
                 tabController.selectedIndex = LGV_MeetingSDK_Test_Harness_TabController.TabIndexes.search.rawValue
                 sdk.findNextMeetingsSearch(centerLongLat: centerLongLat, minimumNumberOfResults: minimumNumberOfResults, maxRadiusInMeters: maxRadiusInMeters, refinements: searchRefinements, completion: tabController.searchCallbackHandler)
             }
+        }
+    }
+    
+    /* ################################################################## */
+    /**
+     The button for executing a search for the next few meetings (without considering location) was hit.
+     
+     - parameter: ignored.
+     */
+    @IBAction func searchNextNoLocHit(_: Any) {
+        guard let tabController = tabController,
+              let sdk = tabController.sdk,
+              let searchRefinements = calculatedSearchRefinements
+        else { return }
+        
+        tabController.mapViewController?.isBusy = true
+        let searchType = LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints.upcomingMeetings(minimumNumberOfResults: 20)
+        appDelegateInstance?.searchData = LGV_MeetingSDK_Meeting_Data_Set(searchType: searchType, searchRefinements: searchRefinements)
+        dismiss(animated: true) {
+            tabController.selectedIndex = LGV_MeetingSDK_Test_Harness_TabController.TabIndexes.search.rawValue
+            sdk.findNextMeetingsSearch(centerLongLat: CLLocationCoordinate2D(latitude: 0, longitude: 0), minimumNumberOfResults: 20, maxRadiusInMeters: 0, refinements: searchRefinements, completion: tabController.searchCallbackHandler)
         }
     }
 }

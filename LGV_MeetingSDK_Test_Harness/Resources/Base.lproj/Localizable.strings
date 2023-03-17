@@ -38,6 +38,7 @@
 "SLUG-HYBRID-VENUE-TYPE"                                        =       "Hybrid";
 "SLUG-SEARCH-BUTTON-TITLE"                                      =       "Search for Meetings";
 "SLUG-SEARCH-NEXT-BUTTON-TITLE"                                 =       "Search for Next Meetings";
+"SLUG-SEARCH-NEXT-BUTTON-NOLOC-TITLE"                           =       "Search Without Location";
 "SLUG-VIRTUAL-ONLY-TEXT"                                        =       "Virtual-Only Meeting";
 "SLUG-MEETINGS-FOUND-FORMAT"                                    =       "%d Meetings Found";
 "SLUG-EDIT-BUTTON-TEXT"                                         =       "Edit";

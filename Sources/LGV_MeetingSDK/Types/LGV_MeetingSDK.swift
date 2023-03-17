@@ -1612,10 +1612,11 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
      
      The search will continue until the minimum number of search results has been found, or until all seven days have been exhausted. The caller can also specify a maximum radius.
 
-     - default minimumNumberOfResults is 10
-     - default maxRadiusInMeters is 10,000 Km
-     - default refinements is nil
-     - default refCon is nil
+     - `centerLongLat` can be invalid (0, 0 is considered "invalid"). If that is the case, then only upcoming meetings (regardless of location) will be returned, and `maxRadiusInMeters` is ignored.
+     - default `minimumNumberOfResults` is 10
+     - default `maxRadiusInMeters` is 10,000 Km
+     - default `refinements` is nil
+     - default `refCon` is nil
      */
     public func findNextMeetingsSearch(centerLongLat inCenterLongLat: CLLocationCoordinate2D,
                                        minimumNumberOfResults inMinimumNumberOfResults: UInt = 10,
@@ -1733,7 +1734,14 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
                 }
                 if !dontDoASearch {
                     lockTite.sync { searchUnderWay = true }
-                    let searchType = LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints.autoRadius(centerLongLat: inCenterLongLat, minimumNumberOfResults: inMinimumNumberOfResults, maxRadiusInMeters: maxRadius)
+                    var searchType: LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints
+                    
+                    if inCenterLongLat.isValid {
+                        searchType = LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints.autoRadius(centerLongLat: inCenterLongLat, minimumNumberOfResults: inMinimumNumberOfResults, maxRadiusInMeters: maxRadius)
+                    } else {
+                        searchType = LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints.upcomingMeetings(minimumNumberOfResults: inMinimumNumberOfResults)
+                    }
+                    
                     // Each sweep adds the next weekday in our list.
                     var refinements = baselineRefinements
                     let weekdays = weekdayPool[currentWeekdayIndex]
@@ -1772,8 +1780,12 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
             aggregatedMeetings = [Meeting](aggregatedMeetings[0..<min(aggregatedMeetings.count, Int(inMinimumNumberOfResults))])
         }
         
-        let resultantDataSet = LGV_MeetingSDK_Meeting_Data_Set(searchType: .nextMeetings(centerLongLat: inCenterLongLat, minimumNumberOfResults: inMinimumNumberOfResults, maxRadiusInMeters: maxRadius), searchRefinements: inSearchRefinements ?? [], meetings: aggregatedMeetings)
-        
+        var resultantDataSet: LGV_MeetingSDK_Meeting_Data_Set
+        if inCenterLongLat.isValid {
+            resultantDataSet = LGV_MeetingSDK_Meeting_Data_Set(searchType: .nextMeetings(centerLongLat: inCenterLongLat, minimumNumberOfResults: inMinimumNumberOfResults, maxRadiusInMeters: maxRadius), searchRefinements: inSearchRefinements ?? [], meetings: aggregatedMeetings)
+        } else {
+            resultantDataSet = LGV_MeetingSDK_Meeting_Data_Set(searchType: .upcomingMeetings(minimumNumberOfResults: inMinimumNumberOfResults), searchRefinements: inSearchRefinements ?? [], meetings: aggregatedMeetings)
+        }
         lastSearch = resultantDataSet
         
         inCompletion(resultantDataSet, nil)

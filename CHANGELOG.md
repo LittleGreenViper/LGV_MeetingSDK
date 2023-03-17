@@ -1,3 +1,7 @@
+ **2.8.0** *March 17, 2023*
+ 
+ - I added the ability to do a search for meetings today and tomorrow.
+ 
  **2.7.0** *February 7, 2023*
  
  - I had to make the meeting objects a class. The struct leaked.
