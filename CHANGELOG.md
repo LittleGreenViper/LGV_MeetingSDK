@@ -1,3 +1,7 @@
+ **2.8.1** *March 17, 2023*
+ 
+ - Made it so it's an "all meetings" response. That's really what I need.
+ 
  **2.8.0** *March 17, 2023*
  
  - I added the ability to do a search for meetings today and tomorrow.

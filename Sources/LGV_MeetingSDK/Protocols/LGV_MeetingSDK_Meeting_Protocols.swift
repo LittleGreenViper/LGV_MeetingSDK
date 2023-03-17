@@ -343,6 +343,14 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: AnyObject, LGV_MeetingSDK_Addit
     
     /* ################################################################## */
     /**
+     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The local start time of the meeting.
+     
+     > Note: This may not be useful, if the meeting does not have a timezone. In tat case, it will return nil.
+     */
+    var localStartTime: Date? { get }
+    
+    /* ################################################################## */
+    /**
      OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - This gives a "summarized" location. If the meeting is virtual-only, this will be nil.
      */
     var simpleLocationText: String? { get }
@@ -563,6 +571,15 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
      */
     var meetingLocalTimezone: TimeZone { physicalLocation?.timeZone ?? virtualMeetingInfo?.videoMeeting?.timeZone ?? virtualMeetingInfo?.phoneMeeting?.timeZone ?? TimeZone.autoupdatingCurrent }
 
+    /* ################################################################## */
+    /**
+     Default tries to adjust the next start Time to our local time.
+     */
+    var localStartTime: Date? {
+        guard let startTime = nextStartDate else { return nil }
+        return startTime.addingTimeInterval(TimeInterval(TimeZone.current.secondsFromGMT() - meetingLocalTimezone.secondsFromGMT()))
+    }
+    
     /* ################################################################## */
     /**
      Default is an empty String.

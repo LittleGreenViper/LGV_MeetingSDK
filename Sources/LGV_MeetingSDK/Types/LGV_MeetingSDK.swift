@@ -375,9 +375,9 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
         
         /* ############################################################## */
         /**
-         This returns meetings that happen on or after the current time. Location is not taken into consideration.
+         This all meetings.
          */
-        case upcomingMeetings(minimumNumberOfResults: UInt)
+        case allMeetings
 
         /* ############################################################## */
         /**
@@ -400,8 +400,8 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
             case let .nextMeetings(centerLongLat, minimumNumberOfResults, maxRadiusInMeters):
                 return ".nextMeetings(centerLongLat: (latitude: \(centerLongLat.latitude), longitude: \(centerLongLat.longitude)), minimumNumberOfResults: \(minimumNumberOfResults), maxRadiusInMeters: \(maxRadiusInMeters))"
                 
-            case let .upcomingMeetings(minimumNumberOfResults):
-                return ".upcomingMeetings(minimumNumberOfResults: \(minimumNumberOfResults))"
+            case .allMeetings:
+                return ".allMeetings"
             }
         }
         
@@ -431,7 +431,7 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
             case .nextMeetings:
                 return 4
                 
-            case .upcomingMeetings:
+            case .allMeetings:
                 return 5
             }
         }
@@ -519,8 +519,8 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
                 try container.encode(minimumNumberOfResults, forKey: .minimumNumberOfResults)
                 try container.encode(maxRadiusInMeters, forKey: .radiusInMeters)
 
-            case let .upcomingMeetings(minimumNumberOfResults):
-                try container.encode(minimumNumberOfResults, forKey: .minimumNumberOfResults)
+            case .allMeetings:
+                try container.encode(Self._typeIndex(for: self), forKey: .type)
             }
         }
 
@@ -561,9 +561,8 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
                 let radius = try values.decode(Double.self, forKey: .radiusInMeters)
                 self = .nextMeetings(centerLongLat: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), minimumNumberOfResults: minCount, maxRadiusInMeters: radius)
 
-            case Self._typeIndex(for: .upcomingMeetings(minimumNumberOfResults: 0)):
-                let minCount = try values.decode(UInt.self, forKey: .minimumNumberOfResults)
-                self = .upcomingMeetings(minimumNumberOfResults: minCount)
+            case Self._typeIndex(for: .allMeetings):
+                self = .allMeetings
 
             default:
                 self = .none
@@ -1739,7 +1738,7 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
                     if inCenterLongLat.isValid {
                         searchType = LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints.autoRadius(centerLongLat: inCenterLongLat, minimumNumberOfResults: inMinimumNumberOfResults, maxRadiusInMeters: maxRadius)
                     } else {
-                        searchType = LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints.upcomingMeetings(minimumNumberOfResults: inMinimumNumberOfResults)
+                        searchType = LGV_MeetingSDK_Meeting_Data_Set.SearchConstraints.allMeetings
                     }
                     
                     // Each sweep adds the next weekday in our list.
@@ -1784,7 +1783,7 @@ extension LGV_MeetingSDK: LGV_MeetingSDK_Protocol {
         if inCenterLongLat.isValid {
             resultantDataSet = LGV_MeetingSDK_Meeting_Data_Set(searchType: .nextMeetings(centerLongLat: inCenterLongLat, minimumNumberOfResults: inMinimumNumberOfResults, maxRadiusInMeters: maxRadius), searchRefinements: inSearchRefinements ?? [], meetings: aggregatedMeetings)
         } else {
-            resultantDataSet = LGV_MeetingSDK_Meeting_Data_Set(searchType: .upcomingMeetings(minimumNumberOfResults: inMinimumNumberOfResults), searchRefinements: inSearchRefinements ?? [], meetings: aggregatedMeetings)
+            resultantDataSet = LGV_MeetingSDK_Meeting_Data_Set(searchType: .allMeetings, searchRefinements: inSearchRefinements ?? [], meetings: aggregatedMeetings)
         }
         lastSearch = resultantDataSet
         
