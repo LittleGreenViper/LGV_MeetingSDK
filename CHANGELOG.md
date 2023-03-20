@@ -1,3 +1,7 @@
+ **2.8.2** *March 20, 2023*
+ 
+ - Added support for the time zone, in virtual meetings.
+ 
  **2.8.1** *March 17, 2023*
  
  - Made it so it's an "all meetings" response. That's really what I need.

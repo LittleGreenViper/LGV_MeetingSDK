@@ -1186,10 +1186,16 @@ open class LGV_MeetingSDK {
         
         /* ################################################################## */
         /**
+         The local time zone for this meeting. Defaults to our current time zone.
+         */
+        public let meetingLocalTimezone: TimeZone
+        
+        /* ################################################################## */
+        /**
          Any formats that apply to this meeting.
          */
         public let formats: [LGV_MeetingSDK_Format_Protocol]
-        
+
         /* ################################################################## */
         /**
          Default is a blank String.
@@ -1227,6 +1233,7 @@ open class LGV_MeetingSDK {
          - meetingDuration (OPTIONAL): The duration of the meeting, in seconds.
          - distanceInMeters (OPTIONAL): The distance of this meeting, from the search center, or a specified "distance from" refinement. This is in meters.
          - formats (OPTIONAL): Any formats that apply to this meeting.
+         - meetingLocalTimezone (OPTIONAL): The local timezone for this meeting. Defaults to our own..
          - physicalLocation (OPTIONAL): The meeting's physical location (if any).
          - virtualMeetingInfo (OPTIONAL): The meeting's virtual information (if any).
          */
@@ -1239,6 +1246,7 @@ open class LGV_MeetingSDK {
                     meetingDuration inMeetingDuration: TimeInterval = 0,
                     distanceInMeters inDistance: CLLocationDistance = 0,
                     formats inFormats: [LGV_MeetingSDK_Format_Protocol] = [],
+                    meetingLocalTimezone inTimeZone: TimeZone = TimeZone.autoupdatingCurrent,
                     physicalLocation inPhysicalLocation: LGV_MeetingSDK_Meeting_Physical_Protocol? = nil,
                     virtualMeetingInfo inVirtualMeetingInfo: LGV_MeetingSDK_Meeting_Virtual_Protocol? = nil) {
             organization = inOrganization
@@ -1249,6 +1257,7 @@ open class LGV_MeetingSDK {
             extraInfo = inExtraInfo
             meetingDuration = inMeetingDuration
             distanceInMeters = inDistance
+            meetingLocalTimezone = inTimeZone
             formats = inFormats
             _physicalLocation = inPhysicalLocation as? PhysicalLocation
             virtualMeetingInfo = inVirtualMeetingInfo

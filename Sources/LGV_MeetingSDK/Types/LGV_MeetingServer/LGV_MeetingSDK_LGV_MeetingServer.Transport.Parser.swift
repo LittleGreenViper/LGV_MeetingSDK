@@ -42,7 +42,7 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
            let timeZoneTemp = TimeZone(identifier: timeZoneIdentifier) {
             timeZone = timeZoneTemp
         } else {
-            timeZone = TimeZone(secondsFromGMT: 0) ?? TimeZone.current
+            timeZone = TimeZone(secondsFromGMT: 0) ?? TimeZone.autoupdatingCurrent
         }
 
         var videoVenue: LGV_MeetingSDK_LGV_MeetingServer.Meeting.VirtualLocation.VirtualVenue?
@@ -181,6 +181,14 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
             let meetingStartTime = (Int(LGV_MeetingSDK.decimalOnly(rawMeetingObject["start_time"] as? String ?? "00:00:00")) ?? 0) / 100
             let distance: CLLocationDistance = CLLocationDistance(rawMeetingObject["distance"] as? Double ?? Double.greatestFiniteMagnitude)
             let formats: [LGV_MeetingSDK_Format_Protocol] = Self._convert(theseFormats: rawMeetingObject["formats"] as? [[String: Any]] ?? [])
+            var meetingLocalTimezone = TimeZone.autoupdatingCurrent
+            
+            if let timeZoneIdentifier = (rawMeetingObject["virtual_information"] as? [String: String])?["time_zone"] as? String,
+               let timeZoneTemp = TimeZone(identifier: timeZoneIdentifier) {
+                meetingLocalTimezone = timeZoneTemp
+            } else {
+                meetingLocalTimezone = TimeZone(secondsFromGMT: 0) ?? meetingLocalTimezone
+            }
 
             var physicalLocation: LGV_MeetingSDK_LGV_MeetingServer.Meeting.PhysicalLocation?
 
@@ -193,6 +201,7 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
             if let virtualStuff = rawMeetingObject["virtual_information"] as? [String: String] {
                 virtualInformation = Self._convert(thisDataToAVirtualLocation: virtualStuff)
             }
+            
             #if DEBUG
                 print("Meeting:\n\tweekday: \(weekday)\n\tstart_time: \(meetingStartTime)\n\tcoords: \(coords)\n\tname: \(name)\n\tserver_id: \(serverID)\n\tmeeting_id: \(meetingID)\n\torganizationKey: \(organizationKey)\n\tduration: \(duration)\n\tdistance: \(String(describing: distance))")
                 print("\tformats: \(formats.debugDescription)")
@@ -211,6 +220,7 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
                                               meetingDuration: duration,
                                               distanceInMeters: distance,
                                               formats: formats,
+                                              meetingLocalTimezone: meetingLocalTimezone,
                                               physicalLocation: physicalLocation,
                                               virtualMeetingInfo: virtualInformation
                                              )

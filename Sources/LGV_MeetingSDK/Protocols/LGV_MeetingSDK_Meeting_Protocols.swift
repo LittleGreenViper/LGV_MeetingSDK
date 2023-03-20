@@ -280,12 +280,20 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: AnyObject, LGV_MeetingSDK_Addit
      > Note: If this is not provided, then `physicalLocation` should be provided.
      */
     var virtualMeetingInfo: LGV_MeetingSDK_Meeting_Virtual_Protocol? { get set }
-    
+
     /* ################################################################## */
     /**
      REQUIRED - If the meeting has formats, then this contains a list of them. Empty, if no formats.
      */
     var formats: [LGV_MeetingSDK_Format_Protocol] { get }
+    
+    /* ################################################################## */
+    /**
+     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The local timezone of the meeting.
+     
+     > Note: This may not be useful, if the meeting does not have a timezone.
+     */
+    var meetingLocalTimezone: TimeZone { get }
 
     /* ################################################################## */
     /**
@@ -332,14 +340,6 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: AnyObject, LGV_MeetingSDK_Addit
      > Note: Virtual-only meetings may either have no coords, or may return an invalid coordinate.
      */
     var locationCoords: CLLocationCoordinate2D? { get }
-    
-    /* ################################################################## */
-    /**
-     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The local timezone of the meeting.
-     
-     > Note: This may not be useful, if the meeting does not have a timezone.
-     */
-    var meetingLocalTimezone: TimeZone { get }
     
     /* ################################################################## */
     /**
@@ -567,12 +567,6 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
 
     /* ################################################################## */
     /**
-     Default tries to get the timezone from the physical address first, then the virtual, and failing that, our local timezone.
-     */
-    var meetingLocalTimezone: TimeZone { physicalLocation?.timeZone ?? virtualMeetingInfo?.videoMeeting?.timeZone ?? virtualMeetingInfo?.phoneMeeting?.timeZone ?? TimeZone.autoupdatingCurrent }
-
-    /* ################################################################## */
-    /**
      Default tries to adjust the next start Time to our local time.
      */
     var localStartTime: Date? {
@@ -580,6 +574,16 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
         return startTime.addingTimeInterval(TimeInterval(TimeZone.current.secondsFromGMT() - meetingLocalTimezone.secondsFromGMT()))
     }
     
+    /* ################################################################## */
+    /**
+     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The local timezone of the meeting.
+     
+     > Note: This may not be useful, if the meeting does not have a timezone.
+     */
+    var meetingLocalTimezone: TimeZone {
+        return .autoupdatingCurrent
+    }
+
     /* ################################################################## */
     /**
      Default is an empty String.
