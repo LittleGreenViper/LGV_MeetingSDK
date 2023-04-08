@@ -1,3 +1,7 @@
+ **2.8.3** *April 8, 2023*
+ 
+ - Fixed an issue, where the wrong timezone was being applied to in-person meetings.
+ 
  **2.8.2** *March 20, 2023*
  
  - Added support for the time zone, in virtual meetings.

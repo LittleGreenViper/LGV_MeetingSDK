@@ -187,7 +187,7 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
                let timeZoneTemp = TimeZone(identifier: timeZoneIdentifier) {
                 meetingLocalTimezone = timeZoneTemp
             } else {
-                meetingLocalTimezone = TimeZone(secondsFromGMT: 0) ?? meetingLocalTimezone
+                meetingLocalTimezone = meetingLocalTimezone
             }
 
             var physicalLocation: LGV_MeetingSDK_LGV_MeetingServer.Meeting.PhysicalLocation?

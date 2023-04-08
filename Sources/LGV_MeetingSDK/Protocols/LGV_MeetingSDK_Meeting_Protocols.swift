@@ -571,7 +571,8 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
      */
     var localStartTime: Date? {
         guard let startTime = nextStartDate else { return nil }
-        return startTime.addingTimeInterval(TimeInterval(TimeZone.current.secondsFromGMT() - meetingLocalTimezone.secondsFromGMT()))
+        let localTimeZone = meetingLocalTimezone
+        return startTime.addingTimeInterval(TimeInterval(TimeZone.current.secondsFromGMT() - localTimeZone.secondsFromGMT()))
     }
     
     /* ################################################################## */
