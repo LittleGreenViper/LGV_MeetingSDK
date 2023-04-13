@@ -1,3 +1,7 @@
+ **2.8.4** *April 13, 2023*
+ 
+ - Fixed an issue, where comments were not being properly transmitted.
+ 
  **2.8.3** *April 8, 2023*
  
  - Fixed an issue, where the wrong timezone was being applied to in-person meetings.

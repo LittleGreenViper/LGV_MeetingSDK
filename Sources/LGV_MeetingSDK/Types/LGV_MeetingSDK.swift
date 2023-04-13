@@ -1045,7 +1045,7 @@ open class LGV_MeetingSDK {
                 /**
                  Any additional information.
                  */
-                public let extraInfo: String
+                public var extraInfo: String
                 
                 /* ############################################################## */
                 /**
@@ -1090,7 +1090,7 @@ open class LGV_MeetingSDK {
             /**
              Any additional information.
              */
-            public let extraInfo: String
+            public var extraInfo: String
             
             /* ################################################################## */
             /**
@@ -1154,7 +1154,7 @@ open class LGV_MeetingSDK {
         /**
          Any comments and/or additional information.
          */
-        public let extraInfo: String
+        public var extraInfo: String
         
         /* ################################################################## */
         /**
@@ -1843,6 +1843,12 @@ public class LGV_MeetingSDK_Generic_Organization: LGV_MeetingSDK_Organization_Tr
      */
     public var organizationName: String
 
+    /* ################################################################## */
+    /**
+     Any comments and/or additional information.
+     */
+    public var extraInfo: String
+
     /* ########################################################## */
     /**
      This is the accessor for the transport private property.
@@ -1877,15 +1883,18 @@ public class LGV_MeetingSDK_Generic_Organization: LGV_MeetingSDK_Organization_Tr
         - organizationName (OPTIONAL): The name of the organization. Default is an empty String.
         - organizationName (OPTIONAL): A longer description for the organization. Default is nil.
         - organizationURL (OPTIONAL): A URL for the organization. Default is nil.
+        - extraInfo (OPTIONAL): A String with any additional information.
      */
     public init(transport inTransport: LGV_MeetingSDK_Transport_Protocol,
                 organizationKey inOrganizationKey: String,
                 organizationName inOrganizationName: String = "",
                 organizationDescription inOrganizationDescription: String? = nil,
-                organizationURL inOrganizationURL: URL? = nil
+                organizationURL inOrganizationURL: URL? = nil,
+                extraInfo inExtraInfo: String = ""
         ) {
         organizationKey = inOrganizationKey
         organizationName = inOrganizationName
+        extraInfo = inExtraInfo
         _organizationDescription = inOrganizationDescription
         _organizationURL = inOrganizationURL
         _transport = inTransport
