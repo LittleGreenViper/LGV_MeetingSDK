@@ -421,7 +421,7 @@
 				BuildIndependentTargetsInParallel = 1;
 				CLASSPREFIX = LGV_;
 				LastSwiftUpdateCheck = 1400;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = "Little Green Viper Software Development LLC";
 				TargetAttributes = {
 					D44AA17028E23C5100AB0D85 = {
@@ -793,7 +793,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.8.4;
+				MARKETING_VERSION = 2.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.LGV-MeetingSDK-Test-Harness";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -826,7 +826,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.8.4;
+				MARKETING_VERSION = 2.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.littlegreenviper.LGV-MeetingSDK-Test-Harness";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

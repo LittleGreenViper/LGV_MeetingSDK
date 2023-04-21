@@ -18,7 +18,7 @@
  */
 
 import CoreLocation // For physical venues.
-import Contacts // For the postal address
+import Contacts     // For the postal address
 
 /* ###################################################################################################################################### */
 // MARK: - Enum for the Meeting Venue -
@@ -219,6 +219,16 @@ public extension LGV_MeetingSDK_Meeting_Virtual_Protocol {
 }
 
 /* ###################################################################################################################################### */
+// MARK: - The Structure for the Time Information of a Meeting -
+/* ###################################################################################################################################### */
+/**
+ This struct has all the various aspects of the meeting time.
+ */
+public struct LGV_MeetingSDK_Meeting_TimeInformation {
+    
+}
+
+/* ###################################################################################################################################### */
 // MARK: - The Structure of a Meeting Object -
 /* ###################################################################################################################################### */
 /**
@@ -294,6 +304,12 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: AnyObject, LGV_MeetingSDK_Addit
      > Note: This may not be useful, if the meeting does not have a timezone.
      */
     var meetingLocalTimezone: TimeZone { get }
+    
+    /* ################################################################## */
+    /**
+     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The various time aspects of the meeting.
+     */
+    var timeInformation: LGV_MeetingSDK_Meeting_TimeInformation { get }
 
     /* ################################################################## */
     /**
@@ -486,6 +502,14 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
         }
         
         return nil
+    }
+    
+    /* ################################################################## */
+    /**
+     Default calculates all the time information.
+     */
+    var timeInformation: LGV_MeetingSDK_Meeting_TimeInformation {
+        LGV_MeetingSDK_Meeting_TimeInformation()
     }
 
     /* ################################################################## */
