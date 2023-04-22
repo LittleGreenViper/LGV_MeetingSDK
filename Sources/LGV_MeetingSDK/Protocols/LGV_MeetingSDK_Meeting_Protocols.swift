@@ -226,6 +226,33 @@ public extension LGV_MeetingSDK_Meeting_Virtual_Protocol {
  */
 public struct LGV_MeetingSDK_Meeting_TimeInformation {
     /* ################################################################################################################################## */
+    // MARK: Private Constants
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     The number of seconds in one minute.
+     */
+    private static let _oneMinuteInSeconds = TimeInterval(60)
+    
+    /* ################################################################## */
+    /**
+     The number of seconds in one hour.
+     */
+    private static let _oneHourInSeconds = TimeInterval(_oneMinuteInSeconds * 60)
+    
+    /* ################################################################## */
+    /**
+     The number of seconds in one day.
+     */
+    private static let _oneDayInSeconds = TimeInterval(_oneHourInSeconds * 24)
+    
+    /* ################################################################## */
+    /**
+     The number of seconds in one week.
+     */
+    private static let _oneWeekInSeconds = TimeInterval(_oneDayInSeconds * 7)
+
+    /* ################################################################################################################################## */
     // MARK: Weekday Enum
     /* ################################################################################################################################## */
     /**
@@ -233,7 +260,7 @@ public struct LGV_MeetingSDK_Meeting_TimeInformation {
      
      > NOTE: The indexes are 1-based, and use the Gregorian calendar, with Sunday being 1. Use the `adjustedWeekdayIndex` accessor to convert to local days of the week.
      */
-    enum Weekdays: Int {
+    public enum Weekdays: Int {
         /* ############################################################## */
         /**
          This means the value is invalid (resolves to 0).
@@ -324,66 +351,70 @@ public struct LGV_MeetingSDK_Meeting_TimeInformation {
             return weekdayIndex + (0 > weekdayIndex ? 7 : 0)
         }
     }
-    
-    /* ################################################################## */
-    /**
-     */
-    var weekday: Weekdays = .none
-    
-    /* ################################################################## */
-    /**
-     */
-    var startHour: Int = 0
-    
-    /* ################################################################## */
-    /**
-     */
-    var startMinute: Int = 0
-    
-    /* ################################################################## */
-    /**
-     */
-    var durationInSeconds: TimeInterval = 0
 
     /* ################################################################## */
     /**
+     This is the meeting weekday (in the meeting's local timezone).
      */
-    var timeZone: TimeZone = TimeZone.autoupdatingCurrent
-
-    /* ################################################################## */
-    /**
-     */
-    var nextStartDate: Date? { nil }
+    public var weekday: Weekdays = .none
     
     /* ################################################################## */
     /**
+     This is the meeting start hour (Military time, in the meeting's local timezone).
+     
+     > NOTE: 00:00 is considered "midnight, this morning," and "24:00" is considered "midnight, tonight."
      */
-    var previousStartDate: Date? { nil }
-
-    /* ################################################################## */
-    /**
-     */
-    var weekdayIndexInMyLocalTime: Int { 0 }
-
-    /* ################################################################## */
-    /**
-     */
-    var startHourInMyLocalTime: Int { 0 }
-
-    /* ################################################################## */
-    /**
-     */
-    var startMinuteInMyLocalTime: Int { 0 }
-
-    /* ################################################################## */
-    /**
-     */
-    var nextStartDateInMyLocalTime: Date? { nil }
+    public var startHour: Int = 0
     
     /* ################################################################## */
     /**
+     This is the meeting start minute (Military time, in the meeting's local timezone).
+     
+     > NOTE: 00:00 is considered "midnight, this morning," and "24:00" is considered "midnight, tonight."
      */
-    var previousStartDateInMyLocalTime: Date? { nil }
+    public var startMinute: Int = 0
+    
+    /* ################################################################## */
+    /**
+     This is the duration of the meeting, in seconds.
+     */
+    public var durationInSeconds: TimeInterval = 0
+
+    /* ################################################################## */
+    /**
+     This is the timezone of the meeting. Default, is the user's current timezone.
+     */
+    public var timeZone: TimeZone = TimeZone.autoupdatingCurrent
+
+    /* ################################################################## */
+    /**
+     This is the start time of the next meeting, in the meeting's local timezone. The date will have the meeting's timezone set, so it will adjust to our local timezone.
+     */
+    public var nextStartDate: Date? { nil }
+    
+    /* ################################################################## */
+    /**
+     This is the start time of the previous meeting, in the meeting's local timezone. The date will have the meeting's timezone set, so it will adjust to our local timezone.
+     */
+    public var previousStartDate: Date? { nil }
+
+    /* ################################################################## */
+    /**
+     This is the weekday index (as an Int), of the meeting's start time, in our local time.
+     */
+    public var weekdayIndexInMyLocalTime: Int { 0 }
+
+    /* ################################################################## */
+    /**
+     This is the start hour of the meeting's start time, in our local time.
+     */
+    public var startHourInMyLocalTime: Int { 0 }
+
+    /* ################################################################## */
+    /**
+     This is the start hour of the meeting's start time, in our local time.
+     */
+    public var startMinuteInMyLocalTime: Int { 0 }
 }
 
 /* ###################################################################################################################################### */
