@@ -1134,6 +1134,12 @@ open class LGV_MeetingSDK {
         
         /* ################################################################## */
         /**
+         The time information for the meeting.
+         */
+        private var _timeInformation: LGV_MeetingSDK_Meeting_TimeInformation?
+
+        /* ################################################################## */
+        /**
          The organization to which this meeting belongs.
          */
         public var organization: LGV_MeetingSDK_Organization_Protocol?
@@ -1201,6 +1207,22 @@ open class LGV_MeetingSDK {
          Default is a blank String.
          */
         public var urlString: String = ""
+
+        /* ################################################################## */
+        /**
+         The time information for the meeting.
+         */
+        public var timeInformation: LGV_MeetingSDK_Meeting_TimeInformation? {
+            guard nil == _timeInformation else { return _timeInformation }
+            guard let weekday = LGV_MeetingSDK_Meeting_TimeInformation.Weekdays(rawValue: weekdayIndex) else { return nil }
+
+            let startHour = min(24, max(0, meetingStartTime / 100))
+            let startMinute = min(59, max(0, meetingStartTime - (startHour * 100)))
+            
+            _timeInformation = LGV_MeetingSDK_Meeting_TimeInformation(weekday: weekday, startHour: startHour, startMinute: startMinute, durationInSeconds: TimeInterval(durationInMinutes) * 60)
+            
+            return _timeInformation
+        }
 
         /* ################################################################## */
         /**
@@ -1340,7 +1362,7 @@ open class LGV_MeetingSDK {
      The "cached" last search. It may be nil (no last search cached).
      */
     private var _lastSearch: LGV_MeetingSDK_Meeting_Data_Set_Protocol?
-    
+
     /* ################################################################################################################################## */
     // MARK: Main Initializer
     /* ################################################################################################################################## */

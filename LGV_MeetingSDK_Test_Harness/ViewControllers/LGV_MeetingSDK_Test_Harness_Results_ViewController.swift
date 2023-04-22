@@ -79,7 +79,16 @@ extension LGV_MeetingSDK_Test_Harness_Results_TableViewCell {
         super.layoutSubviews()
         guard let meetingObject = meetingObject else { return }
         weekdayLabel?.text = Calendar.current.shortWeekdaySymbols[Int.localizeWeedayIndex(meetingObject.weekdayIndex - 1)]
-        startTimeLabel?.text = String(format: "%04d", meetingObject.meetingStartTime)
+        var timeInfo = meetingObject.timeInformation
+        let displayFormatter = DateFormatter()
+        displayFormatter.timeStyle = .short
+        displayFormatter.dateStyle = .none
+        
+        if let date = timeInfo?.getNextStartDate() {
+            startTimeLabel?.text = String(format: "%@", displayFormatter.string(from: date))
+        } else {
+            startTimeLabel?.text = "ERROR"
+        }
         meetingNameLabel?.text = meetingObject.name
         if .virtualOnly == meetingObject.meetingType {
             addressLabel?.text = "SLUG-VIRTUAL-ONLY-TEXT".localizedVariant

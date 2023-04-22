@@ -251,7 +251,16 @@ public struct LGV_MeetingSDK_Meeting_TimeInformation {
      The number of seconds in one week.
      */
     private static let _oneWeekInSeconds = TimeInterval(_oneDayInSeconds * 7)
-
+    
+    /* ################################################################################################################################## */
+    // MARK: Private Caches
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     The date, in the meeting's local tiomezone, of the next start.
+     */
+    private var _cachedNextStartDate: Date?
+    
     /* ################################################################################################################################## */
     // MARK: Weekday Enum
     /* ################################################################################################################################## */
@@ -276,7 +285,7 @@ public struct LGV_MeetingSDK_Meeting_TimeInformation {
         /* ############################################################## */
         /**
          Monday (2)
-        */
+         */
         case monday
         
         /* ############################################################## */
@@ -313,7 +322,7 @@ public struct LGV_MeetingSDK_Meeting_TimeInformation {
         /**
          This returns the index of the following weekday.
          */
-       var nextWeekday: Weekdays {
+        var nextWeekday: Weekdays {
             guard .none != self else { return .none }
             
             let nextWeekday = rawValue + 1
@@ -327,7 +336,7 @@ public struct LGV_MeetingSDK_Meeting_TimeInformation {
         /**
          This returns the index of the previous weekday.
          */
-       var previousWeekday: Weekdays {
+        var previousWeekday: Weekdays {
             guard .none != self else { return .none }
             
             let previousWeekday = rawValue - 1
@@ -351,20 +360,20 @@ public struct LGV_MeetingSDK_Meeting_TimeInformation {
             return weekdayIndex + (0 > weekdayIndex ? 7 : 0)
         }
     }
-
+    
     /* ################################################################## */
     /**
      This is the meeting weekday (in the meeting's local timezone).
      */
-    public var weekday: Weekdays = .none
+    public let weekday: Weekdays
     
     /* ################################################################## */
     /**
-     This is the meeting start hour (Military time, in the meeting's local timezone).
+     This is the meeting start hour (0 - 24 Military time, in the meeting's local timezone).
      
      > NOTE: 00:00 is considered "midnight, this morning," and "24:00" is considered "midnight, tonight."
      */
-    public var startHour: Int = 0
+    public let startHour: Int
     
     /* ################################################################## */
     /**
@@ -372,49 +381,95 @@ public struct LGV_MeetingSDK_Meeting_TimeInformation {
      
      > NOTE: 00:00 is considered "midnight, this morning," and "24:00" is considered "midnight, tonight."
      */
-    public var startMinute: Int = 0
+    public let startMinute: Int
     
     /* ################################################################## */
     /**
      This is the duration of the meeting, in seconds.
      */
-    public var durationInSeconds: TimeInterval = 0
-
+    public let durationInSeconds: TimeInterval
+    
     /* ################################################################## */
     /**
      This is the timezone of the meeting. Default, is the user's current timezone.
      */
-    public var timeZone: TimeZone = TimeZone.autoupdatingCurrent
+    public let timeZone: TimeZone
+    
+    /* ################################################################## */
+    /**
+     Main Initializer.
+     
+     - Parameters:
+     - weekday: This is the meeting weekday (in the meeting's local timezone).
+     - startHour: This is the meeting start hour (0 - 24 Military time, in the meeting's local timezone).
+     - startMinute: This is the meeting start minute (Military time, in the meeting's local timezone).
+     - durationInSeconds: This is the duration of the meeting, in seconds.
+     - timeZone: This is the timezone of the meeting. Default, is the user's current timezone.
+     */
+    public init(weekday inWeekday: Weekdays, startHour inStartHour: Int, startMinute inStartMinute: Int, durationInSeconds inDurationInSeconds: TimeInterval, timeZone inTimeZone: TimeZone = TimeZone.autoupdatingCurrent) {
+        weekday = inWeekday
+        startHour = inStartHour
+        startMinute = inStartMinute
+        durationInSeconds = inDurationInSeconds
+        timeZone = inTimeZone
+    }
+}
 
+/* ###################################################################################################################################### */
+// MARK: Computed Properties
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Meeting_TimeInformation {
+    /* ################################################################## */
+    /**
+     The date components (weekday, hour, minute), from the meeting's native time zone.
+     */
+    public var dateComponents: DateComponents { DateComponents(calendar: .autoupdatingCurrent, hour: startHour, minute: startMinute, weekday: weekday.rawValue) }
+}
+
+/* ###################################################################################################################################### */
+// MARK: Accessor Methods
+/* ###################################################################################################################################### */
+extension LGV_MeetingSDK_Meeting_TimeInformation {
     /* ################################################################## */
     /**
      This is the start time of the next meeting, in the meeting's local timezone. The date will have the meeting's timezone set, so it will adjust to our local timezone.
+     
+     > NOTE: If the date is invalid, then the distant future will be returned.
      */
-    public var nextStartDate: Date? { nil }
+    public mutating func getNextStartDate() -> Date {
+        guard nil == _cachedNextStartDate || _cachedNextStartDate! <= .now else { return _cachedNextStartDate! }
+        _cachedNextStartDate = Calendar.autoupdatingCurrent.nextDate(after: .now, matching: dateComponents, matchingPolicy: .nextTimePreservingSmallerComponents)
+        return _cachedNextStartDate ?? Date.distantFuture
+    }
     
     /* ################################################################## */
     /**
      This is the start time of the previous meeting, in the meeting's local timezone. The date will have the meeting's timezone set, so it will adjust to our local timezone.
+     
+     > NOTE: If the date is invalid, then the distant future will be returned.
      */
-    public var previousStartDate: Date? { nil }
+    public mutating func getPreviousStartDate() -> Date {
+        guard Date.distantFuture > getNextStartDate() else { return Date.distantFuture }
+        return getNextStartDate().addingTimeInterval(-Self._oneWeekInSeconds)
+    }
 
     /* ################################################################## */
     /**
      This is the weekday index (as an Int), of the meeting's start time, in our local time.
      */
-    public var weekdayIndexInMyLocalTime: Int { 0 }
+    public mutating func getWeekdayIndexInMyLocalTime() -> Int { 0 }
 
     /* ################################################################## */
     /**
      This is the start hour of the meeting's start time, in our local time.
      */
-    public var startHourInMyLocalTime: Int { 0 }
+    public mutating func getStartHourInMyLocalTime() -> Int { 0 }
 
     /* ################################################################## */
     /**
      This is the start hour of the meeting's start time, in our local time.
      */
-    public var startMinuteInMyLocalTime: Int { 0 }
+    public mutating func getStartMinuteInMyLocalTime() -> Int { 0 }
 }
 
 /* ###################################################################################################################################### */
@@ -496,9 +551,9 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: AnyObject, LGV_MeetingSDK_Addit
     
     /* ################################################################## */
     /**
-     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The various time aspects of the meeting.
+     REQUIRED - The various time aspects of the meeting.
      */
-    var timeInformation: LGV_MeetingSDK_Meeting_TimeInformation { get }
+    var timeInformation: LGV_MeetingSDK_Meeting_TimeInformation? { get }
 
     /* ################################################################## */
     /**
@@ -691,14 +746,6 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
         }
         
         return nil
-    }
-    
-    /* ################################################################## */
-    /**
-     Default calculates all the time information.
-     */
-    var timeInformation: LGV_MeetingSDK_Meeting_TimeInformation {
-        LGV_MeetingSDK_Meeting_TimeInformation()
     }
 
     /* ################################################################## */
