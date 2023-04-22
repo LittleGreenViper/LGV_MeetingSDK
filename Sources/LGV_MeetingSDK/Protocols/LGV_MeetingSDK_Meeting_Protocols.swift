@@ -230,61 +230,61 @@ public struct LGV_MeetingSDK_Meeting_TimeInformation {
     /* ################################################################################################################################## */
     /**
      This enum allows us to handle weekdays easily and obviously.
+     
+     > NOTE: The indexes are 1-based, and use the Gregorian calendar, with Sunday being 1. Use the `adjustedWeekdayIndex` accessor to convert to local days of the week.
      */
     enum Weekdays: Int {
         /* ############################################################## */
         /**
+         This means the value is invalid (resolves to 0).
          */
         case none
         
         /* ############################################################## */
         /**
+         Sunday (1)
          */
         case sunday
         
         /* ############################################################## */
         /**
-         */
+         Monday (2)
+        */
         case monday
         
         /* ############################################################## */
         /**
+         Tuesday (3)
          */
         case tuesday
         
         /* ############################################################## */
         /**
+         Wednesday (4)
          */
         case wednesday
         
         /* ############################################################## */
         /**
+         Thursday (5)
          */
         case thursday
         
         /* ############################################################## */
         /**
+         Friday (6)
          */
         case friday
         
         /* ############################################################## */
         /**
+         Saturday (7)
          */
         case saturday
         
         /* ############################################################## */
         /**
-         */
-        var adjustedWeekdayIndex: Int {
-            guard .none != self else { return 0 }
-            
-            let weekdayIndex = rawValue - Calendar.current.firstWeekday
-            
-            return weekdayIndex + (0 > weekdayIndex ? 7 : 0)
-        }
-        
-        /* ############################################################## */
-        /**
+         This returns the index of the following weekday.
          */
        var nextWeekday: Weekdays {
             guard .none != self else { return .none }
@@ -298,6 +298,7 @@ public struct LGV_MeetingSDK_Meeting_TimeInformation {
         
         /* ############################################################## */
         /**
+         This returns the index of the previous weekday.
          */
        var previousWeekday: Weekdays {
             guard .none != self else { return .none }
@@ -307,6 +308,20 @@ public struct LGV_MeetingSDK_Meeting_TimeInformation {
             guard let ret = Weekdays(rawValue: 0 == previousWeekday ? 7 : previousWeekday) else { return .none }
             
             return ret
+        }
+        
+        /* ############################################################## */
+        /**
+         This adjusts the index, using the current calendar's start of week.
+         
+         > NOTE: This returns an Int, as the enum is always Sunday == 1.
+         */
+        var adjustedWeekdayIndex: Int {
+            guard .none != self else { return 0 }
+            
+            let weekdayIndex = rawValue - Calendar.autoupdatingCurrent.firstWeekday
+            
+            return weekdayIndex + (0 > weekdayIndex ? 7 : 0)
         }
     }
     
@@ -333,7 +348,7 @@ public struct LGV_MeetingSDK_Meeting_TimeInformation {
     /* ################################################################## */
     /**
      */
-    var timeZone: TimeZone?
+    var timeZone: TimeZone = TimeZone.autoupdatingCurrent
 
     /* ################################################################## */
     /**
@@ -348,8 +363,13 @@ public struct LGV_MeetingSDK_Meeting_TimeInformation {
     /* ################################################################## */
     /**
      */
+    var weekdayIndexInMyLocalTime: Int { 0 }
+
+    /* ################################################################## */
+    /**
+     */
     var startHourInMyLocalTime: Int { 0 }
-    
+
     /* ################################################################## */
     /**
      */
