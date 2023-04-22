@@ -225,7 +225,145 @@ public extension LGV_MeetingSDK_Meeting_Virtual_Protocol {
  This struct has all the various aspects of the meeting time.
  */
 public struct LGV_MeetingSDK_Meeting_TimeInformation {
+    /* ################################################################################################################################## */
+    // MARK: Weekday Enum
+    /* ################################################################################################################################## */
+    /**
+     This enum allows us to handle weekdays easily and obviously.
+     */
+    enum Weekdays: Int {
+        /* ############################################################## */
+        /**
+         */
+        case none
+        
+        /* ############################################################## */
+        /**
+         */
+        case sunday
+        
+        /* ############################################################## */
+        /**
+         */
+        case monday
+        
+        /* ############################################################## */
+        /**
+         */
+        case tuesday
+        
+        /* ############################################################## */
+        /**
+         */
+        case wednesday
+        
+        /* ############################################################## */
+        /**
+         */
+        case thursday
+        
+        /* ############################################################## */
+        /**
+         */
+        case friday
+        
+        /* ############################################################## */
+        /**
+         */
+        case saturday
+        
+        /* ############################################################## */
+        /**
+         */
+        var adjustedWeekdayIndex: Int {
+            guard .none != self else { return 0 }
+            
+            let weekdayIndex = rawValue - Calendar.current.firstWeekday
+            
+            return weekdayIndex + (0 > weekdayIndex ? 7 : 0)
+        }
+        
+        /* ############################################################## */
+        /**
+         */
+       var nextWeekday: Weekdays {
+            guard .none != self else { return .none }
+            
+            let nextWeekday = rawValue + 1
+            
+            guard let ret = Weekdays(rawValue: 7 < nextWeekday ? 1 : nextWeekday) else { return .none }
+            
+            return ret
+        }
+        
+        /* ############################################################## */
+        /**
+         */
+       var previousWeekday: Weekdays {
+            guard .none != self else { return .none }
+            
+            let previousWeekday = rawValue - 1
+            
+            guard let ret = Weekdays(rawValue: 0 == previousWeekday ? 7 : previousWeekday) else { return .none }
+            
+            return ret
+        }
+    }
     
+    /* ################################################################## */
+    /**
+     */
+    var weekday: Weekdays = .none
+    
+    /* ################################################################## */
+    /**
+     */
+    var startHour: Int = 0
+    
+    /* ################################################################## */
+    /**
+     */
+    var startMinute: Int = 0
+    
+    /* ################################################################## */
+    /**
+     */
+    var durationInSeconds: TimeInterval = 0
+
+    /* ################################################################## */
+    /**
+     */
+    var timeZone: TimeZone?
+
+    /* ################################################################## */
+    /**
+     */
+    var nextStartDate: Date? { nil }
+    
+    /* ################################################################## */
+    /**
+     */
+    var previousStartDate: Date? { nil }
+
+    /* ################################################################## */
+    /**
+     */
+    var startHourInMyLocalTime: Int { 0 }
+    
+    /* ################################################################## */
+    /**
+     */
+    var startMinuteInMyLocalTime: Int { 0 }
+
+    /* ################################################################## */
+    /**
+     */
+    var nextStartDateInMyLocalTime: Date? { nil }
+    
+    /* ################################################################## */
+    /**
+     */
+    var previousStartDateInMyLocalTime: Date? { nil }
 }
 
 /* ###################################################################################################################################### */
