@@ -21,6 +21,27 @@ import CoreLocation // For physical venues.
 import Contacts     // For the postal address
 
 /* ###################################################################################################################################### */
+// MARK: - Date Extension -
+/* ###################################################################################################################################### */
+/**
+ This extension allows us to convert a date to a certain time zone.
+ */
+fileprivate extension Date {
+    /* ################################################################## */
+    /**
+     Convert a date between two timezones.
+     
+     Inspired by [this SO answer](https://stackoverflow.com/a/54064820/879365)
+     
+     - parameter from: The source timezone.
+     - paremeter to: The destination timezone.
+     
+     - returns: The converted date
+     */
+    func convert(from inFromTimeZone: TimeZone, to inToTimeZone: TimeZone) -> Date { addingTimeInterval(TimeInterval(inFromTimeZone.secondsFromGMT(for: self) - inToTimeZone.secondsFromGMT(for: self))) }
+}
+
+/* ###################################################################################################################################### */
 // MARK: - Enum for the Meeting Venue -
 /* ###################################################################################################################################### */
 /**
@@ -261,111 +282,11 @@ public struct LGV_MeetingSDK_Meeting_TimeInformation {
      */
     private var _cachedNextStartDate: Date?
     
-    /* ################################################################################################################################## */
-    // MARK: Weekday Enum
-    /* ################################################################################################################################## */
-    /**
-     This enum allows us to handle weekdays easily and obviously.
-     
-     > NOTE: The indexes are 1-based, and use the Gregorian calendar, with Sunday being 1. Use the `adjustedWeekdayIndex` accessor to convert to local days of the week.
-     */
-    public enum Weekdays: Int {
-        /* ############################################################## */
-        /**
-         This means the value is invalid (resolves to 0).
-         */
-        case none
-        
-        /* ############################################################## */
-        /**
-         Sunday (1)
-         */
-        case sunday
-        
-        /* ############################################################## */
-        /**
-         Monday (2)
-         */
-        case monday
-        
-        /* ############################################################## */
-        /**
-         Tuesday (3)
-         */
-        case tuesday
-        
-        /* ############################################################## */
-        /**
-         Wednesday (4)
-         */
-        case wednesday
-        
-        /* ############################################################## */
-        /**
-         Thursday (5)
-         */
-        case thursday
-        
-        /* ############################################################## */
-        /**
-         Friday (6)
-         */
-        case friday
-        
-        /* ############################################################## */
-        /**
-         Saturday (7)
-         */
-        case saturday
-        
-        /* ############################################################## */
-        /**
-         This returns the index of the following weekday.
-         */
-        var nextWeekday: Weekdays {
-            guard .none != self else { return .none }
-            
-            let nextWeekday = rawValue + 1
-            
-            guard let ret = Weekdays(rawValue: 7 < nextWeekday ? 1 : nextWeekday) else { return .none }
-            
-            return ret
-        }
-        
-        /* ############################################################## */
-        /**
-         This returns the index of the previous weekday.
-         */
-        var previousWeekday: Weekdays {
-            guard .none != self else { return .none }
-            
-            let previousWeekday = rawValue - 1
-            
-            guard let ret = Weekdays(rawValue: 0 == previousWeekday ? 7 : previousWeekday) else { return .none }
-            
-            return ret
-        }
-        
-        /* ############################################################## */
-        /**
-         This adjusts the index, using the current calendar's start of week.
-         
-         > NOTE: This returns an Int, as the enum is always Sunday == 1.
-         */
-        var adjustedWeekdayIndex: Int {
-            guard .none != self else { return 0 }
-            
-            let weekdayIndex = rawValue - Calendar.autoupdatingCurrent.firstWeekday
-            
-            return weekdayIndex + (0 > weekdayIndex ? 7 : 0)
-        }
-    }
-    
     /* ################################################################## */
     /**
      This is the meeting weekday (in the meeting's local timezone).
      */
-    public let weekday: Weekdays
+    public let weekday: LGV_MeetingSDK_Meeting_Data_Set.Weekdays
     
     /* ################################################################## */
     /**
@@ -406,7 +327,7 @@ public struct LGV_MeetingSDK_Meeting_TimeInformation {
      - durationInSeconds: This is the duration of the meeting, in seconds.
      - timeZone: This is the timezone of the meeting. Default, is the user's current timezone.
      */
-    public init(weekday inWeekday: Weekdays, startHour inStartHour: Int, startMinute inStartMinute: Int, durationInSeconds inDurationInSeconds: TimeInterval, timeZone inTimeZone: TimeZone = TimeZone.autoupdatingCurrent) {
+    public init(weekday inWeekday: LGV_MeetingSDK_Meeting_Data_Set.Weekdays, startHour inStartHour: Int, startMinute inStartMinute: Int, durationInSeconds inDurationInSeconds: TimeInterval, timeZone inTimeZone: TimeZone = TimeZone.autoupdatingCurrent) {
         weekday = inWeekday
         startHour = inStartHour
         startMinute = inStartMinute
@@ -434,22 +355,33 @@ extension LGV_MeetingSDK_Meeting_TimeInformation {
     /**
      This is the start time of the next meeting, in the meeting's local timezone. The date will have the meeting's timezone set, so it will adjust to our local timezone.
      
+     - parameter isAdjusted: If true (default is false), then the date will be converted to our local autoupdating timezone.
+     - returns: The date of the next meeting.
+     
      > NOTE: If the date is invalid, then the distant future will be returned.
      */
-    public mutating func getNextStartDate() -> Date {
+    public mutating func getNextStartDate(isAdjusted inAdjust: Bool = false) -> Date {
         guard nil == _cachedNextStartDate || _cachedNextStartDate! <= .now else { return _cachedNextStartDate! }
         _cachedNextStartDate = Calendar.autoupdatingCurrent.nextDate(after: .now, matching: dateComponents, matchingPolicy: .nextTimePreservingSmallerComponents)
-        return _cachedNextStartDate ?? Date.distantFuture
+        
+        if inAdjust {
+            return _cachedNextStartDate?.convert(from: timeZone, to: TimeZone.autoupdatingCurrent) ?? Date.distantFuture
+        } else {
+            return _cachedNextStartDate ?? Date.distantFuture
+        }
     }
     
     /* ################################################################## */
     /**
      This is the start time of the previous meeting, in the meeting's local timezone. The date will have the meeting's timezone set, so it will adjust to our local timezone.
      
+     - parameter isAdjusted: If true (default is false), then the date will be converted to our local autoupdating timezone.
+     - returns: The date of the next meeting.
+
      > NOTE: If the date is invalid, then the distant future will be returned.
      */
-    public mutating func getPreviousStartDate() -> Date {
-        guard Date.distantFuture > getNextStartDate() else { return Date.distantFuture }
+    public mutating func getPreviousStartDate(isAdjusted inAdjust: Bool = false) -> Date {
+        guard Date.distantFuture > getNextStartDate(isAdjusted: inAdjust) else { return Date.distantFuture }
         return getNextStartDate().addingTimeInterval(-Self._oneWeekInSeconds)
     }
 
@@ -457,19 +389,31 @@ extension LGV_MeetingSDK_Meeting_TimeInformation {
     /**
      This is the weekday index (as an Int), of the meeting's start time, in our local time.
      */
-    public mutating func getWeekdayIndexInMyLocalTime() -> Int { 0 }
+    public mutating func getWeekdayIndexInMyLocalTime() -> Int {
+        let adjustedDate = getNextStartDate().convert(from: timeZone, to: TimeZone.autoupdatingCurrent)
+        
+        return Calendar.autoupdatingCurrent.component(.weekday, from: adjustedDate)
+    }
 
     /* ################################################################## */
     /**
      This is the start hour of the meeting's start time, in our local time.
      */
-    public mutating func getStartHourInMyLocalTime() -> Int { 0 }
+    public mutating func getStartHourInMyLocalTime() -> Int {
+        let adjustedDate = getNextStartDate().convert(from: timeZone, to: TimeZone.autoupdatingCurrent)
+        
+        return Calendar.autoupdatingCurrent.component(.hour, from: adjustedDate)
+    }
 
     /* ################################################################## */
     /**
      This is the start hour of the meeting's start time, in our local time.
      */
-    public mutating func getStartMinuteInMyLocalTime() -> Int { 0 }
+    public mutating func getStartMinuteInMyLocalTime() -> Int {
+        let adjustedDate = getNextStartDate().convert(from: timeZone, to: TimeZone.autoupdatingCurrent)
+        
+        return Calendar.autoupdatingCurrent.component(.minute, from: adjustedDate)
+    }
 }
 
 /* ###################################################################################################################################### */

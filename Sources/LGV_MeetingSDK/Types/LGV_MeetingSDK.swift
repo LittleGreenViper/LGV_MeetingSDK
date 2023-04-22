@@ -265,9 +265,15 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
     public enum Weekdays: Int, CaseIterable, CustomDebugStringConvertible {
         /* ############################################################## */
         /**
+         This is an error.
+         */
+        case none = 0
+        
+        /* ############################################################## */
+        /**
          Sunday is always 1. The start of week is not taken into account, and should be handled at a level above this connector.
          */
-        case sunday = 1
+        case sunday
         
         /* ############################################################## */
         /**
@@ -307,10 +313,55 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
         
         /* ############################################################## */
         /**
+         This returns the index of the following weekday.
+         */
+        var nextWeekday: Weekdays {
+            guard .none != self else { return .none }
+            
+            let nextWeekday = rawValue + 1
+            
+            guard let ret = Weekdays(rawValue: 7 < nextWeekday ? 1 : nextWeekday) else { return .none }
+            
+            return ret
+        }
+        
+        /* ############################################################## */
+        /**
+         This returns the index of the previous weekday.
+         */
+        var previousWeekday: Weekdays {
+            guard .none != self else { return .none }
+            
+            let previousWeekday = rawValue - 1
+            
+            guard let ret = Weekdays(rawValue: 0 == previousWeekday ? 7 : previousWeekday) else { return .none }
+            
+            return ret
+        }
+        
+        /* ############################################################## */
+        /**
+         This adjusts the index, using the current calendar's start of week.
+         
+         > NOTE: This returns an Int, as the enum is always Sunday == 1.
+         */
+        var adjustedWeekdayIndex: Int {
+            guard .none != self else { return 0 }
+            
+            let weekdayIndex = rawValue - Calendar.autoupdatingCurrent.firstWeekday
+            
+            return weekdayIndex + (0 > weekdayIndex ? 7 : 0)
+        }
+
+        /* ############################################################## */
+        /**
          CustomDebugStringConvertible Conformance
          */
         public var debugDescription: String {
             switch self {
+            case .none:
+                return "ERROR"
+                
             case .sunday:
                 return "Sunday"
                 
@@ -1214,12 +1265,12 @@ open class LGV_MeetingSDK {
          */
         public var timeInformation: LGV_MeetingSDK_Meeting_TimeInformation? {
             guard nil == _timeInformation else { return _timeInformation }
-            guard let weekday = LGV_MeetingSDK_Meeting_TimeInformation.Weekdays(rawValue: weekdayIndex) else { return nil }
+            guard let weekday = LGV_MeetingSDK_Meeting_Data_Set.Weekdays(rawValue: weekdayIndex) else { return nil }
 
             let startHour = min(24, max(0, meetingStartTime / 100))
             let startMinute = min(59, max(0, meetingStartTime - (startHour * 100)))
             
-            _timeInformation = LGV_MeetingSDK_Meeting_TimeInformation(weekday: weekday, startHour: startHour, startMinute: startMinute, durationInSeconds: TimeInterval(durationInMinutes) * 60)
+            _timeInformation = LGV_MeetingSDK_Meeting_TimeInformation(weekday: weekday, startHour: startHour, startMinute: startMinute, durationInSeconds: TimeInterval(durationInMinutes) * 60, timeZone: meetingLocalTimezone)
             
             return _timeInformation
         }
