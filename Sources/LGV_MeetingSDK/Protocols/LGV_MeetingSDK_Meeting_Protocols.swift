@@ -245,7 +245,22 @@ public extension LGV_MeetingSDK_Meeting_Virtual_Protocol {
 /**
  This struct has all the various aspects of the meeting time.
  */
-public struct LGV_MeetingSDK_Meeting_TimeInformation {
+public struct LGV_MeetingSDK_Meeting_TimeInformation: Comparable, CustomDebugStringConvertible {
+    /* ################################################################################################################################## */
+    // MARK: Comparable Conformance
+    /* ################################################################################################################################## */
+    /* ################################################################## */
+    /**
+     - parameter lhs: The left-hand side of the comparison.
+     - parameter rhs: The right-hand side of the comparison.
+     - returns: True, if the next lhs starts before the next rhs
+     */
+    public static func < (lhs: LGV_MeetingSDK_Meeting_TimeInformation, rhs: LGV_MeetingSDK_Meeting_TimeInformation) -> Bool {
+        var lhsTemp = lhs
+        var rhsTemp = rhs
+        return lhsTemp.getNextStartDate(isAdjusted: true) < rhsTemp.getNextStartDate(isAdjusted: true)
+    }
+    
     /* ################################################################################################################################## */
     // MARK: Private Constants
     /* ################################################################################################################################## */
@@ -315,6 +330,12 @@ public struct LGV_MeetingSDK_Meeting_TimeInformation {
      This is the timezone of the meeting. Default, is the user's current timezone.
      */
     public let timeZone: TimeZone
+    
+    /* ################################################################## */
+    /**
+     The debug description of the time information.
+     */
+    public var debugDescription: String { "LGV_MeetingSDK_Meeting_TimeInformation(weekday: \(weekday.debugDescription), startHour: \(startHour), startMinute: \(startMinute), timeZone: \(timeZone.debugDescription))" }
     
     /* ################################################################## */
     /**
@@ -487,17 +508,11 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: AnyObject, LGV_MeetingSDK_Addit
     
     /* ################################################################## */
     /**
-     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The local timezone of the meeting.
-     
-     > Note: This may not be useful, if the meeting does not have a timezone.
-     */
-    var meetingLocalTimezone: TimeZone { get }
-    
-    /* ################################################################## */
-    /**
      REQUIRED - The various time aspects of the meeting.
+     
+     We have "set," because we cache the time.
      */
-    var timeInformation: LGV_MeetingSDK_Meeting_TimeInformation? { get }
+    var timeInformation: LGV_MeetingSDK_Meeting_TimeInformation? { get set }
 
     /* ################################################################## */
     /**
@@ -507,35 +522,9 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: AnyObject, LGV_MeetingSDK_Addit
 
     /* ################################################################## */
     /**
-     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - Returns an optional DateComponents object, with the time of the meeting. Nil, if one-time event.
-     
-     > Note: This will not allow "2400" to be indicative of midnight. 23:59:59 is returned, if the meeting specifies "2400."
-     */
-    var startTime: DateComponents? { get }
-
-    /* ################################################################## */
-    /**
-     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - Returns an optional DateComponents object, with the weekday and time of the meeting. Nil, if one-time event.
-     */
-    var startTimeAndDay: DateComponents? { get }
-
-    /* ################################################################## */
-    /**
-     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The start time, in seconds.
-     */
-    var startTimeInSeconds: TimeInterval? { get }
-    
-    /* ################################################################## */
-    /**
      OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The duration in minutes.
      */
     var durationInMinutes: Int { get }
-    
-    /* ################################################################## */
-    /**
-     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The weekday, adjusted for the start of week.
-     */
-    var adjustedWeekdayIndex: Int { get }
     
     /* ################################################################## */
     /**
@@ -547,27 +536,9 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: AnyObject, LGV_MeetingSDK_Addit
     
     /* ################################################################## */
     /**
-     OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - The local start time of the meeting.
-     
-     > Note: This may not be useful, if the meeting does not have a timezone. In tat case, it will return nil.
-     */
-    var localStartTime: Date? { get }
-    
-    /* ################################################################## */
-    /**
      OPTIONAL, AND SHOULD GENERALLY NOT BE IMPLEMENTED - This gives a "summarized" location. If the meeting is virtual-only, this will be nil.
      */
     var simpleLocationText: String? { get }
-
-    /* ################################################################## */
-    /**
-     OPTIONAL - The next meeting (from now) will start on this date (time).
-     
-     If this is a one-time event, then this will be the only indicator of the meeting start time/date.
-     
-     In normal weekly meetings, this should not need to be implemented.
-     */
-    var nextStartDate: Date? { get }
     
     /* ################################################################## */
     /**
@@ -606,9 +577,23 @@ public protocol LGV_MeetingSDK_Meeting_Protocol: AnyObject, LGV_MeetingSDK_Addit
 public extension LGV_MeetingSDK_Meeting_Protocol {
     /* ################################################################## */
     /**
+     Comparable Conformance
+     - parameter lhs: The left-hand side of the comparison.
+     - parameter rhs: The right-hand side of the comparison.
+     - returns: True, if the next lhs starts before the next rhs
+     */
+    static func < (lhs: any LGV_MeetingSDK_Meeting_Protocol, rhs: any LGV_MeetingSDK_Meeting_Protocol) -> Bool {
+        guard let lhsTemp = lhs.timeInformation,
+              let rhsTemp = rhs.timeInformation
+        else { return false }
+        return lhsTemp < rhsTemp
+    }
+    
+    /* ################################################################## */
+    /**
      CustomDebugStringConvertible Conformance
      */
-    var debugDescription: String { "Meeting Type: \(meetingType.rawValue), startTimeAndDay: \(startTimeAndDay?.debugDescription ?? "No Start Time And Day"),"
+    var debugDescription: String { "Meeting Type: \(meetingType.rawValue), timeInformation: \(timeInformation.debugDescription),"
                                     + " location: \(locationCoords.debugDescription), location text: \(simpleLocationText ?? "No Location Text"), duration in minutes: \(durationInMinutes)" }
 
     /* ################################################################## */
@@ -627,69 +612,6 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
         }
         
         return .invalid
-    }
-    
-    /* ################################################################## */
-    /**
-     Default returns an optional DateComponents object, with the time of the meeting. This will not allow "2400" to be indicative of midnight. 23:59:59 is returned, if the meeting specifies "2400."
-     */
-    var startTime: DateComponents? {
-        guard (0...2400).contains(meetingStartTime) else { return nil }
-        
-        guard 2400 != meetingStartTime else { return DateComponents(hour: 23, minute: 59, second: 59, nanosecond: 999999999) }
-        
-        let hour = Int(meetingStartTime / 100)
-        let minute = Int(meetingStartTime - (hour * 100))
-
-        return DateComponents(hour: hour, minute: minute)
-    }
-
-    /* ################################################################## */
-    /**
-     Default returns an optional DateComponents object, with the weekday and time of the meeting. Returns nil, if the meeting weekday and/or start time is invalid.
-     */
-    var startTimeAndDay: DateComponents? {
-        let startTime = meetingStartTime
-        
-        guard (1...7).contains(weekdayIndex),
-              (0...2400).contains(startTime)
-        else { return nil }
-        
-        var hour = Int(startTime / 100)
-        let minute = Int(startTime - (hour * 100))
-        var weekdayIndex = weekdayIndex
-
-        // Special case for "tonight midnight."
-        if (24 == hour) && (0 == minute) {
-            weekdayIndex = 7 == weekdayIndex ? 1 : weekdayIndex + 1
-            hour = 0
-        }
-
-        return DateComponents(hour: hour, minute: minute, weekday: weekdayIndex)
-    }
-
-    /* ################################################################## */
-    /**
-     Default simply calculates the start time from the components of the military time.
-     */
-    var startTimeInSeconds: TimeInterval? {
-        var components: DateComponents? = startTime
-        
-        if nil == components,
-           let startDate = nextStartDate {
-            components = Calendar.current.dateComponents([.hour, .minute], from: startDate)
-        }
-        
-        let hour = components?.hour ?? -1
-        let minute = components?.minute ?? -1
-        
-        let startTime = (hour * 100) + minute
-        
-        if (0...2400).contains(startTime) {
-            return TimeInterval((hour * 60 * 60) + (minute * 60))
-        }
-        
-        return nil
     }
 
     /* ################################################################## */
@@ -715,33 +637,6 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
 
         return ret
     }
-
-    /* ################################################################## */
-    /**
-     By default, this calculates and returns the date of a repeating weekly meeting, and returns the next time the meeting will gather, after now.
-     
-     If the meeting is not a recurring weekly meeting, this should be implemented by the conforming class.
-     */
-    var nextStartDate: Date? {
-        if let weekday = startTimeAndDay?.weekday,
-           let startHour = startTimeAndDay?.hour,
-           let startMinute = startTimeAndDay?.minute,
-           (1...7).contains(weekday) {
-            let now = Date.now
-            let todaysWeekday = Calendar.autoupdatingCurrent.component(.weekday, from: now)
-            let todaysMonthDay = Calendar.autoupdatingCurrent.component(.day, from: now)
-            let todaysMonth = Calendar.autoupdatingCurrent.component(.month, from: now)
-            let todaysYear = Calendar.autoupdatingCurrent.component(.year, from: now)
-            let dayDifference = 0 <= (weekday - todaysWeekday) ? weekday - todaysWeekday : (weekday + 7) - todaysWeekday
-            let newMonthDay = todaysMonthDay + dayDifference    // The date calculator will take care of date overflows.
-            return Calendar.autoupdatingCurrent.date(from: DateComponents(year: todaysYear, month: todaysMonth, day: newMonthDay, hour: startHour, minute: startMinute))
-        }
-                                         
-        return nil
-// The above replaces this, which I found very slow, and rather problematic
-//        guard let startTimeAndDay = startTimeAndDay else { return nil }
-//        return Calendar.autoupdatingCurrent.nextDate(after: .now, matching: startTimeAndDay, matchingPolicy: .nextTimePreservingSmallerComponents, repeatedTimePolicy: .last, direction: .forward)
-    }
     
     /* ################################################################## */
     /**
@@ -751,33 +646,9 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
     
     /* ################################################################## */
     /**
-     Default returns the adjusted weekday. Note that this should only be used, when accounting for different week starts.
-     */
-    var adjustedWeekdayIndex: Int {
-        var weekdayIndex = self.weekdayIndex - Calendar.current.firstWeekday
-        
-        if 0 > weekdayIndex {
-            weekdayIndex += 7
-        }
-        
-        return weekdayIndex
-    }
-    
-    /* ################################################################## */
-    /**
      Default gets the coordinates from the physical location. May be nil, or an invalid location.
      */
     var locationCoords: CLLocationCoordinate2D? { physicalLocation?.coords }
-
-    /* ################################################################## */
-    /**
-     Default tries to adjust the next start Time to our local time.
-     */
-    var localStartTime: Date? {
-        guard let startTime = nextStartDate else { return nil }
-        let localTimeZone = meetingLocalTimezone
-        return startTime.addingTimeInterval(TimeInterval(TimeZone.current.secondsFromGMT() - localTimeZone.secondsFromGMT()))
-    }
     
     /* ################################################################## */
     /**
@@ -785,9 +656,7 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
      
      > Note: This may not be useful, if the meeting does not have a timezone.
      */
-    var meetingLocalTimezone: TimeZone {
-        return .autoupdatingCurrent
-    }
+    var meetingLocalTimezone: TimeZone { .autoupdatingCurrent }
 
     /* ################################################################## */
     /**

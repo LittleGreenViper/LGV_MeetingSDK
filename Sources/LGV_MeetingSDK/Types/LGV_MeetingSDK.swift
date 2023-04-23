@@ -1264,15 +1264,19 @@ open class LGV_MeetingSDK {
          The time information for the meeting.
          */
         public var timeInformation: LGV_MeetingSDK_Meeting_TimeInformation? {
-            guard nil == _timeInformation else { return _timeInformation }
-            guard let weekday = LGV_MeetingSDK_Meeting_Data_Set.Weekdays(rawValue: weekdayIndex) else { return nil }
-
-            let startHour = min(24, max(0, meetingStartTime / 100))
-            let startMinute = min(59, max(0, meetingStartTime - (startHour * 100)))
+            get {
+                guard nil == _timeInformation else { return _timeInformation }
+                guard let weekday = LGV_MeetingSDK_Meeting_Data_Set.Weekdays(rawValue: weekdayIndex) else { return nil }
+                
+                let startHour = min(24, max(0, meetingStartTime / 100))
+                let startMinute = min(59, max(0, meetingStartTime - (startHour * 100)))
+                
+                _timeInformation = LGV_MeetingSDK_Meeting_TimeInformation(weekday: weekday, startHour: startHour, startMinute: startMinute, durationInSeconds: TimeInterval(durationInMinutes) * 60, timeZone: meetingLocalTimezone)
+                
+                return _timeInformation
+            }
             
-            _timeInformation = LGV_MeetingSDK_Meeting_TimeInformation(weekday: weekday, startHour: startHour, startMinute: startMinute, durationInSeconds: TimeInterval(durationInMinutes) * 60, timeZone: meetingLocalTimezone)
-            
-            return _timeInformation
+            set { _timeInformation = newValue }
         }
 
         /* ################################################################## */

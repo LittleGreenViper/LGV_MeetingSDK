@@ -217,14 +217,21 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
                 return lhs.distanceInMeters < rhs.distanceInMeters
             }
             
-            guard lhs.adjustedWeekdayIndex == rhs.adjustedWeekdayIndex else {
-                return lhs.adjustedWeekdayIndex < rhs.adjustedWeekdayIndex
+            guard let lhsWeekday = lhs.timeInformation?.getWeekdayIndexInMyLocalTime(),
+                  let rhsWeekday = rhs.timeInformation?.getWeekdayIndexInMyLocalTime(),
+                  lhsWeekday == rhsWeekday else {
+                return lhs.timeInformation?.getWeekdayIndexInMyLocalTime() ?? 0 < rhs.timeInformation?.getWeekdayIndexInMyLocalTime() ?? 0
             }
             
             guard lhs.meetingStartTime == rhs.meetingStartTime else {
                 return lhs.meetingStartTime < rhs.meetingStartTime
             }
-            
+            guard let lhsStart = lhs.timeInformation?.getNextStartDate(isAdjusted: true),
+                  let rhsStart = rhs.timeInformation?.getNextStartDate(isAdjusted: true),
+                  lhsStart == rhsStart else {
+                return lhs.timeInformation?.getNextStartDate(isAdjusted: true) ?? .now < rhs.timeInformation?.getNextStartDate(isAdjusted: true) ?? .now
+            }
+
             guard lhs.meetingType == rhs.meetingType else {
                 switch lhs.meetingType {
                 case .invalid, .virtualOnly:
