@@ -1389,10 +1389,8 @@ open class LGV_MeetingSDK {
             
             guard localizedLHS == localizedRHS else { return localizedLHS < localizedRHS }
             
-            if let lhsStart = lhs.startTimeInSeconds,
-               let rhsStart = rhs.startTimeInSeconds,
-               (0...86400).contains(lhsStart),
-               (0...86400).contains(rhsStart),
+            if let lhsStart = lhs.timeInformation?.getNextStartDate(isAdjusted: true),
+               let rhsStart = rhs.timeInformation?.getNextStartDate(isAdjusted: true),
                lhsStart != rhsStart {
                 return lhsStart < rhsStart
             }
@@ -1595,20 +1593,20 @@ extension LGV_MeetingSDK {
                         switch refinement.element {
                         // String searches look at a number of fields in each meeting.
                         case let .string(searchForThisString):
-                            guard Self._isStringInHere(meeting: meeting, string: searchForThisString) else { return nil }
-                          
-                            returned = meeting
+                            if Self._isStringInHere(meeting: meeting, string: searchForThisString) {
+                                returned = meeting
+                            }
                             
                         // If we specified weekdays, then we need to meet on one of the provided days.
                         case let .weekdays(weekdays):
-                            guard weekdays.map({ $0.rawValue }).contains(meeting.weekdayIndex) else { return nil }
-                           
-                            returned = meeting
+                            if weekdays.map({ $0.rawValue }).contains(meeting.weekdayIndex) {
+                                returned = meeting
+                            }
                             
                         // If we specified a start time range, then we need to start within that range.
                         case let .startTimeRange(startTimeRange):
-                            guard let startTimeInSeconds = meeting.startTimeInSeconds,
-                                  startTimeRange.contains(startTimeInSeconds)
+                            guard let timeInformation = meeting.timeInformation,
+                                  startTimeRange.contains(TimeInterval((timeInformation.startHour * 3600) + (timeInformation.startMinute * 60)))
                             else { return nil }
                             
                             returned = meeting

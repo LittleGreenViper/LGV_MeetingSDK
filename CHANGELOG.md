@@ -1,4 +1,6 @@
- **2.9.0** *TBD*
+ **2.9.0** *April 23, 2023*
+ 
+ - The time information has now been consolidated into a single struct (the `timeInformation` struct).
  
  **2.8.4** *April 13, 2023*
  
