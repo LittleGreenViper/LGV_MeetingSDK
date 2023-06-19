@@ -45,7 +45,7 @@ fileprivate extension Date {
 // MARK: - Enum for the Meeting Venue -
 /* ###################################################################################################################################### */
 /**
- Each meeting is either in-person (has a physical location), virtual-only (no physical location), or hybrid (both).
+ Each meeting is an in-person (has a physical location), virtual-only (no physical location), or hybrid (both), it can also specify the venue in an "or" fashion.
  */
 public enum LGV_MeetingSDK_VenueType_Enum: String {
     /* ################################################################## */
@@ -71,6 +71,18 @@ public enum LGV_MeetingSDK_VenueType_Enum: String {
      There are both a physical location, and a virtual venue, associated with this meeting.
      */
     case hybrid
+    
+    /* ################################################################## */
+    /**
+     There is a virtual location associated with this meeting.
+     */
+    case virtual
+    
+    /* ################################################################## */
+    /**
+     There is a physical location associated with this meeting.
+     */
+    case inPerson
 }
 
 /* ###################################################################################################################################### */

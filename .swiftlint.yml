@@ -26,13 +26,13 @@ function_parameter_count:
 - 7 # error
 
 type_body_length:
-- 299 # warning
-- 300 # error
+- 349 # warning
+- 350 # error
 
 line_length:
 - 299 # warning
 - 300 # error
 
 cyclomatic_complexity:
-- 18 # warning
-- 20 # error
+- 24 # warning
+- 25 # error

@@ -234,14 +234,14 @@ internal extension LGV_MeetingSDK_BMLT.Transport.Parser {
 
             guard lhs.meetingType == rhs.meetingType else {
                 switch lhs.meetingType {
-                case .invalid, .virtualOnly:
-                    return false
-                    
                 case .inPersonOnly:
                     return .hybrid == rhs.meetingType
                 
                 case .hybrid:
                     return true
+                    
+                default:
+                    return false
                 }
             }
             
