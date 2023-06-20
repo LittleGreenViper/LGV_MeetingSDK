@@ -35,26 +35,6 @@ import MapKit
  */
 class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harness_Base_ViewController {
     /* ################################################################################################################################## */
-    // MARK: Switch Index Enum
-    /* ################################################################################################################################## */
-    /**
-     These Represent our segmented switch values for the server connector.
-     */
-    enum ConnectorSwitchIndexes: Int {
-        /* ############################################################## */
-        /**
-         The BMLT Server Segment
-         */
-        case bmlt
-        
-        /* ############################################################## */
-        /**
-         The LGV_MeetingServer Segment
-         */
-        case lgv
-    }
-    
-    /* ################################################################################################################################## */
     // MARK: Radius Switch Index Enum
     /* ################################################################################################################################## */
     /**
@@ -133,12 +113,6 @@ class LGV_MeetingSDK_Test_Harness_Map_ViewController: LGV_MeetingSDK_Test_Harnes
      This displays the current Root Server name, and allows it to be changed, via a popover.
      */
     @IBOutlet weak var rootServerButton: UIButton?
-    
-    /* ################################################################## */
-    /**
-     The segmented switch that switches the server connector.
-     */
-    @IBOutlet weak var connectorSegmentedSwitch: UISegmentedControl?
     
     /* ################################################################## */
     /**
@@ -252,10 +226,6 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         
         for segmentIndex in (RadiusSwitchIndexes.fixedSearch.rawValue..<(modeSelectionSegmentedControl?.numberOfSegments ?? RadiusSwitchIndexes.fixedSearch.rawValue)) {
             modeSelectionSegmentedControl?.setTitle(modeSelectionSegmentedControl?.titleForSegment(at: segmentIndex)?.localizedVariant, forSegmentAt: segmentIndex)
-        }
-        
-        for segmentIndex in (0..<(connectorSegmentedSwitch?.numberOfSegments ?? 0)) {
-            connectorSegmentedSwitch?.setTitle(connectorSegmentedSwitch?.titleForSegment(at: segmentIndex)?.localizedVariant, forSegmentAt: segmentIndex)
         }
         
         setAccessibilityHints()
@@ -422,7 +392,6 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         maxRadiusSwitch?.accessibilityHint = "SLUG-MAX-RADIUS-BUTTON".accessibilityLocalizedVariant
         maxRadiusLabelButton?.accessibilityHint = "SLUG-MAX-RADIUS-BUTTON".accessibilityLocalizedVariant
         modeSelectionSegmentedControl?.accessibilityHint = "SLUG-SEGMENTED-RADIUS-SWITCH-HINT".accessibilityLocalizedVariant
-        connectorSegmentedSwitch?.accessibilityHint = "SLUG-SEGMENTED-SERVER-SWITCH-HINT".accessibilityLocalizedVariant
         rootServerButton?.titleLabel?.accessibilityHint = "SLUG-ROOT-SERVER-BUTTON-HINT".accessibilityLocalizedVariant
     }
     
@@ -470,9 +439,6 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
      This updates the screen to reflect the current state.
      */
     func updateScreen() {
-        let connector = LGV_MeetingSDK_Test_Harness_Prefs().selectedConnector
-        connectorSegmentedSwitch?.selectedSegmentIndex = connector
-        updateRootServerButtonTitle()
         if case let .autoRadius(_, numberOfResults, maximumRadiusInMeters) = searchData?.searchType {
             autoSearchStackView?.isHidden = false
             textInputField?.text = String(numberOfResults)
@@ -482,39 +448,12 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
         }
         updateTheCircleOverlay()
     }
-    
-    /* ################################################################## */
-    /**
-     This updates the title of the Root Server button, to match the current selection.
-     */
-    func updateRootServerButtonTitle() {
-        rootServerButton?.isHidden = ConnectorSwitchIndexes.bmlt.rawValue != (connectorSegmentedSwitch?.selectedSegmentIndex ?? ConnectorSwitchIndexes.bmlt.rawValue)
-        rootServerButton?.setTitle(Self.currentRootServer?.name ?? "", for: .normal)
-    }
 }
 
 /* ###################################################################################################################################### */
 // MARK: Callbacks
 /* ###################################################################################################################################### */
 extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
-    /* ################################################################## */
-    /**
-     The segmented switch that switches the server connector was changed.
-     
-     - parameter inSegmentedSwitch: The switch that was changed.
-     */
-    @IBAction func connectorSegmentedSwitchHit(_ inSegmentedSwitch: UISegmentedControl) {
-        LGV_MeetingSDK_Test_Harness_Prefs().selectedConnector = inSegmentedSwitch.selectedSegmentIndex
-        if ConnectorSwitchIndexes.bmlt.rawValue != inSegmentedSwitch.selectedSegmentIndex {
-            rootServerButton?.isHidden = true
-            tabController?.setSDKToThisServerURL("SLUG-GENERIC-SERVER-URL".localizedVariant)
-        } else {
-            rootServerButton?.isHidden = false
-            tabController?.setSDKToThisServerURL("SLUG-TOMATO-SERVER-URL".localizedVariant)
-        }
-        updateScreen()
-    }
-
     /* ################################################################## */
     /**
      Called when the main segmented switch changes value.
@@ -550,23 +489,5 @@ extension LGV_MeetingSDK_Test_Harness_Map_ViewController {
      */
     @IBAction func textChanged(_: UITextField) {
         recalculateSearchParameters()
-    }
-    
-    /* ################################################################## */
-    /**
-     Called when the root server display button has been hit.
-     
-     - parameter inView: The button, as a view.
-     */
-    @IBAction func rootServerButtonHitHit(_ inView: UIView) {
-        if let popoverController = storyboard?.instantiateViewController(identifier: "LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController") as? LGV_MeetingSDK_Test_Harness_Set_Server_Popover_ViewController {
-            popoverController.modalPresentationStyle = .popover
-            popoverController.tabController = tabController
-            popoverController.popoverPresentationController?.sourceView = inView
-            popoverController.popoverPresentationController?.delegate = self
-            popoverController.popoverPresentationController?.permittedArrowDirections = [.up]
-            
-            present(popoverController, animated: true)
-        }
     }
 }

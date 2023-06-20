@@ -23,9 +23,6 @@
 "SLUG-MAX-COUNT-LABEL"                                          =       "Required Found:";
 "SLUG-MAX-RADIUS-BUTTON"                                        =       "Max Radius";
 "SLUG-SEARCH-BUTTON"                                            =       "Search";
-"SLUG-TOMATO-SERVER-NAME"                                       =       "Worldwide TOMATO Server";
-"SLUG-TOMATO-SERVER-URL"                                        =       "https://tomato.bmltenabled.org/main_server";
-"SLUG-GENERIC-SERVER-NAME"                                      =       "LGV_MeetingServer Test Instance";
 "SLUG-GENERIC-SERVER-URL"                                       =       "https://recovrr.riftvalleysoftware.com/meetings/entrypoint.php";
 "SLUG-ANY-TIME"                                                 =       "Any Time";
 "SLUG-CONSTRAINED-TIME"                                         =       "Start Time Range";
@@ -43,5 +40,3 @@
 "SLUG-MEETINGS-FOUND-FORMAT"                                    =       "%d Meetings Found";
 "SLUG-EDIT-BUTTON-TEXT"                                         =       "Edit";
 "SLUG-CANCEL-BUTTON-TEXT"                                       =       "Cancel";
-"SLUG-BMLT-SEGMENT"                                             =       "BMLT";
-"SLUG-LGV-SEGMENT"                                              =       "LGV_MeetingServer";

@@ -21,7 +21,6 @@
 "SLUG-MAX-COUNT-HINT"                                           =       "Enter the number of meetings that you want to find.";
 "SLUG-SEGMENTED-RADIUS-SWITCH-HINT"                             =       "This will display controls for a fixed search radius or an auto-radius search (which is based on a number of meetings).";
 "SLUG-MAX-RADIUS-BUTTON"                                        =       "If this is on, then the auto-radius will not exceed the selected radius.";
-"SLUG-ROOT-SERVER-BUTTON-HINT"                                  =       "Th name of the currently selected BMLT Root Server. Select this button to be presented by a popover, to change the Root Server.";
 "SLUG-SEARCH-BUTTON-TITLE"                                      =       "If this is selected, the search will begin. Simply close the popover to cancel.";
 "SLUG-SEARCH-NEXT-BUTTON-TITLE"                                 =       "If this is selected, a search for the next few meetings will begin. Simply close the popover to cancel.";
 "SLUG-SEARCH-NEXT-BUTTON-NOLOC-TITLE"                           =       "If this is selected, all available meetin gs are considered. Simply close the popover to cancel.";

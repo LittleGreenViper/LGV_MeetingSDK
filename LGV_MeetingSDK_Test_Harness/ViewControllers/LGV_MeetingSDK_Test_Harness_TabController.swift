@@ -152,18 +152,14 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
 extension LGV_MeetingSDK_Test_Harness_TabController {
     /* ################################################################## */
     /**
-     Establishes a new instance of the BMLT SDK, at the given Root Server URI.
+     Establishes a new instance of the LGV_MeetingServer SDK, at the given Root Server URI.
      
      - parameter inRootServerURLString: The string representation of the root server to be used.
      */
     func setSDKToThisServerURL(_ inRootServerURLString: String) {
         if let rootServerURL = URL(string: inRootServerURLString) {
             searchData?.meetings = []
-            if LGV_MeetingSDK_Test_Harness_Prefs().selectedConnector == 0 {
-                sdk = LGV_MeetingSDK_BMLT(rootServerURL: rootServerURL)
-            } else {
-                sdk = LGV_MeetingSDK_LGV_MeetingServer(entrypointURL: rootServerURL)
-            }
+            sdk = LGV_MeetingSDK_LGV_MeetingServer(entrypointURL: rootServerURL)
             setTabBarEnablement()
             mapViewController?.updateScreen()
         }
@@ -192,9 +188,7 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
      Saves the current search state.
      */
     func saveState() {
-        if let sdk = sdk as? LGV_MeetingSDK_BMLT {
-            LGV_MeetingSDK_Test_Harness_Prefs().serverURLString = sdk.rootServerURLString
-        } else if let sdk = sdk as? LGV_MeetingSDK_LGV_MeetingServer {
+        if let sdk = sdk as? LGV_MeetingSDK_LGV_MeetingServer {
             LGV_MeetingSDK_Test_Harness_Prefs().serverURLString = sdk.entrypointURLString
         }
     }
@@ -204,17 +198,7 @@ extension LGV_MeetingSDK_Test_Harness_TabController {
      Loads the saved search state.
      */
     func loadState() {
-        var serverURLString: String
-        
-        if 0 == LGV_MeetingSDK_Test_Harness_Prefs().selectedConnector {
-            serverURLString = LGV_MeetingSDK_Test_Harness_Prefs().serverURLString
-            
-            if "SLUG-GENERIC-SERVER-URL".localizedVariant == serverURLString {
-                serverURLString = "SLUG-BMLT-SERVER-URL".localizedVariant
-            }
-        } else {
-            serverURLString = "SLUG-GENERIC-SERVER-URL".localizedVariant
-        }
+        let serverURLString = "SLUG-GENERIC-SERVER-URL".localizedVariant
         
         guard !serverURLString.isEmpty else { return }
         

@@ -21,17 +21,17 @@ import CoreLocation
 import Contacts
 
 /* ###################################################################################################################################### */
-// MARK: - BMLT-Specialized SDK struct -
+// MARK: - LGV_Meeting_Server-Specialized SDK struct -
 /* ###################################################################################################################################### */
 /**
- This is a subclass of the main SDK class, that is "tuned" for [the BMLT](https://bmlt.app)
+ This is a subclass of the main SDK class, that is "tuned" for the LGV_MeetingServer.
  */
 open class LGV_MeetingSDK_LGV_MeetingServer: LGV_MeetingSDK {
     /* ################################################################################################################################## */
     // MARK: Specific Transport Struct
     /* ################################################################################################################################## */
     /**
-     This transport is dedicated to the BMLT.
+     This transport is dedicated to the LGV_MeetingServer.
      We make this a class, so we can be weakly referenced.
      */
     public class Transport: LGV_MeetingSDK_Transport_Protocol {
@@ -63,7 +63,7 @@ open class LGV_MeetingSDK_LGV_MeetingServer: LGV_MeetingSDK {
         // MARK: Initiator
         /* ############################################################################################################################## */
         /**
-         This is an initiator. It forms queries to the BMLT Root Server. Most functionality will be in the extension.
+         This is an initiator. It forms queries to the LGV_MeetingServer Server entrypoint. Most functionality will be in the extension.
          We make it a class, so it will be referencable.
          */
         public class Initiator {
@@ -168,7 +168,7 @@ open class LGV_MeetingSDK_LGV_MeetingServer: LGV_MeetingSDK {
         /**
          Default initializer.
          
-         - parameter entrypointURL: The URL to the BMLT Root Server that will be accessed by this instance.
+         - parameter entrypointURL: The URL to the LGV_MeetingServer Server that will be accessed by this instance.
          */
         public init(entrypointURL inEntrypointURL: URL) {
             baseURL = inEntrypointURL

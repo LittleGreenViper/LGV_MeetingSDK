@@ -70,11 +70,9 @@ class LGV_MeetingSDK_Test_Harness_Prefs: RVS_PersistentPrefs {
     /* ################################################################## */
     /**
      This stores the Root Server, as an instance of String.
-     
-     Defaults to the global TOMATO server.
      */
     var serverURLString: String {
-        get { values[Keys.serverURLString.rawValue] as? String ?? "SLUG-TOMATO-SERVER-URL".localizedVariant }
+        get { values[Keys.serverURLString.rawValue] as? String ?? "SLUG-GENERIC-SERVER-URL".localizedVariant }
         set { values[Keys.serverURLString.rawValue] = newValue }
     }
     

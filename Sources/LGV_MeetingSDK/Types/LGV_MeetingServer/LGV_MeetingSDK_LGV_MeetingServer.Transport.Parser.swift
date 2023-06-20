@@ -21,7 +21,7 @@ import CoreLocation
 import Contacts
 
 /* ###################################################################################################################################### */
-// MARK: - BMLT Parser Extension (Static Utility Methods) -
+// MARK: - LGV_MeetingServer Parser Extension (Static Utility Methods) -
 /* ###################################################################################################################################### */
 internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
     /* ################################################################## */
