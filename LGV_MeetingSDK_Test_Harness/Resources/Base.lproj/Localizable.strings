@@ -28,11 +28,13 @@
 "SLUG-CONSTRAINED-TIME"                                         =       "Start Time Range";
 "SLUG-STRING-SEARCH-PLACEHOLDER"                                =       "Enter A Search String";
 "SLUG-RELATE-TO-ME-LABEL"                                       =       "Distance to My Location";
-"SLUG-VENUE-ANY"                                                =       "Any Type";
 "SLUG-VENUE-PICK"                                               =       "Selected Type";
-"SLUG-PHYSICAL-VENUE-TYPE"                                      =       "In-Person";
-"SLUG-VIRTUAL-VENUE-TYPE"                                       =       "Virtual";
-"SLUG-HYBRID-VENUE-TYPE"                                        =       "Hybrid";
+"SLUG-VENUE-TYPE-0"                                             =       "ANY";
+"SLUG-VENUE-TYPE-1"                                             =       "HY";
+"SLUG-VENUE-TYPE-2"                                             =       "P";
+"SLUG-VENUE-TYPE-3"                                             =       "V";
+"SLUG-VENUE-TYPE-4"                                             =       "P(O)";
+"SLUG-VENUE-TYPE-5"                                             =       "V(O)";
 "SLUG-SEARCH-BUTTON-TITLE"                                      =       "Search for Meetings";
 "SLUG-SEARCH-NEXT-BUTTON-TITLE"                                 =       "Search for Next Meetings";
 "SLUG-SEARCH-NEXT-BUTTON-NOLOC-TITLE"                           =       "Get All Meetings";

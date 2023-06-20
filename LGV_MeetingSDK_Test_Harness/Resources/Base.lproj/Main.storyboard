@@ -792,132 +792,16 @@
                                                 </constraints>
                                             </stackView>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="buu-HI-iyh">
-                                                <rect key="frame" x="39.666666666666657" y="208" width="279" height="32"/>
+                                                <rect key="frame" x="0.0" y="208" width="358" height="32"/>
                                                 <segments>
-                                                    <segment title="SLUG-VENUE-ANY"/>
-                                                    <segment title="SLUG-VENUE-PICK"/>
+                                                    <segment title="SLUG-VENUE-TYPE-0"/>
+                                                    <segment title="SLUG-VENUE-TYPE-1"/>
+                                                    <segment title="SLUG-VENUE-TYPE-2"/>
+                                                    <segment title="SLUG-VENUE-TYPE-3"/>
+                                                    <segment title="SLUG-VENUE-TYPE-4"/>
+                                                    <segment title="SLUG-VENUE-TYPE-5"/>
                                                 </segments>
-                                                <connections>
-                                                    <action selector="venueTypeSegmentedControlChanged:" destination="EU7-Xo-ygf" eventType="valueChanged" id="9m8-qG-YVw"/>
-                                                </connections>
                                             </segmentedControl>
-                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U4s-Fx-naA">
-                                                <rect key="frame" x="0.0" y="243" width="358" height="64"/>
-                                                <subviews>
-                                                    <view contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Tv0-uW-nYg" userLabel="Physical">
-                                                        <rect key="frame" x="0.0" y="0.0" width="116.66666666666667" height="64"/>
-                                                        <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jVz-cU-3nY" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
-                                                                <rect key="frame" x="38.333333333333336" y="0.0" width="40.000000000000007" height="40"/>
-                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="40" id="vDJ-fj-MK9"/>
-                                                                    <constraint firstAttribute="width" secondItem="jVz-cU-3nY" secondAttribute="height" multiplier="1:1" id="vua-aX-gcU"/>
-                                                                </constraints>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isUsingSFSymbols" value="YES"/>
-                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isOn" value="YES"/>
-                                                                </userDefinedRuntimeAttributes>
-                                                            </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-PHYSICAL-VENUE-TYPE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="y0J-Wc-a1r">
-                                                                <rect key="frame" x="0.0" y="44" width="116.66666666666667" height="20"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                        </subviews>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="y0J-Wc-a1r" secondAttribute="trailing" id="6Y9-ds-2Ao"/>
-                                                            <constraint firstItem="y0J-Wc-a1r" firstAttribute="leading" secondItem="Tv0-uW-nYg" secondAttribute="leading" id="GsO-4b-Vp8"/>
-                                                            <constraint firstAttribute="bottom" secondItem="y0J-Wc-a1r" secondAttribute="bottom" id="LAy-QV-uXD"/>
-                                                            <constraint firstItem="jVz-cU-3nY" firstAttribute="top" secondItem="Tv0-uW-nYg" secondAttribute="top" id="cgL-3v-Mwe"/>
-                                                            <constraint firstItem="y0J-Wc-a1r" firstAttribute="top" secondItem="jVz-cU-3nY" secondAttribute="bottom" constant="4" id="rbu-A6-6Fe"/>
-                                                            <constraint firstItem="jVz-cU-3nY" firstAttribute="centerX" secondItem="Tv0-uW-nYg" secondAttribute="centerX" id="wTg-PF-aPq"/>
-                                                        </constraints>
-                                                    </view>
-                                                    <view contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="7aj-kj-xmR" userLabel="Virtual">
-                                                        <rect key="frame" x="120.66666666666666" y="0.0" width="116.66666666666666" height="64"/>
-                                                        <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lbm-ZT-YC2" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
-                                                                <rect key="frame" x="38.333333333333343" y="0.0" width="40" height="40"/>
-                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="40" id="9iV-NQ-G0E"/>
-                                                                    <constraint firstAttribute="width" secondItem="lbm-ZT-YC2" secondAttribute="height" multiplier="1:1" id="iac-lg-gmM"/>
-                                                                </constraints>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isUsingSFSymbols" value="YES"/>
-                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isOn" value="YES"/>
-                                                                </userDefinedRuntimeAttributes>
-                                                            </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-VIRTUAL-VENUE-TYPE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="2Ge-hY-m7f">
-                                                                <rect key="frame" x="0.0" y="44" width="116.66666666666667" height="20"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                        </subviews>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="2Ge-hY-m7f" secondAttribute="trailing" id="7E6-2l-3na"/>
-                                                            <constraint firstAttribute="bottom" secondItem="2Ge-hY-m7f" secondAttribute="bottom" id="Okw-C5-uth"/>
-                                                            <constraint firstItem="lbm-ZT-YC2" firstAttribute="top" secondItem="7aj-kj-xmR" secondAttribute="top" id="T15-aP-hQm"/>
-                                                            <constraint firstItem="2Ge-hY-m7f" firstAttribute="top" secondItem="lbm-ZT-YC2" secondAttribute="bottom" constant="4" id="b2p-hS-fNs"/>
-                                                            <constraint firstItem="2Ge-hY-m7f" firstAttribute="leading" secondItem="7aj-kj-xmR" secondAttribute="leading" id="mKK-ez-AIa"/>
-                                                            <constraint firstItem="lbm-ZT-YC2" firstAttribute="centerX" secondItem="7aj-kj-xmR" secondAttribute="centerX" id="yC0-2p-rUQ"/>
-                                                        </constraints>
-                                                    </view>
-                                                    <view contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="QnG-PU-Ape" userLabel="Hybrid">
-                                                        <rect key="frame" x="241.33333333333329" y="0.0" width="116.66666666666666" height="64"/>
-                                                        <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PfO-mt-HeX" customClass="RVS_Checkbox" customModule="RVS_Checkbox">
-                                                                <rect key="frame" x="38.333333333333371" y="0.0" width="40" height="40"/>
-                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" secondItem="PfO-mt-HeX" secondAttribute="height" multiplier="1:1" id="50m-0Z-UOJ"/>
-                                                                    <constraint firstAttribute="width" constant="40" id="ip7-Yk-BDC"/>
-                                                                </constraints>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isUsingSFSymbols" value="YES"/>
-                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isOn" value="YES"/>
-                                                                </userDefinedRuntimeAttributes>
-                                                            </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLUG-HYBRID-VENUE-TYPE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="M1G-Ea-VBT">
-                                                                <rect key="frame" x="0.0" y="44" width="116.66666666666667" height="20"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                        </subviews>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="M1G-Ea-VBT" secondAttribute="trailing" id="Ep9-BF-bZD"/>
-                                                            <constraint firstItem="PfO-mt-HeX" firstAttribute="top" secondItem="QnG-PU-Ape" secondAttribute="top" id="ObS-a8-CpO"/>
-                                                            <constraint firstAttribute="bottom" secondItem="M1G-Ea-VBT" secondAttribute="bottom" id="QQJ-G1-Lif"/>
-                                                            <constraint firstItem="PfO-mt-HeX" firstAttribute="centerX" secondItem="QnG-PU-Ape" secondAttribute="centerX" id="iCf-2P-ddY"/>
-                                                            <constraint firstItem="M1G-Ea-VBT" firstAttribute="leading" secondItem="QnG-PU-Ape" secondAttribute="leading" id="uX9-me-E6j"/>
-                                                            <constraint firstItem="M1G-Ea-VBT" firstAttribute="top" secondItem="PfO-mt-HeX" secondAttribute="bottom" constant="4" id="uoO-39-f0o"/>
-                                                        </constraints>
-                                                    </view>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstItem="Tv0-uW-nYg" firstAttribute="top" secondItem="U4s-Fx-naA" secondAttribute="top" id="2vr-FM-h6Z"/>
-                                                    <constraint firstItem="7aj-kj-xmR" firstAttribute="leading" secondItem="Tv0-uW-nYg" secondAttribute="trailing" constant="4" id="77K-j4-pDV"/>
-                                                    <constraint firstAttribute="trailing" secondItem="QnG-PU-Ape" secondAttribute="trailing" id="Jrf-zq-wQw"/>
-                                                    <constraint firstAttribute="height" constant="64" id="Jxd-Rw-qQa"/>
-                                                    <constraint firstItem="QnG-PU-Ape" firstAttribute="top" secondItem="U4s-Fx-naA" secondAttribute="top" id="Mwn-Pi-M6v"/>
-                                                    <constraint firstItem="QnG-PU-Ape" firstAttribute="width" secondItem="Tv0-uW-nYg" secondAttribute="width" id="Oxs-XY-2L1"/>
-                                                    <constraint firstAttribute="bottom" secondItem="QnG-PU-Ape" secondAttribute="bottom" id="VUw-LU-NoO"/>
-                                                    <constraint firstAttribute="bottom" secondItem="Tv0-uW-nYg" secondAttribute="bottom" id="bcT-Xo-DUP"/>
-                                                    <constraint firstItem="7aj-kj-xmR" firstAttribute="top" secondItem="U4s-Fx-naA" secondAttribute="top" id="eLA-6K-pKV"/>
-                                                    <constraint firstAttribute="bottom" secondItem="7aj-kj-xmR" secondAttribute="bottom" id="hGI-hy-oxO"/>
-                                                    <constraint firstItem="QnG-PU-Ape" firstAttribute="leading" secondItem="7aj-kj-xmR" secondAttribute="trailing" constant="4" id="hV7-ug-Zce"/>
-                                                    <constraint firstItem="Tv0-uW-nYg" firstAttribute="leading" secondItem="U4s-Fx-naA" secondAttribute="leading" id="qLV-KV-RuE"/>
-                                                    <constraint firstItem="7aj-kj-xmR" firstAttribute="width" secondItem="Tv0-uW-nYg" secondAttribute="width" id="taM-Cz-2NE"/>
-                                                </constraints>
-                                            </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P00-iT-Qnf">
                                                 <rect key="frame" x="0.0" y="247" width="358" height="36"/>
                                                 <constraints>
@@ -957,8 +841,6 @@
                                             <constraint firstItem="P00-iT-Qnf" firstAttribute="leading" secondItem="8oC-0U-Usd" secondAttribute="leading" id="Qe0-ZU-3PP"/>
                                             <constraint firstItem="H5f-Pm-hYl" firstAttribute="leading" secondItem="8oC-0U-Usd" secondAttribute="leading" id="VHH-9m-zAz"/>
                                             <constraint firstItem="Uxc-JA-lFw" firstAttribute="height" secondItem="P00-iT-Qnf" secondAttribute="height" id="fF2-B3-wey"/>
-                                            <constraint firstItem="U4s-Fx-naA" firstAttribute="leading" secondItem="8oC-0U-Usd" secondAttribute="leading" id="jPP-hr-bvj"/>
-                                            <constraint firstAttribute="trailing" secondItem="U4s-Fx-naA" secondAttribute="trailing" id="jrY-Ce-ZSx"/>
                                             <constraint firstAttribute="trailing" secondItem="eeF-Vc-sUb" secondAttribute="trailing" id="lYh-pz-jDH"/>
                                             <constraint firstAttribute="trailing" secondItem="P00-iT-Qnf" secondAttribute="trailing" id="psw-Gt-88T"/>
                                         </constraints>
@@ -1008,10 +890,6 @@
                         <outlet property="day7Label" destination="4TG-t2-i1c" id="UHn-nB-ssf"/>
                         <outlet property="fromStepper" destination="glS-IX-3uf" id="Ngn-4H-9fV"/>
                         <outlet property="fromTimeLabel" destination="62I-OT-OzU" id="NuY-7I-MNt"/>
-                        <outlet property="hybridVenueTypeCheckbox" destination="PfO-mt-HeX" id="8Sa-sN-cUR"/>
-                        <outlet property="hybridVenueTypeLabel" destination="M1G-Ea-VBT" id="FmJ-YH-1Yy"/>
-                        <outlet property="physicalVenueTypeCheckbox" destination="jVz-cU-3nY" id="rVa-OP-UMC"/>
-                        <outlet property="physicalVenueTypeLabel" destination="y0J-Wc-a1r" id="sv6-Rr-gid"/>
                         <outlet property="relateToMeLabelButton" destination="c71-Sf-nKq" id="1ec-Pq-8fK"/>
                         <outlet property="relateToMeSwitch" destination="gMj-0B-qwm" id="UN5-nd-GIK"/>
                         <outlet property="searchButton" destination="P00-iT-Qnf" id="9ip-fd-EQR"/>
@@ -1023,9 +901,6 @@
                         <outlet property="toStepper" destination="gBG-Gs-P15" id="LmF-QF-u9k"/>
                         <outlet property="toTimeLabel" destination="XfR-Uc-ODy" id="72u-P4-4Y5"/>
                         <outlet property="venueTypeSegmentedControl" destination="buu-HI-iyh" id="vjg-cY-92b"/>
-                        <outlet property="venueTypeView" destination="U4s-Fx-naA" id="UE1-pp-Q5U"/>
-                        <outlet property="virtualVenueTypeCheckbox" destination="lbm-ZT-YC2" id="dHN-je-OyG"/>
-                        <outlet property="virtualVenueTypeLabel" destination="2Ge-hY-m7f" id="RIZ-8l-3nB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IaS-y6-Ulo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

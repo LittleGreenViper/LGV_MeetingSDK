@@ -267,48 +267,6 @@ class LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController: LGV_Meetin
     
     /* ################################################################## */
     /**
-     The view that holds the venue type checkboxes.
-     */
-    @IBOutlet weak var venueTypeView: UIView?
-    
-    /* ################################################################## */
-    /**
-     The checkbox for the phyiscal meeting location.
-     */
-    @IBOutlet weak var physicalVenueTypeCheckbox: RVS_Checkbox?
-    
-    /* ################################################################## */
-    /**
-     The label for the phyiscal meeting location.
-     */
-    @IBOutlet weak var physicalVenueTypeLabel: UILabel?
-    
-    /* ################################################################## */
-    /**
-     The checkbox for the virtual meeting location.
-     */
-    @IBOutlet weak var virtualVenueTypeCheckbox: RVS_Checkbox?
-    
-    /* ################################################################## */
-    /**
-     The label for the virtual meeting location.
-     */
-   @IBOutlet weak var virtualVenueTypeLabel: UILabel?
-    
-    /* ################################################################## */
-    /**
-     The checkbox for the hybrid meeting location.
-     */
-    @IBOutlet weak var hybridVenueTypeCheckbox: RVS_Checkbox?
-    
-    /* ################################################################## */
-    /**
-     The label for the hybrid meeting location.
-    */
-    @IBOutlet weak var hybridVenueTypeLabel: UILabel?
-    
-    /* ################################################################## */
-    /**
      The button for executing a search.
      */
     @IBOutlet weak var searchButton: UIButton?
@@ -380,10 +338,6 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
             venueTypeSegmentedControl?.setTitle(venueTypeSegmentedControl?.titleForSegment(at: segmentIndex)?.localizedVariant, forSegmentAt: segmentIndex)
         }
         
-        physicalVenueTypeLabel?.text = physicalVenueTypeLabel?.text?.localizedVariant
-        virtualVenueTypeLabel?.text = virtualVenueTypeLabel?.text?.localizedVariant
-        hybridVenueTypeLabel?.text = hybridVenueTypeLabel?.text?.localizedVariant
-        
         searchButton?.titleLabel?.adjustsFontSizeToFitWidth = true
         searchButton?.titleLabel?.minimumScaleFactor = 0.5
         searchButton?.accessibilityHint = searchButton?.title(for: .normal)?.accessibilityLocalizedVariant
@@ -434,7 +388,6 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
         searchTextTextField?.text = ""
         relateToMeSwitch?.isOn = false
         venueTypeSegmentedControl?.selectedSegmentIndex = VenueTypeSegmentIndexes.anyVenue.rawValue
-        venueTypeView?.isHidden = true
         
         guard let tabController = tabController,
               !(tabController.viewControllers?.isEmpty ?? true),
@@ -519,21 +472,21 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
             ret.insert(.distanceFrom(thisLocation: myLocation))
         }
         
-        if VenueTypeSegmentIndexes.anyVenue.rawValue != venueTypeSegmentedControl?.selectedSegmentIndex,
-           physicalVenueTypeCheckbox?.isOn ?? false || virtualVenueTypeCheckbox?.isOn ?? false || hybridVenueTypeCheckbox?.isOn ?? false,
-           !(physicalVenueTypeCheckbox?.isOn ?? false && virtualVenueTypeCheckbox?.isOn ?? false && hybridVenueTypeCheckbox?.isOn ?? false) {
-            var venueTypes = Set<LGV_MeetingSDK_VenueType_Enum>()
-            if physicalVenueTypeCheckbox?.isOn ?? false {
-                venueTypes.insert(.inPersonOnly)
-            }
-            if virtualVenueTypeCheckbox?.isOn ?? false {
-                venueTypes.insert(.virtualOnly)
-            }
-            if hybridVenueTypeCheckbox?.isOn ?? false {
-                venueTypes.insert(.hybrid)
-            }
-            
-            ret.insert(.venueTypes(venueTypes))
+        guard let selectedSegment = venueTypeSegmentedControl?.selectedSegmentIndex else { return ret }
+        
+        switch selectedSegment {
+        case 1:
+            ret.insert(.venueType(.hybrid))
+        case 2:
+            ret.insert(.venueType(.inPerson))
+        case 3:
+            ret.insert(.venueType(.virtual))
+        case 4:
+            ret.insert(.venueType(.inPersonOnly))
+        case 5:
+            ret.insert(.venueType(.virtualOnly))
+        default:
+            break
         }
         
         return ret
@@ -588,16 +541,6 @@ extension LGV_MeetingSDK_Test_Harness_Refinements_Popover_ViewController {
      */
     @IBAction func startTimeSegmentedControlChanged(_ inStartTimeSegmentedControl: UISegmentedControl) {
         timeConstraintsStackView?.isHidden = StartTimeSegmentIndexes.anyTime.rawValue == inStartTimeSegmentedControl.selectedSegmentIndex
-    }
-
-    /* ################################################################## */
-    /**
-     Called when the segmented control for the venue type is hit.
-     
-     - parameter inStartTimeSegmentedControl: The venue type segmented control.
-     */
-    @IBAction func venueTypeSegmentedControlChanged(_ inVenueTypeSegmentedControl: UISegmentedControl) {
-        venueTypeView?.isHidden = VenueTypeSegmentIndexes.anyVenue.rawValue == inVenueTypeSegmentedControl.selectedSegmentIndex
     }
 
     /* ################################################################## */

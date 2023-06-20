@@ -93,22 +93,10 @@ public extension LGV_MeetingSDK_LGV_MeetingServer.Transport {
         // These refinements can actually affect the query string.
         inSearchRefinements.forEach { refinement in
             switch refinement {
-            case .venueTypes(let venues):
-                var type = 0
+            case .venueType(let venue):
+                let type = venue.rawValue
                 
-                if venues.contains(.inPersonOnly) {
-                    type = 2
-                } else if venues.contains(.inPerson) {
-                    type = 1
-                } else if venues.contains(.virtual) {
-                    type = -1
-                } else if venues.contains(.virtualOnly) {
-                    type = -2
-                } else if venues.contains(.hybrid) {
-                    type = 3
-                }
-                
-                if 0 != type {
+                if 4 > abs(type) || 0 != type {
                     urlString += "&type=\(type)"
                 }
 

@@ -1,3 +1,8 @@
+ **2.10.0** *TBD*
+ 
+ - The SDK has been adjusted for the new venue type filter.
+ - Removed the BMLT direct type.
+ 
  **2.9.0** *April 23, 2023*
  
  - The time information has now been consolidated into a single struct (the `timeInformation` struct).

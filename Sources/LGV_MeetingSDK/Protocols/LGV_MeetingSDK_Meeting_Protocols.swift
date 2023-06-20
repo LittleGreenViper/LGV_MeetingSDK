@@ -47,42 +47,48 @@ fileprivate extension Date {
 /**
  Each meeting is an in-person (has a physical location), virtual-only (no physical location), or hybrid (both), it can also specify the venue in an "or" fashion.
  */
-public enum LGV_MeetingSDK_VenueType_Enum: String {
+public enum LGV_MeetingSDK_VenueType_Enum: Int {
     /* ################################################################## */
     /**
      There is no valid venue (the meeting is not valid).
      */
-    case invalid
+    case invalid = -4
+    
+    /* ################################################################## */
+    /**
+     Any venue
+     */
+    case any = 0
     
     /* ################################################################## */
     /**
      There is no physical location associated with this meeting.
      */
-    case virtualOnly
+    case virtualOnly = -2
     
     /* ################################################################## */
     /**
      There is only a physical location associated with this meeting.
      */
-    case inPersonOnly
+    case inPersonOnly = 2
     
     /* ################################################################## */
     /**
      There are both a physical location, and a virtual venue, associated with this meeting.
      */
-    case hybrid
+    case hybrid = 3
     
     /* ################################################################## */
     /**
      There is a virtual location associated with this meeting.
      */
-    case virtual
+    case virtual = -1
     
     /* ################################################################## */
     /**
      There is a physical location associated with this meeting.
      */
-    case inPerson
+    case inPerson = 1
 }
 
 /* ###################################################################################################################################### */

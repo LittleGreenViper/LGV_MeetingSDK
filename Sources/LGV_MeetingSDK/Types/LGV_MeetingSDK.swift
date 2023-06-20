@@ -638,7 +638,7 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
         /**
          This allows us to provide a filter for the venue type, in our search.
          */
-        case venueTypes(Set<LGV_MeetingSDK_VenueType_Enum>)
+        case venueType(LGV_MeetingSDK_VenueType_Enum)
         
         /* ############################################################## */
         /**
@@ -677,8 +677,8 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
             case .none:
                 return "none"
                 
-            case let .venueTypes(venueTypes):
-                return ".venueTypes(\(venueTypes.debugDescription))"
+            case let .venueType(venueType):
+                return ".venueType(\(venueType.rawValue))"
 
             case let .weekdays(weekdays):
                 return ".weekdays(\(weekdays.debugDescription))"
@@ -703,7 +703,7 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
             case .none:
                 return "none"
                 
-            case .venueTypes:
+            case .venueType:
                 return "venueTypes"
 
             case .weekdays:
@@ -750,7 +750,7 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
             case .none:
                 return 0
                 
-            case .venueTypes:
+            case .venueType:
                 return 1
                 
             case .weekdays:
@@ -784,7 +784,7 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
             /**
              A list of venue types.
              */
-            case venueTypes
+            case venueType
 
             /* ############################################################## */
             /**
@@ -839,8 +839,8 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
             case .none:
                 break
 
-            case let .venueTypes(venueTypes):
-                try container.encode(venueTypes.compactMap { $0.rawValue }, forKey: .venueTypes)
+            case let .venueType(venueType):
+                try container.encode(venueType.rawValue, forKey: .venueType)
 
             case let .weekdays(weekdays):
                 try container.encode(weekdays.compactMap { $0.rawValue }, forKey: .weekdays)
@@ -871,9 +871,13 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
             let values = try inDecoder.container(keyedBy: CodingKeys.self)
             let type = try values.decode(Int.self, forKey: .type)
             switch type {
-            case Self._typeIndex(for: .venueTypes([])):
-                let venues = try values.decode([String].self, forKey: .venueTypes)
-                self = .venueTypes(Set<LGV_MeetingSDK_VenueType_Enum>(venues.compactMap { LGV_MeetingSDK_VenueType_Enum(rawValue: $0) }))
+            case Self._typeIndex(for: .venueType(.invalid)):
+                let venue = try values.decode(Int.self, forKey: .venueType)
+                if let venueType = LGV_MeetingSDK_VenueType_Enum(rawValue: venue) {
+                    self = .venueType(venueType)
+                } else {
+                    self = .none
+                }
 
             case Self._typeIndex(for: .weekdays([])):
                 let weekdays = try values.decode([Int].self, forKey: .weekdays)
@@ -1604,18 +1608,36 @@ extension LGV_MeetingSDK {
                             }
                             
                         // If we specified a start time range, then we need to start within that range.
-                        case let .startTimeRange(startTimeRange):
-                            guard let timeInformation = meeting.timeInformation,
-                                  startTimeRange.contains(TimeInterval((timeInformation.startHour * 3600) + (timeInformation.startMinute * 60)))
-                            else { return nil }
-                            
-                            returned = meeting
+                        case .startTimeRange(let startTimeRange):
+                            if let timeInformation = meeting.timeInformation,
+                               startTimeRange.contains(TimeInterval((timeInformation.startHour * 3600) + (timeInformation.startMinute * 60))) {
+                                returned = meeting
+                            }
                             
                         // Are we looking for only virtual, in-person, or hybrid (or combinations, thereof)?
-                        case let .venueTypes(venues):
-                            guard venues.contains(meeting.meetingType) else { return nil }
-                     
-                            returned = meeting
+                        case .venueType(let venue):
+                            switch venue {
+                            case .invalid:
+                                returned = nil
+                                
+                            case .any:
+                                returned = meeting
+                                
+                            case .inPerson:
+                                returned = nil != meeting.physicalLocation ? meeting : nil
+                                
+                            case .inPersonOnly:
+                                returned = nil != meeting.physicalLocation && nil == meeting.virtualMeetingInfo ? meeting : nil
+                                
+                            case .virtual:
+                                returned = nil != meeting.virtualMeetingInfo ? meeting : nil
+                                
+                            case .virtualOnly:
+                                returned = nil == meeting.physicalLocation && nil != meeting.virtualMeetingInfo ? meeting : nil
+                                
+                            case .hybrid:
+                                returned = nil != meeting.physicalLocation && nil != meeting.virtualMeetingInfo ? meeting : nil
+                            }
                             
                         default:
                             returned = meeting
