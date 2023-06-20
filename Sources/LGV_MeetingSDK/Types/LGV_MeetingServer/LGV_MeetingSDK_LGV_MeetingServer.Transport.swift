@@ -32,6 +32,7 @@ public extension LGV_MeetingSDK_LGV_MeetingServer.Transport {
      */
     var preparedURLString: String {
         guard var urlString = baseURL?.absoluteString else { return "" }
+        
         urlString += "?query"
         
         return urlString

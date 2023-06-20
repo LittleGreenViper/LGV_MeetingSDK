@@ -183,11 +183,9 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
             let formats: [LGV_MeetingSDK_Format_Protocol] = Self._convert(theseFormats: rawMeetingObject["formats"] as? [[String: Any]] ?? [])
             var meetingLocalTimezone = TimeZone.autoupdatingCurrent
             
-            if let timeZoneIdentifier = (rawMeetingObject["virtual_information"] as? [String: String])?["time_zone"] as? String,
+            if let timeZoneIdentifier = rawMeetingObject["time_zone"] as? String,
                let timeZoneTemp = TimeZone(identifier: timeZoneIdentifier) {
                 meetingLocalTimezone = timeZoneTemp
-            } else {
-                meetingLocalTimezone = meetingLocalTimezone
             }
 
             var physicalLocation: LGV_MeetingSDK_LGV_MeetingServer.Meeting.PhysicalLocation?
