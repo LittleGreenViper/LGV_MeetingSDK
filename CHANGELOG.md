@@ -1,4 +1,4 @@
- **2.10.0** *TBD*
+ **2.10.0** *June 20, 2023*
  
  - The SDK has been adjusted for the new venue type filter.
  - Removed the BMLT direct type.
