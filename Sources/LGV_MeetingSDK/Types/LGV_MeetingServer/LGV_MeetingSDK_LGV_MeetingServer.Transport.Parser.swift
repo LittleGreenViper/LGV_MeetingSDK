@@ -42,7 +42,7 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
            let timeZoneTemp = TimeZone(identifier: timeZoneIdentifier) {
             timeZone = timeZoneTemp
         } else {
-            timeZone = TimeZone(secondsFromGMT: 0) ?? TimeZone.autoupdatingCurrent
+            timeZone = TimeZone(secondsFromGMT: 0) ?? TimeZone.current
         }
 
         var videoVenue: LGV_MeetingSDK_LGV_MeetingServer.Meeting.VirtualLocation.VirtualVenue?
@@ -79,7 +79,14 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
     private static func _convert(thisDataToAPhysicalLocation inMeetingData: [String: String], coords inCoords: CLLocationCoordinate2D) -> LGV_MeetingSDK_LGV_MeetingServer.Meeting.PhysicalLocation? {
         let name = inMeetingData["name"] ?? ""
         let extraInfo = inMeetingData["info"] ?? ""
-        let timeZone = TimeZone.autoupdatingCurrent
+        var meetingLocalTimezone: TimeZone
+        
+        if let timeZoneIdentifier = inMeetingData["time_zone"],
+           let timeZoneTemp = TimeZone(identifier: timeZoneIdentifier) {
+            meetingLocalTimezone = timeZoneTemp
+        } else {
+            meetingLocalTimezone = .current
+        }
 
         var postalAddress: CNMutablePostalAddress?
 
@@ -122,7 +129,7 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
             }
         }
         
-        return LGV_MeetingSDK.Meeting.PhysicalLocation(coords: inCoords, name: name, postalAddress: postalAddress, timeZone: timeZone, extraInfo: extraInfo)
+        return LGV_MeetingSDK.Meeting.PhysicalLocation(coords: inCoords, name: name, postalAddress: postalAddress, timeZone: meetingLocalTimezone, extraInfo: extraInfo)
     }
 
     /* ################################################################## */
@@ -178,15 +185,10 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
             let comments = rawMeetingObject["comments"] as? String ?? ""
             let duration = TimeInterval(rawMeetingObject["duration"] as? Int ?? 0)
             let weekday = rawMeetingObject["weekday"] as? Int ?? 0
+            let timeZoneID = rawMeetingObject["time_zone"] as? String
             let meetingStartTime = (Int(LGV_MeetingSDK.decimalOnly(rawMeetingObject["start_time"] as? String ?? "00:00:00")) ?? 0) / 100
             let distance: CLLocationDistance = CLLocationDistance(rawMeetingObject["distance"] as? Double ?? Double.greatestFiniteMagnitude)
             let formats: [LGV_MeetingSDK_Format_Protocol] = Self._convert(theseFormats: rawMeetingObject["formats"] as? [[String: Any]] ?? [])
-            var meetingLocalTimezone = TimeZone.autoupdatingCurrent
-            
-            if let timeZoneIdentifier = rawMeetingObject["time_zone"] as? String,
-               let timeZoneTemp = TimeZone(identifier: timeZoneIdentifier) {
-                meetingLocalTimezone = timeZoneTemp
-            }
 
             var physicalLocation: LGV_MeetingSDK_LGV_MeetingServer.Meeting.PhysicalLocation?
 
@@ -200,8 +202,18 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
                 virtualInformation = Self._convert(thisDataToAVirtualLocation: virtualStuff)
             }
             
+            var meetingLocalTimezone: TimeZone
+            
+            if let timeZoneIdentifier = timeZoneID,
+               let timeZoneTemp = TimeZone(identifier: timeZoneIdentifier) {
+                meetingLocalTimezone = timeZoneTemp
+            } else {
+                meetingLocalTimezone = .current
+            }
+
             #if DEBUG
                 print("Meeting:\n\tweekday: \(weekday)\n\tstart_time: \(meetingStartTime)\n\tcoords: \(coords)\n\tname: \(name)\n\tserver_id: \(serverID)\n\tmeeting_id: \(meetingID)\n\torganizationKey: \(organizationKey)\n\tduration: \(duration)\n\tdistance: \(String(describing: distance))")
+                print("\ttime zone: \(meetingLocalTimezone.debugDescription)")
                 print("\tformats: \(formats.debugDescription)")
                 print("\tphysicalLocation: \(physicalLocation.debugDescription)")
                 print("\tvirtualInformation: \(virtualInformation.debugDescription)")

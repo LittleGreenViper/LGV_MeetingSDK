@@ -172,14 +172,6 @@ public protocol LGV_MeetingSDK_Meeting_Virtual_Venue_Protocol: LGV_MeetingSDK_Ad
 
     /* ################################################################## */
     /**
-     REQUIRED - The local timezone for the meeting.
-     
-     > Note: It is important to implement this, if the meeting is held in a particular timezone, and does not have a physical placemark!
-     */
-    var timeZone: TimeZone? { get }
-
-    /* ################################################################## */
-    /**
      OPTIONAL - If the meeting has a URI, that is available here.
      */
     var url: URL? { get }
@@ -366,7 +358,7 @@ public struct LGV_MeetingSDK_Meeting_TimeInformation: Comparable, CustomDebugStr
      - durationInSeconds: This is the duration of the meeting, in seconds.
      - timeZone: This is the timezone of the meeting. Default, is the user's current timezone.
      */
-    public init(weekday inWeekday: LGV_MeetingSDK_Meeting_Data_Set.Weekdays, startHour inStartHour: Int, startMinute inStartMinute: Int, durationInSeconds inDurationInSeconds: TimeInterval, timeZone inTimeZone: TimeZone = TimeZone.autoupdatingCurrent) {
+    public init(weekday inWeekday: LGV_MeetingSDK_Meeting_Data_Set.Weekdays, startHour inStartHour: Int, startMinute inStartMinute: Int, durationInSeconds inDurationInSeconds: TimeInterval, timeZone inTimeZone: TimeZone = .current) {
         weekday = inWeekday
         startHour = inStartHour
         startMinute = inStartMinute
@@ -403,7 +395,7 @@ extension LGV_MeetingSDK_Meeting_TimeInformation {
         guard nil == _cachedNextStartDate || _cachedNextStartDate! <= .now else {
             if let cachedNextStartDate = _cachedNextStartDate {
                 if inAdjust {
-                    return cachedNextStartDate.convert(from: timeZone, to: TimeZone.autoupdatingCurrent)
+                    return cachedNextStartDate.convert(from: timeZone, to: .current)
                 } else {
                     return cachedNextStartDate
                 }
@@ -414,7 +406,7 @@ extension LGV_MeetingSDK_Meeting_TimeInformation {
         _cachedNextStartDate = Calendar.autoupdatingCurrent.nextDate(after: .now, matching: dateComponents, matchingPolicy: .nextTimePreservingSmallerComponents)
         
         if inAdjust {
-            return _cachedNextStartDate?.convert(from: timeZone, to: TimeZone.autoupdatingCurrent) ?? Date.distantFuture
+            return _cachedNextStartDate?.convert(from: timeZone, to: .current) ?? Date.distantFuture
         } else {
             return _cachedNextStartDate ?? Date.distantFuture
         }
@@ -439,7 +431,7 @@ extension LGV_MeetingSDK_Meeting_TimeInformation {
      This is the weekday index (as an Int), of the meeting's start time, in our local time.
      */
     public mutating func getWeekdayIndexInMyLocalTime() -> Int {
-        let adjustedDate = getNextStartDate().convert(from: timeZone, to: TimeZone.autoupdatingCurrent)
+        let adjustedDate = getNextStartDate().convert(from: timeZone, to: .current)
         
         return Calendar.autoupdatingCurrent.component(.weekday, from: adjustedDate)
     }
@@ -449,7 +441,7 @@ extension LGV_MeetingSDK_Meeting_TimeInformation {
      This is the start hour of the meeting's start time, in our local time.
      */
     public mutating func getStartHourInMyLocalTime() -> Int {
-        let adjustedDate = getNextStartDate().convert(from: timeZone, to: TimeZone.autoupdatingCurrent)
+        let adjustedDate = getNextStartDate().convert(from: timeZone, to: .current)
         
         return Calendar.autoupdatingCurrent.component(.hour, from: adjustedDate)
     }
@@ -459,7 +451,7 @@ extension LGV_MeetingSDK_Meeting_TimeInformation {
      This is the start hour of the meeting's start time, in our local time.
      */
     public mutating func getStartMinuteInMyLocalTime() -> Int {
-        let adjustedDate = getNextStartDate().convert(from: timeZone, to: TimeZone.autoupdatingCurrent)
+        let adjustedDate = getNextStartDate().convert(from: timeZone, to: .current)
         
         return Calendar.autoupdatingCurrent.component(.minute, from: adjustedDate)
     }
@@ -621,8 +613,13 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
     /**
      CustomDebugStringConvertible Conformance
      */
-    var debugDescription: String { "Meeting Type: \(meetingType.rawValue), timeInformation: \(timeInformation.debugDescription),"
-                                    + " location: \(locationCoords.debugDescription), location text: \(simpleLocationText ?? "No Location Text"), duration in minutes: \(durationInMinutes)" }
+    var debugDescription: String {
+        "Meeting Type: \(0 == meetingType.rawValue ? "any" : 1 == meetingType.rawValue ? "in-person" : 2 == meetingType.rawValue ? "only in-person" : -1 == meetingType.rawValue ? "virtual" : -2 == meetingType.rawValue ? "only virtual" : 3 == abs(meetingType.rawValue) ? "hybrid" : "invalid"), "
+        + "timeInformation: \(timeInformation.debugDescription), "
+        + "location: \(locationCoords.debugDescription), location text: \(simpleLocationText ?? "No Location Text"), "
+        + "duration in minutes: \(durationInMinutes), "
+        + "time zone: \(meetingLocalTimezone.debugDescription)"
+    }
 
     /* ################################################################## */
     /**

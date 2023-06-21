@@ -1074,12 +1074,6 @@ open class LGV_MeetingSDK {
                 
                 /* ################################################################## */
                 /**
-                 The local timezone for the meeting.
-                 */
-                public let timeZone: TimeZone?
-                
-                /* ################################################################## */
-                /**
                  If the meeting has a URI, that is available here.
                  */
                 public let url: URL?
@@ -1121,7 +1115,6 @@ open class LGV_MeetingSDK {
                      password inPassword: String? = nil,
                      extraInfo inExtraInfo: String = "") {
                     description = inDescription
-                    timeZone = inTimeZone
                     url = inURL
                     meetingID = inMeetingID
                     password = inPassword
@@ -1314,7 +1307,7 @@ open class LGV_MeetingSDK {
          - meetingDuration (OPTIONAL): The duration of the meeting, in seconds.
          - distanceInMeters (OPTIONAL): The distance of this meeting, from the search center, or a specified "distance from" refinement. This is in meters.
          - formats (OPTIONAL): Any formats that apply to this meeting.
-         - meetingLocalTimezone (OPTIONAL): The local timezone for this meeting. Defaults to our own..
+         - meetingLocalTimezone (OPTIONAL): The local timezone for this meeting. Defaults to our own.
          - physicalLocation (OPTIONAL): The meeting's physical location (if any).
          - virtualMeetingInfo (OPTIONAL): The meeting's virtual information (if any).
          */
@@ -1327,7 +1320,7 @@ open class LGV_MeetingSDK {
                     meetingDuration inMeetingDuration: TimeInterval = 0,
                     distanceInMeters inDistance: CLLocationDistance = 0,
                     formats inFormats: [LGV_MeetingSDK_Format_Protocol] = [],
-                    meetingLocalTimezone inTimeZone: TimeZone = TimeZone.autoupdatingCurrent,
+                    meetingLocalTimezone inTimeZone: TimeZone = .current,
                     physicalLocation inPhysicalLocation: LGV_MeetingSDK_Meeting_Physical_Protocol? = nil,
                     virtualMeetingInfo inVirtualMeetingInfo: LGV_MeetingSDK_Meeting_Virtual_Protocol? = nil) {
             organization = inOrganization

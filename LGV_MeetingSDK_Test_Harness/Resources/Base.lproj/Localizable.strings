@@ -24,6 +24,7 @@
 "SLUG-MAX-RADIUS-BUTTON"                                        =       "Max Radius";
 "SLUG-SEARCH-BUTTON"                                            =       "Search";
 "SLUG-GENERIC-SERVER-URL"                                       =       "https://recovrr.riftvalleysoftware.com/meetings/entrypoint.php";
+//"SLUG-GENERIC-SERVER-URL"                                       =       "https://littlegreenviper.com/LGV_MeetingServer/entrypoint.php";
 "SLUG-ANY-TIME"                                                 =       "Any Time";
 "SLUG-CONSTRAINED-TIME"                                         =       "Start Time Range";
 "SLUG-STRING-SEARCH-PLACEHOLDER"                                =       "Enter A Search String";
