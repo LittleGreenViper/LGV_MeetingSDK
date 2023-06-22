@@ -1,3 +1,7 @@
+ **2.10.1** *June 20, 2023*
+ 
+ - Some work on the time zones. The new server now adds timezones to every meeting, so we need to use that.
+ 
  **2.10.0** *June 20, 2023*
  
  - The SDK has been adjusted for the new venue type filter.
