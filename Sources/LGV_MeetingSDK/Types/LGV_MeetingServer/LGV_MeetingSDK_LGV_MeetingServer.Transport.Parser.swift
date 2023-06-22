@@ -202,25 +202,29 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
                 virtualInformation = Self._convert(thisDataToAVirtualLocation: virtualStuff)
             }
             
-            var meetingLocalTimezone: TimeZone
+            var localTimeZone = physicalLocation?.timeZone
             
-            if let timeZoneIdentifier = timeZoneID,
-               let timeZoneTemp = TimeZone(identifier: timeZoneIdentifier) {
-                meetingLocalTimezone = timeZoneTemp
-            } else {
-                meetingLocalTimezone = .current
+            if nil == localTimeZone {
+                if let timeZoneIdentifier = timeZoneID,
+                   let timeZoneTemp = TimeZone(identifier: timeZoneIdentifier) {
+                    localTimeZone = timeZoneTemp
+                } else {
+                    localTimeZone = .current
+                }
             }
 
             #if DEBUG
                 print("Meeting:\n\tweekday: \(weekday)\n\tstart_time: \(meetingStartTime)\n\tcoords: \(coords)\n\tname: \(name)\n\tserver_id: \(serverID)\n\tmeeting_id: \(meetingID)\n\torganizationKey: \(organizationKey)\n\tduration: \(duration)\n\tdistance: \(String(describing: distance))")
-                print("\ttime zone: \(meetingLocalTimezone.debugDescription)")
+                print("\ttime zone: \(localTimeZone.debugDescription)")
                 print("\tformats: \(formats.debugDescription)")
                 print("\tphysicalLocation: \(physicalLocation.debugDescription)")
                 print("\tvirtualInformation: \(virtualInformation.debugDescription)")
             #endif
             
             let id = (serverID << 44) + meetingID
+            guard let localTimeZone = localTimeZone else { return }
             
+
             ret.append(LGV_MeetingSDK.Meeting(organization: organization,
                                               id: id,
                                               weekdayIndex: weekday,
@@ -230,12 +234,16 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
                                               meetingDuration: duration,
                                               distanceInMeters: distance,
                                               formats: formats,
-                                              meetingLocalTimezone: meetingLocalTimezone,
+                                              meetingLocalTimezone: localTimeZone,
                                               physicalLocation: physicalLocation,
                                               virtualMeetingInfo: virtualInformation
                                              )
                        )
         }
+        
+        #if DEBUG
+            print("Meeting List: \(ret.debugDescription)")
+        #endif
         return ret
     }
 }
