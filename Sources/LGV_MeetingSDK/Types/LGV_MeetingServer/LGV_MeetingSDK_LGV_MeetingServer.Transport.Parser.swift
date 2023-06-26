@@ -224,7 +224,6 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
             let id = (serverID << 44) + meetingID
             guard let localTimeZone = localTimeZone else { return }
             
-
             ret.append(LGV_MeetingSDK.Meeting(organization: organization,
                                               id: id,
                                               weekdayIndex: weekday,

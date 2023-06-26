@@ -403,7 +403,23 @@ extension LGV_MeetingSDK_Meeting_TimeInformation {
             
             return .distantFuture
         }
-        _cachedNextStartDate = Calendar.autoupdatingCurrent.nextDate(after: .now, matching: dateComponents, matchingPolicy: .nextTimePreservingSmallerComponents)
+        
+        let currentComponents = Calendar.current.dateComponents([.hour, .minute, .weekday], from: .now)
+        
+        guard let currentHour = currentComponents.hour,
+              let currentMinute = currentComponents.minute,
+              let currentWeekday = currentComponents.weekday
+        else { return .now }
+
+        let weekdayIndex = weekday.rawValue
+        var nextWeekday = weekdayIndex - currentWeekday
+        if 0 > nextWeekday || ((0 == nextWeekday) && (currentHour > startHour || (currentHour == startHour && currentMinute > startMinute))) {
+            nextWeekday += 7
+        }
+        
+        let nextDate = Calendar.current.startOfDay(for: .now).addingTimeInterval(TimeInterval(3600 * ((nextWeekday * 24) + startHour) + (60 * startMinute)))
+        
+        _cachedNextStartDate = nextDate
         
         if inAdjust {
             return _cachedNextStartDate?.convert(from: timeZone, to: .current) ?? Date.distantFuture
