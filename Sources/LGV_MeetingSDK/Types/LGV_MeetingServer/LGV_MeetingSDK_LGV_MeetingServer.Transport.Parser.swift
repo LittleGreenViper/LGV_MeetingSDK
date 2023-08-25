@@ -76,12 +76,12 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
      
      - returns: A new physical location instance.
      */
-    private static func _convert(thisDataToAPhysicalLocation inMeetingData: [String: String], coords inCoords: CLLocationCoordinate2D) -> LGV_MeetingSDK_LGV_MeetingServer.Meeting.PhysicalLocation? {
+    private static func _convert(thisDataToAPhysicalLocation inMeetingData: [String: String], timeZoneID inTimeZoneID: String?, coords inCoords: CLLocationCoordinate2D) -> LGV_MeetingSDK_LGV_MeetingServer.Meeting.PhysicalLocation? {
         let name = inMeetingData["name"] ?? ""
         let extraInfo = inMeetingData["info"] ?? ""
         var meetingLocalTimezone: TimeZone
         
-        if let timeZoneIdentifier = inMeetingData["time_zone"],
+        if let timeZoneIdentifier = !(inTimeZoneID ?? "").isEmpty ? inTimeZoneID ?? "" : inMeetingData["time_zone"],
            let timeZoneTemp = TimeZone(identifier: timeZoneIdentifier) {
             meetingLocalTimezone = timeZoneTemp
         } else {
@@ -193,7 +193,7 @@ internal extension LGV_MeetingSDK_LGV_MeetingServer.Transport.Parser {
             var physicalLocation: LGV_MeetingSDK_LGV_MeetingServer.Meeting.PhysicalLocation?
 
             if let physicalAddress = rawMeetingObject["physical_address"] as? [String: String] {
-                physicalLocation = Self._convert(thisDataToAPhysicalLocation: physicalAddress, coords: coords)
+                physicalLocation = Self._convert(thisDataToAPhysicalLocation: physicalAddress, timeZoneID: timeZoneID, coords: coords)
             }
             
             var virtualInformation: LGV_MeetingSDK_LGV_MeetingServer.Meeting.VirtualLocation?

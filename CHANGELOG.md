@@ -1,3 +1,7 @@
+ **2.10.3** *August 25, 2023*
+ 
+ - Fixed an issue with attaching the time zone identifier.
+ 
  **2.10.2** *June 26, 2023*
  
  - This optimizes the next start date calculation.
