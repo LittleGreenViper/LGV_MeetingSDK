@@ -348,7 +348,7 @@ open class LGV_MeetingSDK_Meeting_Data_Set: LGV_MeetingSDK_Meeting_Data_Set_Prot
         var adjustedWeekdayIndex: Int {
             guard .none != self else { return 0 }
             
-            let weekdayIndex = rawValue - Calendar.autoupdatingCurrent.firstWeekday
+            let weekdayIndex = rawValue - Calendar.current.firstWeekday
             
             return weekdayIndex + (0 > weekdayIndex ? 7 : 0)
         }

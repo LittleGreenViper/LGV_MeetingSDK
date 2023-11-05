@@ -1,3 +1,7 @@
+ **2.10.4** *November 5, 2023*
+ 
+ - Replaced all `.autoupdatingCurrent` with `.current`.
+ 
  **2.10.3** *August 25, 2023*
  
  - Fixed an issue with attaching the time zone identifier.

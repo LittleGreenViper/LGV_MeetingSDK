@@ -375,7 +375,7 @@ extension LGV_MeetingSDK_Meeting_TimeInformation {
     /**
      The date components (weekday, hour, minute), from the meeting's native time zone.
      */
-    public var dateComponents: DateComponents { DateComponents(calendar: .autoupdatingCurrent, hour: startHour, minute: startMinute, weekday: weekday.rawValue) }
+    public var dateComponents: DateComponents { DateComponents(calendar: .current, hour: startHour, minute: startMinute, weekday: weekday.rawValue) }
 }
 
 /* ###################################################################################################################################### */
@@ -449,7 +449,7 @@ extension LGV_MeetingSDK_Meeting_TimeInformation {
     public mutating func getWeekdayIndexInMyLocalTime() -> Int {
         let adjustedDate = getNextStartDate().convert(from: timeZone, to: .current)
         
-        return Calendar.autoupdatingCurrent.component(.weekday, from: adjustedDate)
+        return Calendar.current.component(.weekday, from: adjustedDate)
     }
 
     /* ################################################################## */
@@ -459,7 +459,7 @@ extension LGV_MeetingSDK_Meeting_TimeInformation {
     public mutating func getStartHourInMyLocalTime() -> Int {
         let adjustedDate = getNextStartDate().convert(from: timeZone, to: .current)
         
-        return Calendar.autoupdatingCurrent.component(.hour, from: adjustedDate)
+        return Calendar.current.component(.hour, from: adjustedDate)
     }
 
     /* ################################################################## */
@@ -469,7 +469,7 @@ extension LGV_MeetingSDK_Meeting_TimeInformation {
     public mutating func getStartMinuteInMyLocalTime() -> Int {
         let adjustedDate = getNextStartDate().convert(from: timeZone, to: .current)
         
-        return Calendar.autoupdatingCurrent.component(.minute, from: adjustedDate)
+        return Calendar.current.component(.minute, from: adjustedDate)
     }
 }
 
@@ -697,7 +697,7 @@ public extension LGV_MeetingSDK_Meeting_Protocol {
      
      > Note: This may not be useful, if the meeting does not have a timezone.
      */
-    var meetingLocalTimezone: TimeZone { .autoupdatingCurrent }
+    var meetingLocalTimezone: TimeZone { .current }
 
     /* ################################################################## */
     /**
