@@ -329,7 +329,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D44AA18428E23C5200AB0D85 /* Build configuration list for PBXNativeTarget "LGV_MeetingSDK_Test_Harness" */;
 			buildPhases = (
-				D4B46A5928E24696004A203E /* SwiftLint */,
 				D44AA16D28E23C5100AB0D85 /* Sources */,
 				D44AA16E28E23C5100AB0D85 /* Frameworks */,
 				D44AA16F28E23C5100AB0D85 /* Resources */,
@@ -372,7 +371,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4A985AE28D3C0A7007D75E4 /* Build configuration list for PBXNativeTarget "LGV_MeetingSDK" */;
 			buildPhases = (
-				D4A6EC8328DB4CBC00B3E660 /* SwiftLint */,
 				D4A985A528D3C0A7007D75E4 /* Sources */,
 			);
 			buildRules = (
@@ -466,47 +464,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		D4A6EC8328DB4CBC00B3E660 /* SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = SwiftLint;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if command -v swiftlint\nthen\n    swiftlint\nfi\n";
-		};
-		D4B46A5928E24696004A203E /* SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = SwiftLint;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if command -v swiftlint\nthen\n    swiftlint\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D44AA16D28E23C5100AB0D85 /* Sources */ = {
@@ -940,7 +897,7 @@
 			repositoryURL = "git@github.com:RiftValleySoftware/RVS_UIKit_Toolbox.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.4;
+				minimumVersion = 1.5.3;
 			};
 		};
 		D463D67B28E31C030001D78C /* XCRemoteSwiftPackageReference "RVS_Generic_Swift_Toolbox" */ = {
@@ -948,7 +905,7 @@
 			repositoryURL = "https://github.com/RiftValleySoftware/RVS_Generic_Swift_Toolbox";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.11.0;
+				minimumVersion = 1.13.1;
 			};
 		};
 		D467FCFF28E7272A007BA459 /* XCRemoteSwiftPackageReference "RVS_PersistentPrefs" */ = {
@@ -956,7 +913,7 @@
 			repositoryURL = "https://github.com/RiftValleySoftware/RVS_PersistentPrefs";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.4;
+				minimumVersion = 1.3.7;
 			};
 		};
 		D4A1065D28E9141400588D94 /* XCRemoteSwiftPackageReference "RVS_Checkbox" */ = {

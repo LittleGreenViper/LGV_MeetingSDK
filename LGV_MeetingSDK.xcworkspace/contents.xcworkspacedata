@@ -14,13 +14,16 @@
          location = "group:jazzy.command">
       </FileRef>
       <FileRef
-         location = "group:.swiftlint.yml">
-      </FileRef>
-      <FileRef
          location = "group:Package.swift">
       </FileRef>
       <FileRef
          location = "group:LICENSE">
+      </FileRef>
+      <FileRef
+         location = "group:PRIVACY.md">
+      </FileRef>
+      <FileRef
+         location = "group:PrivacyInfo.xcprivacy">
       </FileRef>
       <FileRef
          location = "group:CODEOWNERS">

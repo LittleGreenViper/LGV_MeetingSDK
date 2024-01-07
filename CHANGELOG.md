@@ -1,3 +1,8 @@
+ **2.10.5** *January 6, 2024*
+ 
+ - Added privacy declarations
+ - Updated the dependencies.
+ 
  **2.10.4** *November 5, 2023*
  
  - Replaced all `.autoupdatingCurrent` with `.current`.
