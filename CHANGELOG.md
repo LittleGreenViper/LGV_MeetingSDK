@@ -1,4 +1,4 @@
- **2.10.5** *January 6, 2024*
+ **2.10.6** *January 6, 2024*
  
  - Added privacy declarations
  - Updated the dependencies.
