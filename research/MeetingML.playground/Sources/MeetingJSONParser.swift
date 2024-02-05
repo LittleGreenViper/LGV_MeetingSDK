@@ -450,6 +450,30 @@ public struct MeetingJSONParser: Codable {
          */
         public let virtualInfo: String?
         
+        // MARK: Public Computed Properties
+                
+        public var taggedData: [String: Any] {
+            [
+                "id": id,
+                "serverID": serverID,
+                "localMeetingID": localMeetingID,
+                "weekday": weekday,
+                "startTime": startTime,
+                "duration": duration,
+                "timezone": timezone,
+                "organization": organization,
+                "name": name,
+                "formats": formats,
+                "comments": comments ?? "",
+                "locationInfo": locationInfo ?? "",
+                "virtualURL": virtualURL?.absoluteString ?? "",
+                "virtualPhoneNumber": virtualPhoneNumber ?? "",
+                "virtualInfo": virtualInfo ?? "",
+                "coords": nil != coords ? "(\(coords!.latitude),\(coords!.longitude))" : "",
+                "inPersonAddress": inPersonAddress?.description ?? ""
+            ]
+        }
+        
         // MARK: Initializer
                 
         /* ################################################# */
