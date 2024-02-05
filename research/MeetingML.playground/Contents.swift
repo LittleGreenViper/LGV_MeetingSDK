@@ -1,7 +1,6 @@
-import Cocoa
+import Foundation
 import CreateML
-import TabularData
-@available(macOS 11.0, *)
+@available(macOS 13.0, *)
 
 func loadJSON() -> (meta: MeetingJSONParser.PageMeta, meetings: [MeetingJSONParser.Meeting])? {
     guard let jsonFileURL = Bundle.main.url(forResource: "all-meetings", withExtension: "json"),
@@ -12,13 +11,9 @@ func loadJSON() -> (meta: MeetingJSONParser.PageMeta, meetings: [MeetingJSONPars
     return (meta: parser.meta, meetings: parser.meetings)
 }
 
-if let results = loadJSON() {
-    print(results.meta)
-    print("\n\(results.meetings.count) Meetings:\n")
-    results.meetings.forEach {
-        print($0.taggedData)
-        print("\n")
-    }
+if let results = loadJSON(),
+    let mlDataTable = try? MLDataTable(dictionary: results.meetings.taggedData) {
+    print(mlDataTable)
 }
 //
 //let classifier = try MLTextClassifier(trainingData: dataFrame, textColumn: "text", labelColumn: "sentiment")

@@ -1,5 +1,26 @@
 import CoreLocation // For physical venues.
 import Contacts     // For the postal address
+import CreateML     // For taggedData
+
+/* ###################################################################################################################################### */
+// MARK: - Special Array Extension for Creating Tagged Data -
+/* ###################################################################################################################################### */
+public extension Array where Element == MeetingJSONParser.Meeting {
+    /* ################################################# */
+    /**
+     This reduces the entire array into a tagged value array.
+     */
+    var taggedData: [String: any MLDataValueConvertible] {
+        reduce([:]) { current, next in
+            var interimData = current
+            
+            next.taggedData.forEach { key, value in
+                interimData[key] = (interimData[key] ?? []) + [value]
+            }
+            return interimData
+        }
+    }
+}
 
 /* ###################################################################################################################################### */
 // MARK: - Meeting JSON Page Parser -
@@ -452,25 +473,32 @@ public struct MeetingJSONParser: Codable {
         
         // MARK: Public Computed Properties
                 
-        public var taggedData: [String: Any] {
-            [
-                "id": id,
-                "serverID": serverID,
-                "localMeetingID": localMeetingID,
-                "weekday": weekday,
-                "startTime": startTime,
-                "duration": duration,
-                "timezone": timezone,
-                "organization": organization,
-                "name": name,
-                "formats": formats,
-                "comments": comments ?? "",
-                "locationInfo": locationInfo ?? "",
-                "virtualURL": virtualURL?.absoluteString ?? "",
-                "virtualPhoneNumber": virtualPhoneNumber ?? "",
-                "virtualInfo": virtualInfo ?? "",
-                "coords": nil != coords ? "(\(coords!.latitude),\(coords!.longitude))" : "",
-                "inPersonAddress": inPersonAddress?.description ?? ""
+        /* ################################################# */
+        /**
+         This provides the object as "tagged" data, for things like ML processing.
+         */
+        public var taggedData: [String: MLDataValue] {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "HH:mm:ss"
+            let startTime = formatter.string(from: self.startTime)
+            let coords = nil != coords ? "\(coords!.latitude),\(coords!.longitude)" : ""
+            return [
+                "serverID": MLDataValue.int(serverID),
+                "localMeetingID": MLDataValue.int(localMeetingID),
+                "weekday": MLDataValue.int(weekday),
+                "startTime": MLDataValue.string(startTime),
+                "duration": MLDataValue.double(duration),
+                "timezone": MLDataValue.string(timezone.identifier),
+                "organization": MLDataValue.string(organization.rawValue),
+                "name": MLDataValue.string(name),
+                "comments": MLDataValue.string(comments ?? ""),
+                "locationInfo": MLDataValue.string(locationInfo ?? ""),
+                "virtualURL": MLDataValue.string(virtualURL?.absoluteString ?? ""),
+                "virtualPhoneNumber": MLDataValue.string(virtualPhoneNumber ?? ""),
+                "virtualInfo": MLDataValue.string(virtualInfo ?? ""),
+                "coords": MLDataValue.string(coords),
+                "inPersonAddress": MLDataValue.string(inPersonAddress?.description ?? ""),
+                "formats": MLDataValue.sequence(formats)
             ]
         }
         
@@ -679,13 +707,13 @@ public struct MeetingJSONParser: Codable {
 
     // META: Private Static Functions
     
-    /* ##################################################### */
+    /* ################################################# */
     /**
      This decodes Unicode characters in the string.
      */
     private static func _decodeUnicode(_ inString: String?) -> String { inString?.applyingTransform(StringTransform("Hex-Any"), reverse: false) ?? "" }
     
-    /* ##################################################### */
+    /* ################################################# */
     /**
      This parses the page metadata from the raw dictionary.
      
@@ -711,7 +739,7 @@ public struct MeetingJSONParser: Codable {
         )
     }
 
-    /* ##################################################### */
+    /* ################################################# */
     /**
      This parses the meetings from the raw dictionary.
      
@@ -719,13 +747,13 @@ public struct MeetingJSONParser: Codable {
      */
     private static func _parseMeeting(_ inDictionary: [String: Any]) -> Meeting? { Meeting(inDictionary) }
     
-    /* ##################################################### */
+    /* ################################################# */
     /**
      The page metadata for this page of meetings.
      */
     public let meta: PageMeta
     
-    /* ##################################################### */
+    /* ################################################# */
     /**
      The meeting data for this page of meetings.
      */
@@ -733,7 +761,7 @@ public struct MeetingJSONParser: Codable {
     
     // MARK: Public Initializer
     
-    /* ##################################################### */
+    /* ################################################# */
     /**
      This is a failable initializer. It parses the JSON data.
      
@@ -749,3 +777,4 @@ public struct MeetingJSONParser: Codable {
         self.meetings = meetingsJSON.compactMap { Self._parseMeeting($0) }
     }
 }
+
