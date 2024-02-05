@@ -92,7 +92,27 @@ public struct MeetingJSONParser: Codable {
         /**
          This struct holds a parsed format information instance.
          */
-        public struct Format: Codable {
+        public struct Format: Codable, MLDataValueConvertible {
+            public init?(from inDataValue: MLDataValue) { nil }
+            
+            public init() {
+                key = ""
+                name = ""
+                description = ""
+                language = ""
+            }
+            
+            public static var dataValueType: MLDataValue.ValueType { MLDataValue.ValueType.dictionary }
+            
+            public var dataValue: MLDataValue {
+                MLDataValue.DictionaryType([
+                    MLDataValue.string("key"): MLDataValue.string(key),
+                    MLDataValue.string("name"): MLDataValue.string(name),
+                    MLDataValue.string("description"): MLDataValue.string(description),
+                    MLDataValue.string("language"): MLDataValue.string(language)
+                ]).dataValue
+            }
+            
             /* ########################################################################################################################## */
             // MARK: Codable Coding Keys
             /* ########################################################################################################################## */
