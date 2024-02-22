@@ -392,25 +392,18 @@ extension LGV_MeetingSDK_Meeting_TimeInformation {
      > NOTE: If the date is invalid, then the distant future will be returned.
      */
     public mutating func getNextStartDate(isAdjusted inAdjust: Bool = false) -> Date {
-        guard nil == _cachedNextStartDate || _cachedNextStartDate! <= .now else {
-            if let cachedNextStartDate = _cachedNextStartDate {
-                if inAdjust {
-                    return cachedNextStartDate.convert(from: timeZone, to: .current)
-                } else {
-                    return cachedNextStartDate
-                }
-            }
-            
-            return .distantFuture
+        // We do this, to cast our current timezone to the meeting's.
+        let adjustedNow: Date = .now.convert(from: .current, to: timeZone)
+        
+        // We do it this way, in case we are not adjusting a meeting in another timezone.
+        if let cached = _cachedNextStartDate,
+           cached <= adjustedNow {
+            _cachedNextStartDate = nil
         }
         
-        _cachedNextStartDate = Calendar.current.nextDate(after: .now, matching: dateComponents, matchingPolicy: .nextTimePreservingSmallerComponents)
+        _cachedNextStartDate = _cachedNextStartDate ?? Calendar.current.nextDate(after: adjustedNow, matching: dateComponents, matchingPolicy: .nextTimePreservingSmallerComponents)
         
-        if inAdjust {
-            return _cachedNextStartDate?.convert(from: timeZone, to: .current) ?? Date.distantFuture
-        } else {
-            return _cachedNextStartDate ?? Date.distantFuture
-        }
+        return inAdjust && (nil != _cachedNextStartDate) ? _cachedNextStartDate!.convert(from: timeZone, to: .current) : _cachedNextStartDate ?? .distantFuture
     }
     
     /* ################################################################## */

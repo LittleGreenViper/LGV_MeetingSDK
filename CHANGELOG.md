@@ -1,3 +1,7 @@
+ **2.10.7** *February 22, 2024*
+ 
+ - The next start date function had some issues that were fixed.
+ 
  **2.10.6** *January 6, 2024*
  
  - Added privacy declarations
